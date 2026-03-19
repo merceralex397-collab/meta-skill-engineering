@@ -1,0 +1,111 @@
+Set a todo for all sub tasks and follow structure rigidly.
+
+After each sub task, compact your context.
+
+Do not use any sub agents.
+
+After each sub task, create a log file of the work you carried out, with details of all your decisions and reasoning.
+
+After each sub task, commit and push to GitHub on a new branch and open a PR. (do not change the older PRs, leave these active)
+
+Persona:
+You are an expert skill creator
+
+- Sub Task A
+
+Task 4 - skill creator - follow everything in this file
+
+
+
+- Sub Task B
+
+Do not execute or do any changes to skill creator as this was already covered.
+
+Examine all task 2 and 3 files, and condense report. 
+
+Review all associated skills. 
+
+Check best practises for agent skills.
+
+check the two reviews meta-skill-engineering-review-independent and meta-skill-engineering-rewrite-plan
+
+Create detailed plan backed and cited by evidence from: the repo skills, official sources, reports in the repo, and your own reasoning (must be all 4).
+
+The plan is for condensing down any skills into one skill where possible, or extracting out parts of certain skills and placing them into others etc. 
+
+Any decisions must be backed by evidence.
+
+There should be no useless wording in the skills. These are for internal use only and don't need any random fluff or release notes like a licence name etc as they will not be released.
+
+When you have crafted this plan, you should review the plan again carefully.
+
+Make any amendments necessary.
+
+When you have finished this, execute the plan.
+
+
+- Sub Task C
+
+Review both of the meta-skill-engineering reviews. Determine the validity of both reviews, and merge them into one actionable review, along with also rewriting to consider the repo state based on your changes from sub task B
+
+Take the recommendations from this, and rewrite / restructure this to reflect the new repo skillset state.
+
+
+- Sub Task D
+
+Execute the plan from sub task C
+
+There should be skills that act as "entry points" now. E.g. to improve a skill there would be testing, benchmarks, evaluations etc - we have all the info for this across various skills and they should be roughly packaged correctly once
+this task is done
+- Sub Task E
+
+Update all documentation in the repo to reflect new state.
+
+
+- Sub Task F
+
+Do a full review of the entire repository and check for any issues:
+
+All skills should be model agnostic - not specifying codex, claude, anthropic, copilot, or any other specific LLM/AI/CLI agent
+
+Create a review file with recommendations if you find any issues
+
+- Sub Task G
+
+Action all changes from the review file in sub task F
+
+- Sub Task F
+
+Install all skills in the repo to copilots global skills folder
+
+Create a script that runs copilot in this repo in non interactive mode with all permissions enabled
+
+
+It should be instructed to run through all of its skills (there should be an entry point skill if the reviews were actioned). This will now allow us to essentially run through a loop of:
+
+Testing
+Eval
+And other things to improve skills
+
+The task is to use our meta-engineering skills ON the meta engineering skill repo to refine this
+
+It should run through all of this (you should monitor on the process until its done) 
+
+Make sure the model is claude opus 4.6 high thinking
+
+Depending on how the skills were modified/what you did:
+
+Either non-interactive copilot will modify the skills and create a log in tasks/worklogs
+OR
+It will create a report of recommendations that you will then action
+
+Sub Task H -> j -> k -> l -> m
+
+Repeat the cycle of non-interactive copilot script. Each one should iterate on the previous branch, so this is cumulative improvement/testing.
+
+
+
+
+
+
+
