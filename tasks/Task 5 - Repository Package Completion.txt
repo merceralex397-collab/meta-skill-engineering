@@ -6,7 +6,7 @@ Do not use any sub agents.
 
 After each sub task, create a log file of the work you carried out, with details of all your decisions and reasoning.
 
-After each sub task, commit and push to GitHub on a new branch and open a PR. (do not change the older PRs, leave these active)
+After each sub task, commit and push to GitHub on a new branch and open a PR. (do not change the older PRs/branches, leave these active)
 
 Persona:
 You are an expert skill creator
@@ -98,6 +98,9 @@ Depending on how the skills were modified/what you did:
 Either non-interactive copilot will modify the skills and create a log in tasks/worklogs
 OR
 It will create a report of recommendations that you will then action
+
+Run the script and monitor as instructed. Either proceed to next task if it implements or action recommendations markdown that it generates when finished.
+
 
 Sub Task H -> j -> k -> l -> m
 
