@@ -1,0 +1,9 @@
+{"prompt": "Fix the trigger description on this skill", "expected": "trigger", "category": "core", "notes": "Direct trigger fix request"}
+{"prompt": "This skill keeps activating on the wrong prompts", "expected": "trigger", "category": "indirect", "notes": "Overtriggering problem"}
+{"prompt": "Rewrite the description so this skill triggers correctly", "expected": "trigger", "category": "core", "notes": "Description rewrite for routing"}
+{"prompt": "This skill never fires when it should", "expected": "trigger", "category": "indirect", "notes": "Undertriggering problem"}
+{"prompt": "Optimize the routing for this skill", "expected": "trigger", "category": "paraphrase", "notes": "Routing optimization = trigger optimization"}
+{"prompt": "Add trigger phrases to this skill's description", "expected": "trigger", "category": "core", "notes": "Adding trigger phrases"}
+{"prompt": "The boundary between this skill and skill-improver is confusing", "expected": "trigger", "category": "indirect", "notes": "Boundary confusion = routing problem"}
+{"prompt": "Tighten the Do NOT use section on this skill", "expected": "trigger", "category": "core", "notes": "Negative boundary tightening"}
+{"prompt": "This skill description is too vague for reliable activation", "expected": "trigger", "category": "indirect", "notes": "Vague description = routing issue"}

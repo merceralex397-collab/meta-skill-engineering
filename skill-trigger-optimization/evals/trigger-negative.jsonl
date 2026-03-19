@@ -1,0 +1,8 @@
+{"prompt": "Improve this skill's procedure steps", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Body improvement, not trigger fix"}
+{"prompt": "Create a new skill from scratch", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not optimization"}
+{"prompt": "Run the evaluation on this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not trigger fix"}
+{"prompt": "Check for structural anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Structural audit, not trigger fix"}
+{"prompt": "Build test cases for this skill", "expected": "no_trigger", "better_skill": "skill-testing-harness", "notes": "Test building, not trigger optimization"}
+{"prompt": "Write a better README for this project", "expected": "no_trigger", "better_skill": null, "notes": "General documentation, not skill triggers"}
+{"prompt": "Compare these two skill variants", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Benchmarking, not trigger fixing"}
+{"prompt": "Refactor this skill's overall structure", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Full refactor, not trigger-only fix"}
