@@ -24,7 +24,7 @@ Orchestrate the full packaging workflow for one or more skills: validate, genera
 
 # Procedure
 
-### 1. Scan for skills
+## 1. Scan for skills
 
 ```bash
 # Find all skill directories
@@ -33,7 +33,7 @@ find . -name "SKILL.md" -not -path "*/ARCHIVE/*" | sort
 
 Filter by maturity if specified (e.g., only `stable` skills).
 
-### 2. Validate each skill
+## 2. Validate each skill
 
 For each skill:
 - Parse YAML frontmatter — required fields: `name`, `description`
@@ -41,15 +41,15 @@ For each skill:
 - Check for placeholder text (`[...]`, `TODO`)
 - Flag invalid skills, continue with valid ones
 
-### 3. Determine target clients
+## 3. Determine target clients
 
 From each skill's `compatibility.clients` field, or from a global config parameter. Default: all compatible clients per frontmatter.
 
-### 4. Generate overlays
+## 4. Generate overlays
 
 For each valid skill × compatible client, generate client-specific overlay files using overlay-generator patterns.
 
-### 5. Create per-skill manifests
+## 5. Create per-skill manifests
 
 ```yaml
 name: <skill-name>
@@ -60,13 +60,13 @@ files:
   - metadata.json  # if generated
 ```
 
-### 6. Build bundles
+## 6. Build bundles
 
 Per skill: `skill-name-version.tar.gz` containing SKILL.md + overlays + manifest.
 
 Combined (optional): `skills-bundle-version.tar.gz` with all skills + index.
 
-### 7. Generate release notes
+## 7. Generate release notes
 
 ```markdown
 # Release Notes: v[version]

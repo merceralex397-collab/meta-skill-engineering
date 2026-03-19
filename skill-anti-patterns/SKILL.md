@@ -36,7 +36,7 @@ Read the target SKILL.md. Check each anti-pattern below. For each PRESENT, write
 
 > **Quick scan priority**
 > - **Quick scan (5 min):** Check AP-1, AP-7, AP-12 first — these are routing-critical. If the skill can't be found by the host, nothing else matters.
-> - **Full audit (15 min):** Check all 12 in order.
+> - **Full audit (15 min):** Check all 16 in order.
 > - **Triage shortcut:** If AP-1 or AP-12 fires, fix those before checking anything else — other issues are moot if routing doesn't work.
 
 **AP-1: Circular trigger language** · `CRITICAL` — causes routing failure

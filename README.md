@@ -41,7 +41,7 @@ skill-lifecycle-management ← skill-installer ← skill-packaging ← skill-pro
 | `skill-benchmarking` | Compare skill variants on the same test cases. |
 | `skill-catalog-curation` | Detect duplicates, enforce category consistency, and verify discoverability. |
 | `skill-creator` | Create new agent skills from scratch and iterate through test-review-improve cycles. |
-| `skill-deprecation-manager` | Safely deprecate, retire, or merge obsolete skills. |
+| `skill-deprecation-manager` | Deprecate, retire, or merge obsolete skills safely. |
 | `skill-evaluation` | Evaluate a single skill's routing accuracy, output quality, and baseline value. |
 | `skill-improver` | Improve an existing skill package. |
 | `skill-installer` | Install a skill package into a local agent client skill directory. |

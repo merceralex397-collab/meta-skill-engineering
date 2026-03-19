@@ -24,7 +24,7 @@ Maintain the skill library catalog — the index, metadata, tags, maturity statu
 
 # Procedure
 
-### 1. Scan skill inventory
+## 1. Scan skill inventory
 
 ```bash
 # Find all active skills
@@ -39,7 +39,7 @@ for skill_md in $(find . -name "SKILL.md" -not -path "*/ARCHIVE/*"); do
 done
 ```
 
-### 2. Validate catalog consistency
+## 2. Validate catalog consistency
 
 For each skill, check:
 
@@ -53,7 +53,7 @@ For each skill, check:
 | Tags are valid | Tags exist in the controlled vocabulary | Warning |
 | Maturity is valid | One of: `draft`, `beta`, `stable`, `deprecated` | Warning |
 
-### 3. Register a new skill
+## 3. Register a new skill
 
 When adding a skill to the catalog:
 
@@ -63,7 +63,7 @@ When adding a skill to the catalog:
 4. Verify no name collision with existing skills
 5. Update library index
 
-### 4. Update skill metadata
+## 4. Update skill metadata
 
 When a skill changes:
 
@@ -72,7 +72,7 @@ When a skill changes:
 3. Record modification timestamp
 4. Regenerate affected index entries
 
-### 5. Generate library index
+## 5. Generate library index
 
 Produce a machine-readable index and a human-readable catalog:
 
@@ -108,7 +108,7 @@ Produce a machine-readable index and a human-readable catalog:
 |------|-------------|----------------|
 ```
 
-### 6. Enforce naming conventions
+## 6. Enforce naming conventions
 
 - Skill names: kebab-case, descriptive, 2-4 words
 - Directory names match skill names exactly

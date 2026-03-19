@@ -1,6 +1,6 @@
 ---
 name: skill-deprecation-manager
-description: "Safely deprecate, retire, or merge obsolete skills while preserving backward references and library clarity. Use when a user says 'deprecate this skill', 'retire this', or 'this is replaced by X', when a catalog audit identifies a skill for retirement, or when a skill is causing harm and needs immediate pull. Do not use when the skill needs improvement (use skill-improver) or when the repo doesn't support deprecation (just delete)."
+description: "Deprecate, retire, or merge obsolete skills safely while preserving backward references and library clarity. Use when a user says 'deprecate this skill', 'retire this', or 'this is replaced by X', when a catalog audit identifies a skill for retirement, or when a skill is causing harm and needs immediate pull. Do not use when the skill needs improvement (use skill-improver) or when the repo doesn't support deprecation (just delete)."
 ---
 
 # Purpose
@@ -23,7 +23,7 @@ Safely deprecate a skill: update lifecycle state, add deprecation notices, redir
 
 # Procedure
 
-### 1. Confirm deprecation decision
+## 1. Confirm deprecation decision
 
 Determine the reason:
 - **Superseded**: Replaced by a better skill
@@ -32,7 +32,7 @@ Determine the reason:
 - **Failing**: Consistently poor evaluation results
 - **Harmful**: Misfiring or producing wrong outputs — pull immediately
 
-### 2. Find all references
+## 2. Find all references
 
 ```bash
 # Search across repo
@@ -41,11 +41,11 @@ grep -r "<skill-name>" AGENTS.md **/SKILL.md skills-lock.json docs/ 2>/dev/null
 grep -r "Do NOT use" **/SKILL.md | grep -i "<skill-name>"
 ```
 
-### 3. Update each reference
+## 3. Update each reference
 
 Replace with replacement skill pointer, or note "no replacement available".
 
-### 4. Update frontmatter
+## 4. Update frontmatter
 
 ```yaml
 metadata:
@@ -54,7 +54,7 @@ metadata:
   deprecated_reason: "Superseded by newer version"
 ```
 
-### 5. Add deprecation notice
+## 5. Add deprecation notice
 
 At top of SKILL.md body:
 ```markdown
@@ -62,7 +62,7 @@ At top of SKILL.md body:
 > Reason: [one sentence]. Kept for reference only.
 ```
 
-### 6. Move to archive (if exists)
+## 6. Move to archive (if exists)
 
 Confirm with user before moving:
 ```
@@ -75,7 +75,7 @@ mv skill-name/ ARCHIVE/skill-name/
 ```
 Do NOT delete — preserve for reference and provenance.
 
-### 7. Update registry
+## 7. Update registry
 
 - Mark `deprecated: true` in `skills-lock.json`
 - Remove from active catalog
