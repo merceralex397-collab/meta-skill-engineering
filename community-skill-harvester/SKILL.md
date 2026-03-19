@@ -5,9 +5,28 @@ description: "Find external skills from public registries, GitHub repos, and off
 
 # Community Skill Harvester
 
-Harvests skills from public registries and evaluates them for adoption.
+## Purpose
+
+Find external skills from public registries, GitHub repos, and skill collections, then evaluate them for quality, licensing, and fitness for adoption. Produces a harvest report with scored candidates and import proposals.
+
+## When to use
+
+- Looking for existing skills before building from scratch
+- Evaluating external skill quality for potential adoption
+- Migrating community skills into a local library
+- User says "find skills for X", "search for existing skills", "are there skills for this?"
+
+## When NOT to use
+
+- Building a novel skill with no external precedent → `skill-creator`
+- Quick one-off evaluation of a skill already in hand (just read the SKILL.md directly)
+- Improving an already-adopted skill → `skill-improver`
+- Auditing internal library quality → `skill-catalog-curation`
 
 ## Procedure
+
+> **Dependency**: Steps 1 use the `gh` CLI. If `gh` is unavailable, fall back to
+> `curl` against the GitHub REST API or direct web search.
 
 ### 1. Search for relevant skills
 
@@ -87,11 +106,28 @@ git commit -m "feat: import [skill-name] from [source]"
 
 ## Output contract
 
-A harvest report containing:
-- Sources searched and count
-- Skills evaluated with scores
-- Import proposals for candidates scoring ≥2
-- Patterns discovered during evaluation
+Produce exactly this structure:
+
+```markdown
+## Harvest Report
+
+### Sources Searched
+| Source | Query | Results Found |
+|--------|-------|---------------|
+| GitHub Topics | agent-skills | N |
+| GitHub Code | SKILL.md | N |
+
+### Candidates Evaluated
+| Skill | Source | Quality Score | License | Recommendation |
+|-------|--------|---------------|---------|----------------|
+| name | URL | N/6 | SPDX | ADOPT / ADAPT / REFERENCE_ONLY / REJECT |
+
+### Import Proposals
+[One proposal block per candidate scoring ≥2 — use the template from step 5]
+
+### Patterns Discovered
+- [Structural or procedural patterns worth adopting]
+```
 
 ## Failure handling
 

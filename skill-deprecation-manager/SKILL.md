@@ -3,11 +3,25 @@ name: skill-deprecation-manager
 description: "Safely deprecate, retire, or merge obsolete skills while preserving backward references and library clarity. Use when a user says 'deprecate this skill', 'retire this', or 'this is replaced by X', when a catalog audit identifies a skill for retirement, or when a skill is causing harm and needs immediate pull. Do not use when the skill needs improvement (use skill-improver) or when the repo doesn't support deprecation (just delete)."
 ---
 
-# Skill Deprecation Manager
+# Purpose
 
-Safely deprecates a skill: updates state, adds notices, redirects references, preserves content for history.
+Safely deprecate a skill: update lifecycle state, add deprecation notices, redirect references to the replacement, and preserve content for history.
 
-## Procedure
+# When to use
+
+- User says "deprecate this skill", "retire this", or "this is replaced by X"
+- A catalog audit identifies a skill for retirement
+- A skill is causing harm and needs immediate pull
+- A skill has been superseded or consistently fails evaluation
+
+# When NOT to use
+
+- Skill needs improvement, not retirement → `skill-improver`
+- Repo doesn't support deprecation workflows (just delete the skill)
+- Skill needs lifecycle state tracking without deprecation → `skill-lifecycle-management`
+- Reorganizing the catalog → `skill-catalog-curation`
+
+# Procedure
 
 ### 1. Confirm deprecation decision
 
@@ -49,6 +63,11 @@ At top of SKILL.md body:
 ```
 
 ### 6. Move to archive (if exists)
+
+Confirm with user before moving:
+```
+About to move skill-name/ to ARCHIVE/skill-name/. Proceed? [y/N]
+```
 
 ```bash
 mkdir -p ARCHIVE

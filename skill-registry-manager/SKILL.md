@@ -3,11 +3,26 @@ name: skill-registry-manager
 description: "Maintain the skill library catalog: add entries, update metadata, manage tags, track maturity/status, enforce naming conventions, and generate the library index. Use when adding a new skill to the registry, updating skill metadata after changes, auditing catalog consistency, or generating a publishable skill index. Do not use for editing skill content (edit SKILL.md directly) or for deprecating skills (use skill-deprecation-manager)."
 ---
 
-# Skill Registry Manager
+# Purpose
 
-Owns the library catalog — the index, metadata, tags, maturity status, and consistency of all skills in the ecosystem.
+Maintain the skill library catalog — the index, metadata, tags, maturity status, and consistency of all skills in the ecosystem. Ensures every skill is discoverable, correctly categorized, and consistently named.
 
-## Procedure
+# When to use
+
+- Adding a new skill to the registry
+- Updating skill metadata after changes
+- Auditing catalog consistency (names, maturity, tags)
+- Generating a publishable skill index
+- User says "update the registry", "add this to the catalog", "generate the skill index"
+
+# When NOT to use
+
+- Editing skill content (edit SKILL.md directly)
+- Deprecating skills → `skill-deprecation-manager`
+- Auditing for duplicates and overlaps → `skill-catalog-curation`
+- Creating new skills → `skill-creator`
+
+# Procedure
 
 ### 1. Scan skill inventory
 
@@ -114,5 +129,6 @@ Produce a machine-readable index and a human-readable catalog:
 
 ## References
 
+- Agent Skills specification: https://agentskills.io/specification
 - This skill manages the catalog layer — does not modify skill content
 - Works with: skill-deprecation-manager (retirement), skill-packager (distribution)

@@ -3,11 +3,26 @@ name: skill-packager
 description: "Build distributable bundles, manifests, and checksums for publishing or sharing one or more skills. Use when packaging skills for release, building a distribution bundle, creating CI/CD skill artifacts, or releasing a new library version. Do not use for packaging a single skill in isolation (just create its manifest directly) or when skills aren't ready for release."
 ---
 
-# Skill Packager
+# Purpose
 
-Orchestrates the full packaging workflow: validate, generate overlays, create manifests, produce release-ready bundles.
+Orchestrate the full packaging workflow for one or more skills: validate, generate overlays, create manifests, and produce release-ready bundles.
 
-## Procedure
+# When to use
+
+- Packaging multiple skills for a coordinated release
+- Building a distribution bundle for a skill library
+- Creating CI/CD skill artifacts
+- Releasing a new library version
+- User says "package these skills", "build a release bundle", "prepare skills for distribution"
+
+# When NOT to use
+
+- Packaging a single skill in isolation → `skill-packaging` (or just create its manifest directly)
+- Skills aren't ready for release — finish authoring first
+- Installing packaged skills → `skill-installer`
+- Creating new skills → `skill-creator`
+
+# Procedure
 
 ### 1. Scan for skills
 
