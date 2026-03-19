@@ -58,43 +58,49 @@ If some eval files are missing, note incomplete coverage and fall through to
 ad-hoc mode for the missing test types.
 
 ## 1. **Define success criteria**
-   - Routing: triggers on positive cases, stays silent on negative cases
-   - Quality: outputs are correct, complete, well-formatted, no hallucination
-   - Baseline: outputs are better than running without the skill
 
-2. **Prepare evaluation inputs**
-   - 5–10 positive trigger cases (should activate the skill)
-   - 5–10 negative trigger cases (should NOT activate)
-   - 3–5 quality cases for output assessment
+- Routing: triggers on positive cases, stays silent on negative cases
+- Quality: outputs are correct, complete, well-formatted, no hallucination
+- Baseline: outputs are better than running without the skill
 
-   **How to construct effective test cases:**
-   - **Positive cases**: Read the skill's "When to use" section. Each bullet becomes at least one test case using realistic phrasing. Then add paraphrased versions — formal ("Please evaluate this skill's effectiveness"), casual ("is this skill any good?"), and indirect ("I'm not sure this skill helps"). This tests routing robustness, not just keyword matching.
-   - **Negative cases**: Read the skill's "Do NOT use when" section. Each bullet becomes at least one test case. Then add near-miss cases drawn from adjacent skills' trigger phrases — these test whether the boundary is sharp. For example, if evaluating `skill-evaluation`, add trigger phrases from `skill-benchmarking` as negative cases.
-   - **Quality cases**: Use realistic, complete task prompts that exercise the full procedure — not just routing. Include at least one edge case where the skill must make a judgment call (e.g., ambiguous input, missing data, conflicting requirements).
-   - **Anti-pattern to avoid**: Do not write trigger tests that contain the skill name (e.g., "use skill-evaluation to assess this"). Real users rarely name the skill explicitly; tests that do will inflate precision and miss real routing failures.
+## 2. **Prepare evaluation inputs**
 
-3. **Evaluate routing accuracy**
-   - Run each positive case — did the skill trigger? (target: 100%)
-   - Run each negative case — did the skill stay silent? (target: 100%)
-   - Precision = TP / (TP + FP), Recall = TP / (TP + FN)
+- 5–10 positive trigger cases (should activate the skill)
+- 5–10 negative trigger cases (should NOT activate)
+- 3–5 quality cases for output assessment
 
-4. **Evaluate output quality**
-   - Run each quality case with the skill active
-   - Score against rubric: correct? complete? well-formatted? no hallucination?
+**How to construct effective test cases:**
+- **Positive cases**: Read the skill's "When to use" section. Each bullet becomes at least one test case using realistic phrasing. Then add paraphrased versions — formal ("Please evaluate this skill's effectiveness"), casual ("is this skill any good?"), and indirect ("I'm not sure this skill helps"). This tests routing robustness, not just keyword matching.
+- **Negative cases**: Read the skill's "Do NOT use when" section. Each bullet becomes at least one test case. Then add near-miss cases drawn from adjacent skills' trigger phrases — these test whether the boundary is sharp. For example, if evaluating `skill-evaluation`, add trigger phrases from `skill-benchmarking` as negative cases.
+- **Quality cases**: Use realistic, complete task prompts that exercise the full procedure — not just routing. Include at least one edge case where the skill must make a judgment call (e.g., ambiguous input, missing data, conflicting requirements).
+- **Anti-pattern to avoid**: Do not write trigger tests that contain the skill name (e.g., "use skill-evaluation to assess this"). Real users rarely name the skill explicitly; tests that do will inflate precision and miss real routing failures.
 
-5. **Run baseline comparison**
-   - To create a baseline: temporarily remove or rename the skill's SKILL.md from the agent client's skill directory so it cannot be loaded
-   - Run the same quality cases without the skill active
-   - Restore the skill's SKILL.md after baseline runs complete
-   - Blind-compare outputs where possible (judge without knowing which is skill vs baseline)
-   - Win rate = skill-wins / total-cases
+## 3. **Evaluate routing accuracy**
 
-6. **Synthesize and verdict**
-   - Routing target: precision ≥ 95% and recall ≥ 90%
-   - Quality target: ≥ 80% of outputs meet the rubric
-   - Baseline target: win rate ≥ 60%
-   - These are targets, not bright lines. Use judgment when results are near the boundary (e.g., 93% precision on 15 cases is one misrouted case — investigate whether it's a genuine routing failure or an ambiguous edge case).
-   - Verdict: **Pass** / **Fail** / **Needs Work** with the specific failing metrics
+- Run each positive case — did the skill trigger? (target: 100%)
+- Run each negative case — did the skill stay silent? (target: 100%)
+- Precision = TP / (TP + FP), Recall = TP / (TP + FN)
+
+## 4. **Evaluate output quality**
+
+- Run each quality case with the skill active
+- Score against rubric: correct? complete? well-formatted? no hallucination?
+
+## 5. **Run baseline comparison**
+
+- To create a baseline: temporarily remove or rename the skill's SKILL.md from the agent client's skill directory so it cannot be loaded
+- Run the same quality cases without the skill active
+- Restore the skill's SKILL.md after baseline runs complete
+- Blind-compare outputs where possible (judge without knowing which is skill vs baseline)
+- Win rate = skill-wins / total-cases
+
+## 6. **Synthesize and verdict**
+
+- Routing target: precision ≥ 95% and recall ≥ 90%
+- Quality target: ≥ 80% of outputs meet the rubric
+- Baseline target: win rate ≥ 60%
+- These are targets, not bright lines. Use judgment when results are near the boundary (e.g., 93% precision on 15 cases is one misrouted case — investigate whether it's a genuine routing failure or an ambiguous edge case).
+- Verdict: **Pass** / **Fail** / **Needs Work** with the specific failing metrics
 
 # Output contract
 

@@ -15,7 +15,9 @@ The standard workflow for creating and managing a skill:
 ```
 skill-creator → skill-testing-harness → skill-evaluation → skill-benchmarking
                                                                 ↓
-skill-lifecycle-management ← skill-packaging ← skill-safety-review ← skill-trigger-optimization
+skill-lifecycle-management ← skill-installer ← skill-packaging ← skill-provenance
+                                                                      ↑
+                                          skill-trigger-optimization → skill-safety-review
 ```
 
 1. **Create** a skill → `skill-creator`

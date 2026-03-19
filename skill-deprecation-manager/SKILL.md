@@ -81,7 +81,7 @@ Do NOT delete — preserve for reference and provenance.
 - Remove from active catalog
 - Add to "Deprecated" section of index
 
-## Output contract
+# Output contract
 
 ```markdown
 ## Deprecation: [skill-name]
@@ -102,7 +102,7 @@ Do NOT delete — preserve for reference and provenance.
 - [x] Registry updated
 ```
 
-## Failure handling
+# Failure handling
 
 - **Active dependencies, no replacement**: Don't deprecate — document gap, build replacement first
 - **Replacement incomplete**: Create migration path with limitations noted

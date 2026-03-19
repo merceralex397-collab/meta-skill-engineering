@@ -114,13 +114,13 @@ Produce a machine-readable index and a human-readable catalog:
 - Directory names match skill names exactly
 - No abbreviations unless universally understood (e.g., `pr`, `qa`)
 
-## Output contract
+# Output contract
 
 - Updated `skills-lock.json` with current catalog state
 - Updated `CATALOG.md` with human-readable index
 - Validation report listing any consistency issues found
 
-## Failure handling
+# Failure handling
 
 - **Duplicate skill name**: Reject registration, report collision with existing skill
 - **Missing frontmatter**: Flag as invalid, do not register until fixed

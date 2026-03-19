@@ -82,7 +82,7 @@ Combined (optional): `skills-bundle-version.tar.gz` with all skills + index.
 - Deprecated: [retired skills]
 ```
 
-## Output contract
+# Output contract
 
 ```
 dist/
@@ -92,7 +92,7 @@ dist/
 └── RELEASE-NOTES.md
 ```
 
-## Failure handling
+# Failure handling
 
 - **Some skills invalid**: Package valid ones, report invalid with specific errors
 - **Version conflict**: Use highest version or flag for manual resolution

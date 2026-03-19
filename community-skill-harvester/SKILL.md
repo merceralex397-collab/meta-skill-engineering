@@ -23,7 +23,7 @@ Find external skills from public registries, GitHub repos, and skill collections
 
 # Procedure
 
-> **Dependency**: Steps 1 use the `gh` CLI. If `gh` is unavailable, fall back to
+> **Dependency**: Step 1 uses the `gh` CLI. If `gh` is unavailable, fall back to
 > `curl` against the GitHub REST API or direct web search.
 
 ## 1. Search for relevant skills
