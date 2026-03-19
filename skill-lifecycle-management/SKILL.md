@@ -21,7 +21,8 @@ Manage skills through lifecycle states: draft → beta → stable → deprecated
 - Deprecating a skill that has been superseded or consistently fails
 - Tracking lifecycle transitions across a skill library
 
-Do NOT use when:
+# When NOT to use
+
 - Creating a new skill from scratch → `skill-creator`
 - Improving an existing skill's quality or output → `skill-improver`
 - Reorganizing the library catalog, deduplicating, or enforcing naming → `skill-catalog-curation`
@@ -36,7 +37,7 @@ Do NOT use when:
 | `deprecated` | Superseded or not recommended | Functional but avoid for new work |
 | `archived` | Removed from active use | Reference only, do not install |
 
-# Operating procedure
+# Procedure
 
 1. **Inventory current states**: List all skills with their `metadata.maturity` field. Flag anomalies — draft skills older than 2 cycles, stable skills with known bugs.
 2. **Apply promotion criteria**:

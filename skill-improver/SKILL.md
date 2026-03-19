@@ -24,21 +24,19 @@ Preserve the skill's core purpose unless the user explicitly asks to reposition 
 
 # When to use
 
-Use when:
+- The user provides a SKILL.md and wants it improved
+- The user says a skill feels weak, vague, generic, bloated, or under-specified
+- The user wants better triggering, structure, examples, or supporting files
+- The user wants to know whether a skill needs references/, scripts/, evals/, or manifest
+- The user wants a thin prompt upgraded into a durable skill package
 
-- the user provides a SKILL.md and wants it improved,
-- the user says a skill feels weak, vague, generic, bloated, or under-specified,
-- the user wants better triggering, structure, examples, or supporting files,
-- the user wants to know whether a skill needs references/, scripts/, evals/, or manifest,
-- the user wants a thin prompt upgraded into a durable skill package.
+# When NOT to use
 
-Do not use when:
-
-- creating a brand-new skill from scratch — use **skill-creator**,
-- the problem is only the description/trigger and the body is fine — use **skill-trigger-optimization**,
-- porting or adapting a skill to a different stack or context — use **skill-adaptation**,
-- running a quick structural audit with no rewrite planned — use **skill-anti-patterns**,
-- the task is a repo review, architecture review, or product planning exercise.
+- Creating a brand-new skill from scratch → `skill-creator`
+- The problem is only the description/trigger and the body is fine → `skill-trigger-optimization`
+- Porting or adapting a skill to a different stack or context → `skill-adaptation`
+- Running a quick structural audit with no rewrite planned → `skill-anti-patterns`
+- The task is a repo review, architecture review, or product planning exercise
 
 # Improvement modes
 

@@ -136,5 +136,3 @@ After updating the registry:
 ## References
 
 - Agent Skills specification: https://agentskills.io/specification
-- This skill manages the catalog layer — does not modify skill content
-- Works with: skill-deprecation-manager (retirement), skill-packager (distribution)

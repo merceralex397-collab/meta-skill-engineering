@@ -24,7 +24,8 @@ Audit a skill for safety hazards before it is published, imported, or promoted. 
 - When a skill performs consequential operations (deletion, network calls, deployments)
 - When a skill was flagged during a `repo-process-doctor` or catalog audit
 
-Do NOT use when:
+# When NOT to use
+
 - Evaluating routing precision or output quality → `skill-evaluation`
 - Detecting structural anti-patterns → `skill-anti-patterns`
 - The skill is purely informational with no side effects

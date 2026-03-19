@@ -22,7 +22,8 @@ Split a skill that has grown too broad into focused variants that route precisel
 - Procedure has conditional branches per input type
 - Description exceeds two sentences trying to cover all cases
 
-Do NOT use when:
+# When NOT to use
+
 - Skill is focused and working well
 - Variations are minor enough for overlays
 - Problem is trigger wording only → `skill-trigger-optimization`

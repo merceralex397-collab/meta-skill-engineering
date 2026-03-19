@@ -221,4 +221,5 @@ After recording provenance:
 
 ## References
 
+- Agent Skills specification: https://agentskills.io/specification
 - SPDX license identifiers: https://spdx.org/licenses/

@@ -180,3 +180,4 @@ After packaging:
 ## References
 
 - Agent Skills specification: https://agentskills.io/specification
+- Semantic Versioning: https://semver.org/

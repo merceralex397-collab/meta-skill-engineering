@@ -19,7 +19,7 @@ Install a skill package into the local agent client's skill directory so it beco
 - Installing from a local folder or archive
 - Listing what skills are available vs already installed
 
-Do NOT use when:
+# When NOT to use
 
 - Creating a new skill from scratch → `skill-creator`
 - Packaging a skill for distribution → `skill-packaging`
@@ -35,7 +35,7 @@ Do NOT use when:
 | Claude Code | `.claude/skills/<name>/` (project) or `~/.claude/skills/<name>/` (user) |
 | Gemini CLI | `.gemini/skills/<name>/` |
 
-# Operating procedure
+# Procedure
 
 ## Install from GitHub
 
