@@ -1,6 +1,0 @@
-interface:
-  display_name: "Skill Registry Manager"
-  short_description: "Apply skill registry manager through a concrete workflow with..."
-  default_prompt: "Use $skill-registry-manager-codex-c to handle this task with a concrete workflow and explicit verification."
-policy:
-  allow_implicit_invocation: true

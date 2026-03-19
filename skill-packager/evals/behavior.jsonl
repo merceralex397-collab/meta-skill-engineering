@@ -1,2 +1,0 @@
-{"input":"Use Skill Packager on a realistic task and return the result in a decision-ready shape.","must_include":["Inputs","Chosen Shape","Generated Artifacts","Validation and Handoff"],"expected":"skill-packager"}
-{"input":"Apply Skill Packager but call out uncertainty and the next verification step explicitly.","must_include":["Inputs","Validation and Handoff"],"expected":"skill-packager"}

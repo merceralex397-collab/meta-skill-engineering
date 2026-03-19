@@ -1,8 +1,0 @@
-skill: skill-registry-manager-codex-c
-permissions:
-  read:
-    - ./SKILL.md
-    - ./references/**
-    - ./evals/**
-  execute:
-    - ./scripts/**

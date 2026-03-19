@@ -112,7 +112,3 @@ After safety review:
 - Record provenance and trust level → `skill-provenance`
 - If ready for release → `skill-packaging`
 - If needs improvement → `skill-improver`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

@@ -118,7 +118,3 @@ After adapting a skill:
 - Verify the adapted skill works → `skill-evaluation`
 - Update routing for the new context → `skill-trigger-optimization`
 - Review safety if the adaptation changed tool usage → `skill-safety-review`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

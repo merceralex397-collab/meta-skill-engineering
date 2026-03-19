@@ -105,9 +105,5 @@ Rationale: [one sentence explaining the deciding factor]
 
 After benchmarking:
 - Improve the weaker variant → `skill-improver`
-- Deprecate the losing variant → `skill-deprecation-manager`
+- Deprecate the losing variant → `skill-lifecycle-management`
 - Package the winner → `skill-packaging`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

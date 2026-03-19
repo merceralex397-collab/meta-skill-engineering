@@ -1,6 +1,0 @@
-interface:
-  display_name: "Skill Deprecation Manager"
-  short_description: "Apply skill deprecation manager through a concrete workflow w..."
-  default_prompt: "Use $skill-deprecation-manager-codex-c to handle this task with a concrete workflow and explicit verification."
-policy:
-  allow_implicit_invocation: true

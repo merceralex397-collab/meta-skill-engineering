@@ -1,3 +1,0 @@
-{"input":"Answer this simple factual question.","expected":"no-trigger"}
-{"input":"Summarize the text I pasted below.","expected":"no-trigger"}
-{"input":"Rename one variable in the current file.","expected":"no-trigger"}

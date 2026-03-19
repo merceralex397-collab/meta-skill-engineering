@@ -120,8 +120,4 @@ Original skill: [deprecate | keep as router | keep for general cases]
 After splitting:
 - Update the library index → `skill-catalog-curation`
 - Evaluate each variant → `skill-evaluation`
-- Deprecate the original if fully replaced → `skill-deprecation-manager`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification
+- Deprecate the original if fully replaced → `skill-lifecycle-management`

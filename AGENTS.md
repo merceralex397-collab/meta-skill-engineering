@@ -5,7 +5,7 @@ This repository is a meta-skill engineering workspace. Treat each top-level skil
 ## Working Rules
 
 - Prefer direct, factual documentation and implementation notes.
-- Keep the root skill inventory limited to the 20 repo-owned top-level skill packages.
+- Keep the root skill inventory limited to the 16 repo-owned top-level skill packages.
 - Update root docs when repo-owned skill packages are added, removed, renamed, or materially re-scoped.
 - Do not conflate archived material in `skill creator/` with the active inventory.
 
@@ -26,21 +26,35 @@ All skills should follow this section order:
 5. Output contract
 6. Failure handling
 7. Next steps (workflow pointers to related skills)
-8. References (optional)
+8. References (optional — only include when skill-specific references exist)
 
-## Skill Workflow
+## Pipelines
 
-The standard skill lifecycle follows this pipeline:
-1. **Create** → `skill-creator`
-2. **Test** → `skill-testing-harness`
-3. **Evaluate** → `skill-evaluation`
-4. **Benchmark** (if variants) → `skill-benchmarking`
-5. **Optimize triggers** → `skill-trigger-optimization`
-6. **Review safety** → `skill-safety-review`
-7. **Record provenance** → `skill-provenance`
-8. **Package** → `skill-packaging`
-9. **Install** → `skill-installer`
-10. **Manage lifecycle** → `skill-lifecycle-management`
+### Creation Pipeline
+```
+community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
+    → skill-trigger-optimization → skill-safety-review → skill-provenance
+    → skill-packaging → skill-installer → skill-lifecycle-management
+```
+
+### Improvement Pipeline
+```
+skill-anti-patterns → skill-improver → skill-evaluation → skill-trigger-optimization
+```
+
+### Library Management Pipeline
+```
+skill-catalog-curation → skill-lifecycle-management
+```
+
+## Entry Points
+
+| Goal | Start here |
+|------|-----------|
+| Create a new skill | `skill-creator` |
+| Improve an existing skill | `skill-anti-patterns` → `skill-improver` |
+| Audit the skill library | `skill-catalog-curation` |
+| Find external skills | `community-skill-harvester` |
 
 ## Using External References
 
@@ -52,6 +66,7 @@ The standard skill lifecycle follows this pipeline:
 
 ## Inventory Boundaries
 
-- Root inventory includes only the 20 skill packages at the repository root.
+- Root inventory includes only the 16 skill packages at the repository root.
 - `skill creator/` is archived source material from the pre-consolidation state.
 - `tasks/` is documentation, worklogs, and reviews — not a skill package.
+- `scripts/` contains automation scripts for running evals and orchestration.

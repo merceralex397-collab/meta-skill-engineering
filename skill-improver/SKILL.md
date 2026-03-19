@@ -160,7 +160,7 @@ If the skill spans multiple use cases, add explicit phases, a decision table, or
 
 ## Phase 5 — Add support layers only if justified
 
-Add references when optional depth would clutter SKILL.md or the skill covers multiple variants.
+Add references when optional depth would clutter SKILL.md or the skill covers multiple variants. When extracting large reference blocks from a bloated SKILL.md, follow the classification heuristic and procedure in `references/extraction-guide.md`.
 
 Add scripts when a deterministic task recurs and a script reduces context waste.
 
@@ -254,7 +254,3 @@ After improving a skill:
 - Verify the improvement → `skill-evaluation`
 - Build test infrastructure if none exists → `skill-testing-harness`
 - Optimize triggers if routing changed → `skill-trigger-optimization`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

@@ -126,7 +126,3 @@ After trigger optimization:
 - Verify routing improved → `skill-evaluation`
 - Build trigger tests → `skill-testing-harness`
 - If routing problems persist → `skill-catalog-curation`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

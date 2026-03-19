@@ -1,6 +1,0 @@
-interface:
-  display_name: "Skill Packager"
-  short_description: "Build skill packager artifacts with deterministic structure,..."
-  default_prompt: "Use $skill-packager-codex-c to handle this task with a concrete workflow and explicit verification."
-policy:
-  allow_implicit_invocation: true

@@ -163,7 +163,3 @@ After an anti-pattern audit:
 - Fix found issues → `skill-improver`
 - If AP-1, AP-11, or AP-12 fired → `skill-trigger-optimization`
 - If skill is too malformed for piecemeal fixes → `skill-creator`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

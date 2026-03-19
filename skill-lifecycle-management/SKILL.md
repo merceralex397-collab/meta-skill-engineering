@@ -4,9 +4,10 @@ description: >-
   Promote, deprecate, and track skills through lifecycle states
   (draft → beta → stable → deprecated → archived). Use when auditing maturity
   across a skill library, promoting a tested skill to stable, retiring a
-  superseded skill, or checking which skills are production-ready. Do not use for
-  creating new skills (use skill-creator), improving individual skill quality
-  (use skill-improver), or reorganizing the library catalog
+  superseded skill, checking which skills are production-ready, or when a user
+  says "deprecate this skill", "retire this", or "this is replaced by X".
+  Do not use for creating new skills (use skill-creator), improving individual
+  skill quality (use skill-improver), or reorganizing the library catalog
   (use skill-catalog-curation).
 ---
 
@@ -20,6 +21,9 @@ Manage skills through lifecycle states: draft → beta → stable → deprecated
 - Promoting a skill after evaluation confirms it works
 - Deprecating a skill that has been superseded or consistently fails
 - Tracking lifecycle transitions across a skill library
+- User says "deprecate this skill", "retire this", or "this is replaced by X"
+- A catalog audit identifies a skill for retirement
+- A skill is causing harm and needs immediate pull
 
 Do NOT use when:
 - Creating a new skill from scratch → `skill-creator`
@@ -51,6 +55,66 @@ Do NOT use when:
 5. **Check dependents**: If a deprecated skill is referenced in AGENTS.md, commands, or other skills, flag each reference for update.
 6. **Update library index**: Set each skill's catalog entry to its new state.
 
+# Deprecation procedure
+
+When deprecating or retiring a skill, follow this detailed procedure:
+
+## 1. Confirm deprecation decision
+
+Determine the reason:
+- **Superseded**: Replaced by a better skill
+- **Merged**: Functionality absorbed into another skill
+- **Unused**: No invocations over N cycles
+- **Failing**: Consistently poor evaluation results
+- **Harmful**: Misfiring or producing wrong outputs — pull immediately
+
+## 2. Find all references
+
+```bash
+grep -r "<skill-name>" AGENTS.md **/SKILL.md docs/ 2>/dev/null
+grep -r "Do NOT use" **/SKILL.md | grep -i "<skill-name>"
+```
+
+## 3. Update each reference
+
+Replace with replacement skill pointer, or note "no replacement available".
+
+## 4. Update frontmatter
+
+```yaml
+metadata:
+  maturity: deprecated
+  deprecated_by: replacement-skill  # or "none"
+  deprecated_reason: "Superseded by newer version"
+```
+
+## 5. Add deprecation notice
+
+At top of SKILL.md body:
+```markdown
+> ⚠️ DEPRECATED as of [date]. Use [replacement] instead.
+> Reason: [one sentence]. Kept for reference only.
+```
+
+## 6. Move to archive (if applicable)
+
+Confirm with user before moving:
+```
+About to move skill-name/ to ARCHIVE/skill-name/. Proceed? [y/N]
+```
+
+```bash
+mkdir -p ARCHIVE
+mv skill-name/ ARCHIVE/skill-name/
+```
+Do NOT delete — preserve for reference and provenance.
+
+## 7. Update catalog
+
+- Mark `deprecated: true` in catalog metadata
+- Remove from active catalog section
+- Add to "Deprecated" section of index
+
 # Output contract
 
 Produce a markdown report with these sections:
@@ -80,6 +144,27 @@ Produce a markdown report with these sections:
 2. Deprecate skill-y, update AGENTS.md reference
 ```
 
+When executing a deprecation specifically, also produce:
+
+```
+## Deprecation: [skill-name]
+
+**Reason**: [superseded | merged | unused | failing | harmful]
+**Replacement**: [skill] or "none"
+**Date**: [YYYY-MM-DD]
+
+### References Updated
+| File | Change |
+|------|--------|
+| [file] | [old → new] |
+
+### Verification
+- [x] All references updated
+- [x] Deprecation notice added
+- [x] Archived (if applicable)
+- [x] Catalog updated
+```
+
 If no transitions are warranted, state that explicitly — do not invent changes.
 
 # Failure handling
@@ -90,6 +175,8 @@ If no transitions are warranted, state that explicitly — do not invent changes
 | Deprecated skill has active dependents | Identify or create replacement first; do not deprecate until dependents have a migration path |
 | Disputed maturity (e.g. "stable" but failing evals) | Default to the more conservative state and note the discrepancy |
 | No evaluation data available for promotion | Block promotion; recommend running `skill-evaluation` first |
+| Replacement skill incomplete | Create migration path with limitations noted |
+| Urgent harm from a skill | Deprecate immediately, create follow-up ticket for replacement |
 
 ## Next steps
 
@@ -97,7 +184,3 @@ Before promoting a skill to stable:
 - Verify provenance is documented → `skill-provenance`
 - Run safety review → `skill-safety-review`
 - Run evaluation → `skill-evaluation`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

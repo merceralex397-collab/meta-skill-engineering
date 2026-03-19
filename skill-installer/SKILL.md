@@ -121,7 +121,3 @@ After installing a skill:
 - If imported from external source → run `skill-provenance` to record origin and trust
 - If imported from untrusted source → run `skill-safety-review` before use
 - Verify the skill works → `skill-evaluation`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

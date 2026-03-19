@@ -1,24 +1,28 @@
 ---
 name: skill-packaging
 description: >-
-  Bundle a completed skill folder into a versioned distributable archive
-  with manifest, integrity checksums, and client-specific overlays. Use when
-  a user says "package this skill", "bundle for distribution", "prepare a
-  versioned release", "generate overlays for this skill", or "publish to
-  multiple agent clients". Do not use for installing bundles
-  (use skill-installer), writing new skills (use skill-creator), or
-  documenting skill origin and trust chain (use skill-provenance).
+  Bundle one or more completed skill folders into versioned distributable
+  archives with manifests, integrity checksums, and client-specific overlays.
+  Use when a user says "package this skill", "bundle for distribution",
+  "prepare a versioned release", "generate overlays", "publish to multiple
+  agent clients", "build a release bundle", or "package these skills for
+  release". Do not use for installing bundles (use skill-installer), writing
+  new skills (use skill-creator), or documenting skill origin and trust chain
+  (use skill-provenance).
 ---
 
 # Purpose
 
-Bundle a finished skill folder into a distributable archive (tar.gz or zip) containing a manifest, per-file SHA-256 checksums, and optional client-specific overlays so the skill can be versioned, shared, and installed elsewhere.
+Bundle one or more finished skill folders into distributable archives (tar.gz or zip) containing manifests, per-file SHA-256 checksums, and optional client-specific overlays so skills can be versioned, shared, and installed elsewhere. Supports both single-skill packaging and multi-skill coordinated releases.
 
 # When to use
 
 - User asks to package, bundle, or prepare a skill for distribution
 - A skill needs a versioned release artifact
 - Publishing a skill to a registry or transferring it between repos
+- Packaging multiple skills for a coordinated release
+- Building a distribution bundle for a skill library
+- Creating CI/CD skill artifacts or releasing a new library version
 
 # When NOT to use
 
@@ -135,6 +139,61 @@ directories and generate overlays for each.
 
 Print the verification report (see Output contract).
 
+## Batch mode (multi-skill release)
+
+When packaging multiple skills for a coordinated release:
+
+### Scan for skills
+
+```bash
+find . -name "SKILL.md" -not -path "*/ARCHIVE/*" | sort
+```
+
+Filter by maturity if specified (e.g., only `stable` skills).
+
+### Validate and package each skill
+
+Run Steps 1–5 above for each skill directory. Flag invalid skills but continue packaging valid ones.
+
+### Build combined bundle
+
+In addition to per-skill archives, create a combined release bundle:
+
+- Combined archive: `skills-bundle-<version>.tar.gz` with all per-skill archives + index
+- Combined index: `dist/index.yaml` listing all included skills with versions and checksums
+- Release notes:
+
+```markdown
+# Release Notes: v[version]
+
+## Skills Included
+| Name | Version | Status |
+|------|---------|--------|
+| [name] | [ver] | [new | updated | unchanged] |
+
+## Changes
+- Added: [new skills]
+- Updated: [modified skills]
+- Deprecated: [retired skills]
+```
+
+### Batch output structure
+
+```
+dist/
+├── index.yaml                    # Combined manifest
+├── skills-bundle-X.Y.Z.tar.gz   # Combined bundle
+├── skill-a-X.Y.Z.tar.gz         # Per-skill bundles
+├── skill-b-X.Y.Z.tar.gz
+└── RELEASE-NOTES.md
+```
+
+### Batch failure handling
+
+- **Some skills invalid**: Package valid ones, report invalid with specific errors
+- **Version conflict across skills**: Use highest version or flag for manual resolution
+- **Missing git tags**: Fall back to `0.0.0-dev` for untagged skills
+
 # Output contract
 
 Every successful run produces exactly:
@@ -174,9 +233,5 @@ If verification fails, print the specific mismatches and do **not** declare succ
 
 After packaging:
 - Install the package → `skill-installer`
-- Register in the catalog → `skill-registry-manager`
+- Update the catalog → `skill-catalog-curation`
 - Manage lifecycle state → `skill-lifecycle-management`
-
-## References
-
-- Agent Skills specification: https://agentskills.io/specification

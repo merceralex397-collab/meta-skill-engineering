@@ -1,33 +1,43 @@
 # Meta Skill Engineering
 
-A meta-skill engineering workspace containing 20 skills that create, refine, test, package, and govern agent skills.
+A meta-skill engineering workspace containing 16 skills that create, refine, test, package, and govern agent skills.
 
 ## Repository Layout
 
 - `./<skill-name>/` — repo-owned skill packages at the repository root. Each package has a `SKILL.md` baseline contract and may include `references/`, `scripts/`, `evals/`, `assets/`, or `agents/`.
 - `skill creator/` — archived source material from the pre-consolidation state.
 - `tasks/` — task notes, worklogs, reviews, and maintenance instructions.
+- `scripts/` — automation scripts (eval runner, orchestration).
 
-## Skill Lifecycle Pipeline
+## Pipelines
 
-The standard workflow for creating and managing a skill:
+Three built-in flows connect the skills:
 
+### Creation Pipeline
 ```
-skill-creator → skill-testing-harness → skill-evaluation → skill-benchmarking
-                                                                ↓
-skill-lifecycle-management ← skill-packaging ← skill-safety-review ← skill-trigger-optimization
+community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
+    → skill-trigger-optimization → skill-safety-review → skill-provenance
+    → skill-packaging → skill-installer → skill-lifecycle-management
 ```
 
-1. **Create** a skill → `skill-creator`
-2. **Build tests** → `skill-testing-harness`
-3. **Evaluate** routing and output → `skill-evaluation`
-4. **Benchmark** variants (if needed) → `skill-benchmarking`
-5. **Optimize** triggers → `skill-trigger-optimization`
-6. **Safety review** → `skill-safety-review`
-7. **Record provenance** → `skill-provenance`
-8. **Package** for distribution → `skill-packaging`
-9. **Install** → `skill-installer`
-10. **Manage lifecycle** → `skill-lifecycle-management`
+### Improvement Pipeline
+```
+skill-anti-patterns → skill-improver → skill-evaluation → skill-trigger-optimization
+```
+
+### Library Management Pipeline
+```
+skill-catalog-curation → skill-lifecycle-management
+```
+
+## Entry Points
+
+| Goal | Start here |
+|------|-----------|
+| Create a new skill | `skill-creator` |
+| Improve an existing skill | `skill-anti-patterns` (diagnose) → `skill-improver` (fix) |
+| Audit the skill library | `skill-catalog-curation` |
+| Find external skills | `community-skill-harvester` |
 
 ## Skill Inventory
 
@@ -37,20 +47,16 @@ skill-lifecycle-management ← skill-packaging ← skill-safety-review ← skill
 | `skill-adaptation` | Rewrite a skill's context-dependent references for a new environment. |
 | `skill-anti-patterns` | Scan SKILL.md for concrete anti-patterns and report fixes. |
 | `skill-benchmarking` | Compare skill variants on the same test cases. |
-| `skill-catalog-curation` | Detect duplicates, enforce category consistency, and verify discoverability. |
+| `skill-catalog-curation` | Audit library for duplicates and gaps; maintain catalog index and registry. |
 | `skill-creator` | Create new agent skills from scratch and iterate through test-review-improve cycles. |
-| `skill-deprecation-manager` | Safely deprecate, retire, or merge obsolete skills. |
 | `skill-evaluation` | Evaluate a single skill's routing accuracy, output quality, and baseline value. |
-| `skill-improver` | Improve an existing skill package. |
+| `skill-improver` | Improve an existing skill package — routing, procedure, support layers. |
 | `skill-installer` | Install a skill package into a local agent client skill directory. |
-| `skill-lifecycle-management` | Manage skills through draft, beta, stable, deprecated, and archived states. |
-| `skill-packager` | Build distributable bundles for one or more skills in a release. |
-| `skill-packaging` | Bundle a finished skill into a versioned archive with manifest, checksums, and overlays. |
+| `skill-lifecycle-management` | Manage skills through lifecycle states; execute deprecation and retirement. |
+| `skill-packaging` | Bundle one or more skills into versioned archives with manifests and overlays. |
 | `skill-provenance` | Audit and record origin, authorship, license, and trust level for a skill. |
-| `skill-reference-extraction` | Split large reference material out of a SKILL.md. |
-| `skill-registry-manager` | Maintain the skill library catalog and generate the index. |
 | `skill-safety-review` | Audit a skill for safety hazards before publication or import. |
-| `skill-testing-harness` | Build test infrastructure for a skill. |
+| `skill-testing-harness` | Build test infrastructure (JSONL eval suites) for a skill. |
 | `skill-trigger-optimization` | Fix skill routing by rewriting description and boundary text. |
 | `skill-variant-splitting` | Split a broad skill into focused variants. |
 
@@ -58,7 +64,7 @@ skill-lifecycle-management ← skill-packaging ← skill-safety-review ← skill
 
 **Creation & Improvement**
 - `skill-creator` — create new skills
-- `skill-improver` — improve existing skills
+- `skill-improver` — improve existing skills (includes reference extraction)
 - `community-skill-harvester` — find and evaluate external skills
 
 **Quality & Testing**
@@ -73,17 +79,13 @@ skill-lifecycle-management ← skill-packaging ← skill-safety-review ← skill
 - `skill-provenance` — audit and record origin and trust
 
 **Packaging & Distribution**
-- `skill-packaging` — bundle a skill with manifest and overlays
-- `skill-packager` — orchestrate multi-skill releases
+- `skill-packaging` — bundle skills with manifest and overlays (single or batch)
 - `skill-installer` — install skill packages
 
 **Library Management**
-- `skill-catalog-curation` — audit library for duplicates and gaps
-- `skill-registry-manager` — maintain catalog and index
-- `skill-lifecycle-management` — manage skill maturity states
-- `skill-deprecation-manager` — execute skill deprecation
+- `skill-catalog-curation` — audit library, maintain catalog index and registry
+- `skill-lifecycle-management` — manage maturity states, deprecation, and retirement
 
 **Transformation**
 - `skill-adaptation` — port skills to new environments
 - `skill-variant-splitting` — split broad skills into focused variants
-- `skill-reference-extraction` — extract reference material from SKILL.md

@@ -1,6 +1,8 @@
-{"prompt": "install this skill package into my agent", "should_trigger": false, "better_skill": "skill-installer"}
-{"prompt": "split this skill into smaller focused skills", "should_trigger": false, "better_skill": "skill-variant-splitting"}
-{"prompt": "port this skill from Python to Rust environment", "should_trigger": false, "better_skill": "skill-adaptation"}
-{"prompt": "run evals on this skill to check if its routing works", "should_trigger": false, "better_skill": "skill-evaluation"}
-{"prompt": "fix just the description field so it triggers better", "should_trigger": false, "better_skill": "skill-trigger-optimization"}
-{"prompt": "find me an existing skill for code review before I build one", "should_trigger": false, "better_skill": "community-skill-harvester"}
+{"prompt": "This skill is weak, can you improve it?", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improving existing skill, not creating new"}
+{"prompt": "Fix the trigger description on this skill", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Trigger fix, not creation"}
+{"prompt": "Run the eval suite against my skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not creation"}
+{"prompt": "Find existing skills for PDF handling before I build one", "expected": "no_trigger", "better_skill": "community-skill-harvester", "notes": "Searching for skills, not creating"}
+{"prompt": "Port this skill to work with a different tech stack", "expected": "no_trigger", "better_skill": "skill-adaptation", "notes": "Adapting existing skill, not creating"}
+{"prompt": "Write a Python function to parse JSON", "expected": "no_trigger", "better_skill": null, "notes": "General coding, not skill engineering"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Auditing quality, not creating"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": "skill-packaging", "notes": "Packaging, not creating"}
