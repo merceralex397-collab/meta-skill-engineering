@@ -206,16 +206,16 @@ jobs:
 
       - name: Publish application
         run: |
-          dotnet publish ${{ env.PROJECT_PATH }} \
-            --configuration Release \
-            --output ${{ env.PUBLISH_DIR }} \
-            -r win-x64 \
-            --self-contained true \
-            -p:PublishSingleFile=true \
-            -p:IncludeNativeLibrariesForSelfExtract=true \
-            -p:EnableCompressionInSingleFile=true \
-            -p:Version=${{ needs.version.outputs.version }} \
-            -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} \
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --output ${{ env.PUBLISH_DIR }} `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:EnableCompressionInSingleFile=true `
+            -p:Version=${{ needs.version.outputs.version }} `
+            -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} `
             -p:FileVersion=${{ needs.version.outputs.assemblyVersion }}
 
       - name: Build MSI installer
