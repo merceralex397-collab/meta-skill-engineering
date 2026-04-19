@@ -1,0 +1,6 @@
+interface:
+  display_name: "Deployment Pipeline"
+  short_description: "Apply deployment pipeline through a concrete workflow with ex..."
+  default_prompt: "Use $deployment-pipeline-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

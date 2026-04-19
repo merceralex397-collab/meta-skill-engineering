@@ -1,0 +1,8 @@
+{"prompt": "Evaluate this skill against its test cases", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Single skill evaluation, not comparison"}
+{"prompt": "Create test cases for this skill", "expected": "no_trigger", "better_skill": "skill-testing-harness", "notes": "Test creation, not benchmarking"}
+{"prompt": "Improve this skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not comparison"}
+{"prompt": "Is this skill safe to publish?", "expected": "no_trigger", "better_skill": "skill-safety-review", "notes": "Safety review, not benchmarking"}
+{"prompt": "Quick spot-check on this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Quick check = evaluation, not systematic benchmark"}
+{"prompt": "Split this skill into two variants", "expected": "no_trigger", "better_skill": "skill-variant-splitting", "notes": "Creating variants, not comparing existing ones"}
+{"prompt": "How does this JavaScript framework compare to that one?", "expected": "no_trigger", "better_skill": null, "notes": "General tech comparison, not skill benchmarking"}
+{"prompt": "Profile this function for performance", "expected": "no_trigger", "better_skill": null, "notes": "Code profiling, not skill benchmarking"}

@@ -1,0 +1,8 @@
+{"prompt": "Improve this skill to be better", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Wants rewrite, not diagnosis"}
+{"prompt": "Create a new skill for code review", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not audit"}
+{"prompt": "Fix the trigger phrasing on this skill", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Specific trigger fix, not structural audit"}
+{"prompt": "Run the evaluation suite", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Running evals, not checking anti-patterns"}
+{"prompt": "Compare these two skill variants", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Benchmarking, not diagnosis"}
+{"prompt": "Write a Python test for this function", "expected": "no_trigger", "better_skill": null, "notes": "General testing, not skill audit"}
+{"prompt": "Deprecate this old skill", "expected": "no_trigger", "better_skill": "skill-lifecycle-management", "notes": "Lifecycle action, not audit"}
+{"prompt": "This skill needs a complete rewrite from scratch", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Full rewrite = creation, not audit"}

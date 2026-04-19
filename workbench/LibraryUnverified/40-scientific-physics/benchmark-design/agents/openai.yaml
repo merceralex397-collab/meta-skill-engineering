@@ -1,0 +1,6 @@
+interface:
+  display_name: "Benchmark Design"
+  short_description: "Apply benchmark design with runtime boundaries, eval cases, a..."
+  default_prompt: "Use $benchmark-design-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

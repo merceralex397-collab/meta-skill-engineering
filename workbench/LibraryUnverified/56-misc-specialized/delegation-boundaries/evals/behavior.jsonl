@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Assess a proposal to delegate the immediate blocking bugfix to another agent.","assertions":["keeps blocker local","explains urgency/coupling","does not approve delegation blindly"]}
+{"id":"bh-002","prompt":"Assess a proposal to delegate overlapping edits to two implementers.","assertions":["rejects overlap","cites write-scope safety","suggests redesign"]}

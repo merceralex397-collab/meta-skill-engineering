@@ -1,0 +1,6 @@
+interface:
+  display_name: "Implementer Context"
+  short_description: "Execute the implementer context role with clear scope, eviden..."
+  default_prompt: "Use $implementer-context-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

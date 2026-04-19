@@ -1,0 +1,6 @@
+interface:
+  display_name: "App Publishing"
+  short_description: "Run app publishing with grounded sources, comparison, and dec..."
+  default_prompt: "Use $app-publishing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,9 @@
+{"prompt": "Create tests for this skill", "expected": "trigger", "category": "core", "notes": "Direct test creation request"}
+{"prompt": "Set up evals for this new skill", "expected": "trigger", "category": "core", "notes": "Eval setup request"}
+{"prompt": "Build a test harness for skill-creator", "expected": "trigger", "category": "core", "notes": "Named skill test harness"}
+{"prompt": "This skill has no test coverage, add trigger tests", "expected": "trigger", "category": "core", "notes": "Missing coverage implies test creation"}
+{"prompt": "Generate positive and negative trigger test cases", "expected": "trigger", "category": "core", "notes": "Specific JSONL test type request"}
+{"prompt": "Write output format tests for this skill", "expected": "trigger", "category": "core", "notes": "Output test creation"}
+{"prompt": "This skill needs an evals/ directory with test cases", "expected": "trigger", "category": "indirect", "notes": "Missing evals directory implies test harness needed"}
+{"prompt": "Help me build test infrastructure for evaluating this skill", "expected": "trigger", "category": "paraphrase", "notes": "Test infrastructure = test harness"}
+{"prompt": "Create JSONL test fixtures for trigger routing", "expected": "trigger", "category": "core", "notes": "Specific format request"}

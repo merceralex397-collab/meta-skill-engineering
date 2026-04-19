@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Host Integration"
+  short_description: "Design and verify mcp host integration with explicit contract..."
+  default_prompt: "Use $mcp-host-integration-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

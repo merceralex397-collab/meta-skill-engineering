@@ -1,0 +1,6 @@
+interface:
+  display_name: "Error Handling"
+  short_description: "Apply error handling through a concrete workflow with explici..."
+  default_prompt: "Use $error-handling-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

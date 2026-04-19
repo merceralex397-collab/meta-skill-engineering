@@ -1,0 +1,18 @@
+name: backlog-verifier-codex-c
+version: 1
+summary: "Execute the backlog verifier role with clear scope, evidence, and handoff discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "backlog-verifier"
+    - "backlog verifier"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/overlap-signals.md"
+    - "../../references/readiness-checks.md"
+    - "../../references/repair-patterns.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

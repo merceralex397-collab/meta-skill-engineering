@@ -1,0 +1,2 @@
+{"input":"Use Auth Patterns on a realistic task and return the result in a decision-ready shape.","must_include":["Scope","Approach","Checks","Next Step"],"expected":"auth-patterns"}
+{"input":"Apply Auth Patterns but call out uncertainty and the next verification step explicitly.","must_include":["Scope","Next Step"],"expected":"auth-patterns"}

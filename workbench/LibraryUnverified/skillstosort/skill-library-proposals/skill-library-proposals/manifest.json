@@ -1,0 +1,3904 @@
+{
+  "total_skills": 315,
+  "categories": [
+    {
+      "slug": "01-package-scaffolding",
+      "title": "Package Scaffolding Skills",
+      "count": 20
+    },
+    {
+      "slug": "02-generated-repo-core",
+      "title": "Generated Repo Core Skills",
+      "count": 30
+    },
+    {
+      "slug": "03-meta-skill-engineering",
+      "title": "Meta Skill Engineering",
+      "count": 16
+    },
+    {
+      "slug": "04-planning-review-and-critique",
+      "title": "Planning, Review, and Critique",
+      "count": 18
+    },
+    {
+      "slug": "05-agentic-orchestration-and-autonomy",
+      "title": "Agentic Orchestration and Autonomy",
+      "count": 20
+    },
+    {
+      "slug": "06-agent-role-candidates",
+      "title": "Agent Role Candidate Skills",
+      "count": 16
+    },
+    {
+      "slug": "07-mcp",
+      "title": "MCP Skills",
+      "count": 20
+    },
+    {
+      "slug": "08-web-frontend-and-design",
+      "title": "Web, Frontend, and Design Skills",
+      "count": 21
+    },
+    {
+      "slug": "09-backend-api-and-data",
+      "title": "Backend, API, and Data Skills",
+      "count": 19
+    },
+    {
+      "slug": "10-cli-systems-and-ops",
+      "title": "CLI, Systems, and Ops Skills",
+      "count": 15
+    },
+    {
+      "slug": "11-ai-llm-runtime-and-integration",
+      "title": "AI / LLM Runtime and Integration Skills",
+      "count": 21
+    },
+    {
+      "slug": "12-ai-llm-training-architecture-and-research",
+      "title": "AI / LLM Training, Architecture, and Research Skills",
+      "count": 22
+    },
+    {
+      "slug": "13-game-engines-and-creative-tech",
+      "title": "Game Engines and Creative Tech Skills",
+      "count": 16
+    },
+    {
+      "slug": "14-cloud-platform-devops",
+      "title": "Cloud, Platform, and DevOps Skills",
+      "count": 15
+    },
+    {
+      "slug": "15-docs-artifacts-media",
+      "title": "Docs, Artifacts, and Media Skills",
+      "count": 22
+    },
+    {
+      "slug": "16-business-research-and-optional-domains",
+      "title": "Business, Research, and Optional Domain Skills",
+      "count": 12
+    },
+    {
+      "slug": "17-external-reference-seeds",
+      "title": "External Reference Seed Skills",
+      "count": 12
+    }
+  ],
+  "skills": [
+    {
+      "slug": "scaffold-kickoff",
+      "title": "Scaffold Kickoff",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Entry point that coordinates end-to-end repo scaffolding from messy inputs to a usable generated repository."
+    },
+    {
+      "slug": "spec-pack-normalizer",
+      "title": "Spec Pack Normalizer",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Normalizes scattered notes, chats, specs, and requirements into one canonical brief and decision packet."
+    },
+    {
+      "slug": "repo-scaffold-factory",
+      "title": "Repo Scaffold Factory",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Generates the mechanical repository structure, starter files, and managed surfaces from the canonical brief."
+    },
+    {
+      "slug": "opencode-team-bootstrap",
+      "title": "OpenCode Team Bootstrap",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Builds the initial project-specific operating layer of agents, tools, plugins, commands, and skills."
+    },
+    {
+      "slug": "ticket-pack-builder",
+      "title": "Ticket Pack Builder",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Creates a machine-readable backlog with tickets, dependencies, stages, and acceptance criteria."
+    },
+    {
+      "slug": "project-skill-bootstrap",
+      "title": "Project Skill Bootstrap",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation",
+        "research-gap"
+      ],
+      "purpose": "Synthesizes project-local skills from the brief, stack, and domain signals instead of shipping only generic placeholders."
+    },
+    {
+      "slug": "agent-prompt-engineering",
+      "title": "Agent Prompt Engineering",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation",
+        "research-gap"
+      ],
+      "purpose": "Designs and hardens prompts for planners, implementers, reviewers, utilities, and workflow commands."
+    },
+    {
+      "slug": "repo-process-doctor",
+      "title": "Repo Process Doctor",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Audits the generated operating layer and repairs or replaces managed surfaces after process upgrades."
+    },
+    {
+      "slug": "handoff-brief",
+      "title": "Handoff Brief",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P0",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Builds a concise restart surface with actual state, next steps, and reading order."
+    },
+    {
+      "slug": "pr-review-ticket-bridge",
+      "title": "PR Review Ticket Bridge",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "scafforge-existing",
+        "conversation"
+      ],
+      "purpose": "Transforms validated review findings into guarded follow-up tickets without letting comments become unchecked backlog noise."
+    },
+    {
+      "slug": "skill-registry-manager",
+      "title": "Skill Registry Manager",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec"
+      ],
+      "purpose": "Owns the library catalog, metadata, status, tags, and provenance for all skills in the ecosystem."
+    },
+    {
+      "slug": "skill-eval-runner",
+      "title": "Skill Eval Runner",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec",
+        "claude-skill-creator"
+      ],
+      "purpose": "Runs trigger tests, behavior tests, baseline comparisons, and report aggregation for skills."
+    },
+    {
+      "slug": "skill-description-optimizer",
+      "title": "Skill Description Optimizer",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "claude-skill-creator",
+        "conversation"
+      ],
+      "purpose": "Improves skill descriptions so routing triggers fire more reliably without overfiring."
+    },
+    {
+      "slug": "overlay-generator",
+      "title": "Overlay Generator",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec"
+      ],
+      "purpose": "Produces host-specific overlays for OpenAI, Gemini, OpenCode, Copilot, or other clients from a shared skill source."
+    },
+    {
+      "slug": "skill-packager",
+      "title": "Skill Packager",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec",
+        "claude-skill-creator"
+      ],
+      "purpose": "Builds distributable bundles, manifests, and checksums for installing or sharing skills."
+    },
+    {
+      "slug": "community-skill-harvester",
+      "title": "Community Skill Harvester",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Finds external skills, extracts reusable patterns, and converts them into local proposal candidates."
+    },
+    {
+      "slug": "stack-profile-detector",
+      "title": "Stack Profile Detector",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "research-gap"
+      ],
+      "purpose": "Infers language, framework, cloud target, and runtime profile from repo evidence and spec material."
+    },
+    {
+      "slug": "migration-pack-builder",
+      "title": "Migration Pack Builder",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Generates retrofit plans, replacement lists, and managed-surface migration artifacts for existing repos."
+    },
+    {
+      "slug": "skill-deprecation-manager",
+      "title": "Skill Deprecation Manager",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "architecture-spec"
+      ],
+      "purpose": "Retires or merges obsolete skills while preserving backward references and library clarity."
+    },
+    {
+      "slug": "provenance-audit",
+      "title": "Provenance Audit",
+      "category_slug": "01-package-scaffolding",
+      "category_title": "Package Scaffolding Skills",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "architecture-spec",
+        "conversation"
+      ],
+      "purpose": "Tracks where each generated skill came from: user request, repo evidence, imported example, or invented extension."
+    },
+    {
+      "slug": "project-context",
+      "title": "Project Context",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Loads the repo's source-of-truth documents in a deterministic order before planning or editing."
+    },
+    {
+      "slug": "repo-navigation",
+      "title": "Repo Navigation",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Explains which directories are canonical, derived, preserved, or operational inside the repo."
+    },
+    {
+      "slug": "stack-standards",
+      "title": "Stack Standards",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Holds the actual language, framework, validation, and safety rules for the chosen stack."
+    },
+    {
+      "slug": "ticket-execution",
+      "title": "Ticket Execution",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Defines the required stage order, artifact proofs, and routing rules for ticket work."
+    },
+    {
+      "slug": "review-audit-bridge",
+      "title": "Review Audit Bridge",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Translates code review, security review, QA, and audit findings into clear blocker logic and follow-up actions."
+    },
+    {
+      "slug": "docs-and-handoff",
+      "title": "Docs and Handoff",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Keeps README, process docs, ticket views, and restart documents aligned with canonical state."
+    },
+    {
+      "slug": "workflow-observability",
+      "title": "Workflow Observability",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Inspects provenance, workflow state, invocation logs, and recent transitions when repo health is in question."
+    },
+    {
+      "slug": "research-delegation",
+      "title": "Research Delegation",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "research-docs",
+        "conversation"
+      ],
+      "purpose": "Delegates read-only evidence gathering to narrow lanes and persists durable findings as artifacts."
+    },
+    {
+      "slug": "local-git-specialist",
+      "title": "Local Git Specialist",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Applies safe local git hygiene for status inspection, diff review, and non-destructive history usage."
+    },
+    {
+      "slug": "isolation-guidance",
+      "title": "Isolation Guidance",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Chooses when work should use in-place edits versus worktrees, temp copies, or isolated lanes."
+    },
+    {
+      "slug": "process-doctor",
+      "title": "Process Doctor",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Runs a repo-local process repair or verification pass after workflow changes."
+    },
+    {
+      "slug": "planning",
+      "title": "Planning",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "research-gap",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Turns a ticket or objective into a bounded plan with dependencies, unknowns, and acceptance criteria before implementation starts."
+    },
+    {
+      "slug": "skill-authoring",
+      "title": "Skill Authoring",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "research-gap",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Creates or updates project-local skills inside a generated repo using the repo's own conventions and evidence."
+    },
+    {
+      "slug": "prompt-crafting",
+      "title": "Prompt Crafting",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P0",
+      "sources": [
+        "research-gap",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Improves repo-local prompts, command wording, tool instructions, and output templates for ongoing use."
+    },
+    {
+      "slug": "testing",
+      "title": "Testing",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-gap"
+      ],
+      "purpose": "Chooses and structures appropriate testing layers for the current stack: unit, integration, e2e, snapshot, or property-based."
+    },
+    {
+      "slug": "deployment-pipeline",
+      "title": "Deployment Pipeline",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Defines CI/CD, release, deployment, and rollback procedure for the chosen target."
+    },
+    {
+      "slug": "database-persistence",
+      "title": "Database Persistence",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Covers schema design, migrations, query patterns, and persistence tradeoffs for the chosen data layer."
+    },
+    {
+      "slug": "auth-patterns",
+      "title": "Auth Patterns",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Explains authentication, session, token, and authorization rules for the current stack."
+    },
+    {
+      "slug": "api-schema",
+      "title": "API Schema",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Defines request and response shapes, versioning, validation, and compatibility rules for API-first work."
+    },
+    {
+      "slug": "external-api-client",
+      "title": "External API Client",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Standardizes retries, backoff, timeout, idempotency, and SDK-versus-raw-call decisions when consuming third-party APIs."
+    },
+    {
+      "slug": "error-handling",
+      "title": "Error Handling",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Formalizes exception mapping, safe user-facing errors, redaction, and structured logging expectations."
+    },
+    {
+      "slug": "performance-baseline",
+      "title": "Performance Baseline",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Defines what to measure, what tools to use, and what thresholds or regressions matter for the stack."
+    },
+    {
+      "slug": "security-hardening",
+      "title": "Security Hardening",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Translates common threat models into concrete stack-specific controls and review checks."
+    },
+    {
+      "slug": "migration-refactor",
+      "title": "Migration Refactor",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Plans and executes large refactors or migrations in bounded stages with rollback awareness."
+    },
+    {
+      "slug": "dependency-upgrades",
+      "title": "Dependency Upgrades",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles version bumps, lockfile churn, changelog review, and compatibility validation."
+    },
+    {
+      "slug": "release-engineering",
+      "title": "Release Engineering",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Coordinates tag, changelog, package, artifact, release-note, and verification steps for shipping work."
+    },
+    {
+      "slug": "incident-postmortem",
+      "title": "Incident Postmortem",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Turns failures or regressions into structured root-cause, corrective-action, and prevention artifacts."
+    },
+    {
+      "slug": "context-intelligence",
+      "title": "Context Intelligence",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Handles indexing, retrieval, provenance metadata, and cross-repo context intelligence surfaces."
+    },
+    {
+      "slug": "mcp-protocol",
+      "title": "MCP Protocol",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Applies repo-specific MCP protocol, schema, and fail-closed policies."
+    },
+    {
+      "slug": "node-agent-patterns",
+      "title": "Node Agent Patterns",
+      "category_slug": "02-generated-repo-core",
+      "category_title": "Generated Repo Core Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-existing",
+        "conversation"
+      ],
+      "purpose": "Encodes rules for lightweight per-machine agents, bounded subprocess work, and safe transport."
+    },
+    {
+      "slug": "skill-creator",
+      "title": "Skill Creator",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P0",
+      "sources": [
+        "external-example",
+        "claude-skill-creator",
+        "skill-creator-package",
+        "conversation"
+      ],
+      "purpose": "Creates new skills from user intent, then iterates through testing and improvement loops."
+    },
+    {
+      "slug": "skill-adaptation",
+      "title": "Skill Adaptation",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Adapts a general skill so it fits one repo, team, or project profile without losing the base pattern."
+    },
+    {
+      "slug": "skill-refinement",
+      "title": "Skill Refinement",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "invented",
+        "claude-skill-creator"
+      ],
+      "purpose": "Tightens, clarifies, and de-bloats an existing skill after real usage reveals rough edges."
+    },
+    {
+      "slug": "skill-evaluation",
+      "title": "Skill Evaluation",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "claude-skill-creator"
+      ],
+      "purpose": "Evaluates whether a skill routed correctly and produced higher-quality results than a baseline."
+    },
+    {
+      "slug": "skill-testing-harness",
+      "title": "Skill Testing Harness",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "claude-skill-creator",
+        "architecture-spec"
+      ],
+      "purpose": "Sets up repeatable prompts, fixtures, and comparison runs for skill development."
+    },
+    {
+      "slug": "skill-trigger-optimization",
+      "title": "Skill Trigger Optimization",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "claude-skill-creator"
+      ],
+      "purpose": "Improves trigger phrases, descriptions, and routing language so a host actually invokes the skill when it should."
+    },
+    {
+      "slug": "skill-benchmarking",
+      "title": "Skill Benchmarking",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "claude-skill-creator",
+        "architecture-spec"
+      ],
+      "purpose": "Measures pass rate, time, tokens, and qualitative win-rate for a skill versus alternatives."
+    },
+    {
+      "slug": "skill-packaging",
+      "title": "Skill Packaging",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec",
+        "claude-skill-creator"
+      ],
+      "purpose": "Packages a skill into installable outputs and validates bundle contents."
+    },
+    {
+      "slug": "skill-installation",
+      "title": "Skill Installation",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "external-example",
+        "skill-installer-package"
+      ],
+      "purpose": "Installs or links a skill into a target client or local environment using the correct conventions."
+    },
+    {
+      "slug": "skill-catalog-curation",
+      "title": "Skill Catalog Curation",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Reviews the library as a whole, merges overlaps, and organizes categories and discoverability."
+    },
+    {
+      "slug": "skill-provenance",
+      "title": "Skill Provenance",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "architecture-spec",
+        "conversation"
+      ],
+      "purpose": "Records where a skill came from, what evidence informed it, and what assumptions it encodes."
+    },
+    {
+      "slug": "skill-variant-splitting",
+      "title": "Skill Variant Splitting",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Decides when one broad skill should be split into stack variants, platform variants, or micro-skills."
+    },
+    {
+      "slug": "skill-safety-review",
+      "title": "Skill Safety Review",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "claude-skill-creator",
+        "architecture-spec"
+      ],
+      "purpose": "Checks a skill for hidden destructive behavior, misleading instructions, or excessive permissions."
+    },
+    {
+      "slug": "skill-reference-extraction",
+      "title": "Skill Reference Extraction",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "architecture-spec"
+      ],
+      "purpose": "Pulls large docs, examples, and schemas out of the main SKILL body into references for progressive disclosure."
+    },
+    {
+      "slug": "skill-anti-patterns",
+      "title": "Skill Anti-Patterns",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Collects common ways skills fail: vague scope, weak triggers, broad but shallow bodies, or missing evals."
+    },
+    {
+      "slug": "skill-lifecycle-management",
+      "title": "Skill Lifecycle Management",
+      "category_slug": "03-meta-skill-engineering",
+      "category_title": "Meta Skill Engineering",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "architecture-spec"
+      ],
+      "purpose": "Manages skill creation, rollout, revision, deprecation, and archival states over time."
+    },
+    {
+      "slug": "plan-review",
+      "title": "Plan Review",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Reviews a proposed plan for completeness, sequencing, hidden assumptions, and execution readiness before implementation begins."
+    },
+    {
+      "slug": "steelman",
+      "title": "Steelman",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Rebuilds an idea or plan in its strongest plausible form before judging it."
+    },
+    {
+      "slug": "red-team-challenge",
+      "title": "Red-Team Challenge",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P0",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Actively looks for weak points, exploitation paths, unsafe assumptions, and failure cases in a design or plan."
+    },
+    {
+      "slug": "premortem",
+      "title": "Premortem",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P0",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Assumes the project failed and works backward to identify the most likely causes before work starts."
+    },
+    {
+      "slug": "assumptions-audit",
+      "title": "Assumptions Audit",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P0",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Extracts unstated assumptions from a plan, brief, architecture, or ticket and marks which ones are dangerous."
+    },
+    {
+      "slug": "contradiction-finder",
+      "title": "Contradiction Finder",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Scans specs, tickets, decisions, and repo docs for conflicting statements or incompatible expectations."
+    },
+    {
+      "slug": "scope-pressure-test",
+      "title": "Scope Pressure Test",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Pushes on whether the requested scope is realistic for the timeline, repo state, and available agents."
+    },
+    {
+      "slug": "decision-packet-builder",
+      "title": "Decision Packet Builder",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Batches unresolved major choices with options, consequences, and recommendations instead of drip-feeding questions."
+    },
+    {
+      "slug": "tradeoff-analysis",
+      "title": "Tradeoff Analysis",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Compares competing options across cost, complexity, flexibility, risk, and maintenance burden."
+    },
+    {
+      "slug": "architecture-review",
+      "title": "Architecture Review",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Evaluates whether the system shape, boundaries, dependencies, and responsibilities actually make sense."
+    },
+    {
+      "slug": "drift-detection",
+      "title": "Drift Detection",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Checks whether implementation or repo state has drifted away from the approved plan or canonical brief."
+    },
+    {
+      "slug": "blocker-extraction",
+      "title": "Blocker Extraction",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Identifies what decisions, assets, or evidence truly block progress and separates them from minor unknowns."
+    },
+    {
+      "slug": "acceptance-criteria-hardening",
+      "title": "Acceptance Criteria Hardening",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Turns vague success language into observable, testable, decision-complete acceptance criteria."
+    },
+    {
+      "slug": "gap-analysis",
+      "title": "Gap Analysis",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P1",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Compares current repo or plan state against target state and lists missing pieces cleanly."
+    },
+    {
+      "slug": "skeptic-pass",
+      "title": "Skeptic Pass",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Runs a deliberately doubtful review over a proposal to catch optimism bias and hand-wavy claims."
+    },
+    {
+      "slug": "failure-mode-analysis",
+      "title": "Failure Mode Analysis",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Enumerates how a system could fail in production, operation, or workflow and what controls reduce each risk."
+    },
+    {
+      "slug": "root-cause-analysis",
+      "title": "Root Cause Analysis",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Investigates why a bug, outage, or process failure happened and what underlying cause actually mattered."
+    },
+    {
+      "slug": "reverse-brainstorming",
+      "title": "Reverse Brainstorming",
+      "category_slug": "04-planning-review-and-critique",
+      "category_title": "Planning, Review, and Critique",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Asks how to make the plan fail, become slow, or become unreliable, then inverts the answers into protections."
+    },
+    {
+      "slug": "agent-orchestration",
+      "title": "Agent Orchestration",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Coordinates multiple agents, defines responsibility boundaries, and sequences collaborative work safely."
+    },
+    {
+      "slug": "delegation-boundaries",
+      "title": "Delegation Boundaries",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explains what can be delegated, to whom, under what evidence requirements, and when escalation is required."
+    },
+    {
+      "slug": "approval-gates",
+      "title": "Approval Gates",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P0",
+      "sources": [
+        "research-gap",
+        "invented"
+      ],
+      "purpose": "Introduces explicit stop/go gates before implementation, release, destructive mutation, or architectural pivots."
+    },
+    {
+      "slug": "session-resume-rehydration",
+      "title": "Session Resume Rehydration",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Restores enough project state for work to resume cleanly after interruption, host change, or model swap."
+    },
+    {
+      "slug": "subagent-research-patterns",
+      "title": "Subagent Research Patterns",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures how narrow research lanes gather evidence, summarize it, and hand it back without mutating repo state."
+    },
+    {
+      "slug": "workflow-state-memory",
+      "title": "Workflow State Memory",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Stores durable workflow state explicitly so agents do not rely on hazy conversational memory."
+    },
+    {
+      "slug": "autonomous-run-control",
+      "title": "Autonomous Run Control",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines how autonomous runs start, checkpoint, pause, recover, and terminate safely."
+    },
+    {
+      "slug": "parallel-lane-safety",
+      "title": "Parallel Lane Safety",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Determines which tickets or change sets can safely proceed in parallel and which ones must serialize."
+    },
+    {
+      "slug": "artifact-contracts",
+      "title": "Artifact Contracts",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Specifies what artifacts each stage must produce and what evidence they must contain."
+    },
+    {
+      "slug": "panel-of-experts",
+      "title": "Panel of Experts",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Runs a structured multi-perspective pass over a problem before choosing a course of action."
+    },
+    {
+      "slug": "verification-before-advance",
+      "title": "Verification Before Advance",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Requires proof that a stage is actually complete before moving to the next one."
+    },
+    {
+      "slug": "long-run-watchdog",
+      "title": "Long-Run Watchdog",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Monitors autonomous workflows for loops, inactivity, repeated errors, or missing outputs and intervenes with a bounded recovery policy."
+    },
+    {
+      "slug": "human-interrupt-handling",
+      "title": "Human Interrupt Handling",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Explains how the system should react when the user injects new instructions mid-run without corrupting state."
+    },
+    {
+      "slug": "goal-decomposition",
+      "title": "Goal Decomposition",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Breaks broad goals into staged work units, subgoals, dependencies, and decision checkpoints."
+    },
+    {
+      "slug": "manager-hierarchy-design",
+      "title": "Manager Hierarchy Design",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Decides when to introduce managers, section leads, or a second orchestration tier above team leaders."
+    },
+    {
+      "slug": "swarm-patterns",
+      "title": "Swarm Patterns",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines reusable collaboration patterns for many agents working on one outcome with bounded overlap."
+    },
+    {
+      "slug": "collaboration-checkpoints",
+      "title": "Collaboration Checkpoints",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Introduces synchronization moments where agents reconcile assumptions, artifacts, and blockers."
+    },
+    {
+      "slug": "multi-agent-debugging",
+      "title": "Multi-Agent Debugging",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Diagnoses whether a failure came from the prompt layer, routing, state, tooling, or the agents themselves."
+    },
+    {
+      "slug": "autonomous-backlog-maintenance",
+      "title": "Autonomous Backlog Maintenance",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": "P2",
+      "sources": [
+        "invented",
+        "conversation"
+      ],
+      "purpose": "Keeps the backlog clean by reclassifying stale, blocked, duplicated, or superseded tickets under defined rules."
+    },
+    {
+      "slug": "process-versioning",
+      "title": "P2",
+      "category_slug": "05-agentic-orchestration-and-autonomy",
+      "category_title": "Agentic Orchestration and Autonomy",
+      "priority": [
+        "conversation",
+        "invented"
+      ],
+      "sources": "Tracks workflow contract versions and how repo state should respond to a process upgrade.",
+      "purpose": "Useful for repair, migration, and audit history."
+    },
+    {
+      "slug": "team-leader",
+      "title": "Team Leader",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Coordinates specialists, checks evidence first, and advances work without owning all implementation directly."
+    },
+    {
+      "slug": "planner",
+      "title": "Planner",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Turns a single ticket into a complete, bounded implementation plan rather than re-planning the entire project."
+    },
+    {
+      "slug": "backlog-verifier",
+      "title": "Backlog Verifier",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Re-checks completed work after workflow or process changes and decides which tickets need re-verification."
+    },
+    {
+      "slug": "ticket-creator",
+      "title": "Ticket Creator",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Creates follow-up tickets only from actual evidence, not vague intentions or duplicated complaints."
+    },
+    {
+      "slug": "code-review",
+      "title": "Code Review",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Reviews implementation for correctness, regressions, maintainability, and mismatch with the approved plan."
+    },
+    {
+      "slug": "security-review",
+      "title": "Security Review",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Reviews trust boundaries, secrets handling, validation, and attack surfaces in a read-only lane."
+    },
+    {
+      "slug": "qa-validation",
+      "title": "QA Validation",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Checks whether the work actually meets acceptance criteria from a tester/QA perspective."
+    },
+    {
+      "slug": "docs-handoff",
+      "title": "Docs Handoff",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P1",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Synchronizes documentation and handoff surfaces after a ticket or milestone is complete."
+    },
+    {
+      "slug": "repo-evidence-gathering",
+      "title": "Repo Evidence Gathering",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Collects focused repository evidence for another specialist without making edits."
+    },
+    {
+      "slug": "github-prior-art-research",
+      "title": "GitHub Prior Art Research",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Looks for similar repos, patterns, and implementations on GitHub and returns grounded findings."
+    },
+    {
+      "slug": "shell-inspection",
+      "title": "Shell Inspection",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Uses read-only terminal inspection to confirm repo state, file existence, and runtime facts."
+    },
+    {
+      "slug": "context-summarization",
+      "title": "Context Summarization",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Compresses large evidence sets into a handoff-friendly summary without dropping critical facts."
+    },
+    {
+      "slug": "ticket-audit",
+      "title": "Ticket Audit",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Audits ticket state, dependencies, and artifact completeness for inconsistencies or stale transitions."
+    },
+    {
+      "slug": "implementer-hub",
+      "title": "Implementer Hub",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Implements changes in the hub/core/service layer under an approved plan."
+    },
+    {
+      "slug": "implementer-node-agent",
+      "title": "Implementer Node Agent",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Implements bounded changes in node-agent or per-machine execution surfaces under an approved plan."
+    },
+    {
+      "slug": "implementer-context",
+      "title": "Implementer Context",
+      "category_slug": "06-agent-role-candidates",
+      "category_title": "Agent Role Candidate Skills",
+      "priority": "P2",
+      "sources": [
+        "gpttalker-agent",
+        "conversation"
+      ],
+      "purpose": "Implements context, retrieval, routing, or observability changes under an approved plan."
+    },
+    {
+      "slug": "mcp-development",
+      "title": "MCP Development",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-docs",
+        "invented"
+      ],
+      "purpose": "Covers end-to-end MCP server design, tool surfaces, resources, prompts, and repo conventions."
+    },
+    {
+      "slug": "mcp-tool-design",
+      "title": "MCP Tool Design",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs MCP tools with safe contracts, good naming, narrow scope, and host-friendly schemas."
+    },
+    {
+      "slug": "mcp-testing-evals",
+      "title": "MCP Testing and Evals",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Tests MCP tools, transports, permission behavior, and end-to-end host interactions under repeatable scenarios."
+    },
+    {
+      "slug": "mcp-security-permissions",
+      "title": "MCP Security and Permissions",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles least privilege, tool gating, path restrictions, tenant boundaries, and fail-closed behavior for MCP systems."
+    },
+    {
+      "slug": "mcp-host-integration",
+      "title": "MCP Host Integration",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles how an MCP server fits into ChatGPT, Claude, OpenCode, Codex, or other hosts and their differing expectations."
+    },
+    {
+      "slug": "mcp-python-fastmcp",
+      "title": "MCP Python FastMCP",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Python- and FastMCP-style conventions for building a local or hosted MCP server."
+    },
+    {
+      "slug": "mcp-typescript-sdk",
+      "title": "MCP TypeScript SDK",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies TypeScript SDK patterns for MCP servers, tool registration, and runtime boundaries."
+    },
+    {
+      "slug": "mcp-go-server",
+      "title": "MCP Go Server",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Go idioms and service structure to an MCP server implementation."
+    },
+    {
+      "slug": "mcp-resources-prompts",
+      "title": "MCP Resources and Prompts",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers non-tool MCP surfaces such as resources, prompt templates, and discovery metadata."
+    },
+    {
+      "slug": "mcp-auth-transports",
+      "title": "MCP Auth and Transports",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs",
+        "invented"
+      ],
+      "purpose": "Handles stdio versus HTTP/SSE/WebSocket transport decisions and any authentication layer on top."
+    },
+    {
+      "slug": "mcp-inspector-debugging",
+      "title": "MCP Inspector and Debugging",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Uses inspector tooling, schema checks, logs, and host traces to debug MCP failures."
+    },
+    {
+      "slug": "mcp-marketplace-publishing",
+      "title": "MCP Marketplace Publishing",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Packages MCP servers or skill bundles for publication, distribution, or catalog inclusion."
+    },
+    {
+      "slug": "mcp-schema-contracts",
+      "title": "MCP Schema Contracts",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines naming, schema evolution, validation, and backward-compatibility expectations for MCP surfaces."
+    },
+    {
+      "slug": "mcp-migration-retrofit",
+      "title": "MCP Migration Retrofit",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Retrofits an existing app, tool, or server into an MCP-compatible surface without a blind rewrite."
+    },
+    {
+      "slug": "mcp-multi-tenant-design",
+      "title": "MCP Multi-Tenant Design",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs isolation, auth, state partitioning, and limits when one MCP service serves multiple tenants or users."
+    },
+    {
+      "slug": "mcp-chatgpt-app-bridge",
+      "title": "MCP ChatGPT App Bridge",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs the bridge between a local or hosted MCP server and a ChatGPT app-like experience or tool surface."
+    },
+    {
+      "slug": "mcp-builder",
+      "title": "MCP Builder",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P1",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A broader external-style MCP construction skill inspired by public skill examples."
+    },
+    {
+      "slug": "opencode-primitives",
+      "title": "OpenCode Primitives",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Holds exact OpenCode path, naming, and configuration primitives that other skills can assume."
+    },
+    {
+      "slug": "get-started",
+      "title": "Get Started",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Provides a deterministic micro-skill for onboarding or initial validation of the local skill environment."
+    },
+    {
+      "slug": "opencode-bridge",
+      "title": "OpenCode Bridge",
+      "category_slug": "07-mcp",
+      "category_title": "MCP Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "invented"
+      ],
+      "purpose": "Explains how project-local skills and operating surfaces should bind into OpenCode-specific conventions."
+    },
+    {
+      "slug": "react-typescript",
+      "title": "React and TypeScript",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Defines component patterns, typing conventions, state boundaries, and validation expectations for React+TypeScript work."
+    },
+    {
+      "slug": "nextjs-app-router",
+      "title": "Next.js App Router",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles route structure, server/client boundaries, data fetching, and deployment caveats for App Router projects."
+    },
+    {
+      "slug": "vue",
+      "title": "Vue",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "invented"
+      ],
+      "purpose": "Applies Vue-specific component and state patterns when the stack calls for it."
+    },
+    {
+      "slug": "svelte",
+      "title": "Svelte",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "invented"
+      ],
+      "purpose": "Applies Svelte component, store, and routing patterns when the stack calls for it."
+    },
+    {
+      "slug": "tailwind-shadcn",
+      "title": "Tailwind and shadcn/ui",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Standardizes utility-class styling, component composition, and design-system reuse in Tailwind-based projects."
+    },
+    {
+      "slug": "ux-design",
+      "title": "UX Design",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies layout, hierarchy, readability, interaction flow, and usability reasoning to interface work."
+    },
+    {
+      "slug": "design-tokens",
+      "title": "Design Tokens",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines colors, spacing, typography, radius, and semantic token layers so style is consistent and reusable."
+    },
+    {
+      "slug": "state-management",
+      "title": "State Management",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Chooses and structures local, server, cache, and global state patterns without needless complexity."
+    },
+    {
+      "slug": "forms-validation",
+      "title": "Forms and Validation",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles form structure, validation, error display, and submission behavior in web apps."
+    },
+    {
+      "slug": "accessibility-audit",
+      "title": "Accessibility Audit",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Checks semantic structure, keyboard flow, contrast, labels, and assistive-tech friendliness."
+    },
+    {
+      "slug": "frontend-performance",
+      "title": "Frontend Performance",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Looks at bundle size, loading strategy, rendering cost, image handling, and user-perceived responsiveness."
+    },
+    {
+      "slug": "testing-web",
+      "title": "Web Testing",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies unit, component, integration, and browser-level testing strategies to frontend projects."
+    },
+    {
+      "slug": "web-artifacts-builder",
+      "title": "Web Artifacts Builder",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Produces polished website assets or derivative files such as structured content or static deliverables."
+    },
+    {
+      "slug": "theme-factory",
+      "title": "Theme Factory",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Creates or refines a coherent visual theme, token set, and component styling direction."
+    },
+    {
+      "slug": "frontend-design",
+      "title": "Frontend Design",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Applies anti-slop design judgement, layout critique, and presentational improvements to frontend work."
+    },
+    {
+      "slug": "canvas-design",
+      "title": "Canvas Design",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Designs visual or mixed-media layouts inside canvas-like surfaces with attention to hierarchy and composition."
+    },
+    {
+      "slug": "brand-guidelines",
+      "title": "Brand Guidelines",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Translates or creates brand rules for tone, color, typography, imagery, and consistency."
+    },
+    {
+      "slug": "webapp-testing",
+      "title": "Webapp Testing",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "An external-style web testing skill focused on end-to-end webapp quality and bug-catching workflows."
+    },
+    {
+      "slug": "seo-structured-data",
+      "title": "SEO and Structured Data",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Adds search-oriented metadata, sitemap, schema, and crawl-aware content structure where relevant."
+    },
+    {
+      "slug": "analytics-instrumentation",
+      "title": "Analytics Instrumentation",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines events, funnels, naming, and capture rules so product analytics are useful rather than noisy."
+    },
+    {
+      "slug": "react-native-firebase",
+      "title": "React Native Firebase",
+      "category_slug": "08-web-frontend-and-design",
+      "category_title": "Web, Frontend, and Design Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Captures a mobile app workflow pattern centered on React Native and Firebase integration."
+    },
+    {
+      "slug": "python",
+      "title": "Python",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Holds Python project conventions, typing expectations, structure, and standard validation habits."
+    },
+    {
+      "slug": "fastapi",
+      "title": "FastAPI",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies FastAPI route, dependency, validation, async, and schema conventions."
+    },
+    {
+      "slug": "flask",
+      "title": "Flask",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies Flask app structure, extension boundaries, and request handling patterns when Flask is chosen."
+    },
+    {
+      "slug": "express-node",
+      "title": "Express and Node",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Express and Node service structure, middleware, validation, and routing conventions."
+    },
+    {
+      "slug": "go-api-service",
+      "title": "Go API Service",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Go service layout, handler structure, context usage, and validation boundaries to API backends."
+    },
+    {
+      "slug": "postgresql",
+      "title": "PostgreSQL",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines schema, migration, indexing, transaction, and query expectations for PostgreSQL-backed work."
+    },
+    {
+      "slug": "sqlite",
+      "title": "SQLite",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines file-backed persistence, migration, concurrency, and testing patterns for SQLite."
+    },
+    {
+      "slug": "orm-patterns",
+      "title": "ORM Patterns",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Sets expectations for model design, query boundaries, migration use, and avoiding ORM misuse."
+    },
+    {
+      "slug": "background-jobs-queues",
+      "title": "Background Jobs and Queues",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles deferred work, retries, idempotency, schedule, and worker boundaries."
+    },
+    {
+      "slug": "observability-logging",
+      "title": "Observability and Logging",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers structured logs, traces, metrics, correlation IDs, and safe diagnostic output."
+    },
+    {
+      "slug": "rate-limits-retries",
+      "title": "Rate Limits and Retries",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explains client and server-side rate control, exponential backoff, and failure classification."
+    },
+    {
+      "slug": "webhooks-events",
+      "title": "Webhooks and Events",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles inbound event verification, idempotency, fanout, and asynchronous processing patterns."
+    },
+    {
+      "slug": "realtime-websocket",
+      "title": "Realtime and WebSocket",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies connection lifecycle, message schema, fanout, and failure handling to realtime systems."
+    },
+    {
+      "slug": "api-debugging",
+      "title": "API Debugging",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "A focused debugging pack for request/response mismatches, schema issues, and transport problems."
+    },
+    {
+      "slug": "api-contracts",
+      "title": "API Contracts",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Strengthens explicit API contracts, validation expectations, and compatibility behavior."
+    },
+    {
+      "slug": "data-model",
+      "title": "Data Model",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Designs entities, relationships, invariants, and migration-sensitive structure in the data layer."
+    },
+    {
+      "slug": "bigquery",
+      "title": "BigQuery",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Applies BigQuery-specific query, cost, and schema guidance when analytics or warehousing need it."
+    },
+    {
+      "slug": "firebase-rules",
+      "title": "Firebase Rules",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Handles Firebase security rules, access design, and testing of rule behavior."
+    },
+    {
+      "slug": "firebase-sdk",
+      "title": "Firebase SDK",
+      "category_slug": "09-backend-api-and-data",
+      "category_title": "Backend, API, and Data Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Applies client/server Firebase SDK usage conventions and integration cautions."
+    },
+    {
+      "slug": "cli-development-go",
+      "title": "Go CLI Development",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Builds command-line tools in Go with clean command structure, config handling, and validation."
+    },
+    {
+      "slug": "cli-development-python",
+      "title": "Python CLI Development",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Builds command-line tools in Python with sensible packaging, argument parsing, and UX expectations."
+    },
+    {
+      "slug": "bash",
+      "title": "Bash",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies shell scripting safety, quoting, error handling, and portable command composition."
+    },
+    {
+      "slug": "terminal-debugging",
+      "title": "Terminal Debugging",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Uses focused terminal inspection to diagnose environment, process, path, and runtime problems."
+    },
+    {
+      "slug": "tui-development",
+      "title": "TUI Development",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies terminal UI patterns, event loops, layout, and keyboard-centric UX to text interfaces."
+    },
+    {
+      "slug": "cobra-go",
+      "title": "Cobra for Go CLIs",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures Go CLIs around Cobra commands, flags, and subcommand organization."
+    },
+    {
+      "slug": "bubbletea-go",
+      "title": "Bubble Tea for Go TUIs",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Builds stateful terminal UIs in Go with Bubble Tea models, updates, and views."
+    },
+    {
+      "slug": "config-files-xdg",
+      "title": "Config Files and XDG",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Standardizes config paths, environment overrides, defaults, and user-editable state."
+    },
+    {
+      "slug": "packaging-installers",
+      "title": "Packaging and Installers",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles distribution methods, install scripts, path setup, and uninstallation expectations for developer tools."
+    },
+    {
+      "slug": "cross-platform-shell",
+      "title": "Cross-Platform Shell",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers shell and path differences across Linux, macOS, and Windows for tooling that should travel."
+    },
+    {
+      "slug": "linux-ubuntu-ops",
+      "title": "Linux and Ubuntu Ops",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies practical Ubuntu/Linux server and workstation conventions for setup, services, paths, and troubleshooting."
+    },
+    {
+      "slug": "ssh-tmux-remote-workflow",
+      "title": "SSH and tmux Remote Workflow",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Optimizes remote CLI work with SSH, tmux, session recovery, and safe long-running commands."
+    },
+    {
+      "slug": "systemd-services",
+      "title": "systemd Services",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Creates and maintains systemd units, restart behavior, logging expectations, and safe service deployment."
+    },
+    {
+      "slug": "release-binaries",
+      "title": "Release Binaries",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Packages compiled CLI artifacts, checksums, and release metadata for distribution."
+    },
+    {
+      "slug": "proxmox-shell-scripting",
+      "title": "Proxmox Shell Scripting",
+      "category_slug": "10-cli-systems-and-ops",
+      "category_title": "CLI, Systems, and Ops Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Applies shell automation patterns in a Proxmox or virtualization-heavy environment."
+    },
+    {
+      "slug": "llm-integration",
+      "title": "LLM Integration",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-gap"
+      ],
+      "purpose": "Integrates AI capabilities into a product or service with safe boundaries, cost awareness, and useful UX."
+    },
+    {
+      "slug": "local-llm",
+      "title": "Local LLM",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-gap"
+      ],
+      "purpose": "Covers local model runtime selection, deployment, constraints, and practical tradeoffs."
+    },
+    {
+      "slug": "ollama",
+      "title": "Ollama",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Ollama-specific conventions for model management, serving, and local integration."
+    },
+    {
+      "slug": "llama-cpp",
+      "title": "llama.cpp",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies llama.cpp runtime patterns, quantization considerations, and local deployment habits."
+    },
+    {
+      "slug": "vllm-serving",
+      "title": "vLLM Serving",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles vLLM-based serving, batching, throughput, and API integration where GPU or server setups justify it."
+    },
+    {
+      "slug": "model-selection",
+      "title": "Model Selection",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Chooses a model based on task shape, hardware, latency, cost, context, and risk tolerance."
+    },
+    {
+      "slug": "rag-retrieval",
+      "title": "RAG and Retrieval",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers retrieval design, chunking, grounding, citation, and failure modes in retrieval-augmented systems."
+    },
+    {
+      "slug": "embeddings-indexing",
+      "title": "Embeddings and Indexing",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles embedding model choice, indexing strategy, deduplication, and provenance-aware storage."
+    },
+    {
+      "slug": "tool-use-agents",
+      "title": "Tool-Use Agents",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs agents that call tools safely, with argument validation, fallback behavior, and observation handling."
+    },
+    {
+      "slug": "multimodal-ai",
+      "title": "Multimodal AI",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles systems that mix text, image, audio, or document inputs and outputs."
+    },
+    {
+      "slug": "llm-evals-benchmarks",
+      "title": "LLM Evals and Benchmarks",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Creates task-specific evaluations for model quality, latency, reliability, and regressions."
+    },
+    {
+      "slug": "context-management-memory",
+      "title": "Context Management and Memory",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures what stays in prompt, what becomes retrieved memory, and how stale context is controlled."
+    },
+    {
+      "slug": "safety-guardrails",
+      "title": "Safety Guardrails",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines refusal, escalation, permission, and safe-default controls around model or agent behavior."
+    },
+    {
+      "slug": "offline-cpu-inference",
+      "title": "Offline CPU Inference",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Optimizes and constrains local CPU-only inference setups for weak or older machines."
+    },
+    {
+      "slug": "model-routing",
+      "title": "Model Routing",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Routes different requests to different models or runtimes based on capability, latency, or cost."
+    },
+    {
+      "slug": "inference-serving",
+      "title": "Inference Serving",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers API serving, concurrency, queuing, batching, and operational behavior for hosted inference."
+    },
+    {
+      "slug": "quantization-strategy",
+      "title": "Quantization Strategy",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Chooses quantization levels and tradeoffs based on memory, speed, and quality constraints."
+    },
+    {
+      "slug": "retrieval-quality",
+      "title": "Retrieval Quality",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Measures and improves retrieval relevance, coverage, and grounding quality over time."
+    },
+    {
+      "slug": "structured-output-pipelines",
+      "title": "Structured Output Pipelines",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs JSON, schema, or typed-output flows that remain robust under model variation."
+    },
+    {
+      "slug": "agent-memory",
+      "title": "Agent Memory",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs memory stores and policies for agents without letting memory become a stale junk drawer."
+    },
+    {
+      "slug": "python-llm-ml-workflow",
+      "title": "Python LLM/ML Workflow",
+      "category_slug": "11-ai-llm-runtime-and-integration",
+      "category_title": "AI / LLM Runtime and Integration Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "A broader external seed for Python-centric LLM and ML repository work."
+    },
+    {
+      "slug": "fine-tuning",
+      "title": "Fine Tuning",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers when and how to fine-tune a model, what data is needed, and how to evaluate whether tuning helped."
+    },
+    {
+      "slug": "instruction-tuning",
+      "title": "Instruction Tuning",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Builds or evaluates instruction-style supervised fine-tuning datasets and training runs."
+    },
+    {
+      "slug": "preference-optimization",
+      "title": "Preference Optimization",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Handles preference data, ranking-based training, and alignment-style post-training methods."
+    },
+    {
+      "slug": "synthetic-data-generation",
+      "title": "Synthetic Data Generation",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Creates or critiques synthetic datasets for training, evals, or augmentation under clear quality controls."
+    },
+    {
+      "slug": "dataset-curation",
+      "title": "Dataset Curation",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Selects, filters, deduplicates, and documents datasets for model work."
+    },
+    {
+      "slug": "data-cleaning-labeling",
+      "title": "Data Cleaning and Labeling",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Handles normalization, schema consistency, annotation quality, and label reliability for model data."
+    },
+    {
+      "slug": "model-architecture",
+      "title": "Model Architecture",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explores transformer and related model architecture choices, tradeoffs, and design constraints."
+    },
+    {
+      "slug": "llm-creation",
+      "title": "LLM Creation",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P0",
+      "sources": [
+        "user-request",
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers the broader end-to-end process of creating an LLM system from tokenizer through training and serving."
+    },
+    {
+      "slug": "tokenizer-design",
+      "title": "Tokenizer Design",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Handles vocabulary choice, tokenization strategy, domain fit, and measurement of token efficiency."
+    },
+    {
+      "slug": "pretraining-pipeline",
+      "title": "Pretraining Pipeline",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Defines data flow, curriculum, checkpoints, scaling, and monitoring for pretraining runs."
+    },
+    {
+      "slug": "moe-architecture",
+      "title": "MoE Architecture",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explores mixture-of-experts design, routing, sparse activation, and engineering tradeoffs."
+    },
+    {
+      "slug": "distillation-compression",
+      "title": "Distillation and Compression",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Transfers capability from larger systems into smaller, cheaper, or faster models."
+    },
+    {
+      "slug": "quantization-research",
+      "title": "Quantization Research",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Studies quality-versus-speed tradeoffs and novel quantization methods for model deployment."
+    },
+    {
+      "slug": "inference-kernel-optimization",
+      "title": "Inference Kernel Optimization",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Looks at low-level math kernels, memory movement, and execution primitives for faster inference."
+    },
+    {
+      "slug": "eval-dataset-design",
+      "title": "Eval Dataset Design",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Builds targeted evaluation sets that reflect the real task rather than generic benchmarks only."
+    },
+    {
+      "slug": "benchmark-design",
+      "title": "Benchmark Design",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Designs fair, discriminating, reproducible benchmarks for models, skills, or runtimes."
+    },
+    {
+      "slug": "safety-alignment",
+      "title": "Safety and Alignment",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Covers risk shaping, refusal behavior, post-training controls, and alignment tradeoffs for model systems."
+    },
+    {
+      "slug": "reward-modeling",
+      "title": "Reward Modeling",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P2",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Handles scoring-model creation and evaluation for preference-based post-training methods."
+    },
+    {
+      "slug": "model-merging",
+      "title": "Model Merging",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explores merging or fusing model weights or capabilities and how to validate the results."
+    },
+    {
+      "slug": "serving-architecture",
+      "title": "Serving Architecture",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Designs the system architecture around deployed models: queues, routers, fallback paths, and scaling surfaces."
+    },
+    {
+      "slug": "training-infrastructure",
+      "title": "Training Infrastructure",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P1",
+      "sources": [
+        "user-request",
+        "invented"
+      ],
+      "purpose": "Defines compute layout, storage, checkpointing, reproducibility, and orchestration for model training."
+    },
+    {
+      "slug": "dense-to-moe-experiments",
+      "title": "Dense-to-MoE Experiments",
+      "category_slug": "12-ai-llm-training-architecture-and-research",
+      "category_title": "AI / LLM Training, Architecture, and Research Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Explores experimental methods for transforming dense-model behavior into expert-routed behavior without naive quality collapse."
+    },
+    {
+      "slug": "unity",
+      "title": "Unity",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies Unity project structure, component patterns, scenes, assets, and performance-aware coding conventions."
+    },
+    {
+      "slug": "unreal-engine",
+      "title": "Unreal Engine",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies Unreal project structure, Blueprint/C++ boundaries, asset handling, and engine-specific workflow guidance."
+    },
+    {
+      "slug": "godot",
+      "title": "Godot",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Godot scene, script, signal, and project organization patterns."
+    },
+    {
+      "slug": "game-design-systems",
+      "title": "Game Design Systems",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs gameplay loops, progression systems, mechanics interplay, and rule coherence."
+    },
+    {
+      "slug": "game-ui-hud",
+      "title": "Game UI and HUD",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles menus, HUDs, readability, control prompts, and interaction design for games."
+    },
+    {
+      "slug": "asset-pipeline",
+      "title": "Asset Pipeline",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Standardizes asset sourcing, naming, versioning, import settings, and optimization."
+    },
+    {
+      "slug": "performance-profiling-games",
+      "title": "Game Performance Profiling",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Measures frame time, memory, loading, and engine-specific performance regressions."
+    },
+    {
+      "slug": "input-mapping-controller",
+      "title": "Input Mapping and Controller Support",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures keyboard, mouse, controller, rebinding, and accessibility-friendly input design."
+    },
+    {
+      "slug": "save-load-state",
+      "title": "Save and Load State",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles persistence of progress, configuration, checkpoints, and schema evolution in games."
+    },
+    {
+      "slug": "ai-npc-behavior",
+      "title": "AI NPC Behavior",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Designs and implements NPC logic, state, goals, and player-facing behavior patterns."
+    },
+    {
+      "slug": "blueprint-patterns",
+      "title": "Blueprint Patterns",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Captures good Unreal Blueprint structure, communication, and anti-spaghetti practices."
+    },
+    {
+      "slug": "unity-scriptableobject-events",
+      "title": "Unity ScriptableObject Events",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Uses ScriptableObjects and event-driven patterns cleanly inside Unity."
+    },
+    {
+      "slug": "multiplayer-netcode",
+      "title": "Multiplayer Netcode",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles authority, synchronization, prediction, and state consistency in multiplayer game work."
+    },
+    {
+      "slug": "worldbuilding-lore-systems",
+      "title": "Worldbuilding and Lore Systems",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures deities, factions, history, settings, and lore consistency for world-heavy projects."
+    },
+    {
+      "slug": "algorithmic-art",
+      "title": "Algorithmic Art",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Explores computational or generative art creation workflows as a reusable skill seed."
+    },
+    {
+      "slug": "ue5-blueprint",
+      "title": "UE5 Blueprint",
+      "category_slug": "13-game-engines-and-creative-tech",
+      "category_title": "Game Engines and Creative Tech Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "A more explicitly named Unreal Blueprint external seed reflecting public rule examples."
+    },
+    {
+      "slug": "cloudflare",
+      "title": "Cloudflare",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Covers Cloudflare products, constraints, deployment, and runtime patterns for projects that use them."
+    },
+    {
+      "slug": "firebase",
+      "title": "Firebase",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Covers Firebase architecture choices, client/server usage, rules, and deployment caveats."
+    },
+    {
+      "slug": "gcp",
+      "title": "Google Cloud Platform",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "research-docs"
+      ],
+      "purpose": "Applies GCP service selection, IAM, deployment, and operational patterns to cloud-backed work."
+    },
+    {
+      "slug": "aws",
+      "title": "AWS",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies AWS service selection, IAM, deployment, and operational guardrails when AWS is chosen."
+    },
+    {
+      "slug": "vercel",
+      "title": "Vercel",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies Vercel deployment, routing, runtime, and environment conventions for web apps."
+    },
+    {
+      "slug": "docker-containers",
+      "title": "Docker and Containers",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles container build, layering, runtime config, and local-to-prod consistency."
+    },
+    {
+      "slug": "terraform-iac",
+      "title": "Terraform and IaC",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Defines infrastructure-as-code structure, modules, environments, and safe change patterns."
+    },
+    {
+      "slug": "secret-management",
+      "title": "Secret Management",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles environment variables, secret storage, rotation, and accidental exposure prevention."
+    },
+    {
+      "slug": "serverless-patterns",
+      "title": "Serverless Patterns",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies serverless design, cold-start awareness, event structure, and stateless boundaries."
+    },
+    {
+      "slug": "queues-cron-workers",
+      "title": "Queues, Cron, and Workers",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures scheduled work, background workers, retries, and queue observability."
+    },
+    {
+      "slug": "cost-monitoring",
+      "title": "Cost Monitoring",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Tracks cloud, model, and infrastructure costs and highlights runaway patterns."
+    },
+    {
+      "slug": "tailscale-private-networking",
+      "title": "Tailscale and Private Networking",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Applies secure private networking patterns for multi-machine systems without exposing unnecessary surfaces."
+    },
+    {
+      "slug": "self-hosting-ops",
+      "title": "Self-Hosting Ops",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers deployment, upgrade, backup, and operational safety for self-hosted services."
+    },
+    {
+      "slug": "cloudflare-worker-patterns",
+      "title": "Cloudflare Worker Patterns",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A more specialized Cloudflare runtime pack inspired by public rule examples."
+    },
+    {
+      "slug": "cloud-deploy",
+      "title": "Cloud Deploy",
+      "category_slug": "14-cloud-platform-devops",
+      "category_title": "Cloud, Platform, and DevOps Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "A broader deployment seed for choosing and applying a cloud target cleanly."
+    },
+    {
+      "slug": "document-writing",
+      "title": "Document Writing",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P0",
+      "sources": [
+        "research-gap",
+        "conversation"
+      ],
+      "purpose": "Writes internal or external documents with explicit structure, evidence, and audience-aware clarity."
+    },
+    {
+      "slug": "research-synthesis",
+      "title": "Research Synthesis",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P0",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Combines multiple sources into a grounded report with findings, gaps, and recommendations."
+    },
+    {
+      "slug": "adr-rfc-writing",
+      "title": "ADR and RFC Writing",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Writes architecture decision records and request-for-comment docs that capture options and rationale."
+    },
+    {
+      "slug": "runbook-writing",
+      "title": "Runbook Writing",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Creates operational guides for setup, recovery, diagnosis, and routine procedures."
+    },
+    {
+      "slug": "release-notes",
+      "title": "Release Notes",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Writes useful release notes that summarize what changed, who it affects, and what to verify."
+    },
+    {
+      "slug": "spec-authoring",
+      "title": "Spec Authoring",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P1",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Turns ideas into formal specs with goals, non-goals, constraints, interfaces, and acceptance signals."
+    },
+    {
+      "slug": "meeting-notes-decision-log",
+      "title": "Meeting Notes and Decision Log",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Turns discussions into structured notes and durable decisions rather than loose summaries."
+    },
+    {
+      "slug": "internal-comms",
+      "title": "Internal Comms",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Writes internal announcements, updates, and stakeholder communication clearly and consistently."
+    },
+    {
+      "slug": "pptx-generation",
+      "title": "PowerPoint Generation",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "external-example"
+      ],
+      "purpose": "Creates slide decks with structured sections and presentation-friendly summaries."
+    },
+    {
+      "slug": "docx-generation",
+      "title": "DOCX Generation",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "external-example"
+      ],
+      "purpose": "Creates formatted Word-style documents when richer office output is needed."
+    },
+    {
+      "slug": "pdf-generation",
+      "title": "PDF Generation",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Generates or exports PDF-ready artifacts cleanly when final distribution matters."
+    },
+    {
+      "slug": "xlsx-generation",
+      "title": "XLSX Generation",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "external-example"
+      ],
+      "purpose": "Creates spreadsheet deliverables with useful structure and validation."
+    },
+    {
+      "slug": "doc-coauthoring",
+      "title": "Doc Coauthoring",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Supports iterative co-writing of documents with stages, approvals, and revision discipline."
+    },
+    {
+      "slug": "docx",
+      "title": "DOCX",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "An external-style skill focused specifically on DOCX-oriented tasks and document handling."
+    },
+    {
+      "slug": "pdf-extraction",
+      "title": "PDF Extraction",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Extracts structured content, provenance, and layout-aware details from PDFs."
+    },
+    {
+      "slug": "pdf-editor",
+      "title": "PDF Editor",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Performs PDF manipulations such as page operations or targeted edits under explicit constraints."
+    },
+    {
+      "slug": "table-extraction",
+      "title": "Table Extraction",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Extracts tables from documents while preserving row/column meaning and provenance."
+    },
+    {
+      "slug": "image-editor",
+      "title": "Image Editor",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Handles focused image edits, transformations, or export tasks as a reusable skill pattern."
+    },
+    {
+      "slug": "document-to-structured-data",
+      "title": "Document to Structured Data",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Turns narrative documents into machine-readable fields or structured records."
+    },
+    {
+      "slug": "image-heavy-pdfs",
+      "title": "Image-Heavy PDFs",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Specializes PDF handling when the content is primarily diagrams, screenshots, or images rather than text."
+    },
+    {
+      "slug": "csv-ready",
+      "title": "CSV Ready",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "research-docs",
+        "external-example"
+      ],
+      "purpose": "Shapes extracted or synthesized data into clean CSV-compatible form with stable headers and values."
+    },
+    {
+      "slug": "slack-gif-creator",
+      "title": "Slack GIF Creator",
+      "category_slug": "15-docs-artifacts-media",
+      "category_title": "Docs, Artifacts, and Media Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A niche but concrete example of a highly specific media-generation skill."
+    },
+    {
+      "slug": "spreadsheet-analysis",
+      "title": "Spreadsheet Analysis",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Analyzes or structures tabular data, formulas, and multi-sheet outputs for planning or audit work."
+    },
+    {
+      "slug": "financial-tracker-ops",
+      "title": "Financial Tracker Ops",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Maintains debt, cashflow, ledger, and projection-style artifacts with audit-friendly structure."
+    },
+    {
+      "slug": "market-research",
+      "title": "Market Research",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Researches products, competitors, categories, and gaps with grounded source comparison."
+    },
+    {
+      "slug": "domain-scouting",
+      "title": "Domain Scouting",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Finds and evaluates domain names or naming opportunities under practical constraints."
+    },
+    {
+      "slug": "property-research",
+      "title": "Property Research",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Structures property or location research with budget, area, and opportunity filters."
+    },
+    {
+      "slug": "cv-cover-letter",
+      "title": "CV and Cover Letter",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Tailors CVs and cover letters to specific roles while preserving truthful experience framing."
+    },
+    {
+      "slug": "competitor-teardown",
+      "title": "Competitor Teardown",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Breaks down a competitor's product, business, UX, or technical approach into a structured comparison."
+    },
+    {
+      "slug": "business-idea-evaluation",
+      "title": "Business Idea Evaluation",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Evaluates ideas across feasibility, moat, cost, risk, and revenue plausibility."
+    },
+    {
+      "slug": "starcraft-data-analysis",
+      "title": "StarCraft Data Analysis",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Handles StarCraft patch, balance, replay, or meta-analysis in a structured way."
+    },
+    {
+      "slug": "image-prompt-direction",
+      "title": "Image Prompt Direction",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Creates tighter visual prompting and art-direction guidance for image-generation workflows."
+    },
+    {
+      "slug": "app-publishing",
+      "title": "App Publishing",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Covers Android/iOS publishing steps, accounts, assets, and release caveats for app shipping."
+    },
+    {
+      "slug": "worldbuilding-research",
+      "title": "Worldbuilding Research",
+      "category_slug": "16-business-research-and-optional-domains",
+      "category_title": "Business, Research, and Optional Domain Skills",
+      "priority": "P2",
+      "sources": [
+        "conversation",
+        "invented"
+      ],
+      "purpose": "Researches and structures lore, cultures, systems, and consistency references for fictional worlds."
+    },
+    {
+      "slug": "claude-api",
+      "title": "Claude API",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A public example skill centered on API integration patterns for Claude-like APIs."
+    },
+    {
+      "slug": "pptx",
+      "title": "PPTX",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "An external seed specifically focused on PowerPoint-oriented tasks."
+    },
+    {
+      "slug": "xlsx",
+      "title": "XLSX",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "An external seed specifically focused on spreadsheet-oriented tasks."
+    },
+    {
+      "slug": "solidjs-patterns",
+      "title": "SolidJS Patterns",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "Captures SolidJS-specific structure and conventions as a future frontend seed."
+    },
+    {
+      "slug": "tauri-solidjs",
+      "title": "Tauri + SolidJS",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A desktop-app stack seed combining Tauri and SolidJS conventions."
+    },
+    {
+      "slug": "fastapi-patterns",
+      "title": "FastAPI Patterns",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A public-style FastAPI seed that can inform the deeper FastAPI pack."
+    },
+    {
+      "slug": "bigquery-skill",
+      "title": "BigQuery Skill",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A named BigQuery-focused seed extracted from external examples."
+    },
+    {
+      "slug": "cargo-lock-manager",
+      "title": "Cargo Lock Manager",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A Rust-package maintenance seed focused on Cargo.lock handling and dependency discipline."
+    },
+    {
+      "slug": "gh-address-comments",
+      "title": "GH Address Comments",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A GitHub review-follow-up seed for addressing PR comments methodically."
+    },
+    {
+      "slug": "linear-address-issue",
+      "title": "Linear Address Issue",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A tracker-specific micro-skill for resolving or updating Linear issues cleanly."
+    },
+    {
+      "slug": "frontend-webapp-builder",
+      "title": "Frontend Webapp Builder",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A broader external-style frontend builder seed that can feed more specific packs."
+    },
+    {
+      "slug": "misc-helper",
+      "title": "Misc Helper",
+      "category_slug": "17-external-reference-seeds",
+      "category_title": "External Reference Seed Skills",
+      "priority": "P2",
+      "sources": [
+        "external-example",
+        "research-docs"
+      ],
+      "purpose": "A catch-all micro-skill seed illustrating how small helper skills can exist beside deep domain packs."
+    }
+  ]
+}

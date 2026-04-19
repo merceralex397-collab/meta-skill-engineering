@@ -1,0 +1,18 @@
+name: mcp-inspector-debugging-codex-c
+version: 1
+summary: "Design and verify mcp inspector and debugging with explicit contracts, permissions, and host compatibility."
+invocation:
+  policy: auto
+  aliases:
+    - "mcp-inspector-debugging"
+    - "mcp inspector debugging"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/interface-contracts.md"
+    - "../../references/test-cases.md"
+    - "../../references/risk-controls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

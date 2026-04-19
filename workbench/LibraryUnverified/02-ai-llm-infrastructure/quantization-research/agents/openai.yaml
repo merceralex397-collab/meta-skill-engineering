@@ -1,0 +1,6 @@
+interface:
+  display_name: "Quantization Research"
+  short_description: "Apply quantization research with runtime boundaries, eval cas..."
+  default_prompt: "Use $quantization-research-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

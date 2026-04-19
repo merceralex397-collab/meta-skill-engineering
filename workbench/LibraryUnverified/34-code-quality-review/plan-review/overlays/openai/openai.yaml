@@ -1,0 +1,18 @@
+name: plan-review-codex-c
+version: 1
+summary: "Review plan review work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "plan-review"
+    - "plan review"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/output-template.md"
+    - "../../references/review-rubric.md"
+    - "../../references/sequencing-anti-patterns.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

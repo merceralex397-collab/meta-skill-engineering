@@ -1,0 +1,2 @@
+{"input":"Use Dense-to-MoE Experiments on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"dense-to-moe-experiments"}
+{"input":"Apply Dense-to-MoE Experiments but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"dense-to-moe-experiments"}

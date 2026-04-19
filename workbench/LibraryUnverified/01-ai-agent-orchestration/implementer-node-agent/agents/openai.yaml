@@ -1,0 +1,6 @@
+interface:
+  display_name: "Implementer Node Agent"
+  short_description: "Execute the implementer node agent role with clear scope, evi..."
+  default_prompt: "Use $implementer-node-agent-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

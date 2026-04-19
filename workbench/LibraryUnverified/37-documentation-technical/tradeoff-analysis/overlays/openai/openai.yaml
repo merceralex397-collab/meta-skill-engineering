@@ -1,0 +1,18 @@
+name: tradeoff-analysis-codex-c
+version: 1
+summary: "Review tradeoff analysis work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "tradeoff-analysis"
+    - "tradeoff analysis"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/bias-checks.md"
+    - "../../references/criteria-library.md"
+    - "../../references/output-template.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

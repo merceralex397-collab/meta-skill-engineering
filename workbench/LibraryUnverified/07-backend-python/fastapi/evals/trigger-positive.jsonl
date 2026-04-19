@@ -1,0 +1,3 @@
+{"input":"Audit this FastAPI service for router layout, Depends usage, response_model coverage, and lifespan wiring before I refactor it.","expected":"fastapi","category":"Backend, API, and Data Skills"}
+{"input":"I need help fixing a FastAPI endpoint that mixes auth lookup, DB session setup, and response shaping in one handler.","expected":"fastapi","category":"Backend, API, and Data Skills"}
+{"input":"Review these FastAPI request and response models and tell me where the HTTP boundary is leaking internal fields.","expected":"fastapi","category":"Backend, API, and Data Skills"}

@@ -1,0 +1,8 @@
+{"prompt": "Create tests for this skill", "expected": "no_trigger", "better_skill": "skill-testing-harness", "notes": "Building tests, not running them"}
+{"prompt": "Compare these two skill variants", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Comparison = benchmarking, not single evaluation"}
+{"prompt": "Improve this skill's output contract", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not evaluation"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Structural audit, not evaluation"}
+{"prompt": "Create a new skill for testing", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not evaluation"}
+{"prompt": "Deploy this application to production", "expected": "no_trigger", "better_skill": null, "notes": "General task, not skill evaluation"}
+{"prompt": "Write unit tests for this Python module", "expected": "no_trigger", "better_skill": null, "notes": "Code testing, not skill evaluation"}
+{"prompt": "Which of these two skills is better?", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Comparison = benchmarking"}

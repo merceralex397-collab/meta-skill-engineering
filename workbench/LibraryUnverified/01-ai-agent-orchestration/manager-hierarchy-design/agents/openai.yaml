@@ -1,0 +1,6 @@
+interface:
+  display_name: "Manager Hierarchy Design"
+  short_description: "Coordinate manager hierarchy design work with bounded delegat..."
+  default_prompt: "Use $manager-hierarchy-design-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

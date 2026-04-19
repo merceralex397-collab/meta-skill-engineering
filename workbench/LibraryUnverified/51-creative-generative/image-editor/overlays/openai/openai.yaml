@@ -1,0 +1,18 @@
+name: image-editor-codex-c
+version: 1
+summary: "Produce image editor artifacts with source fidelity, audience clarity, and review structure."
+invocation:
+  policy: auto
+  aliases:
+    - "image-editor"
+    - "image editor"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/artifact-structure.md"
+    - "../../references/quality-checklist.md"
+    - "../../references/audience-adjustments.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

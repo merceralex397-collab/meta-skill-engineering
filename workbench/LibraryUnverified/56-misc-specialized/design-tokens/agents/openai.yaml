@@ -1,0 +1,6 @@
+interface:
+  display_name: "Design Tokens"
+  short_description: "Apply design tokens patterns with explicit UI state, accessib..."
+  default_prompt: "Use $design-tokens-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

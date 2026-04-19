@@ -1,0 +1,2 @@
+{"input":"Use GitHub Prior Art Research on a realistic task and return the result in a decision-ready shape.","must_include":["Assigned Scope","Evidence Collected","Recommended Action","Handoff Notes"],"expected":"github-prior-art-research"}
+{"input":"Apply GitHub Prior Art Research but call out uncertainty and the next verification step explicitly.","must_include":["Assigned Scope","Handoff Notes"],"expected":"github-prior-art-research"}

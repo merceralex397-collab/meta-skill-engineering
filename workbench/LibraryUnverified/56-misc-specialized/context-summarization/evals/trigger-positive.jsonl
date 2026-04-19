@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Summarize this long working session into a restart context.","should_trigger":true}
+{"id":"tp-002","prompt":"I need a compact resume summary for the next agent.","should_trigger":true}

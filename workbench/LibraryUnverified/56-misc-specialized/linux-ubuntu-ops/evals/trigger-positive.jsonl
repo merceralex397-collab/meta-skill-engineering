@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at linux and ubuntu ops","expected":"linux-ubuntu-ops","category":"CLI, Systems, and Ops Skills"}
+{"input":"this task clearly needs linux and ubuntu ops","expected":"linux-ubuntu-ops","category":"CLI, Systems, and Ops Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around linux and ubuntu ops","expected":"linux-ubuntu-ops","category":"CLI, Systems, and Ops Skills"}

@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Compare two deployment options where one violates a hard downtime constraint.","assertions":["separates constraints from scoring","eliminates or strongly rejects invalid option","provides recommendation"]}
+{"id":"bh-002","prompt":"Compare two close options with incomplete evidence on operational burden.","assertions":["names uncertainty","identifies tie-break evidence or experiment","avoids false precision"]}

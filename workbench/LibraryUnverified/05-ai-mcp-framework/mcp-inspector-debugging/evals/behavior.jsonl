@@ -1,0 +1,2 @@
+{"input":"Use MCP Inspector and Debugging on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Surface","Contracts","Risk Controls","Validation Plan"],"expected":"mcp-inspector-debugging"}
+{"input":"Apply MCP Inspector and Debugging but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Surface","Validation Plan"],"expected":"mcp-inspector-debugging"}

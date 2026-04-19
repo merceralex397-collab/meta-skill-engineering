@@ -1,0 +1,6 @@
+interface:
+  display_name: "Inference Kernel Optimization"
+  short_description: "Apply inference kernel optimization with runtime boundaries,..."
+  default_prompt: "Use $inference-kernel-optimization-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

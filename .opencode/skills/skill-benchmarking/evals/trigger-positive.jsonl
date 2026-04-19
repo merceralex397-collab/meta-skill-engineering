@@ -1,0 +1,8 @@
+{"prompt": "Compare these two skill versions and tell me which is better", "expected": "trigger", "category": "core", "notes": "Direct variant comparison"}
+{"prompt": "Benchmark skill-creator v1 against v2", "expected": "trigger", "category": "core", "notes": "Explicit benchmark request with named versions"}
+{"prompt": "Did the refinement help? Compare before and after", "expected": "trigger", "category": "core", "notes": "Before/after impact measurement"}
+{"prompt": "Which of these two variants should we keep?", "expected": "trigger", "category": "core", "notes": "Variant selection decision"}
+{"prompt": "Run a head-to-head comparison of the original vs improved skill", "expected": "trigger", "category": "paraphrase", "notes": "Head-to-head phrasing"}
+{"prompt": "Measure the win rate between these skill variants", "expected": "trigger", "category": "core", "notes": "Win rate metric request"}
+{"prompt": "I have two versions of this skill, which performs better on these test cases?", "expected": "trigger", "category": "indirect", "notes": "Performance comparison with test cases"}
+{"prompt": "Should I keep variant A or variant B? Compare them", "expected": "trigger", "category": "paraphrase", "notes": "Keep/discard decision via comparison"}

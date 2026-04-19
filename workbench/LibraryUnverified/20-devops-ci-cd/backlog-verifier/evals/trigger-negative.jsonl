@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Review this code diff for bugs.","should_trigger":false}
+{"id":"tn-002","prompt":"Rehydrate the interrupted session from repo state.","should_trigger":false}

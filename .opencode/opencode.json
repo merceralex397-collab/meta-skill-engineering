@@ -1,0 +1,6 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-scheduler"],
+  "default_agent": "build",
+  "model": "minimax-coding-plan/Minimax-M2.7"
+}

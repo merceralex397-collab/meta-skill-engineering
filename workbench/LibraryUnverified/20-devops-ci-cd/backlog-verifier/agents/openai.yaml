@@ -1,0 +1,6 @@
+interface:
+  display_name: "Backlog Verifier"
+  short_description: "Execute the backlog verifier role with clear scope, evidence,..."
+  default_prompt: "Use $backlog-verifier-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

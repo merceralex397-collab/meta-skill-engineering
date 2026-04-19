@@ -1,0 +1,33 @@
+schema_version: 1
+skill_id: delegation-boundaries-codex-c
+canonical_name: delegation-boundaries
+version: 0.1.0
+owner: codex
+status: draft
+summary: Decide what should stay local versus what can be delegated safely.
+risk_level: low
+categories:
+  - orchestration
+  - delegation
+compatibility:
+  clients:
+    - openai-codex
+    - opencode
+    - github-copilot
+    - gemini-cli
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - references/bad-delegation-patterns.md
+  - references/local-vs-delegate-tests.md
+  - references/write-scope-rules.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

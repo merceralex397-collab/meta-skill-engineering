@@ -1,0 +1,8 @@
+{"prompt": "Improve this individual skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Single skill improvement, not library audit"}
+{"prompt": "Create a new skill for testing", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Skill creation, not catalog management"}
+{"prompt": "Deprecate this old skill", "expected": "no_trigger", "better_skill": "skill-lifecycle-management", "notes": "Lifecycle action, not catalog audit"}
+{"prompt": "Package these skills for distribution", "expected": "no_trigger", "better_skill": null, "notes": "Packaging, not catalog curation"}
+{"prompt": "Install this skill from GitHub", "expected": "no_trigger", "better_skill": null, "notes": "Installation, not catalog management"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Anti-pattern check, not library audit"}
+{"prompt": "Organize my project files into folders", "expected": "no_trigger", "better_skill": null, "notes": "General file organization, not skill catalog"}
+{"prompt": "Create a database index", "expected": "no_trigger", "better_skill": null, "notes": "Database indexing, not skill index"}

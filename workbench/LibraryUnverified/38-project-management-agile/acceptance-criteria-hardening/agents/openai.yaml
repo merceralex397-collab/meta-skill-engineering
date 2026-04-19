@@ -1,0 +1,6 @@
+interface:
+  display_name: "Acceptance Criteria Hardening"
+  short_description: "Review acceptance criteria hardening work with explicit evide..."
+  default_prompt: "Use $acceptance-criteria-hardening-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Data Model"
+  short_description: "Apply data model patterns with clear contracts, persistence r..."
+  default_prompt: "Use $data-model-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

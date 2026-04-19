@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Figure out this repo’s actual stack and tell me what commands and conventions I need to follow.","should_trigger":true}
+{"id":"tp-002","prompt":"Before coding, detect the stack standards from the repo files rather than guessing.","should_trigger":true}

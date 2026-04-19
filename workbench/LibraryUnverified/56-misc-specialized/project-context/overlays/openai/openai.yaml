@@ -1,0 +1,18 @@
+name: project-context-codex-c
+version: 1
+summary: "Apply project context through a concrete workflow with explicit checks."
+invocation:
+  policy: auto
+  aliases:
+    - "project-context"
+    - "project context"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/context-stop-rules.md"
+    - "../../references/doc-precedence.md"
+    - "../../references/session-reentry-checklist.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

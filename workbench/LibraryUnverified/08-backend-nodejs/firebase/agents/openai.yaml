@@ -1,0 +1,6 @@
+interface:
+  display_name: "Firebase"
+  short_description: "Handle firebase changes with preflight checks, verification,..."
+  default_prompt: "Use $firebase-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

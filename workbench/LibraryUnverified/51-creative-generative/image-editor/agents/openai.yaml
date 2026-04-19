@@ -1,0 +1,6 @@
+interface:
+  display_name: "Image Editor"
+  short_description: "Produce image editor artifacts with source fidelity, audience..."
+  default_prompt: "Use $image-editor-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

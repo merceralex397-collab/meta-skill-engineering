@@ -1,0 +1,6 @@
+interface:
+  display_name: "LLM Creation"
+  short_description: "Apply llm creation with runtime boundaries, eval cases, and s..."
+  default_prompt: "Use $llm-creation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

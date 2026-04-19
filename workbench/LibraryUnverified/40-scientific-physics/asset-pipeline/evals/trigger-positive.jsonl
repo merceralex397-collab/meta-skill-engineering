@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at asset pipeline","expected":"asset-pipeline","category":"Game Engines and Creative Tech"}
+{"input":"this task clearly needs asset pipeline","expected":"asset-pipeline","category":"Game Engines and Creative Tech"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around asset pipeline","expected":"asset-pipeline","category":"Game Engines and Creative Tech"}

@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Execute a ticket whose scope is still unclear.","assertions":["stays in understand stage","does not pretend implementation started","states missing information"]}
+{"id":"bh-002","prompt":"Execute a ticket where implementation is done but no validation has run.","assertions":["keeps work out of done state","requires proof","states next transition clearly"]}

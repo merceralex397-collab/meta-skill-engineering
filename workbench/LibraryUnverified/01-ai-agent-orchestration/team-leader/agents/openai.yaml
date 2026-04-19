@@ -1,0 +1,6 @@
+interface:
+  display_name: "Team Leader"
+  short_description: "Execute the team leader role with clear scope, evidence, and..."
+  default_prompt: "Use $team-leader-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

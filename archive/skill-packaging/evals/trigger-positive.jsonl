@@ -1,0 +1,9 @@
+{"prompt": "Package this skill for distribution", "expected": "trigger", "category": "core", "notes": "Direct packaging request"}
+{"prompt": "Bundle this skill into a versioned release", "expected": "trigger", "category": "core", "notes": "Versioned bundle request"}
+{"prompt": "Prepare a distributable archive for this skill", "expected": "trigger", "category": "core", "notes": "Archive preparation"}
+{"prompt": "Generate client-specific overlays for Copilot and OpenCode", "expected": "trigger", "category": "core", "notes": "Overlay generation request"}
+{"prompt": "Create a release bundle with integrity checksums", "expected": "trigger", "category": "core", "notes": "Checksummed release bundle"}
+{"prompt": "Package these five skills together for release", "expected": "trigger", "category": "core", "notes": "Multi-skill batch packaging"}
+{"prompt": "Build a tar.gz with manifest for sharing this skill", "expected": "trigger", "category": "paraphrase", "notes": "Specific archive format with manifest"}
+{"prompt": "Publish this skill to multiple agent clients", "expected": "trigger", "category": "indirect", "notes": "Multi-client publishing implies packaging"}
+{"prompt": "Make this skill ready to share with others", "expected": "trigger", "category": "indirect", "notes": "Sharing readiness implies packaging"}

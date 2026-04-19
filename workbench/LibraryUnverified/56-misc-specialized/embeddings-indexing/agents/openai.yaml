@@ -1,0 +1,6 @@
+interface:
+  display_name: "Embeddings and Indexing"
+  short_description: "Apply embeddings and indexing with runtime boundaries, eval c..."
+  default_prompt: "Use $embeddings-indexing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

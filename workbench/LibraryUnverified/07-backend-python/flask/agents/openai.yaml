@@ -1,0 +1,6 @@
+interface:
+  display_name: "Flask"
+  short_description: "Apply flask patterns with clear contracts, persistence rules,..."
+  default_prompt: "Use $flask-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

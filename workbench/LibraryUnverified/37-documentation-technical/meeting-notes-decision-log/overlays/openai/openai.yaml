@@ -1,0 +1,18 @@
+name: meeting-notes-decision-log-codex-c
+version: 1
+summary: "Produce meeting notes and decision log artifacts with source fidelity, audience clarity, and review structure."
+invocation:
+  policy: auto
+  aliases:
+    - "meeting-notes-decision-log"
+    - "meeting notes decision log"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/artifact-structure.md"
+    - "../../references/quality-checklist.md"
+    - "../../references/audience-adjustments.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

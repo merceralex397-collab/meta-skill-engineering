@@ -1,0 +1,2 @@
+{"input":"Use Release Binaries on a realistic task and return the result in a decision-ready shape.","must_include":["Environment","Change Plan","Verification","Rollback or Monitoring"],"expected":"release-binaries"}
+{"input":"Apply Release Binaries but call out uncertainty and the next verification step explicitly.","must_include":["Environment","Rollback or Monitoring"],"expected":"release-binaries"}

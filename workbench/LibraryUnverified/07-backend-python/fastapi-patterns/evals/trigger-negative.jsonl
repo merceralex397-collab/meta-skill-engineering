@@ -1,0 +1,3 @@
+{"input":"Refactor this React component.","expected":"no-trigger"}
+{"input":"Explain what this regex does.","expected":"no-trigger"}
+{"input":"Set up a CI check.","expected":"no-trigger"}

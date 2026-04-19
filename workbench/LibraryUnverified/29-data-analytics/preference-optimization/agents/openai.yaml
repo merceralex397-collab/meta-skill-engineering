@@ -1,0 +1,6 @@
+interface:
+  display_name: "Preference Optimization"
+  short_description: "Apply preference optimization with runtime boundaries, eval c..."
+  default_prompt: "Use $preference-optimization-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

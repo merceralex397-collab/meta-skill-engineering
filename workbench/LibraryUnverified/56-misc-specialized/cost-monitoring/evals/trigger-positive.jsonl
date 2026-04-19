@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at cost monitoring","expected":"cost-monitoring","category":"Cloud Platform and DevOps Skills"}
+{"input":"this task clearly needs cost monitoring","expected":"cost-monitoring","category":"Cloud Platform and DevOps Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around cost monitoring","expected":"cost-monitoring","category":"Cloud Platform and DevOps Skills"}

@@ -1,0 +1,11 @@
+name: mcp-host-integration-codex-c
+activation:
+  requires_user_approval: true
+  description: "Allows the agent to load the MCP Host Integration skill and its bundled references."
+permissions:
+  read_paths:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute_paths:
+    - ./scripts/**

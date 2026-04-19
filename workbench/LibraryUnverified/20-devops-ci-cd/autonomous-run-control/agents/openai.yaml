@@ -1,0 +1,6 @@
+interface:
+  display_name: "Autonomous Run Control"
+  short_description: "Coordinate autonomous run control work with bounded delegatio..."
+  default_prompt: "Use $autonomous-run-control-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

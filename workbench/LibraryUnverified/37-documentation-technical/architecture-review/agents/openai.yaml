@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architecture Review"
+  short_description: "Review architecture review work with explicit evidence, risk..."
+  default_prompt: "Use $architecture-review-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

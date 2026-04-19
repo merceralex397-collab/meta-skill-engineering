@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-installer
+canonical_name: skill-installer
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Install a skill package into the local agent client from a repository, folder, or archive.
+risk_level: low
+categories:
+  - meta
+  - distribution

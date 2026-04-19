@@ -1,0 +1,6 @@
+interface:
+  display_name: "SolidJS Patterns"
+  short_description: "Run solidjs patterns with grounded sources, comparison, and d..."
+  default_prompt: "Use $solidjs-patterns-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,18 @@
+name: cli-development-python-codex-c
+version: 1
+summary: "Handle python cli development changes with preflight checks, verification, and rollback discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "cli-development-python"
+    - "cli development python"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/preflight-checklist.md"
+    - "../../references/verification-checks.md"
+    - "../../references/rollback-notes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

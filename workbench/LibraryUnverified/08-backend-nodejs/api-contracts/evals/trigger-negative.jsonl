@@ -1,0 +1,3 @@
+{"input":"Refactor this FastAPI dependency chain but keep the HTTP contract the same.","expected":"no-trigger"}
+{"input":"Design an internal PostgreSQL schema for event storage.","expected":"no-trigger"}
+{"input":"Fix this CSS layout bug in the settings page.","expected":"no-trigger"}

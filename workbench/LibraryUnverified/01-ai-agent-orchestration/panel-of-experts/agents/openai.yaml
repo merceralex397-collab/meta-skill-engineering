@@ -1,0 +1,6 @@
+interface:
+  display_name: "Panel of Experts"
+  short_description: "Coordinate panel of experts work with bounded delegation, art..."
+  default_prompt: "Use $panel-of-experts-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

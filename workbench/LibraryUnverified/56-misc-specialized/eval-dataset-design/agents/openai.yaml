@@ -1,0 +1,6 @@
+interface:
+  display_name: "Eval Dataset Design"
+  short_description: "Apply eval dataset design with runtime boundaries, eval cases..."
+  default_prompt: "Use $eval-dataset-design-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

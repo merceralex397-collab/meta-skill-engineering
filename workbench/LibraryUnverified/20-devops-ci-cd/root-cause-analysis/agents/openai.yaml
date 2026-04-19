@@ -1,0 +1,6 @@
+interface:
+  display_name: "Root Cause Analysis"
+  short_description: "Review root cause analysis work with explicit evidence, risk..."
+  default_prompt: "Use $root-cause-analysis-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

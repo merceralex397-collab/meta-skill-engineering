@@ -1,0 +1,8 @@
+{"prompt": "This skill is weak, can you improve it?", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improving existing skill, not creating new"}
+{"prompt": "Fix the trigger description on this skill", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Trigger fix, not creation"}
+{"prompt": "Run the eval suite against my skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not creation"}
+{"prompt": "Find existing skills for PDF handling before I build one", "expected": "no_trigger", "better_skill": "community-skill-harvester", "notes": "Searching for skills, not creating"}
+{"prompt": "Port this skill to work with a different tech stack", "expected": "no_trigger", "better_skill": "skill-adaptation", "notes": "Adapting existing skill, not creating"}
+{"prompt": "Write a Python function to parse JSON", "expected": "no_trigger", "better_skill": null, "notes": "General coding, not skill engineering"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Auditing quality, not creating"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": null, "notes": "Packaging, not creating"}

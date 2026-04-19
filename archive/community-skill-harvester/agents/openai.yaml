@@ -1,0 +1,6 @@
+interface:
+  display_name: "Community Skill Harvester"
+  short_description: "Apply community skill harvester through a concrete workflow w..."
+  default_prompt: "Use $community-skill-harvester-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

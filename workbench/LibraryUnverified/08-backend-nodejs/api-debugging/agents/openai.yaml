@@ -1,0 +1,6 @@
+interface:
+  display_name: "API Debugging"
+  short_description: "Apply api debugging patterns with clear contracts, persistenc..."
+  default_prompt: "Use $api-debugging-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,11 @@
+{
+  "id": "purpose-lost-001",
+  "type": "preservation_failure",
+  "description": "Meta-skill rewrite removed the original purpose statement entirely",
+  "original_excerpt": "# Purpose\n\nAudit a skill library for duplicates, gaps, and discoverability problems. Produce a prioritized remediation report.",
+  "modified_excerpt": "# Purpose\n\nThis skill helps with library management.",
+  "expected_result": "FAIL",
+  "failure_reason": "Purpose was replaced with a vague generic statement, losing the specific scope (duplicates, gaps, discoverability) and output commitment (prioritized remediation report)",
+  "check_type": "purpose_preservation",
+  "threshold": "jaccard >= 0.4 on purpose keywords"
+}

@@ -1,0 +1,8 @@
+{"prompt": "Create a new skill for handling deploys", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not improvement"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Diagnostic audit, not rewrite"}
+{"prompt": "Port this skill to a different environment", "expected": "no_trigger", "better_skill": "skill-adaptation", "notes": "Adaptation, not improvement"}
+{"prompt": "Run the eval suite on this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not improvement"}
+{"prompt": "Fix the trigger description only", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Trigger-only fix, body is fine"}
+{"prompt": "Review this PR for security issues", "expected": "no_trigger", "better_skill": null, "notes": "General code review, not skill engineering"}
+{"prompt": "Audit the skill library for duplicates", "expected": "no_trigger", "better_skill": "skill-catalog-curation", "notes": "Library audit, not single-skill improvement"}
+{"prompt": "Split this skill into two focused variants", "expected": "no_trigger", "better_skill": "skill-variant-splitting", "notes": "Splitting, not improving"}

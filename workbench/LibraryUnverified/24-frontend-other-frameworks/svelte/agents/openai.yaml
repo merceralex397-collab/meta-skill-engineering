@@ -1,0 +1,6 @@
+interface:
+  display_name: "Svelte"
+  short_description: "Apply svelte patterns with explicit UI state, accessibility,..."
+  default_prompt: "Use $svelte-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

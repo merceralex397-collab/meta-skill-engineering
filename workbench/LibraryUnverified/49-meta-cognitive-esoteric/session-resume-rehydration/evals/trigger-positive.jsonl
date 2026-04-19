@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"The session got interrupted. Rehydrate the task and tell me what to do next.","should_trigger":true}
+{"id":"tp-002","prompt":"Pick this work back up from repo state, not from memory.","should_trigger":true}

@@ -1,0 +1,3 @@
+{"input":"Print the current date.","expected":"no-trigger"}
+{"input":"Explain what this one function does.","expected":"no-trigger"}
+{"input":"Change this one string literal.","expected":"no-trigger"}

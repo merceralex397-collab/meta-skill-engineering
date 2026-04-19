@@ -1,0 +1,6 @@
+interface:
+  display_name: "Isolation Guidance"
+  short_description: "Apply isolation guidance through a concrete workflow with exp..."
+  default_prompt: "Use $isolation-guidance-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

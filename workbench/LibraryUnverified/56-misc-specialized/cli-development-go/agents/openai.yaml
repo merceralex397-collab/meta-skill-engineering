@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go CLI Development"
+  short_description: "Handle go cli development changes with preflight checks, veri..."
+  default_prompt: "Use $cli-development-go-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

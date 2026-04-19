@@ -1,0 +1,18 @@
+name: delegation-boundaries-codex-c
+version: 1
+summary: "Coordinate delegation boundaries work with bounded delegation, artifact contracts, and rejoin points."
+invocation:
+  policy: auto
+  aliases:
+    - "delegation-boundaries"
+    - "delegation boundaries"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/bad-delegation-patterns.md"
+    - "../../references/local-vs-delegate-tests.md"
+    - "../../references/write-scope-rules.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

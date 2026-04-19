@@ -1,0 +1,10 @@
+{"prompt": "Improve this skill, it's too vague", "expected": "trigger", "category": "core", "notes": "Direct improvement request"}
+{"prompt": "This skill is weak, can you harden it?", "expected": "trigger", "category": "core", "notes": "Explicit quality improvement"}
+{"prompt": "The output contract on this skill is incomplete", "expected": "trigger", "category": "indirect", "notes": "Specific section needs improvement"}
+{"prompt": "Tighten up the routing on this SKILL.md", "expected": "trigger", "category": "edge", "notes": "Routing tightening is Mode 1 of improver"}
+{"prompt": "This skill needs better branching and decision rules", "expected": "trigger", "category": "core", "notes": "Missing decision support"}
+{"prompt": "Add evals and references to this skill package", "expected": "trigger", "category": "core", "notes": "Package upgrade = Mode 3"}
+{"prompt": "The procedure steps in this skill are too generic", "expected": "trigger", "category": "indirect", "notes": "Generic procedure = prompt-blob syndrome"}
+{"prompt": "Harden this SKILL.md", "expected": "trigger", "category": "paraphrase", "notes": "Harden = improve"}
+{"prompt": "Refactor this skill's structure, it grew organically", "expected": "trigger", "category": "core", "notes": "Structural refactor = Mode 2"}
+{"prompt": "Make this skill production-ready", "expected": "trigger", "category": "paraphrase", "notes": "Production readiness implies improvement"}

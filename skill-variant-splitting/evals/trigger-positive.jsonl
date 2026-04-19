@@ -1,0 +1,8 @@
+{"prompt": "This skill does too much, split it into focused variants", "expected": "trigger", "category": "core", "notes": "Direct split request"}
+{"prompt": "Split this skill into Python and JavaScript versions", "expected": "trigger", "category": "core", "notes": "Stack-axis split"}
+{"prompt": "Create variants for frontend and backend from this skill", "expected": "trigger", "category": "core", "notes": "Domain-axis split"}
+{"prompt": "This skill has too many conditional branches, it needs splitting", "expected": "trigger", "category": "indirect", "notes": "Complexity implies split needed"}
+{"prompt": "Break this broad skill into smaller focused skills", "expected": "trigger", "category": "paraphrase", "notes": "Paraphrased split request"}
+{"prompt": "The triggers on this skill are too vague because it covers too many cases", "expected": "trigger", "category": "indirect", "notes": "Vague triggers from breadth implies split"}
+{"prompt": "Create separate skill variants for each platform we support", "expected": "trigger", "category": "core", "notes": "Platform-axis variant creation"}
+{"prompt": "This skill has disjoint 'For X' and 'For Y' sections that should be separate", "expected": "trigger", "category": "core", "notes": "Disjoint sections = split candidate"}

@@ -1,0 +1,8 @@
+{"prompt": "Evaluate this skill's trigger accuracy and output quality", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Quality evaluation, not provenance"}
+{"prompt": "Check this skill for safety vulnerabilities", "expected": "no_trigger", "better_skill": "skill-safety-review", "notes": "Safety review, not provenance"}
+{"prompt": "Deprecate this outdated skill", "expected": "no_trigger", "better_skill": "skill-lifecycle-management", "notes": "Lifecycle action, not provenance"}
+{"prompt": "Improve this skill's description", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not provenance tracking"}
+{"prompt": "Create a new skill for our project", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not provenance"}
+{"prompt": "Track the git history of this file", "expected": "no_trigger", "better_skill": null, "notes": "Git history, not skill provenance"}
+{"prompt": "Who committed this code change?", "expected": "no_trigger", "better_skill": null, "notes": "Code commit attribution, not skill provenance"}
+{"prompt": "Check the package license in package.json", "expected": "no_trigger", "better_skill": null, "notes": "NPM license check, not skill provenance"}

@@ -1,0 +1,9 @@
+{"prompt": "Port this skill to work with Python/FastAPI instead of Node/Express", "expected": "trigger", "category": "core", "notes": "Direct stack adaptation request"}
+{"prompt": "Customize this library skill for our monorepo setup", "expected": "trigger", "category": "core", "notes": "Project context adaptation"}
+{"prompt": "Localize this skill for a team that uses pnpm instead of npm", "expected": "trigger", "category": "core", "notes": "Tool-specific adaptation"}
+{"prompt": "This skill was written for VS Code, adapt it for JetBrains", "expected": "trigger", "category": "core", "notes": "Platform adaptation"}
+{"prompt": "We need this skill to work in our Python stack, can you convert it?", "expected": "trigger", "category": "paraphrase", "notes": "Paraphrased stack porting"}
+{"prompt": "Take this Vue skill and make it work for our React project", "expected": "trigger", "category": "core", "notes": "Framework adaptation"}
+{"prompt": "Adjust this skill's paths and conventions for our Go backend", "expected": "trigger", "category": "indirect", "notes": "Indirect reference to adaptation via path/convention changes"}
+{"prompt": "How do I make this generic skill work with my specific project setup?", "expected": "trigger", "category": "indirect", "notes": "Implicit adaptation need"}
+{"prompt": "Rewrite the context-specific parts of this skill for a different repo", "expected": "trigger", "category": "paraphrase", "notes": "Explicit context rewrite"}

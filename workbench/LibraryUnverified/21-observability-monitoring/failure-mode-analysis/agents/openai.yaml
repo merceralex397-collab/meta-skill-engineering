@@ -1,0 +1,6 @@
+interface:
+  display_name: "Failure Mode Analysis"
+  short_description: "Review failure mode analysis work with explicit evidence, ris..."
+  default_prompt: "Use $failure-mode-analysis-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

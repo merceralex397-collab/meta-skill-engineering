@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at github prior art research","expected":"github-prior-art-research","category":"Agent Role Candidate Skills"}
+{"input":"this task clearly needs github prior art research","expected":"github-prior-art-research","category":"Agent Role Candidate Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around github prior art research","expected":"github-prior-art-research","category":"Agent Role Candidate Skills"}

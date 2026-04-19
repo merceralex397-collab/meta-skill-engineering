@@ -1,0 +1,6 @@
+interface:
+  display_name: "Linear Address Issue"
+  short_description: "Run linear address issue with grounded sources, comparison, a..."
+  default_prompt: "Use $linear-address-issue-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

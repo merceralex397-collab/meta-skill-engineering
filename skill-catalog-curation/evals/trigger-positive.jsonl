@@ -1,0 +1,9 @@
+{"prompt": "Audit the skill library for duplicates and overlaps", "expected": "trigger", "category": "core", "notes": "Direct library audit request"}
+{"prompt": "Clean up overlapping skills in the catalog", "expected": "trigger", "category": "core", "notes": "Overlap cleanup"}
+{"prompt": "Organize the catalog before release", "expected": "trigger", "category": "core", "notes": "Pre-release catalog organization"}
+{"prompt": "Update the skill registry index", "expected": "trigger", "category": "core", "notes": "Registry index maintenance"}
+{"prompt": "Generate the skill index and catalog files", "expected": "trigger", "category": "core", "notes": "Index generation request"}
+{"prompt": "Are there any duplicate skills in this library?", "expected": "trigger", "category": "indirect", "notes": "Duplicate detection inquiry"}
+{"prompt": "Review the library for naming consistency and tags", "expected": "trigger", "category": "paraphrase", "notes": "Naming/tag audit = catalog curation"}
+{"prompt": "Add this new skill to the catalog and update the index", "expected": "trigger", "category": "core", "notes": "Catalog addition with index update"}
+{"prompt": "Which skills overlap and should be merged?", "expected": "trigger", "category": "indirect", "notes": "Merge candidate identification"}

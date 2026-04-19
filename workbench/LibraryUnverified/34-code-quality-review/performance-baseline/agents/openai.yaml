@@ -1,0 +1,6 @@
+interface:
+  display_name: "Performance Baseline"
+  short_description: "Apply performance baseline through a concrete workflow with e..."
+  default_prompt: "Use $performance-baseline-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

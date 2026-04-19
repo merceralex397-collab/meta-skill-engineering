@@ -1,0 +1,6 @@
+interface:
+  display_name: "Repo Evidence Gathering"
+  short_description: "Execute the repo evidence gathering role with clear scope, ev..."
+  default_prompt: "Use $repo-evidence-gathering-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Verify this task board before agents start working on it.","should_trigger":true}
+{"id":"tp-002","prompt":"Check whether these tickets are ready and non-overlapping.","should_trigger":true}

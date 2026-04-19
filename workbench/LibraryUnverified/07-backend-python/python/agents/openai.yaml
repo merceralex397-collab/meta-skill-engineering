@@ -1,0 +1,6 @@
+interface:
+  display_name: "Python"
+  short_description: "Apply python patterns with clear contracts, persistence rules..."
+  default_prompt: "Use $python-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

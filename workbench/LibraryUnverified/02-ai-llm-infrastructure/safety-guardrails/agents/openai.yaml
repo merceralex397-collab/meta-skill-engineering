@@ -1,0 +1,6 @@
+interface:
+  display_name: "Safety Guardrails"
+  short_description: "Apply safety guardrails with runtime boundaries, eval cases,..."
+  default_prompt: "Use $safety-guardrails-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

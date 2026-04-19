@@ -1,0 +1,8 @@
+{"prompt": "Improve this skill's quality and structure", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Quality improvement, not lifecycle management"}
+{"prompt": "Create a new skill for testing", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not lifecycle management"}
+{"prompt": "Audit the library for duplicate skills", "expected": "no_trigger", "better_skill": "skill-catalog-curation", "notes": "Catalog audit, not lifecycle management"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": null, "notes": "Packaging, not lifecycle"}
+{"prompt": "Check this skill for safety issues", "expected": "no_trigger", "better_skill": "skill-safety-review", "notes": "Safety review, not lifecycle state change"}
+{"prompt": "Run the evaluation suite against this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not lifecycle transition"}
+{"prompt": "Manage my project's deployment lifecycle", "expected": "no_trigger", "better_skill": null, "notes": "Software deployment lifecycle, not skill lifecycle"}
+{"prompt": "Delete this file from the repository", "expected": "no_trigger", "better_skill": null, "notes": "File deletion, not skill lifecycle"}

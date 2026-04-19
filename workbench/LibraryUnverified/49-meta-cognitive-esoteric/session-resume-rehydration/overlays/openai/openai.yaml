@@ -1,0 +1,18 @@
+name: session-resume-rehydration-codex-c
+version: 1
+summary: "Coordinate session resume rehydration work with bounded delegation, artifact contracts, and rejoin points."
+invocation:
+  policy: auto
+  aliases:
+    - "session-resume-rehydration"
+    - "session resume rehydration"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/recovery-signals.md"
+    - "../../references/restart-checklist.md"
+    - "../../references/status-vs-evidence.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

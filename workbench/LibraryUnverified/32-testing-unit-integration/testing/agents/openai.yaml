@@ -1,0 +1,6 @@
+interface:
+  display_name: "Testing"
+  short_description: "Review testing work with explicit evidence, risk ranking, and..."
+  default_prompt: "Use $testing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

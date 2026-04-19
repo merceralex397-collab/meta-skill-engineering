@@ -1,0 +1,11 @@
+{
+  "id": "boundaries-deleted-001",
+  "type": "preservation_failure",
+  "description": "Meta-skill rewrite removed negative boundary entries from When NOT to use",
+  "original_excerpt": "# When NOT to use\n\n- Creating a new skill from scratch → skill-creator\n- Improving an existing skill's quality → skill-improver\n- Running existing tests → skill-evaluation",
+  "modified_excerpt": "# When NOT to use\n\n- Tasks unrelated to skill management",
+  "expected_result": "FAIL",
+  "failure_reason": "Three specific boundary entries with cross-references were replaced with one vague entry. Routing boundaries are destroyed.",
+  "check_type": "boundary_preservation",
+  "threshold": "all original boundary skills must appear in modified"
+}

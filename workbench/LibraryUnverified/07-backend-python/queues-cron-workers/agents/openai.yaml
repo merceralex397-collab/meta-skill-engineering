@@ -1,0 +1,6 @@
+interface:
+  display_name: "Queues, Cron, and Workers"
+  short_description: "Handle queues, cron, and workers changes with preflight check..."
+  default_prompt: "Use $queues-cron-workers-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

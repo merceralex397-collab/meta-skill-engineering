@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blocker Extraction"
+  short_description: "Review blocker extraction work with explicit evidence, risk r..."
+  default_prompt: "Use $blocker-extraction-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

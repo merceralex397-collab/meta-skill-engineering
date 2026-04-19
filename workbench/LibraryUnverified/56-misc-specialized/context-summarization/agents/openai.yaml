@@ -1,0 +1,6 @@
+interface:
+  display_name: "Context Summarization"
+  short_description: "Execute the context summarization role with clear scope, evid..."
+  default_prompt: "Use $context-summarization-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

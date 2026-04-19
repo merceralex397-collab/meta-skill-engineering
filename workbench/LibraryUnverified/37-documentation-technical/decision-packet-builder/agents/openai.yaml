@@ -1,0 +1,6 @@
+interface:
+  display_name: "Decision Packet Builder"
+  short_description: "Review decision packet builder work with explicit evidence, r..."
+  default_prompt: "Use $decision-packet-builder-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,8 @@
+{"prompt": "Port this skill to work with a different stack", "expected": "no_trigger", "better_skill": "skill-adaptation", "notes": "Adaptation (same skill, new context), not splitting"}
+{"prompt": "Fix the trigger phrasing on this skill", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Trigger fix, not structural split"}
+{"prompt": "Improve this skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not splitting"}
+{"prompt": "Merge these two skills into one", "expected": "no_trigger", "better_skill": "skill-catalog-curation", "notes": "Merging is opposite of splitting"}
+{"prompt": "Compare variant A and variant B", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Comparing existing variants, not creating new ones"}
+{"prompt": "Create a new skill for database management", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "New creation, not splitting existing"}
+{"prompt": "Split this large Python file into modules", "expected": "no_trigger", "better_skill": null, "notes": "Code splitting, not skill splitting"}
+{"prompt": "Divide this project into microservices", "expected": "no_trigger", "better_skill": null, "notes": "Architecture splitting, not skill splitting"}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tool-Use Agents"
+  short_description: "Apply tool-use agents with runtime boundaries, eval cases, an..."
+  default_prompt: "Use $tool-use-agents-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-provenance
+canonical_name: skill-provenance
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Audit and record origin, authorship, evidence basis, license, and trust level for a skill.
+risk_level: low
+categories:
+  - meta
+  - governance

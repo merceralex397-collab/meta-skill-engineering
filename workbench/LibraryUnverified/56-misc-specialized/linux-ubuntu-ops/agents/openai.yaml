@@ -1,0 +1,6 @@
+interface:
+  display_name: "Linux and Ubuntu Ops"
+  short_description: "Handle linux and ubuntu ops changes with preflight checks, ve..."
+  default_prompt: "Use $linux-ubuntu-ops-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

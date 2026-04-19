@@ -1,0 +1,6 @@
+interface:
+  display_name: "OpenCode Bridge"
+  short_description: "Design and verify opencode bridge with explicit contracts, pe..."
+  default_prompt: "Use $opencode-bridge-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

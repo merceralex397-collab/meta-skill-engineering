@@ -1,0 +1,6 @@
+interface:
+  display_name: "Structured Output Pipelines"
+  short_description: "Apply structured output pipelines with runtime boundaries, ev..."
+  default_prompt: "Use $structured-output-pipelines-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

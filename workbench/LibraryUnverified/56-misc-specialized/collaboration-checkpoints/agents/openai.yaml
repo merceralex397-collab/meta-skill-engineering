@@ -1,0 +1,6 @@
+interface:
+  display_name: "Collaboration Checkpoints"
+  short_description: "Coordinate collaboration checkpoints work with bounded delega..."
+  default_prompt: "Use $collaboration-checkpoints-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

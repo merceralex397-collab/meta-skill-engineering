@@ -1,0 +1,6 @@
+interface:
+  display_name: "Drift Detection"
+  short_description: "Review drift detection work with explicit evidence, risk rank..."
+  default_prompt: "Use $drift-detection-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

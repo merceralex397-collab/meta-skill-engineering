@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Resume interrupted work with stale handoff notes and newer file edits.","assertions":["prefers current repo evidence","flags mismatch","proposes next safe step"]}
+{"id":"bh-002","prompt":"Resume a task where validation status is unknown.","assertions":["treats validation as unresolved","does not claim done","includes rerun or reconfirm action"]}

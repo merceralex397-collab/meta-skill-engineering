@@ -1,0 +1,9 @@
+{"prompt": "Evaluate this skill's routing accuracy", "expected": "trigger", "category": "core", "notes": "Direct evaluation request"}
+{"prompt": "Run the eval suite against skill-creator", "expected": "trigger", "category": "core", "notes": "Explicit eval run"}
+{"prompt": "How well does this skill trigger on the right prompts?", "expected": "trigger", "category": "indirect", "notes": "Routing quality question implies evaluation"}
+{"prompt": "Score this skill against its test cases", "expected": "trigger", "category": "core", "notes": "Scoring = evaluation"}
+{"prompt": "Does this skill produce the right output format?", "expected": "trigger", "category": "indirect", "notes": "Output quality check"}
+{"prompt": "Test whether this skill actually works", "expected": "trigger", "category": "paraphrase", "notes": "Works = passes evaluation"}
+{"prompt": "Evaluate the output quality of this skill", "expected": "trigger", "category": "core", "notes": "Output evaluation"}
+{"prompt": "Check if this skill passes its existing tests", "expected": "trigger", "category": "paraphrase", "notes": "Running existing test suite"}
+{"prompt": "Give me a pass/fail verdict on this skill", "expected": "trigger", "category": "core", "notes": "Verdict = evaluation output"}

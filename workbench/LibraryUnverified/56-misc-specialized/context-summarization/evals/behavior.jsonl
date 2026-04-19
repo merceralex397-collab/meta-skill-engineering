@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Summarize a long session with several resolved tangents and one remaining blocker.","assertions":["drops resolved tangents","preserves blocker","states next step"]}
+{"id":"bh-002","prompt":"Summarize a noisy session with uncertain facts.","assertions":["marks uncertainty","preserves decisions and constraints","optimizes for restart utility"]}

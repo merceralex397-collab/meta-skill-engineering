@@ -1,0 +1,6 @@
+interface:
+  display_name: "Bash"
+  short_description: "Handle bash changes with preflight checks, verification, and..."
+  default_prompt: "Use $bash-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

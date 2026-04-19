@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Plan a simple local refactor with no external effects.","should_trigger":false}
+{"id":"tn-002","prompt":"Map this repo’s canonical edit paths.","should_trigger":false}

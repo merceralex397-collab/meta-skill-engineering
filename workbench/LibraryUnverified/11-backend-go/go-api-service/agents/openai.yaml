@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go API Service"
+  short_description: "Apply go api service patterns with clear contracts, persisten..."
+  default_prompt: "Use $go-api-service-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

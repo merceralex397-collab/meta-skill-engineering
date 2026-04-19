@@ -1,0 +1,6 @@
+interface:
+  display_name: "Vue"
+  short_description: "Apply vue patterns with explicit UI state, accessibility, and..."
+  default_prompt: "Use $vue-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

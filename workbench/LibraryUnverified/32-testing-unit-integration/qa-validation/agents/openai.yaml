@@ -1,0 +1,6 @@
+interface:
+  display_name: "QA Validation"
+  short_description: "Execute the qa validation role with clear scope, evidence, an..."
+  default_prompt: "Use $qa-validation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

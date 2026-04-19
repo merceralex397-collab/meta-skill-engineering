@@ -1,0 +1,6 @@
+interface:
+  display_name: "Table Extraction"
+  short_description: "Produce table extraction artifacts with source fidelity, audi..."
+  default_prompt: "Use $table-extraction-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

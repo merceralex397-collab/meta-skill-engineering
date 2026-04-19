@@ -1,0 +1,2 @@
+{"input":"Use AI NPC Behavior on a realistic task and return the result in a decision-ready shape.","must_include":["Creative Goal","Implementation Plan","Iteration Notes","Validation"],"expected":"ai-npc-behavior"}
+{"input":"Apply AI NPC Behavior but call out uncertainty and the next verification step explicitly.","must_include":["Creative Goal","Validation"],"expected":"ai-npc-behavior"}

@@ -1,0 +1,18 @@
+name: blocker-extraction-codex-c
+version: 1
+summary: "Review blocker extraction work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "blocker-extraction"
+    - "blocker extraction"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/evidence-rubric.md"
+    - "../../references/output-shape.md"
+    - "../../references/failure-signals.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

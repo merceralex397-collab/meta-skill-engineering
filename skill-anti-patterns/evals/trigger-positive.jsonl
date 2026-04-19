@@ -1,0 +1,9 @@
+{"prompt": "Check this skill for anti-patterns", "expected": "trigger", "category": "core", "notes": "Direct anti-pattern audit request"}
+{"prompt": "Audit this SKILL.md for structural issues", "expected": "trigger", "category": "core", "notes": "Structural audit implies anti-pattern scan"}
+{"prompt": "What's wrong with this skill? It feels off", "expected": "trigger", "category": "indirect", "notes": "Vague quality concern, needs diagnostic"}
+{"prompt": "Scan all skills for common mistakes", "expected": "trigger", "category": "core", "notes": "Library-wide anti-pattern sweep"}
+{"prompt": "Is this skill following best practices?", "expected": "trigger", "category": "paraphrase", "notes": "Best practices check = anti-pattern inverse"}
+{"prompt": "This skill keeps misfiring, can you diagnose why?", "expected": "trigger", "category": "indirect", "notes": "Misfiring implies routing anti-pattern"}
+{"prompt": "Review this skill for AP-3 vague description", "expected": "trigger", "category": "core", "notes": "Explicit anti-pattern ID reference"}
+{"prompt": "Does this skill have any of the known anti-patterns?", "expected": "trigger", "category": "core", "notes": "Direct reference to anti-pattern catalog"}
+{"prompt": "Quick structural check on my new skill", "expected": "trigger", "category": "paraphrase", "notes": "Quick audit = read-only anti-pattern scan"}

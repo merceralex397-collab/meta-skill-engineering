@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Audit Bridge"
+  short_description: "Support structured review, audit, and QA workflows"
+  default_prompt: "Use $review-audit-bridge to structure review, audit, and QA passes for this repo."

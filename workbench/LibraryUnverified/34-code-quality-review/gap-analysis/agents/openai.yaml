@@ -1,0 +1,6 @@
+interface:
+  display_name: "Gap Analysis"
+  short_description: "Review gap analysis work with explicit evidence, risk ranking..."
+  default_prompt: "Use $gap-analysis-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,8 @@
+{"prompt": "Create a brand new skill for Python code review", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "New skill creation, not adaptation of existing"}
+{"prompt": "Improve this skill's quality and structure", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Quality improvement, not context change"}
+{"prompt": "Split this skill into Python and JavaScript variants", "expected": "no_trigger", "better_skill": "skill-variant-splitting", "notes": "Splitting into variants, not porting to new context"}
+{"prompt": "Fix the triggers on this skill so it routes correctly", "expected": "no_trigger", "better_skill": "skill-trigger-optimization", "notes": "Trigger fix, not context adaptation"}
+{"prompt": "Run the test suite against this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Evaluation, not adaptation"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": null, "notes": "Packaging, not adaptation"}
+{"prompt": "Translate this README into Spanish", "expected": "no_trigger", "better_skill": null, "notes": "Human language translation, not skill adaptation"}
+{"prompt": "Refactor this Python function to be more efficient", "expected": "no_trigger", "better_skill": null, "notes": "Code refactoring, not skill adaptation"}

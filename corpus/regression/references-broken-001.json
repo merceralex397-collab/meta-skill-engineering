@@ -1,0 +1,11 @@
+{
+  "id": "references-broken-001",
+  "type": "structural_failure",
+  "description": "Meta-skill rewrite added references to skills that do not exist in the active inventory",
+  "original_excerpt": "- Fix routing issues → skill-trigger-optimization\n- Run safety review → skill-safety-review",
+  "modified_excerpt": "- Fix routing issues → skill-routing-fixer\n- Run safety review → skill-audit-safety\n- Package for distribution → skill-packager",
+  "expected_result": "FAIL",
+  "failure_reason": "Three cross-references point to non-existent skills (skill-routing-fixer, skill-audit-safety, skill-packager). Original valid references were replaced with hallucinated skill names.",
+  "check_type": "cross_reference_validity",
+  "threshold": "all referenced skill names must exist as directories in repo root"
+}

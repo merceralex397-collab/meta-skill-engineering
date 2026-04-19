@@ -1,0 +1,6 @@
+interface:
+  display_name: "Planner"
+  short_description: "Execute the planner role with clear scope, evidence, and hand..."
+  default_prompt: "Use $planner-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

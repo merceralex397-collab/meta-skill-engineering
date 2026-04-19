@@ -1,0 +1,6 @@
+interface:
+  display_name: "Local Git Specialist"
+  short_description: "Apply local git specialist through a concrete workflow with e..."
+  default_prompt: "Use $local-git-specialist-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

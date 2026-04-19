@@ -1,0 +1,6 @@
+interface:
+  display_name: "Reverse Brainstorming"
+  short_description: "Review reverse brainstorming work with explicit evidence, ris..."
+  default_prompt: "Use $reverse-brainstorming-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

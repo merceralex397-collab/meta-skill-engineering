@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-packaging
+canonical_name: skill-packaging
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Bundle skill folders into versioned distributable archives with manifests and checksums.
+risk_level: low
+categories:
+  - meta
+  - distribution

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Model Selection"
+  short_description: "Apply model selection with runtime boundaries, eval cases, an..."
+  default_prompt: "Use $model-selection-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,2 @@
+{"input":"Use Process Doctor on a realistic task and return the result in a decision-ready shape.","must_include":["Scope","Approach","Checks","Next Step"],"expected":"process-doctor"}
+{"input":"Apply Process Doctor but call out uncertainty and the next verification step explicitly.","must_include":["Scope","Next Step"],"expected":"process-doctor"}

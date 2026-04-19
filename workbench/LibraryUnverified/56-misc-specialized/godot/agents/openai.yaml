@@ -1,0 +1,6 @@
+interface:
+  display_name: "Godot"
+  short_description: "Use godot to guide creative system decisions without losing p..."
+  default_prompt: "Use $godot-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

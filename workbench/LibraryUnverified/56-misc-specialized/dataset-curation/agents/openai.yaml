@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dataset Curation"
+  short_description: "Apply dataset curation with runtime boundaries, eval cases, a..."
+  default_prompt: "Use $dataset-curation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

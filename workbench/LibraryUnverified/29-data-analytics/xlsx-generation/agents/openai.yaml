@@ -1,0 +1,6 @@
+interface:
+  display_name: "XLSX Generation"
+  short_description: "Produce xlsx generation artifacts with source fidelity, audie..."
+  default_prompt: "Use $xlsx-generation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

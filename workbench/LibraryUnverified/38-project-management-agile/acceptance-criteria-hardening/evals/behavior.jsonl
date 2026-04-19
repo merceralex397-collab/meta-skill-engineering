@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Harden a ticket that says 'search should work well and be fast'.","assertions":["flags vague language","rewrites into observable criteria","names missing metrics or proof needs"]}
+{"id":"bh-002","prompt":"Harden criteria for an admin action with no permission or failure-path coverage.","assertions":["adds boundary cases","separates outcomes from implementation details","mentions proof sources"]}

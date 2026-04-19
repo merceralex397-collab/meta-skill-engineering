@@ -1,0 +1,3 @@
+{"input":"Fix this typo in a single file.","expected":"no-trigger"}
+{"input":"Translate this paragraph to Spanish.","expected":"no-trigger"}
+{"input":"What time is it?","expected":"no-trigger"}

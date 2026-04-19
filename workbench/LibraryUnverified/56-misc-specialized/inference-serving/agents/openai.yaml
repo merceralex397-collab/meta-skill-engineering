@@ -1,0 +1,6 @@
+interface:
+  display_name: "Inference Serving"
+  short_description: "Apply inference serving with runtime boundaries, eval cases,..."
+  default_prompt: "Use $inference-serving-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

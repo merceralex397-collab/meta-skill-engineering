@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Auth and Transports"
+  short_description: "Design and verify mcp auth and transports with explicit contr..."
+  default_prompt: "Use $mcp-auth-transports-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

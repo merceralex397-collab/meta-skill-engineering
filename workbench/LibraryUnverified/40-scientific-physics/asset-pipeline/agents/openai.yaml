@@ -1,0 +1,6 @@
+interface:
+  display_name: "Asset Pipeline"
+  short_description: "Use asset pipeline to guide creative system decisions without..."
+  default_prompt: "Use $asset-pipeline-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

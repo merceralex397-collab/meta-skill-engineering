@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Schema Contracts"
+  short_description: "Design and verify mcp schema contracts with explicit contract..."
+  default_prompt: "Use $mcp-schema-contracts-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

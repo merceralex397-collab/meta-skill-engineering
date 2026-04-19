@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Should I delegate this subtask or keep it local?","should_trigger":true}
+{"id":"tp-002","prompt":"Define the delegation boundaries for this workflow before spawning agents.","should_trigger":true}

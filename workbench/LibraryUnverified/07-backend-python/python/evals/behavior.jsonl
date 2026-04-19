@@ -1,0 +1,2 @@
+{"input":"Use Python on a realistic task and return the result in a decision-ready shape.","must_include":["System Surface","Chosen Pattern","Edge Cases","Validation"],"expected":"python"}
+{"input":"Apply Python but call out uncertainty and the next verification step explicitly.","must_include":["System Surface","Validation"],"expected":"python"}

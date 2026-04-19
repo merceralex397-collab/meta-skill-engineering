@@ -1,0 +1,6 @@
+interface:
+  display_name: "Verification Before Advance"
+  short_description: "Coordinate verification before advance work with bounded dele..."
+  default_prompt: "Use $verification-before-advance-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

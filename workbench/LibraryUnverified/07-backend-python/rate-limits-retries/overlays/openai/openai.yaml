@@ -1,0 +1,18 @@
+name: rate-limits-retries-codex-c
+version: 1
+summary: "Design bounded retry behavior with explicit throttling rules, backoff budgets, and idempotency safeguards."
+invocation:
+  policy: auto
+  aliases:
+    - "rate-limits-retries"
+    - "rate limits retries"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/retry-classification-matrix.md"
+    - "../../references/backoff-and-jitter-patterns.md"
+    - "../../references/idempotency-and-budgeting.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,42 @@
+schema_version: 1
+skill_id: terminal-debugging-codex-c
+canonical_name: terminal-debugging
+version: 0.1.0
+owner: codex
+status: draft
+summary: Handle terminal debugging changes with preflight checks, verification, and rollback discipline.
+risk_level: low
+categories:
+  - cli
+  - systems
+  - and
+  - ops
+  - terminal
+  - debugging
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/preflight-checklist.md
+  - references/verification-checks.md
+  - references/rollback-notes.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

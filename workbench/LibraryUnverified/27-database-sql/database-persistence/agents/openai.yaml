@@ -1,0 +1,6 @@
+interface:
+  display_name: "Database Persistence"
+  short_description: "Apply database persistence through a concrete workflow with e..."
+  default_prompt: "Use $database-persistence-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

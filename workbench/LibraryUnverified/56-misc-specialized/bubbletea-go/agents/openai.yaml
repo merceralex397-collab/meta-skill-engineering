@@ -1,0 +1,6 @@
+interface:
+  display_name: "Bubble Tea for Go TUIs"
+  short_description: "Handle bubble tea for go tuis changes with preflight checks,..."
+  default_prompt: "Use $bubbletea-go-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

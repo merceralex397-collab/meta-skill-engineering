@@ -1,0 +1,6 @@
+interface:
+  display_name: "vLLM Serving"
+  short_description: "Apply vllm serving with runtime boundaries, eval cases, and s..."
+  default_prompt: "Use $vllm-serving-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

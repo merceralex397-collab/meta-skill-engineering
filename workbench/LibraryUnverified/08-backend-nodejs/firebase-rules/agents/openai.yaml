@@ -1,0 +1,6 @@
+interface:
+  display_name: "Firebase Rules"
+  short_description: "Apply firebase rules patterns with clear contracts, persisten..."
+  default_prompt: "Use $firebase-rules-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

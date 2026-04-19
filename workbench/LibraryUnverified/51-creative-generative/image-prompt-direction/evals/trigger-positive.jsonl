@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at image prompt direction","expected":"image-prompt-direction","category":"Business, Research, and Optional Domain Skills"}
+{"input":"this task clearly needs image prompt direction","expected":"image-prompt-direction","category":"Business, Research, and Optional Domain Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around image prompt direction","expected":"image-prompt-direction","category":"Business, Research, and Optional Domain Skills"}

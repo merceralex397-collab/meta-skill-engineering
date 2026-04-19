@@ -1,0 +1,6 @@
+interface:
+  display_name: "OpenCode Primitives"
+  short_description: "Design and verify opencode primitives with explicit contracts..."
+  default_prompt: "Use $opencode-primitives-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

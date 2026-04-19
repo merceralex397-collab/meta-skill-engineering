@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub Prior Art Research"
+  short_description: "Execute the github prior art research role with clear scope,..."
+  default_prompt: "Use $github-prior-art-research-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Image Prompt Direction"
+  short_description: "Run image prompt direction with grounded sources, comparison,..."
+  default_prompt: "Use $image-prompt-direction-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

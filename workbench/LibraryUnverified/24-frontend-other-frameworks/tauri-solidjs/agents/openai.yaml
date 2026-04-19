@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tauri + SolidJS"
+  short_description: "Run tauri + solidjs with grounded sources, comparison, and de..."
+  default_prompt: "Use $tauri-solidjs-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

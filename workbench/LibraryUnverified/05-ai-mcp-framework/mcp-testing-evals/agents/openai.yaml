@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Testing and Evals"
+  short_description: "Design and verify mcp testing and evals with explicit contrac..."
+  default_prompt: "Use $mcp-testing-evals-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "llama.cpp"
+  short_description: "Apply llama.cpp with runtime boundaries, eval cases, and safe..."
+  default_prompt: "Use $llama-cpp-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

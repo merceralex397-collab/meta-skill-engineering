@@ -1,0 +1,3 @@
+{"input":"Fix a broken CSS grid.","expected":"no-trigger"}
+{"input":"Write a Bash one-liner for file cleanup.","expected":"no-trigger"}
+{"input":"Create a meeting agenda.","expected":"no-trigger"}

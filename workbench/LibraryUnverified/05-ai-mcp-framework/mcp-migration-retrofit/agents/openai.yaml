@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Migration Retrofit"
+  short_description: "Design and verify mcp migration retrofit with explicit contra..."
+  default_prompt: "Use $mcp-migration-retrofit-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

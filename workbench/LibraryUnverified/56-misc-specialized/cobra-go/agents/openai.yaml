@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cobra for Go CLIs"
+  short_description: "Handle cobra for go clis changes with preflight checks, verif..."
+  default_prompt: "Use $cobra-go-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

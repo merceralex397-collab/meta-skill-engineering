@@ -1,0 +1,2 @@
+{"input":"Review a payment-provider webhook receiver and return a plan for signature verification, enqueue-before-work, and duplicate delivery safety.","must_include":["Inbound Contract","Ack and Processing Flow","Signature and Replay Controls","Verification"],"expected":"webhooks-events"}
+{"input":"Apply Webhooks and Events to a receiver that performs slow downstream writes before acknowledging the provider.","must_include":["Inbound Contract","Verification"],"expected":"webhooks-events"}

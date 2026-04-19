@@ -1,0 +1,6 @@
+interface:
+  display_name: "PostgreSQL"
+  short_description: "Apply postgresql patterns with clear contracts, persistence r..."
+  default_prompt: "Use $postgresql-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

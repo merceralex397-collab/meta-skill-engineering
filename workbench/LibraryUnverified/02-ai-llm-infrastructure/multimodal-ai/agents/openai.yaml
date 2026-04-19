@@ -1,0 +1,6 @@
+interface:
+  display_name: "Multimodal AI"
+  short_description: "Apply multimodal ai with runtime boundaries, eval cases, and..."
+  default_prompt: "Use $multimodal-ai-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

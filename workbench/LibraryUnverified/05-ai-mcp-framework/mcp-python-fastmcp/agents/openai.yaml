@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Python FastMCP"
+  short_description: "Design and verify mcp python fastmcp with explicit contracts,..."
+  default_prompt: "Use $mcp-python-fastmcp-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "ADR and RFC Writing"
+  short_description: "Produce adr and rfc writing artifacts with source fidelity, a..."
+  default_prompt: "Use $adr-rfc-writing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

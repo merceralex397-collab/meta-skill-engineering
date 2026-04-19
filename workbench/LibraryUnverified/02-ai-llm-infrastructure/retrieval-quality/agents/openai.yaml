@@ -1,0 +1,6 @@
+interface:
+  display_name: "Retrieval Quality"
+  short_description: "Apply retrieval quality with runtime boundaries, eval cases,..."
+  default_prompt: "Use $retrieval-quality-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

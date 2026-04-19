@@ -1,0 +1,6 @@
+interface:
+  display_name: "Migration Refactor"
+  short_description: "Apply migration refactor through a concrete workflow with exp..."
+  default_prompt: "Use $migration-refactor-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

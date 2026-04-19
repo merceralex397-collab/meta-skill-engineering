@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cargo Lock Manager"
+  short_description: "Run cargo lock manager with grounded sources, comparison, and..."
+  default_prompt: "Use $cargo-lock-manager-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

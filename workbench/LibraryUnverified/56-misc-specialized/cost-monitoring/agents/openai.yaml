@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cost Monitoring"
+  short_description: "Handle cost monitoring changes with preflight checks, verific..."
+  default_prompt: "Use $cost-monitoring-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

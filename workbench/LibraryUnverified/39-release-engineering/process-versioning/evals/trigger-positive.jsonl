@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at p2","expected":"process-versioning","category":"Agentic Orchestration and Autonomy"}
+{"input":"this task clearly needs p2","expected":"process-versioning","category":"Agentic Orchestration and Autonomy"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around p2","expected":"process-versioning","category":"Agentic Orchestration and Autonomy"}

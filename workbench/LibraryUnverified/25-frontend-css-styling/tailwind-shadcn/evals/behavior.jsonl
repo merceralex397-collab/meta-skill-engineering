@@ -1,0 +1,2 @@
+{"input":"Use Tailwind and shadcn/ui on a realistic task and return the result in a decision-ready shape.","must_include":["Detected Stack Signals","Chosen Pattern","Implementation Notes","Validation"],"expected":"tailwind-shadcn"}
+{"input":"Apply Tailwind and shadcn/ui but call out uncertainty and the next verification step explicitly.","must_include":["Detected Stack Signals","Validation"],"expected":"tailwind-shadcn"}

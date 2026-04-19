@@ -1,0 +1,2 @@
+{"input":"Use Domain Scouting on a realistic task and return the result in a decision-ready shape.","must_include":["Question","Sources","Comparison","Recommendation and Confidence"],"expected":"domain-scouting"}
+{"input":"Apply Domain Scouting but call out uncertainty and the next verification step explicitly.","must_include":["Question","Recommendation and Confidence"],"expected":"domain-scouting"}

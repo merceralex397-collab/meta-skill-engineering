@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at document to structured data","expected":"document-to-structured-data","category":"Docs, Artifacts, and Media Skills"}
+{"input":"this task clearly needs document to structured data","expected":"document-to-structured-data","category":"Docs, Artifacts, and Media Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around document to structured data","expected":"document-to-structured-data","category":"Docs, Artifacts, and Media Skills"}

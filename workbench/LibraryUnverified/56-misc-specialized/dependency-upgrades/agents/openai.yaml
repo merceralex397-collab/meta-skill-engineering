@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dependency Upgrades"
+  short_description: "Apply dependency upgrades through a concrete workflow with ex..."
+  default_prompt: "Use $dependency-upgrades-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

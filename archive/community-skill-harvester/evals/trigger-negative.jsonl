@@ -1,0 +1,8 @@
+{"prompt": "Create a new skill from scratch", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not harvesting"}
+{"prompt": "Improve this existing skill", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not community discovery"}
+{"prompt": "Install this skill from GitHub", "expected": "no_trigger", "better_skill": "skill-installer", "notes": "Installation of known skill, not discovery"}
+{"prompt": "Tell me a joke", "expected": "no_trigger", "better_skill": null, "notes": "Completely unrelated to skills"}
+{"prompt": "Audit the skill library for duplicates", "expected": "no_trigger", "better_skill": "skill-catalog-curation", "notes": "Internal audit, not external harvesting"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": "skill-packaging", "notes": "Packaging, not harvesting"}
+{"prompt": "Translate this document to French", "expected": "no_trigger", "better_skill": null, "notes": "Language translation, not skill discovery"}
+{"prompt": "Search GitHub for React component libraries", "expected": "no_trigger", "better_skill": null, "notes": "General repo search, not skill harvesting"}

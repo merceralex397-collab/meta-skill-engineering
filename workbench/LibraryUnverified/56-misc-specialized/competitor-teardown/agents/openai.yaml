@@ -1,0 +1,6 @@
+interface:
+  display_name: "Competitor Teardown"
+  short_description: "Run competitor teardown with grounded sources, comparison, an..."
+  default_prompt: "Use $competitor-teardown-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

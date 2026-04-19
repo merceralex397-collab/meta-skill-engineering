@@ -1,0 +1,41 @@
+schema_version: 1
+skill_id: auth-patterns-codex-c
+canonical_name: auth-patterns
+version: 0.1.0
+owner: codex
+status: draft
+summary: Apply auth patterns through a concrete workflow with explicit checks.
+risk_level: low
+categories:
+  - generated
+  - repo
+  - core
+  - auth
+  - patterns
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/workflow-notes.md
+  - references/review-checklist.md
+  - references/failure-modes.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "AWS"
+  short_description: "Handle aws changes with preflight checks, verification, and r..."
+  default_prompt: "Use $aws-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

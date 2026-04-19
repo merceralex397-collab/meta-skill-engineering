@@ -1,0 +1,6 @@
+interface:
+  display_name: "Autonomous Backlog Maintenance"
+  short_description: "Coordinate autonomous backlog maintenance work with bounded d..."
+  default_prompt: "Use $autonomous-backlog-maintenance-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

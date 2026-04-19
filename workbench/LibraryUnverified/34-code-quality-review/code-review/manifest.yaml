@@ -1,0 +1,33 @@
+schema_version: 1
+skill_id: code-review-codex-c
+canonical_name: code-review
+version: 0.1.0
+owner: codex
+status: draft
+summary: Review code with a findings-first, severity-ordered bug and regression focus.
+risk_level: low
+categories:
+  - role
+  - review
+compatibility:
+  clients:
+    - openai-codex
+    - opencode
+    - github-copilot
+    - gemini-cli
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - references/finding-severity.md
+  - references/review-checklist.md
+  - references/no-finding-output.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "BigQuery"
+  short_description: "Apply bigquery patterns with clear contracts, persistence rul..."
+  default_prompt: "Use $bigquery-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

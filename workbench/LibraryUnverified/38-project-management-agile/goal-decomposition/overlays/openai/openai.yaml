@@ -1,0 +1,18 @@
+name: goal-decomposition-codex-c
+version: 1
+summary: "Coordinate goal decomposition work with bounded delegation, artifact contracts, and rejoin points."
+invocation:
+  policy: auto
+  aliases:
+    - "goal-decomposition"
+    - "goal decomposition"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/delegate-contracts.md"
+    - "../../references/checkpoint-rules.md"
+    - "../../references/failure-escalation.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

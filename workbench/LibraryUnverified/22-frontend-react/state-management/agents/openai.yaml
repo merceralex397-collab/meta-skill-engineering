@@ -1,0 +1,6 @@
+interface:
+  display_name: "State Management"
+  short_description: "Apply state management patterns with explicit UI state, acces..."
+  default_prompt: "Use $state-management-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

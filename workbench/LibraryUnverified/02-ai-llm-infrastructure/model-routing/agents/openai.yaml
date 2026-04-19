@@ -1,0 +1,6 @@
+interface:
+  display_name: "Model Routing"
+  short_description: "Apply model routing with runtime boundaries, eval cases, and..."
+  default_prompt: "Use $model-routing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

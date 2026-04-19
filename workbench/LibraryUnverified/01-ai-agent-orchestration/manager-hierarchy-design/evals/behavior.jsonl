@@ -1,0 +1,2 @@
+{"input":"Use Manager Hierarchy Design on a realistic task and return the result in a decision-ready shape.","must_include":["Critical Path","Delegates or Stages","Artifact Contracts","Rejoin Criteria"],"expected":"manager-hierarchy-design"}
+{"input":"Apply Manager Hierarchy Design but call out uncertainty and the next verification step explicitly.","must_include":["Critical Path","Rejoin Criteria"],"expected":"manager-hierarchy-design"}

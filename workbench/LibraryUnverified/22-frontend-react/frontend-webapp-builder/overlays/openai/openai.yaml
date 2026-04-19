@@ -1,0 +1,18 @@
+name: frontend-webapp-builder-codex-c
+version: 1
+summary: "Run frontend webapp builder with grounded sources, comparison, and decision-ready conclusions."
+invocation:
+  policy: auto
+  aliases:
+    - "frontend-webapp-builder"
+    - "frontend webapp builder"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/source-plan.md"
+    - "../../references/comparison-matrix.md"
+    - "../../references/claim-discipline.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

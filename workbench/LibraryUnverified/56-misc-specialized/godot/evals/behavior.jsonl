@@ -1,0 +1,2 @@
+{"input":"Use Godot on a realistic task and return the result in a decision-ready shape.","must_include":["Creative Goal","Implementation Plan","Iteration Notes","Validation"],"expected":"godot"}
+{"input":"Apply Godot but call out uncertainty and the next verification step explicitly.","must_include":["Creative Goal","Validation"],"expected":"godot"}

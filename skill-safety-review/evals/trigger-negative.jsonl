@@ -1,0 +1,8 @@
+{"prompt": "Check this skill for structural anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Structural anti-patterns, not safety hazards"}
+{"prompt": "Evaluate this skill's trigger accuracy", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Routing evaluation, not safety audit"}
+{"prompt": "Improve this skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not safety review"}
+{"prompt": "Document where this skill came from", "expected": "no_trigger", "better_skill": null, "notes": "Provenance, not safety"}
+{"prompt": "Create a new skill for security scanning", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Skill creation, not safety review"}
+{"prompt": "Run a security scan on my codebase", "expected": "no_trigger", "better_skill": null, "notes": "Code security scan, not skill safety review"}
+{"prompt": "Is this API endpoint secure?", "expected": "no_trigger", "better_skill": null, "notes": "API security, not skill safety"}
+{"prompt": "Review this pull request for issues", "expected": "no_trigger", "better_skill": null, "notes": "PR review, not skill safety review"}

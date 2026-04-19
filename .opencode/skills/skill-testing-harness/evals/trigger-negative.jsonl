@@ -1,0 +1,8 @@
+{"prompt": "Run the existing test suite against this skill", "expected": "no_trigger", "better_skill": "skill-evaluation", "notes": "Running tests, not creating them"}
+{"prompt": "Compare these two skill variants", "expected": "no_trigger", "better_skill": "skill-benchmarking", "notes": "Comparison, not test creation"}
+{"prompt": "Improve this skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not test infrastructure"}
+{"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Anti-pattern audit, not test building"}
+{"prompt": "Fix the test case on line 12 of trigger-positive.jsonl", "expected": "no_trigger", "better_skill": null, "notes": "Editing existing tests, not building new harness"}
+{"prompt": "Write unit tests for my Python function", "expected": "no_trigger", "better_skill": null, "notes": "Code unit testing, not skill test harness"}
+{"prompt": "Set up Jest for my React project", "expected": "no_trigger", "better_skill": null, "notes": "JavaScript testing framework, not skill testing"}
+{"prompt": "Debug why this test is failing", "expected": "no_trigger", "better_skill": null, "notes": "Test debugging, not test creation"}

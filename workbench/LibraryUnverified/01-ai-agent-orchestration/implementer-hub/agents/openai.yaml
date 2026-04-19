@@ -1,0 +1,6 @@
+interface:
+  display_name: "Implementer Hub"
+  short_description: "Execute the implementer hub role with clear scope, evidence,..."
+  default_prompt: "Use $implementer-hub-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

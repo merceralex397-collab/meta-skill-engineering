@@ -1,0 +1,6 @@
+interface:
+  display_name: "Next.js App Router"
+  short_description: "Apply next.js app router patterns with explicit UI state, acc..."
+  default_prompt: "Use $nextjs-app-router-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

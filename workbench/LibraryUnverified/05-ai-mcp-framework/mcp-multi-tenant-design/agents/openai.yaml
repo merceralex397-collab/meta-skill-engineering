@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Multi-Tenant Design"
+  short_description: "Design and verify mcp multi-tenant design with explicit contr..."
+  default_prompt: "Use $mcp-multi-tenant-design-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

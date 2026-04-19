@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Enter a repo with AGENTS.md, README.md, and an active spec folder.","assertions":["prefers authority docs first","does not bulk-load unrelated files","summarizes precedence"]}
+{"id":"bh-002","prompt":"Resume work in a repo with conflicting old notes and a newer AGENTS file.","assertions":["flags conflict","follows higher-precedence source","states uncertainty if needed"]}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Python LLM/ML Workflow"
+  short_description: "Apply python llm/ml workflow with runtime boundaries, eval ca..."
+  default_prompt: "Use $python-llm-ml-workflow-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

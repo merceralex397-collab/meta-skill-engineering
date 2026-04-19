@@ -1,0 +1,6 @@
+interface:
+  display_name: "P2"
+  short_description: "Coordinate p2 work with bounded delegation, artifact contract..."
+  default_prompt: "Use $process-versioning-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

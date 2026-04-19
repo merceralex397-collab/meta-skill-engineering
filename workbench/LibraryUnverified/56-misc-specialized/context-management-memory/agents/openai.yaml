@@ -1,0 +1,6 @@
+interface:
+  display_name: "Context Management and Memory"
+  short_description: "Apply context management and memory with runtime boundaries,..."
+  default_prompt: "Use $context-management-memory-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

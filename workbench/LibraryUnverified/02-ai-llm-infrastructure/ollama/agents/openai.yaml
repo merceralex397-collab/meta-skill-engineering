@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ollama"
+  short_description: "Apply ollama with runtime boundaries, eval cases, and safety-..."
+  default_prompt: "Use $ollama-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

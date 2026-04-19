@@ -1,0 +1,6 @@
+interface:
+  display_name: "Web Testing"
+  short_description: "Apply web testing patterns with explicit UI state, accessibil..."
+  default_prompt: "Use $testing-web-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

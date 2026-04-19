@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tailwind and shadcn/ui"
+  short_description: "Apply tailwind and shadcn/ui patterns with explicit UI state,..."
+  default_prompt: "Use $tailwind-shadcn-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

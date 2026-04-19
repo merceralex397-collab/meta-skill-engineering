@@ -1,0 +1,6 @@
+interface:
+  display_name: "Docs and Handoff"
+  short_description: "Apply docs and handoff through a concrete workflow with expli..."
+  default_prompt: "Use $docs-and-handoff-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

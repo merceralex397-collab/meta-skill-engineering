@@ -1,0 +1,6 @@
+interface:
+  display_name: "Incident Postmortem"
+  short_description: "Apply incident postmortem through a concrete workflow with ex..."
+  default_prompt: "Use $incident-postmortem-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at cargo lock manager","expected":"cargo-lock-manager","category":"External Reference Seed Skills"}
+{"input":"this task clearly needs cargo lock manager","expected":"cargo-lock-manager","category":"External Reference Seed Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around cargo lock manager","expected":"cargo-lock-manager","category":"External Reference Seed Skills"}

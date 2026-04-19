@@ -1,0 +1,6 @@
+interface:
+  display_name: "Market Research"
+  short_description: "Run market research with grounded sources, comparison, and de..."
+  default_prompt: "Use $market-research-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

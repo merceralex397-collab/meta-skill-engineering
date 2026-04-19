@@ -1,0 +1,9 @@
+{"prompt": "Deprecate this old skill that's been replaced", "expected": "trigger", "category": "core", "notes": "Direct deprecation request"}
+{"prompt": "Promote this skill to stable status", "expected": "trigger", "category": "core", "notes": "Promotion to stable"}
+{"prompt": "Retire this skill, it's been superseded by the new version", "expected": "trigger", "category": "core", "notes": "Retirement/archival request"}
+{"prompt": "Which skills are production-ready vs still in draft?", "expected": "trigger", "category": "core", "notes": "Maturity audit across library"}
+{"prompt": "This skill is replaced by X, mark it as deprecated", "expected": "trigger", "category": "core", "notes": "Replacement-triggered deprecation"}
+{"prompt": "Audit the maturity levels across the skill library", "expected": "trigger", "category": "paraphrase", "notes": "Library-wide maturity audit"}
+{"prompt": "Move this skill from beta to stable after testing", "expected": "trigger", "category": "core", "notes": "State transition after validation"}
+{"prompt": "Archive this deprecated skill properly", "expected": "trigger", "category": "core", "notes": "Archival procedure"}
+{"prompt": "Is this skill ready for production use?", "expected": "trigger", "category": "indirect", "notes": "Production readiness implies lifecycle check"}

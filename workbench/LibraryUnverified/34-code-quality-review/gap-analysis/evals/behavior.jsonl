@@ -1,0 +1,2 @@
+{"input":"Use Gap Analysis on a realistic task and return the result in a decision-ready shape.","must_include":["Findings","Evidence","Recommendation","Verification or Open Questions"],"expected":"gap-analysis"}
+{"input":"Apply Gap Analysis but call out uncertainty and the next verification step explicitly.","must_include":["Findings","Verification or Open Questions"],"expected":"gap-analysis"}

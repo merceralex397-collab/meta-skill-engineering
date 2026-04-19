@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+import argparse
+import sys
+from pathlib import Path
+
+REQUIRED_SECTIONS = [
+    "# Purpose",
+    "# When to use",
+    "# When NOT to use",
+    "# Procedure",
+    "# Output contract",
+    "# Failure handling",
+]
+
+
+def parse_frontmatter(text: str):
+    if not text.startswith("---\n"):
+        return None
+    end = text.find("\n---\n", 4)
+    if end == -1:
+        return None
+    return text[4:end]
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Light structural lint for a skill package")
+    parser.add_argument("skill_dir", help="Path to the skill directory")
+    args = parser.parse_args()
+
+    root = Path(args.skill_dir)
+    skill_md = root / "SKILL.md"
+    if not skill_md.exists():
+        print("ERROR: missing SKILL.md", file=sys.stderr)
+        return 2
+
+    text = skill_md.read_text(encoding="utf-8")
+    fm = parse_frontmatter(text)
+    if fm is None:
+        print("ERROR: invalid or missing YAML frontmatter", file=sys.stderr)
+        return 2
+
+    problems = []
+    if "name:" not in fm:
+        problems.append("frontmatter missing name")
+    if "description:" not in fm:
+        problems.append("frontmatter missing description")
+    has_negative_boundary = (
+        "# When NOT to use" in text
+        or "Do not use" in text
+        or "Do NOT use" in text
+    )
+    if not has_negative_boundary:
+        problems.append("skill body may be missing a negative boundary")
+    full_lower = (fm + "\n" + text).lower()
+    has_routing_cue = any(
+        phrase in full_lower
+        for phrase in ("use when", "when the user", "when someone")
+    )
+    if not has_routing_cue:
+        problems.append("routing cues may be too weak")
+
+    for section in REQUIRED_SECTIONS:
+        if section not in text:
+            problems.append(f"missing section: {section}")
+
+    for rel in ("references", "scripts", "evals"):
+        p = root / rel
+        if p.exists() and not any(p.iterdir()):
+            problems.append(f"{rel}/ exists but is empty")
+
+    if problems:
+        print("WARNINGS:")
+        for item in problems:
+            print(f"- {item}")
+        return 1
+
+    print("OK: no structural issues detected")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

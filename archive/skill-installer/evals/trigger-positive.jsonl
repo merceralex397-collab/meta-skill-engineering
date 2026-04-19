@@ -1,0 +1,9 @@
+{"prompt": "Install this skill from GitHub", "expected": "trigger", "category": "core", "notes": "Direct install request"}
+{"prompt": "Add skill from this repository URL", "expected": "trigger", "category": "core", "notes": "URL-based install"}
+{"prompt": "Install skill-creator into my agent client", "expected": "trigger", "category": "core", "notes": "Named skill installation"}
+{"prompt": "List available skills that I can install", "expected": "trigger", "category": "core", "notes": "Skill discovery/listing"}
+{"prompt": "Set up this skill package on my machine", "expected": "trigger", "category": "paraphrase", "notes": "Paraphrased installation"}
+{"prompt": "Download and install the skill from this tarball", "expected": "trigger", "category": "core", "notes": "Archive-based install"}
+{"prompt": "What skills are already installed vs available?", "expected": "trigger", "category": "indirect", "notes": "Inventory check implies installer"}
+{"prompt": "Add this local skill folder to my agent client", "expected": "trigger", "category": "core", "notes": "Local folder installation"}
+{"prompt": "I need to get this skill running on my setup", "expected": "trigger", "category": "indirect", "notes": "Indirect installation need"}

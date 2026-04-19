@@ -1,0 +1,2 @@
+{"input":"Use Unity on a realistic task and return the result in a decision-ready shape.","must_include":["Creative Goal","Implementation Plan","Iteration Notes","Validation"],"expected":"unity"}
+{"input":"Apply Unity but call out uncertainty and the next verification step explicitly.","must_include":["Creative Goal","Validation"],"expected":"unity"}

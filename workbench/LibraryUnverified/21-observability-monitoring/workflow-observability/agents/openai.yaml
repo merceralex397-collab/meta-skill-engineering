@@ -1,0 +1,6 @@
+interface:
+  display_name: "Workflow Observability"
+  short_description: "Apply workflow observability through a concrete workflow with..."
+  default_prompt: "Use $workflow-observability-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

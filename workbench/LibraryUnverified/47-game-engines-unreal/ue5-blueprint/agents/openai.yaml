@@ -1,0 +1,6 @@
+interface:
+  display_name: "UE5 Blueprint"
+  short_description: "Use ue5 blueprint to guide creative system decisions without..."
+  default_prompt: "Use $ue5-blueprint-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

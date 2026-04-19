@@ -1,0 +1,6 @@
+interface:
+  display_name: "Training Infrastructure"
+  short_description: "Apply training infrastructure with runtime boundaries, eval c..."
+  default_prompt: "Use $training-infrastructure-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

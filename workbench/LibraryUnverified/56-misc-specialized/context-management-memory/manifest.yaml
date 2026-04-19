@@ -1,0 +1,44 @@
+schema_version: 1
+skill_id: context-management-memory-codex-c
+canonical_name: context-management-memory
+version: 0.1.0
+owner: codex
+status: draft
+summary: Apply context management and memory with runtime boundaries, eval cases, and safety-aware tradeoffs.
+risk_level: low
+categories:
+  - ai
+  - llm
+  - runtime
+  - and
+  - integration
+  - context
+  - management
+  - memory
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/runtime-contracts.md
+  - references/eval-cases.md
+  - references/risk-controls.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

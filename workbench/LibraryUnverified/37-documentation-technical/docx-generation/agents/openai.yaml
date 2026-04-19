@@ -1,0 +1,6 @@
+interface:
+  display_name: "DOCX Generation"
+  short_description: "Produce docx generation artifacts with source fidelity, audie..."
+  default_prompt: "Use $docx-generation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

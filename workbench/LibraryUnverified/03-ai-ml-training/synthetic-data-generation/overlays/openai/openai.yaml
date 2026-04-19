@@ -1,0 +1,18 @@
+name: synthetic-data-generation-codex-c
+version: 1
+summary: "Apply synthetic data generation with runtime boundaries, eval cases, and safety-aware tradeoffs."
+invocation:
+  policy: auto
+  aliases:
+    - "synthetic-data-generation"
+    - "synthetic data generation"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/runtime-contracts.md"
+    - "../../references/eval-cases.md"
+    - "../../references/risk-controls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

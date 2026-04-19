@@ -1,0 +1,6 @@
+interface:
+  display_name: "External API Client"
+  short_description: "Apply external api client through a concrete workflow with ex..."
+  default_prompt: "Use $external-api-client-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

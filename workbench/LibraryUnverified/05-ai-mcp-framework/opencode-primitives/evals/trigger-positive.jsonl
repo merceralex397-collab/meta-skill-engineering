@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at opencode primitives","expected":"opencode-primitives","category":"MCP Skills"}
+{"input":"this task clearly needs opencode primitives","expected":"opencode-primitives","category":"MCP Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around opencode primitives","expected":"opencode-primitives","category":"MCP Skills"}

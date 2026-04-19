@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dense-to-MoE Experiments"
+  short_description: "Apply dense-to-moe experiments with runtime boundaries, eval..."
+  default_prompt: "Use $dense-to-moe-experiments-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

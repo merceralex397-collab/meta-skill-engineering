@@ -1,0 +1,2 @@
+{"input":"Use Steelman on a realistic task and return the result in a decision-ready shape.","must_include":["Findings","Evidence","Recommendation","Verification or Open Questions"],"expected":"steelman"}
+{"input":"Apply Steelman but call out uncertainty and the next verification step explicitly.","must_include":["Findings","Verification or Open Questions"],"expected":"steelman"}

@@ -1,0 +1,2 @@
+{"input":"Review a webhook consumer and return a retry policy that covers transient errors, throttling, and duplicate delivery protection.","must_include":["Failure Classes","Retry and Backoff Plan","Budget and Idempotency","Verification"],"expected":"rate-limits-retries"}
+{"input":"Apply Rate Limits and Retries to an upstream API client that is retrying 401, 404, and 429 responses the same way.","must_include":["Failure Classes","Verification"],"expected":"rate-limits-retries"}

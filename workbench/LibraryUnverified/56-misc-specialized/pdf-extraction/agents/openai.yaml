@@ -1,0 +1,6 @@
+interface:
+  display_name: "PDF Extraction"
+  short_description: "Produce pdf extraction artifacts with source fidelity, audien..."
+  default_prompt: "Use $pdf-extraction-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

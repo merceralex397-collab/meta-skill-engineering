@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Resources and Prompts"
+  short_description: "Design and verify mcp resources and prompts with explicit con..."
+  default_prompt: "Use $mcp-resources-prompts-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

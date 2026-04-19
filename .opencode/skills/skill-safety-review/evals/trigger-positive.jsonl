@@ -1,0 +1,9 @@
+{"prompt": "Review this skill for safety before publishing", "expected": "trigger", "category": "core", "notes": "Direct safety review request"}
+{"prompt": "Is this skill safe to publish to our shared registry?", "expected": "trigger", "category": "core", "notes": "Publication safety check"}
+{"prompt": "Check for destructive operations in this skill", "expected": "trigger", "category": "core", "notes": "Destructive operation audit"}
+{"prompt": "Audit this skill before sharing with the team", "expected": "trigger", "category": "core", "notes": "Pre-sharing audit"}
+{"prompt": "Does this skill have any prompt injection vulnerabilities?", "expected": "trigger", "category": "core", "notes": "Injection vector check"}
+{"prompt": "This skill deletes files — is it safe to use?", "expected": "trigger", "category": "indirect", "notes": "Concern about destructive operations"}
+{"prompt": "We imported this skill from an untrusted source, audit it", "expected": "trigger", "category": "core", "notes": "Post-import safety audit"}
+{"prompt": "Check if this skill's description matches what it actually does", "expected": "trigger", "category": "indirect", "notes": "Description-behavior mismatch check"}
+{"prompt": "Are there any excessive permissions in this skill?", "expected": "trigger", "category": "paraphrase", "notes": "Permission audit = safety review"}
