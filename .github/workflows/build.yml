@@ -121,7 +121,7 @@ jobs:
 
       - name: Install WiX Toolset
         run: |
-          choco install wixtoolset -y --version=${{ env.WIX_VERSION }}
+          choco upgrade wixtoolset -y --no-progress
 
       - name: Restore dependencies
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -199,7 +199,7 @@ jobs:
 
       - name: Install WiX Toolset
         run: |
-          choco install wixtoolset -y --version=${{ env.WIX_VERSION }}
+          choco upgrade wixtoolset -y --no-progress
 
       - name: Restore dependencies
         run: dotnet restore ${{ env.SOLUTION_PATH }}
