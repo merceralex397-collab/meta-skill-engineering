@@ -2,8 +2,7 @@
   Meta Skill Studio WiX Installer
   
   Build with:
-    candle.exe -dProductVersion=X.Y.Z -dPublishDir=..\publish MetaSkillStudio.wxs
-    light.exe -ext WixUIExtension -out MetaSkillStudio-X.Y.Z.msi MetaSkillStudio.wixobj
+    wix build -arch x64 -ext WixToolset.UI.wixext -d "ProductVersion=X.Y.Z" -d "PublishDir=<absolute publish dir>" -o MetaSkillStudio-X.Y.Z.msi MetaSkillStudio.wxs
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <?define ProductName = "Meta Skill Studio" ?>

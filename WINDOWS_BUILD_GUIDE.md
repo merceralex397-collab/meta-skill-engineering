@@ -56,19 +56,20 @@ Expected output:
 ## Build the MSI Installer
 
 ```powershell
+$toolPath = ".tools\wix4"
+dotnet tool install wix --version 4.0.6 --tool-path $toolPath
+& "$toolPath\wix.exe" extension add WixToolset.UI.wixext/4.0.6
+
 cd windows-wpf\installer
 
-$publishDir = Join-Path (Resolve-Path ..).Path "publish"
-candle.exe -nologo `
-  -dProductVersion=1.0.0 `
-  -dPublishDir="$publishDir" `
-  -out MetaSkillStudio.wixobj `
+$publishDir = (Resolve-Path ..\publish).Path
+& "..\..\$toolPath\wix.exe" build `
+  -arch x64 `
+  -ext WixToolset.UI.wixext `
+  -d "ProductVersion=1.0.0" `
+  -d "PublishDir=$publishDir" `
+  -o MetaSkillStudio-1.0.0.msi `
   MetaSkillStudio.wxs
-
-light.exe -nologo `
-  -ext WixUIExtension `
-  -out MetaSkillStudio-1.0.0.msi `
-  MetaSkillStudio.wixobj
 ```
 
 ## Distribution Notes

@@ -14,7 +14,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  WIX_VERSION: '3.14.1'
+  WIX_VERSION: '4.0.6'
   SOLUTION_PATH: 'windows-wpf/MetaSkillStudio.sln'
   PROJECT_PATH: 'windows-wpf/MetaSkillStudio/MetaSkillStudio.csproj'
   TEST_PROJECT_PATH: 'windows-wpf/MetaSkillStudio.Tests/MetaSkillStudio.Tests.csproj'
@@ -119,10 +119,6 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Install WiX Toolset
-        run: |
-          choco upgrade wixtoolset -y --no-progress
-
       - name: Restore dependencies
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
@@ -199,7 +195,9 @@ jobs:
 
       - name: Install WiX Toolset
         run: |
-          choco upgrade wixtoolset -y --no-progress
+          $toolPath = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4'
+          dotnet tool install wix --version ${{ env.WIX_VERSION }} --tool-path $toolPath
+          & (Join-Path $toolPath 'wix.exe') extension add WixToolset.UI.wixext/${{ env.WIX_VERSION }}
 
       - name: Restore dependencies
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -221,23 +219,17 @@ jobs:
       - name: Build MSI installer
         working-directory: windows-wpf/installer
         run: |
-          $wixDir = Get-ChildItem "${env:ProgramFiles(x86)}" -Directory -Filter "WiX Toolset v3*" | Sort-Object Name -Descending | Select-Object -First 1
-          if (-not $wixDir) {
-            throw "WiX Toolset v3 was not found after installation."
-          }
-
-          $env:PATH = "$(Join-Path $wixDir.FullName 'bin');$env:PATH"
+          $wix = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4\wix.exe'
           $publishDir = Join-Path $env:GITHUB_WORKSPACE '${{ env.PUBLISH_DIR }}'
+          $msiVersion = '${{ needs.version.outputs.version }}'.Split('-')[0]
 
-          candle.exe -nologo `
-            -dProductVersion="${{ needs.version.outputs.version }}" `
-            -dPublishDir="$publishDir" `
-            -out "MetaSkillStudio.wixobj" `
+          & $wix build `
+            -arch x64 `
+            -ext WixToolset.UI.wixext `
+            -d "ProductVersion=$msiVersion" `
+            -d "PublishDir=$publishDir" `
+            -o "MetaSkillStudio-${{ needs.version.outputs.version }}.msi" `
             "MetaSkillStudio.wxs"
-          light.exe -nologo `
-            -out "MetaSkillStudio-${{ needs.version.outputs.version }}.msi" `
-            -ext WixUIExtension `
-            "MetaSkillStudio.wixobj"
 
       - name: Upload MSI artifact
         uses: actions/upload-artifact@v4
