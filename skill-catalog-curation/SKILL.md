@@ -2,40 +2,41 @@
 name: skill-catalog-curation
 description: >-
   Audit a skill library for duplicates, category drift, and discoverability gaps;
-  verify naming conventions, cross-references between SKILL.md files, and
-  description quality across skill directories.
+  maintain the catalog index, metadata, tags, and naming conventions.
   Use when: "audit the skill library", "clean up overlapping skills",
-  "organize the catalog", "find duplicate skills".
+  "organize the catalog before release", "update the registry", "add this to the catalog",
+  "generate the skill index".
   Do not use for: improving a single skill (skill-improver), creating a new skill (skill-creator),
   promoting or deprecating individual skills through lifecycle states (skill-lifecycle-management).
 ---
 
-# Purpose
+## Purpose
 
-Detect duplicates, enforce category consistency, flag deprecation candidates, verify discoverability, and maintain catalog consistency across an entire skill library. Produces structured curation reports with prioritized action items.
+Detect duplicates, enforce category consistency, flag deprecation candidates, verify discoverability, and maintain the catalog index across an entire skill library. Produces structured curation reports and keeps the library index (skills-lock.json, CATALOG.md) current.
 
-# When to use
+## When to use
 
 - Library has grown past ~20 skills and overlaps or inconsistencies have appeared
 - Before a major release or after a bulk import
 - Periodic maintenance pass (monthly for active libraries)
 - User asks to "audit the library", "clean up skills", or "find duplicate skills"
+- Adding a new skill to the registry
+- Updating skill metadata after changes
+- Generating a publishable skill index
 
-# When NOT to use
+## When NOT to use
 
 - Improving or refining a single skill → `skill-improver`
 - Creating a new skill from scratch → `skill-creator`
-- Splitting a single skill into focused variants → `skill-variant-splitting`
 - Promoting, deprecating, or archiving individual skills through lifecycle gates → `skill-lifecycle-management`
+- Installing or packaging skills → `skill-installer` / `skill-packaging`
 
-# Procedure
+## Procedure
 
 ## 1. Build inventory
 
-- List every skill directory at the repo root that contains a `SKILL.md`
-- For each skill record: name (directory name), category (inferred from pipeline position in `# Next steps` cross-references, e.g., creation-pipeline vs. improvement-pipeline), last-modified date (from `git log -1 --format=%cI -- <skill-dir>`)
-- Infer status from location: root directories → **active**, `archive/` → **archived**, `corpus/` → **test fixture**
-- Count skills per inferred category; flag uncategorized or miscategorized entries
+- List every skill: name, category, maturity, last-modified date
+- Count skills per category; flag uncategorized or miscategorized entries
 
 ## 2. Detect duplicates and overlaps
 
@@ -48,7 +49,7 @@ Detect duplicates, enforce category consistency, flag deprecation candidates, ve
 ## 3. Audit categories
 
 - Verify each skill's category matches its actual function (read the procedure, not just the name)
-- Singleton categories (1 skill) → review whether the skill fits naturally in an existing category. Do not merge categories that represent distinct capability areas solely based on count
+- Categories with ≤ 2 skills → propose merge into a neighbor
 - Categories with > 15 skills → propose a split axis
 
 ## 4. Check discoverability
@@ -72,48 +73,35 @@ Flag concrete defects using these thresholds:
 
 Output the curation report using the structure in **Output contract** below.
 
-# Output contract
+## Output contract
 
-The report MUST contain all eight sections. Omit rows only when a section has zero findings; keep the heading with "None found."
+The report MUST contain all six sections. Omit rows only when a section has zero findings; keep the heading with "None found."
 
 ```markdown
 ## Catalog Curation Report
 
 ### Inventory
-- Total active skills: <N> (root directories with SKILL.md)
-- Archived: <N> (in archive/)
-- Test fixtures: <N> (in corpus/)
-- Inferred categories: <list each category with skill count>
-
-### Description Quality
-| Skill | Word count | Starts with verb? | Has trigger phrases? | Issues |
-|-------|-----------|-------------------|---------------------|--------|
-| ...   | <N>       | yes/no            | yes/no              | <details> |
-
-### Cross-Reference Graph
-| Skill | References out (Next steps) | Referenced by | Boundary clarity |
-|-------|-----------------------------|---------------|-----------------|
-| ...   | <list>                      | <list>        | clear / ambiguous / missing |
+- Total skills: <N>
+- By maturity: <draft: N, stable: N, deprecated: N>
+- Categories: <N>
 
 ### Duplicates / Overlaps
 | Skill A | Skill B | Overlap evidence | Recommendation |
 |---------|---------|-----------------|----------------|
 | ...     | ...     | <shared trigger phrases or purpose text> | merge / differentiate / keep |
 
-### Naming Convention Audit
-| Skill | Convention | Issue |
-|-------|-----------|-------|
-| ...   | kebab-case / other | <details if non-conforming> |
+### Category Issues
+| Issue | Affected skills | Recommended action |
+|-------|----------------|--------------------|
 
-### Gap Analysis
-| Pipeline role | Expected skill | Status |
-|--------------|---------------|--------|
-| ...          | ...           | present / missing / weak coverage |
+### Discoverability Gaps
+| Skill | Problem | Fix |
+|-------|---------|-----|
+| ...   | description starts with noun, no negative boundaries | rewrite description |
 
 ### Deprecation Candidates
 | Skill | Reason | Replacement |
 |-------|--------|-------------|
-| ...   | ...    | ...         |
 
 ### Prioritized Actions
 1. **[High]** <action> — <reason>
@@ -127,6 +115,14 @@ The report MUST contain all eight sections. Omit rows only when a section has ze
 - **Category scheme is incoherent** (no consistent axis): propose a replacement taxonomy with explicit grouping criteria and flag it as a blocking action before other category fixes.
 - **No usage metrics available**: fall back to last-modified date and whether the skill's target tool/framework still exists in the stack.
 - **Findings exceed 30 action items**: split into phases — Phase 1: duplicates and broken boundaries (high), Phase 2: category restructuring (medium), Phase 3: discoverability polish (low). Do not emit an unprioritized list.
+
+# Next steps
+
+After curation:
+- Execute merge recommendations → use the merge procedure above or `skill-variant-splitting` for complex cases
+- Fix discoverability issues → `skill-trigger-optimization`
+- Deprecate identified candidates → `skill-lifecycle-management`
+- If split recommended for overlapping skills → `skill-variant-splitting`
 
 ## Merge procedure
 
@@ -142,11 +138,65 @@ When the audit identifies true duplicates (recommendation: "merge"), execute:
    About to delete [absorbed-skill]/ directory. Proceed? [y/N]
    ```
    Do NOT delete without explicit user confirmation.
-7. **Update the inventory** — update the README skill inventory to reflect the merge
+7. **Update the catalog** — update README, CATALOG.md, or skills-lock.json to reflect the merge
 
-# Next steps
+## Registry operations
 
-After curation:
-- Execute merge recommendations → use the merge procedure above
-- Fix discoverability issues → `skill-trigger-optimization`
-- Deprecate identified candidates → `skill-lifecycle-management`
+## Register a new skill
+
+When adding a skill to the catalog:
+
+1. Verify SKILL.md has required frontmatter (`name`, `description`)
+2. Assign maturity level (default: `draft`)
+3. Verify no name collision with existing skills
+4. Update library index files (see below)
+
+## Update skill metadata
+
+When a skill changes:
+
+1. Read current catalog entry
+2. Update changed fields (description, maturity, tags)
+3. Record modification timestamp
+4. Regenerate affected index entries
+
+## Generate library index
+
+Produce a machine-readable index and a human-readable catalog:
+
+**skills-lock.json** (machine-readable):
+```json
+{
+  "version": "1.0.0",
+  "generated": "<ISO timestamp>",
+  "skills": {
+    "<skill-name>": {
+      "path": "<relative path>",
+      "description": "<description>",
+      "maturity": "<draft|beta|stable|deprecated>",
+      "tags": ["<tag1>", "<tag2>"],
+      "last_updated": "<ISO date>"
+    }
+  }
+}
+```
+
+**CATALOG.md** (human-readable):
+```markdown
+# Skill Catalog
+
+## Active Skills
+| Name | Maturity | Description |
+|------|----------|-------------|
+| [name] | [maturity] | [description] |
+
+## Deprecated Skills
+| Name | Replacement | Deprecated Date |
+|------|-------------|----------------|
+```
+
+## Enforce naming conventions
+
+- Skill names: kebab-case, descriptive, 2-4 words
+- Directory names match skill names exactly
+- No abbreviations unless universally understood (e.g., `pr`, `qa`)

@@ -1,8 +1,0 @@
-skill: llm-evals-benchmarks-codex-c
-permissions:
-  read:
-    - ./SKILL.md
-    - ./references/**
-    - ./evals/**
-  execute:
-    - ./scripts/**

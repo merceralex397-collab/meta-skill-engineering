@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-trigger-optimization
+canonical_name: skill-trigger-optimization
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Fix skill routing by rewriting the description and trigger boundaries.
+risk_level: low
+categories:
+  - meta
+  - quality

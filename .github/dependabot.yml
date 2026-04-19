@@ -1,0 +1,78 @@
+version: 2
+updates:
+  # NuGet packages
+  - package-ecosystem: "nuget"
+    directory: "/windows-wpf"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "dependabot[bot]"
+    assignees:
+      - "maintainers"
+    commit-message:
+      prefix: "nuget"
+      prefix-development: "nuget-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "nuget"
+    groups:
+      microsoft-dependencies:
+        patterns:
+          - "Microsoft.*"
+          - "System.*"
+        update-types:
+          - "minor"
+          - "patch"
+      scottplot:
+        patterns:
+          - "ScottPlot.*"
+        update-types:
+          - "minor"
+          - "patch"
+      test-dependencies:
+        patterns:
+          - "xunit*"
+          - "Moq"
+          - "FluentAssertions"
+          - "coverlet*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      - dependency-name: "Microsoft.Windows.Compatibility"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "System.Text.Json"
+        update-types: ["version-update:semver-major"]
+    security-advisories:
+      - severity: "high"
+        dependency-type: "direct"
+      - severity: "critical"
+        dependency-type: "direct"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+  # Git submodules (if any)
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "submodules"

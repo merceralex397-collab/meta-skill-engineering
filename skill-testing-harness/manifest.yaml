@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-testing-harness
+canonical_name: skill-testing-harness
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Build trigger tests and output-format tests for a skill's evals directory.
+risk_level: low
+categories:
+  - meta
+  - evaluation

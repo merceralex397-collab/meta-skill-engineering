@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="MetaSkillStudio.Views.RunDetailsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Run Details" 
+        Height="700" 
+        Width="900"
+        MinWidth="700"
+        MinHeight="500"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- Header with Title and Status -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock x:Name="RunTitle" 
+                          Text="{Binding RunTitle}" 
+                          FontSize="20" 
+                          FontWeight="SemiBold"
+                          Foreground="{StaticResource PrimaryBrush}"
+                          AutomationProperties.Name="Run Title"/>
+                <TextBlock x:Name="RunTimestamp" 
+                          Text="{Binding RunTimestamp}" 
+                          FontSize="12"
+                          Foreground="{StaticResource TextSecondaryBrush}"
+                          Margin="0,4,0,0"/>
+            </StackPanel>
+            <Border Grid.Column="1" 
+                   x:Name="StatusBadge"
+                   Background="{Binding StatusColor}"
+                   CornerRadius="4"
+                   Padding="12,6">
+                <TextBlock x:Name="StatusText" 
+                           Text="{Binding StatusText}" 
+                           Foreground="White"
+                           FontWeight="Bold"
+                           AutomationProperties.Name="Status Badge"/>
+            </Border>
+        </Grid>
+        
+        <!-- Judge Score Section (Visible only when judge result exists) -->
+        <Border Grid.Row="1" 
+                x:Name="JudgeScoreSection"
+                Background="#FFF9E6"
+                BorderBrush="#FFE082"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="16"
+                Margin="0,0,0,16"
+                Visibility="{Binding JudgeSectionVisibility}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <!-- Quality Score Badge -->
+                <Border Grid.Column="0" 
+                       x:Name="QualityScoreBadge"
+                       Background="{Binding QualityScoreColor}"
+                       CornerRadius="50"
+                       Width="80"
+                       Height="80"
+                       Margin="0,0,16,0">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock x:Name="QualityScoreValue" 
+                                   Text="{Binding QualityScore}" 
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="/100" 
+                                  FontSize="12"
+                                  Foreground="White"
+                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Score Details -->
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,16,0">
+                    <TextBlock Text="Quality Score" 
+                              FontSize="16"
+                              FontWeight="SemiBold"
+                              Margin="0,0,0,4"/>
+                    <TextBlock x:Name="ScoreLabel" 
+                               Text="{Binding QualityLabel}"
+                               FontSize="14"
+                               Foreground="{StaticResource TextSecondaryBrush}"/>
+                </StackPanel>
+                
+                <!-- Notes -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Routing Notes:" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,0,4"/>
+                    <TextBlock x:Name="RoutingNotesText"
+                               Text="{Binding RoutingNotesText}"
+                               TextWrapping="Wrap"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,0,0,8"/>
+                    
+                    <TextBlock Text="Priority Fixes:" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,0,4"/>
+                    <TextBlock x:Name="PriorityFixesText"
+                               Text="{Binding PriorityFixesText}"
+                               TextWrapping="Wrap"
+                               Foreground="#B71C1C"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Collapsible Sections -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Input Section -->
+                <Border Background="{StaticResource SurfaceBrush}"
+                       BorderBrush="{StaticResource BorderBrush}"
+                       BorderThickness="1"
+                       CornerRadius="8"
+                       Margin="0,0,0,12">
+                    <Expander Header="Input Parameters" IsExpanded="True" Padding="12" TabIndex="0">
+                        <TextBox x:Name="InputTextBox"
+                                IsReadOnly="True"
+                                Text="{Binding InputText}"
+                                TextWrapping="Wrap"
+                                FontFamily="Consolas, monospace"
+                                FontSize="12"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="8"
+                                AutomationProperties.Name="Input Parameters"
+                                TabIndex="0"/>
+                    </Expander>
+                </Border>
+                
+                <!-- Stdout Section -->
+                <Border Background="#1E1E1E"
+                       BorderBrush="{StaticResource BorderBrush}"
+                       BorderThickness="1"
+                       CornerRadius="8"
+                       Margin="0,0,0,12">
+                    <Expander Header="Standard Output" IsExpanded="True" Padding="12" Foreground="White" TabIndex="0">
+                        <TextBox x:Name="StdoutTextBox"
+                                IsReadOnly="True"
+                                Text="{Binding StdoutText}"
+                                TextWrapping="Wrap"
+                                FontFamily="Consolas, monospace"
+                                FontSize="12"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="#D4D4D4"
+                                Padding="8"
+                                VerticalScrollBarVisibility="Auto"
+                                Height="200"
+                                AutomationProperties.Name="Standard Output"
+                                TabIndex="0"/>
+                    </Expander>
+                </Border>
+                
+                <!-- Stderr Section - WCAG AA Compliant Colors -->
+                <!-- Background: #3D2828 with Foreground: #FFB3B3 = contrast ratio ~7.5:1 (passes AAA) -->
+                <Border Background="#3D2828"
+                       BorderBrush="#FF6B6B"
+                       BorderThickness="1"
+                       CornerRadius="8"
+                       Margin="0,0,0,12"
+                       x:Name="StderrSection"
+                       Visibility="{Binding StderrSectionVisibility}">
+                    <Expander Header="Standard Error" IsExpanded="False" Padding="12" Foreground="#FF6B6B" TabIndex="0">
+                        <TextBox x:Name="StderrTextBox"
+                                IsReadOnly="True"
+                                Text="{Binding StderrText}"
+                                TextWrapping="Wrap"
+                                FontFamily="Consolas, monospace"
+                                FontSize="12"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="#FFB3B3"
+                                Padding="8"
+                                VerticalScrollBarVisibility="Auto"
+                                Height="150"
+                                AutomationProperties.Name="Standard Error"
+                                AutomationProperties.HelpText="Error output from the skill execution"
+                                TabIndex="0"/>
+                    </Expander>
+                </Border>
+                
+                <!-- Artifacts Section -->
+                <Border Background="{StaticResource SurfaceBrush}"
+                       BorderBrush="{StaticResource BorderBrush}"
+                       BorderThickness="1"
+                       CornerRadius="8"
+                       Margin="0,0,0,12">
+                    <Expander Header="Artifacts" IsExpanded="False" Padding="12" TabIndex="0">
+                        <TextBox x:Name="ArtifactsTextBox"
+                                IsReadOnly="True"
+                                Text="{Binding ArtifactsText}"
+                                TextWrapping="Wrap"
+                                FontFamily="Consolas, monospace"
+                                FontSize="12"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="8"
+                                AutomationProperties.Name="Artifacts"
+                                TabIndex="0"/>
+                    </Expander>
+                </Border>
+                
+                <!-- Metadata Section -->
+                <Border Background="{StaticResource SurfaceBrush}"
+                       BorderBrush="{StaticResource BorderBrush}"
+                       BorderThickness="1"
+                       CornerRadius="8">
+                    <Expander Header="Metadata" IsExpanded="False" Padding="12" TabIndex="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Exit Code:" FontWeight="SemiBold" Margin="0,0,16,4"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="ExitCodeText" 
+                                       Text="{Binding ExitCodeText}"
+                                       Foreground="{Binding ExitCodeColor}"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Duration:" FontWeight="SemiBold" Margin="0,0,16,4"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="DurationText" 
+                                       Text="{Binding DurationText}"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Started:" FontWeight="SemiBold" Margin="0,0,16,4"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="StartedText" 
+                                       Text="{Binding StartedText}"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Ended:" FontWeight="SemiBold" Margin="0,0,16,4"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="EndedText" 
+                                       Text="{Binding EndedText}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3" 
+                   Orientation="Horizontal" 
+                   HorizontalAlignment="Right"
+                   Margin="0,16,0,0">
+            <Button Style="{StaticResource SecondaryButton}"
+                   Click="CopyButton_Click"
+                   Width="120"
+                   Margin="0,0,8,0"
+                   ToolTip="Copy all run details to clipboard (Alt+C)"
+                   AutomationProperties.Name="Copy to Clipboard"
+                   AutomationProperties.HelpText="Copy all run details to clipboard"
+                   TabIndex="0">
+                <AccessText>_Copy to Clipboard</AccessText>
+            </Button>
+            <Button Style="{StaticResource PrimaryButton}"
+                   Click="CloseButton_Click"
+                   IsCancel="True"
+                   IsDefault="True"
+                   Width="80"
+                   ToolTip="Close dialog (Alt+C, Enter, Esc)"
+                   AutomationProperties.Name="Close"
+                   AutomationProperties.HelpText="Close the dialog"
+                   TabIndex="0">
+                <AccessText>_Close</AccessText>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

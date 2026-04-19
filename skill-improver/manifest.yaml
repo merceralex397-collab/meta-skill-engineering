@@ -1,0 +1,40 @@
+schema_version: 1
+skill_id: skill-improver
+canonical_name: skill-improver
+version: 0.2.0
+owner: project-local
+status: stable
+summary: Improve existing skill packages by tightening routing, procedure, support layers, and evaluation readiness.
+risk_level: low
+categories:
+  - meta
+  - skills
+  - refactoring
+compatibility:
+  clients:
+    - opencode
+    - copilot
+    - codex
+    - gemini-cli
+    - claude-code
+requires:
+  tools:
+    - file_search
+optional_tools:
+  - python
+  - container
+artifacts:
+  - references/skill-quality-rubric.md
+  - references/resource-decision-guide.md
+  - references/skill-type-playbooks.md
+  - scripts/skill_lint.py
+  - scripts/init_eval_files.py
+security:
+  network_required: false
+  executes_local_code: true
+  writes_files: true
+  destructive_actions: false
+metrics:
+  trigger_precision_target: 0.90
+  trigger_recall_target: 0.85
+  usefulness_target: 0.80

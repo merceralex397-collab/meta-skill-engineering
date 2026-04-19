@@ -1,0 +1,3 @@
+{"prompt": "Test case: Pipeline creation with state persistence", "required_patterns": ["pipeline_id", "state.json", "phases"], "forbidden_patterns": ["error", "failed"]}
+{"prompt": "Test case: Resume halted pipeline", "required_patterns": ["resume", "state file", "continue"], "forbidden_patterns": ["start fresh", "restart"]}
+{"prompt": "Test case: Multi-phase execution with decision branching", "required_patterns": ["conditional", "branch", "eval_score"], "forbidden_patterns": ["skip all", "ignore evaluation"]}

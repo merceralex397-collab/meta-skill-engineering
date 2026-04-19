@@ -1,5 +1,5 @@
 ---
-description: Runs evaluation tests against skills using the meta-skill engineering eval pipeline. Reports pass/fail gates and identifies skills ready for VerifiedSkills/.
+description: Runs evaluation tests against skills using the repository eval pipeline. Reports pass/fail gates and identifies skills ready for LibraryWorkbench promotion.
 model: minimax-coding-plan/Minimax-M2.7
 mode: subagent
 hidden: true
@@ -22,10 +22,11 @@ Process:
 
 2. RUN the eval:
    ```bash
-   ./scripts/opencode-eval.sh [skill-name] --observe --runs 3
+   ./scripts/validate-skills.sh
+   ./scripts/run-evals.sh [skill-name]
    ```
-   - Use --runs 3 for majority voting (reduces false positives)
-   - Use --usefulness for quality scoring if available
+   - Run structural validation first
+   - Run evals against the target skill or `--all` when auditing the full root inventory
 
 3. PARSE results from eval-results/[skill]-eval.md
 
@@ -38,7 +39,7 @@ Process:
    | Structural validity | Valid | X/10 | PASS/FAIL |
 
 5. DECIDE promotion:
-   - If ALL gates PASS: skill is ready for VerifiedSkills/
+   - If ALL gates PASS: skill is ready for LibraryWorkbench/ or equivalent active benchmark promotion
    - If ANY gate FAIL: skill needs improvement, delegate @performance-monitor
 
 6. LOG results:
@@ -46,7 +47,7 @@ Process:
    - Format: skill, timestamp, gates, pass/fail, recommended action
 
 Error handling:
-- If eval script missing: report "opencode-eval.sh not found, using fallback"
+- If eval scripts are missing: report the missing path explicitly
 - If skill has no evals/: report "No eval suite, cannot evaluate"
 - If eval times out: report partial results with timeout warning
 - If model fails: retry once, then report failure with error message

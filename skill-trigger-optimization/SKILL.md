@@ -1,21 +1,20 @@
 ---
 name: skill-trigger-optimization
 description: >-
-  Fix skill routing by rewriting the description and trigger boundaries so the
-  right skill fires on the right inputs. Use when "this skill never fires",
-  "wrong skill fired", "fix the triggers", "why isn't this skill being used?",
-  or when a skill's description reads as vague marketing copy instead of routing
-  logic. Also use for batch-auditing descriptions before a library release.
-  Do not use for fixing output quality when routing is correct
-  (use skill-improver) or structural anti-pattern audits
-  (use skill-anti-patterns).
+  Fix skill routing when the wrong skill fires or a skill won't fire at all.
+  Use when the user says "this skill never fires", "wrong skill fired", 
+  "fix the triggers", "why isn't this skill being used?", or when a skill 
+  description is vague marketing copy that confuses the routing. Rewrites the 
+  description field and "When to use" boundaries so the right skill triggers 
+  on the right inputs. Do not use for fixing output quality when routing is 
+  correct (use skill-improver) or structural anti-pattern audits (use skill-anti-patterns).
 ---
 
-# Purpose
+## Purpose
 
 Fix skill routing by rewriting the `description` field and "When to use" / "Do NOT use" sections. The description is routing logic — it determines when a host invokes the skill. Bad descriptions cause undertriggering (skill doesn't fire when it should) or overtriggering (fires when it shouldn't).
 
-# When to use
+## When to use
 
 - Skill isn't triggering when it should (undertriggering)
 - Skill fires on wrong inputs (overtriggering / false positives)
@@ -23,7 +22,7 @@ Fix skill routing by rewriting the `description` field and "When to use" / "Do N
 - Eval shows poor routing precision or recall
 - Description is vague, generic, or reads like marketing copy
 
-# When NOT to use
+## When NOT to use
 
 - Skill triggers correctly but produces wrong output → `skill-improver`
 - Skill has structural anti-patterns beyond just triggers → `skill-anti-patterns`
@@ -31,7 +30,7 @@ Fix skill routing by rewriting the `description` field and "When to use" / "Do N
 - Entire skill needs rewrite → `skill-creator`
 - Problem is procedure quality, not routing
 
-# Procedure
+## Procedure
 
 1. **Diagnose the routing problem**
    - **Undertriggering**: List 3–5 phrases that should trigger but don't.
@@ -56,25 +55,28 @@ Fix skill routing by rewriting the `description` field and "When to use" / "Do N
    - **Exclude**: Generic filler ("helps with", "assists in").
    - **Exclude**: Marketing language ("powerful", "comprehensive").
 
-   **Worked example — transforming a bad description into a good one:**
+   **Worked example — this skill following its own rules:**
 
    Before (bad):
    ```yaml
    description: >-
-     Help with testing stuff. Use when you want to test.
+     Fix when the wrong skill fires or a skill won't fire at all.
+     Use when the user says "this skill never fires"...
    ```
-   Problems: No action verb, no concrete scope, no negative boundary, would trigger on any testing question.
+   Problems: Starts with "Fix when" which is vague; doesn't lead with the most discriminating signal.
 
-   After (good):
+   After (good — following Step 4 rules):
    ```yaml
    description: >-
-     Create test infrastructure for a skill — trigger tests in JSONL format,
-     output format assertions, and baseline comparisons. Use when building evals
-     for a new or refined skill, when a skill lacks an evals/ directory, or when
-     the user says "create tests for this skill". Do not use for running existing
-     tests (skill-evaluation) or comparing variants (skill-benchmarking).
+     Fix skill routing when the wrong skill fires or a skill won't fire at all.
+     Use when the user says "this skill never fires", "wrong skill fired", 
+     "fix the triggers", "why isn't this skill being used?", or when a skill 
+     description is vague marketing copy that confuses the routing. Rewrites the 
+     description field and "When to use" boundaries so the right skill triggers 
+     on the right inputs. Do not use for fixing output quality when routing is 
+     correct (use skill-improver) or structural anti-pattern audits (use skill-anti-patterns).
    ```
-   Transforms applied: Action verb ("Create"), specific scope ("test infrastructure for a skill"), concrete triggers (3 "when" cases), negative boundary (2 "do not" cases with referrals).
+   Transforms applied: Action verb first ("Fix"), specific scope ("skill routing"), concrete triggers (4 quoted user phrases), negative boundary (2 "do not" cases with referrals).
 
 5. **Add explicit anti-triggers**
    - Format: "Do not use for [confusion case] (use `alternative-skill`)."
@@ -86,7 +88,7 @@ Fix skill routing by rewriting the `description` field and "When to use" / "Do N
    - Overtriggering phrases no longer match.
    - No new confusion introduced with adjacent skills.
 
-# Output contract
+## Output contract
 
 Produce a single markdown block with this structure:
 
@@ -115,10 +117,13 @@ Examples: [specific problematic inputs]
 
 # Failure handling
 
-- **Can't identify discriminating signals**: Skill scope may be too broad — recommend `skill-variant-splitting` to split by axis.
-- **Every fix introduces new false positives**: Scopes overlap — redesign skill boundaries before optimizing triggers.
-- **No usage data available**: Write 5 synthetic positive and 5 negative trigger phrases, optimize against those.
-- **Genuine overlap with another skill**: Escalate to `skill-catalog-curation` to resolve the boundary at the library level.
+| Problem | Response |
+|---------|----------|
+| Can't identify discriminating signals | Skill scope may be too broad — recommend `skill-variant-splitting` to split by axis |
+| Every fix introduces new false positives | Scopes overlap — redesign skill boundaries before optimizing triggers |
+| No usage data available | Write 5 synthetic positive and 5 negative trigger phrases, optimize against those |
+| Genuine overlap with another skill | Escalate to `skill-catalog-curation` to resolve the boundary at the library level |
+| Host configuration prevents skill loading | Escalate to `skill-catalog-curation` to assess environment-specific skill availability |
 
 # Next steps
 
@@ -126,5 +131,3 @@ After trigger optimization:
 - Verify routing improved → `skill-evaluation`
 - Build trigger tests → `skill-testing-harness`
 - If routing problems persist → `skill-catalog-curation`
-
-**Automated optimization:** Use `scripts/run-trigger-optimization.sh <skill>` to automate the optimization loop with proper train/test split, multi-run variance reduction, and held-out validation. Run with `--dry-run` to preview the data split first.

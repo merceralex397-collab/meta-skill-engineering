@@ -1,2 +1,0 @@
-{"id":"tn-001","prompt":"Compare Postgres and DynamoDB for this product.","should_trigger":false}
-{"id":"tn-002","prompt":"Review this PR diff for bugs.","should_trigger":false}

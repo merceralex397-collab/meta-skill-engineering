@@ -1,39 +1,40 @@
 ---
 name: skill-testing-harness
 description: >-
-  Build trigger tests and behavior tests for a skill's evals/ directory.
+  Build trigger tests and output-format tests for a skill's evals/ directory.
   Use when "create tests for this skill", "set up evals", "build a test
   harness", a new skill needs test coverage, or a skill lacks an evals/
-  directory. Do not use for running existing tests (use skill-evaluation),
-  comparing skill variants (use skill-benchmarking), or updating tests that
-  already exist (edit directly).
+  directory. Creates trigger-positive.jsonl, trigger-negative.jsonl, and
+  behavior.jsonl files. Do not use for running existing tests (use 
+  skill-evaluation), comparing skill variants (use skill-benchmarking), or 
+  updating tests that already exist (edit directly).
 ---
 
-# Purpose
+## Purpose
 
 Build test infrastructure for a skill: trigger tests (positive and negative JSONL cases) and output-format tests. Enables repeatable evaluation during development and refinement.
 
-# When to use
+## When to use
 
 - User says "create tests for this skill", "set up evals", "build a test harness"
 - New skill needs test coverage
 - Skill lacks an evals/ directory or test fixtures
 - Skill refinement requires regression tests
 
-# When NOT to use
+## When NOT to use
 
 - Running existing tests → `skill-evaluation`
 - Comparing skill variants → `skill-benchmarking`
 - Tests exist and need minor edits → edit directly
 
-# Procedure
+## Procedure
 
 ## Step 1 — Analyze the target skill
 
 Read the target SKILL.md and extract:
 - Trigger signals from the `description` field
 - Positive cases from "When to use" section
-- Negative cases from "When NOT to use" section
+- Negative cases from "Do NOT use when" section
 - Expected output format from output contract
 - Quality criteria from procedure steps
 
@@ -72,7 +73,7 @@ File: `evals/trigger-negative.jsonl`
 Each line is a JSON object for a prompt that should NOT activate the skill. Include 8–15 cases covering adjacent skills, out-of-scope tasks, and common confusion.
 
 **Negative cases must cover these categories:**
-- **(a) Anti-match:** Prompts that directly mirror a "When NOT to use" bullet
+- **(a) Anti-match:** Prompts that directly mirror a "Do NOT use when" bullet
 - **(b) Near-miss:** Tasks from adjacent skills that share vocabulary (e.g., "evaluate" vs "build evaluation for")
 - **(c) Similar vocabulary, different intent:** Requests using words like "test" or "eval" that mean something else in context
 - **(d) Overly broad:** Vague requests that superficially match but shouldn't trigger (e.g., "improve this skill" — too broad for a test harness)
@@ -97,17 +98,17 @@ Each line is a JSON object for a prompt that should NOT activate the skill. Incl
 
 File: `evals/behavior.jsonl`
 
-Each line defines a prompt with expected output characteristics.
+Each line defines a prompt with expected output characteristics for behavior testing.
 
 **Output quality assertions should check:**
 - **(a) Required sections present:** Every section named in the skill's output contract must appear
 - **(b) No hallucinated sections:** Flag any output section not specified in the output contract
-- **(c) Output length within range:** Set `min_output_lines` based on the skill's complexity. A skill with 3 procedure steps shouldn't produce 200-line output.
+- **(c) Output length within range:** Set `min_cases` / expected line counts based on the skill's complexity. A skill with 3 procedure steps shouldn't produce 200-line output.
 - **(d) Concrete vs vague language:** Flag if >30% of output sentences use hedge words ("consider", "may want to", "could potentially", "it might be useful to"). Skills should produce decisions, not suggestions.
 
 ```jsonl
-{"prompt": "Create trigger tests for skill-authoring", "expected_sections": ["trigger-positive", "trigger-negative"], "required_patterns": ["\"expected\": \"trigger\"", "\"expected\": \"no_trigger\""], "forbidden_patterns": ["TODO", "placeholder", "consider adding"], "min_output_lines": 15, "notes": "Must produce both positive and negative trigger files"}
-{"prompt": "Build a full test harness for the pdf-extraction skill", "expected_sections": ["trigger-positive", "trigger-negative", "behavior"], "required_patterns": ["\"better_skill\"", "\"expected_sections\""], "forbidden_patterns": ["may want to", "could potentially"], "min_output_lines": 20, "notes": "Full harness must include all three eval files plus README"}
+{"prompt": "Create trigger tests for skill-authoring", "expected_sections": ["trigger-positive.jsonl", "trigger-negative.jsonl"], "required_patterns": ["\"expected\": \"trigger\"", "\"expected\": \"no_trigger\""], "forbidden_patterns": ["TODO", "placeholder", "consider adding"], "min_output_lines": 5}
+{"prompt": "Build a full test harness for the pdf-extraction skill", "expected_sections": ["trigger-positive.jsonl", "trigger-negative.jsonl", "behavior.jsonl", "README.md"], "required_patterns": ["\"category\""], "forbidden_patterns": ["may want to", "could potentially"], "min_output_lines": 8}
 ```
 
 ## Step 5 — Create test fixtures (if needed)
@@ -128,51 +129,51 @@ File: `evals/README.md`
 |------|---------|------------|
 | trigger-positive.jsonl | Prompts that SHOULD trigger | N |
 | trigger-negative.jsonl | Prompts that should NOT trigger | N |
-| behavior.jsonl | Output format/content validation | N |
+| behavior.jsonl | Output format/behavior validation | N |
 
 ## Running
 - Trigger tests: Feed each prompt to router, verify trigger/no_trigger matches expected
-- Output tests: Run skill on each prompt, verify files/patterns/counts
+- Behavior tests: Run skill on each prompt, verify output matches expected patterns
 
 ## Adding Cases
 Append new JSON lines to the appropriate .jsonl file. Follow the field schema:
 - trigger-positive: prompt, expected ("trigger"), category, notes
 - trigger-negative: prompt, expected ("no_trigger"), better_skill, notes
+- behavior: prompt, expected_sections, required_patterns, forbidden_patterns, min_output_lines, notes
 ```
 
-## Step 7 — Verify the test suite
-
-After creating all eval files, verify they are well-formed and parseable:
-
-```bash
-./scripts/run-evals.sh --dry-run <skill-name>
-```
-
-This validates JSONL syntax, lists all test cases, and confirms the eval runner can parse them. Fix any errors before delivering the test suite.
-
-# Output contract
+## Output contract
 
 ```
 evals/
 ├── README.md              # How to run and extend tests
 ├── trigger-positive.jsonl # 8–15 should-trigger cases
 ├── trigger-negative.jsonl # 8–15 should-not-trigger cases
-├── behavior.jsonl         # Output format/content validation
+├── behavior.jsonl         # Output format/behavior validation cases
+├── baseline-cases.jsonl   # Optional: before/after comparison cases
 └── fixtures/              # Optional test data
 ```
 
 All JSONL files use one JSON object per line, newline-delimited.
 
+**baseline-cases.jsonl format (optional):**
+```jsonl
+{"prompt": "Task description", "skill_active": true, "expected_improvement": "routing accuracy | output quality | consistency"}
+```
+
 # Failure handling
 
-- **No clear triggers in description**: Cannot write trigger tests — flag for `skill-trigger-optimization` first
-- **Output format undefined**: Cannot write output tests — flag for `skill-improver` to add output contract
-- **Too few distinct trigger phrases**: Minimum 5 positive, 5 negative; if the skill is too narrow, consult `skill-catalog-curation` to assess whether it should be merged
-- **Skill too complex for single harness**: Split into sub-capabilities with separate JSONL files per capability
-- **No comparable baseline**: Skip baseline comparison; focus on trigger accuracy and output format compliance
+| Problem | Response |
+|---------|----------|
+| No clear triggers in description | Cannot write trigger tests — flag for `skill-trigger-optimization` first |
+| Output format undefined | Cannot write output tests — flag for `skill-improver` to add output contract |
+| Too few distinct trigger phrases | Minimum 5 positive, 5 negative; if the skill is too narrow, escalate to `skill-catalog-curation` to assess whether it should be merged |
+| Skill too complex for single harness | Split into sub-capabilities with separate JSONL files per capability |
+| No comparable baseline | Skip baseline comparison; focus on trigger accuracy and output format compliance |
 
 # Next steps
 
 After building the test harness:
 - Run the tests → `skill-evaluation`
 - Compare variants → `skill-benchmarking`
+- Fix routing if tests reveal trigger issues → `skill-trigger-optimization`

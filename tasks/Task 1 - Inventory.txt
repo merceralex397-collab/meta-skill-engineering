@@ -1,0 +1,22 @@
+This repository was split off from a larger skills Library.
+
+These skills are aimed around meta concepts for Agent Skills.
+
+This means:
+
+1. Creation
+2. Refinement
+3. Testing
+4. Condending
+5. Splitting
+6. Formatting
+
+In general, these are always aimed at best use practices for agent skills.
+
+Task 1:
+
+Create a README.md and AGENTS.md
+
+Include the history of the repo (being split off) and the purpose, as well as an inventory of each skill.
+
+For the AGENTS.md: https://agentskills.io/home - this is the main page / site for agent skills

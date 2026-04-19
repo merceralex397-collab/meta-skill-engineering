@@ -52,7 +52,7 @@ procedure and safety constraints intact.
    - Skill name pattern (the naming convention, not the specific name)
    - Output artifact format and required sections
    - Failure handling table structure and coverage
-   - "When NOT to use" boundaries — these define the skill's identity
+   - "Do NOT use when" boundaries — these define the skill's identity
 
    **These are NEVER invariants** (they exist to be adapted):
    - Specific tool or command names
@@ -69,9 +69,7 @@ procedure and safety constraints intact.
    - Replace or add context-specific examples where the skill uses few-shot patterns
    - Do NOT add provenance/history sections to the adapted skill
 
-6. **Review and adapt support layers.** If the source skill includes `references/`, `scripts/`, `evals/`, or `assets/` directories, review each for context-dependent content. Adapt file paths, tool commands, example data, and environment assumptions in support files the same way you adapted SKILL.md. Test scripts may need updated commands or fixtures; reference docs may cite tools absent in the target context.
-
-7. **Validate the adaptation:**
+6. **Validate the adaptation:**
 
    **Zero dangling references:**
    - Every tool/command reference exists in the target environment
@@ -114,7 +112,7 @@ Deliver exactly two artifacts:
 - **Adaptation would break core logic**: The skill may not be portable. Recommend `skill-creator` to build a purpose-built replacement instead.
 - **Source skill is ambiguous**: State each assumption you made and why. Flag any assumption the user should verify.
 
-# Next steps
+## Next steps
 
 After adapting a skill:
 - Verify the adapted skill works → `skill-evaluation`

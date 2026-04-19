@@ -1,0 +1,5 @@
+{"prompt": "I need to run a full creation pipeline for a new skill that handles PDF processing", "expected_trigger": true, "skill": "skill-orchestrator"}
+{"prompt": "Execute the improvement pipeline on my existing skill", "expected_trigger": true, "skill": "skill-orchestrator"}
+{"prompt": "Can you help me create a new skill?", "expected_trigger": false, "skill": "skill-creator"}
+{"prompt": "Run library management workflow to audit all skills", "expected_trigger": true, "skill": "skill-orchestrator"}
+{"prompt": "I want to improve skill-creator", "expected_trigger": false, "skill": "skill-improver"}

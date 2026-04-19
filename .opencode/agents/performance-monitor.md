@@ -36,7 +36,7 @@ Your job (continuous loop):
    - AUTO-APPLY improvements
 
 3. SKILL anti-pattern scan (weekly):
-   - Run skill-anti-patterns against all 12 skills
+   - Run skill-anti-patterns against all 17 root skills
    - AUTO-APPLY fixes for structural issues
    - AUTO-APPLY fixes for trigger problems
 
@@ -49,7 +49,7 @@ Your job (continuous loop):
 5. NEW SKILL assessment:
    - When LibraryUnverified/ changes, @categorizer flags skills
    - Run preliminary eval on flagged skills
-   - AUTO-PROMOTE to VerifiedSkills/ if they pass gates
+   - AUTO-PROMOTE to LibraryWorkbench/ if they pass gates
 
 Auto-apply rules:
 - HIGH impact (routing failure, broken script): Apply immediately, log

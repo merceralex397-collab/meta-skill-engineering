@@ -1,0 +1,10 @@
+There are skills in this repository that overlap.
+
+You must examine any skills that appear similar. 
+
+You must analyse where they are similar, and where they are different.
+
+Produce a full report outlining all of this. There may be skills that have no similar counterpart, or there may be some where it is two, three or more that all share similarities that could be merged.
+
+You are merely to produce a report with actionable steps and evidence in markdown format, this task does not involve actually actioning anything.
+

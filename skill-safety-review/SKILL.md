@@ -13,25 +13,24 @@ description: >-
   or skills that are purely informational with no side effects.
 ---
 
-# Purpose
+## Purpose
 
 Audit a skill for safety hazards before it is published, imported, or promoted. Produces a structured verdict with actionable findings.
 
-# When to use
+## When to use
 
 - Before publishing a skill to a shared registry or marketplace
 - After importing a skill from an untrusted or external source
 - When a skill performs consequential operations (deletion, network calls, deployments)
 - When a skill was flagged during a `repo-process-doctor` or catalog audit
 
-# When NOT to use
-
+Do NOT use when:
 - Evaluating routing precision or output quality → `skill-evaluation`
 - Detecting structural anti-patterns → `skill-anti-patterns`
 - The skill is purely informational with no side effects
 - The skill was already reviewed and has not changed
 
-# Procedure
+## Procedure
 
 1. **Destructive operations** — scan for file deletion (`rm`, `unlink`), database mutations (`DROP`, `DELETE`), git force operations (`force push`, `reset --hard`), mutating API calls (`POST`/`PUT`/`DELETE`), and system modifications (`chmod`, `service restart`). Flag any that lack an explicit confirmation gate.
 
@@ -63,27 +62,17 @@ Audit a skill for safety hazards before it is published, imported, or promoted. 
 
 5. **Description–behavior mismatch** — compare the `description` field and "When to use" section against actual procedure steps. Flag hidden behaviors, understated severity, or actions not disclosed in the description.
 
-6. **Structural compliance** — run automated validation to establish a quantitative baseline:
+6. **Bundled scripts** — if a `scripts/` directory exists, audit for unsafe operations, hardcoded credentials, and undocumented network calls. Flag any operation not documented in SKILL.md.
 
-   ```bash
-   python3 scripts/check_skill_structure.py <skill-dir>/SKILL.md    # 10-point structural score
-   python3 scripts/skill_lint.py <skill-dir>               # Format lint
-   ./scripts/validate-skills.sh                                      # Full repo compliance
-   ```
+7. **Partial-failure safety** — check whether destructive operations have rollback or cleanup paths. Flag any destructive step that leaves corrupted state on mid-operation failure.
 
-   Flag any structural score below 8/10 or lint errors as additional findings.
-
-7. **Bundled scripts** — if a `scripts/` directory exists, audit for unsafe operations, hardcoded credentials, and undocumented network calls. Flag any operation not documented in SKILL.md.
-
-8. **Partial-failure safety** — check whether destructive operations have rollback or cleanup paths. Flag any destructive step that leaves corrupted state on mid-operation failure.
-
-9. **Verdict** — classify the skill:
+8. **Verdict** — classify the skill:
    - **Safe** — no findings.
    - **Safe with warnings** — minor issues documented, usable as-is.
    - **Requires changes** — must fix before publishing or promotion.
    - **Unsafe** — fundamental problems; do not use until redesigned.
 
-# Output contract
+## Output contract
 
 Always produce this structure. Omit table sections that have zero findings.
 
@@ -120,5 +109,6 @@ Always produce this structure. Omit table sections that have zero findings.
 # Next steps
 
 After safety review:
+- Record provenance and trust level → `skill-provenance`
+- If ready for release → `skill-packaging`
 - If needs improvement → `skill-improver`
-- If safe, manage lifecycle state → `skill-lifecycle-management`

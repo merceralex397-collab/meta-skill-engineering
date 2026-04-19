@@ -1,0 +1,5 @@
+{"prompt": "I want to improve skill-creator", "expected": "trigger", "skill": "skill-improver"}
+{"prompt": "Just run skill-safety-review on my skill", "expected": "trigger", "skill": "skill-safety-review"}
+{"prompt": "Can you help me package this skill?", "expected": "trigger", "skill": "skill-packaging"}
+{"prompt": "Run the installer for my new skill", "expected": "trigger", "skill": "skill-installer"}
+{"prompt": "What is the purpose of skill-evaluation?", "expected": "trigger", "skill": "skill-evaluation"}

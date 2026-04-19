@@ -775,3 +775,8 @@ graph TB
 ---
 
 *Diagrams generated from repository state at commit `0a6b902`. Issues reference [review-report-2026-03-20.md](../tasks/review-report-2026-03-20.md).*
+# Historical note
+
+This document was imported from the older 12-skill branch model. Preserve it as reference material, but do not treat its counts, workflow totals, or inventory numbers as authoritative for the current 17-skill repository state.
+
+# Architecture Diagrams

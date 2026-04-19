@@ -10,11 +10,11 @@ description: >-
   catalog-level reorganization (skill-catalog-curation).
 ---
 
-# Purpose
+## Purpose
 
 Split a skill that has grown too broad into focused variants that route precisely and perform well. A skill covering too many cases develops vague triggers, bloated procedures, and diluted output.
 
-# When to use
+## When to use
 
 - User says "this skill does too much", "split this skill", "create variants"
 - Skill has disjoint sections ("For Python:" / "For JavaScript:")
@@ -22,16 +22,15 @@ Split a skill that has grown too broad into focused variants that route precisel
 - Procedure has conditional branches per input type
 - Description exceeds two sentences trying to cover all cases
 
-# When NOT to use
-
+Do NOT use when:
 - Skill is focused and working well
-- Variations are minor enough to handle with conditional logic in one skill
+- Variations are minor enough for overlays
 - Problem is trigger wording only → `skill-trigger-optimization`
 - Porting a working skill to a different context → `skill-adaptation`
 - Reorganizing skills at catalog level → `skill-catalog-curation`
 - Skill genuinely handles one coherent task
 
-# Procedure
+## Procedure
 
 1. **Identify splitting signals**
    - Count distinct "modes" — if/else branches, "For X:" sections
@@ -69,7 +68,7 @@ Split a skill that has grown too broad into focused variants that route precisel
    - Variant-specific examples
 
 6. **Update routing**
-   - Each variant's "When NOT to use" references siblings by name
+   - Each variant's "Do NOT use when" references siblings by name
    - Example: "Do NOT use for GraphQL APIs → `api-testing-graphql`"
 
 7. **Verify coverage**
@@ -81,9 +80,7 @@ Split a skill that has grown too broad into focused variants that route precisel
    - Fully replaced → deprecate
    - Some general cases remain → keep as lightweight router
 
-# Output contract
-
-This skill produces a **splitting plan** — analysis, axis selection, variant definitions, and migration recommendations. It does **not** create the actual variant skill packages. Hand off the plan to `skill-creator` to build each variant's SKILL.md and support files.
+## Output contract
 
 Produce a markdown document with this structure:
 
@@ -111,14 +108,14 @@ Produce a markdown document with this structure:
 Original skill: [deprecate | keep as router | keep for general cases]
 ```
 
-# Failure handling
+## Failure handling
 
 - **No clean axis found**: Skill may be unified after all. Report that no beneficial split axis exists and recommend `skill-improver` instead.
 - **Variants overlap on triggers**: Rethink the axis. If overlap persists, document the ambiguous boundary and escalate the decision to the user.
 - **More than 5 variants**: Use a two-level hierarchy with an umbrella router skill instead of a flat split.
 - **Shared core larger than variant-specific content**: Splitting adds duplication without benefit. Recommend refining the original instead.
 
-# Next steps
+## Next steps
 
 After splitting:
 - Update the library index → `skill-catalog-curation`

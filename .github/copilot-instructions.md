@@ -1,10 +1,10 @@
 # Meta-Skill-Engineering — Copilot Instructions
 
-This is an internal meta-skill engineering workspace. The 12 skill packages at the repository root create, refine, test, and govern agent skills. This is not a distribution package or public library.
+This is an internal meta-skill engineering workspace. The 17 repo-owned skill packages at the repository root create, refine, test, package, install, orchestrate, and govern agent skills. This is not a distribution package or public library.
 
-## Active Skill Inventory (12 packages)
+## Active Skill Inventory (17 packages)
 
-skill-adaptation, skill-anti-patterns, skill-benchmarking, skill-catalog-curation, skill-creator, skill-evaluation, skill-improver, skill-lifecycle-management, skill-safety-review, skill-testing-harness, skill-trigger-optimization, skill-variant-splitting
+community-skill-harvester, skill-adaptation, skill-anti-patterns, skill-benchmarking, skill-catalog-curation, skill-creator, skill-evaluation, skill-improver, skill-installer, skill-lifecycle-management, skill-orchestrator, skill-packaging, skill-provenance, skill-safety-review, skill-testing-harness, skill-trigger-optimization, skill-variant-splitting
 
 ## Canonical SKILL.md Format
 
@@ -36,7 +36,7 @@ No other eval formats are active. Do not use `evals.json`, `output-tests.jsonl`,
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/validate-skills.sh` | Validate all 12 skills for structural compliance |
+| `scripts/validate-skills.sh` | Validate all root skill packages for structural compliance |
 | `scripts/run-evals.sh` | Run trigger and behavior tests; `--observe`/`--strict` routing, `--runs N` for majority voting, `--usefulness` for LLM-as-Judge scoring (requires `copilot` CLI + `jq`) |
 | `scripts/run-trigger-optimization.sh` | Automated trigger optimization with 60/40 train/test split and held-out validation |
 | `scripts/run-full-cycle.sh` | Full 5-step evaluation cadence |
@@ -112,7 +112,7 @@ After every commit that changes scripts, skill contracts, or repo structure, dif
 This project includes a `meta-skill-tools` extension (`.github/extensions/meta-skill-tools/`) that provides:
 
 - `mse_validate_skill` — validate a single skill's structural compliance
-- `mse_validate_all` — validate all 12 skills at once
+- `mse_validate_all` — validate all root skill packages at once
 - `mse_lint_skill` — lint a SKILL.md for format issues
 - `mse_check_preservation` — check content preservation between original and modified skill
 

@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-evaluation
+canonical_name: skill-evaluation
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Evaluate whether a skill routes correctly and produces better output than a no-skill baseline.
+risk_level: low
+categories:
+  - meta
+  - evaluation

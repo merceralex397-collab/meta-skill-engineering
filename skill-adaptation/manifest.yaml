@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-adaptation
+canonical_name: skill-adaptation
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Adapt a skill to a different repository, stack, or project context while preserving the core pattern.
+risk_level: low
+categories:
+  - meta
+  - adaptation

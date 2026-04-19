@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-anti-patterns
+canonical_name: skill-anti-patterns
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Audit a SKILL.md for structural anti-patterns that reduce routing accuracy, output quality, or maintainability.
+risk_level: low
+categories:
+  - meta
+  - quality

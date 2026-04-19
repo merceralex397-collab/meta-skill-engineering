@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-benchmarking
+canonical_name: skill-benchmarking
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Compare skill variants head-to-head using pass rate, token usage, and win rate to pick a winner.
+risk_level: low
+categories:
+  - meta
+  - evaluation

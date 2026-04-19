@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-catalog-curation
+canonical_name: skill-catalog-curation
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Audit a skill library for duplicates, category drift, and discoverability gaps.
+risk_level: low
+categories:
+  - meta
+  - library
