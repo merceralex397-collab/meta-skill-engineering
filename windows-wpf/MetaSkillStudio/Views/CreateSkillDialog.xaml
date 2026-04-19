@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="MetaSkillStudio.Views.CreateSkillDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Create Skill" 
+        Height="400" 
+        Width="600"
+        MinWidth="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Create New Skill" 
+                      FontSize="18" 
+                      FontWeight="SemiBold"
+                      Foreground="{StaticResource PrimaryBrush}"
+                      AutomationProperties.Name="Create New Skill Header"/>
+            <TextBlock Text="Provide a brief description of the skill you want to create." 
+                      FontSize="12"
+                      Foreground="{StaticResource TextSecondaryBrush}"
+                      Margin="0,4,0,0"/>
+        </StackPanel>
+        
+        <!-- Skill Brief Input with Validation -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" 
+                      Text="Skill Brief:" 
+                      FontWeight="SemiBold"
+                      Margin="0,0,0,8"/>
+            <Border Grid.Row="1" 
+                   Background="{StaticResource SurfaceBrush}"
+                   BorderBrush="{StaticResource BorderBrush}"
+                   BorderThickness="1"
+                   CornerRadius="4">
+                <TextBox x:Name="BriefTextBox"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        VerticalScrollBarVisibility="Auto"
+                        Padding="12"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="13"
+                        ToolTip="Enter a detailed description of what the skill should do"
+                        AutomationProperties.Name="Skill Brief"
+                        AutomationProperties.HelpText="Enter a detailed description of the skill you want to create"
+                        Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                        TabIndex="0"/>
+            </Border>
+            <!-- Validation Error Display -->
+            <TextBlock Grid.Row="2" 
+                      x:Name="BriefValidationError"
+                      Text=""
+                      Foreground="#D32F2F"
+                      FontSize="11"
+                      Margin="0,4,0,0"
+                      TextWrapping="Wrap"
+                      Visibility="Collapsed"
+                      AutomationProperties.Name="Brief Validation Error"/>
+        </Grid>
+        
+        <!-- Target Library Selection -->
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                      Text="Target Library:" 
+                      FontWeight="SemiBold"
+                      VerticalAlignment="Center"
+                      Margin="0,0,16,0"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <RadioButton x:Name="UnverifiedRadio"
+                           Content="LibraryUnverified (default)"
+                           GroupName="TargetLibrary"
+                           IsChecked="True"
+                           Margin="0,0,16,0"
+                           VerticalContentAlignment="Center"
+                           ToolTip="New skills start here for initial development and testing"
+                           AutomationProperties.Name="Library Unverified"
+                           AutomationProperties.HelpText="Place skill in unverified library for initial development"
+                           TabIndex="0"/>
+                <RadioButton x:Name="WorkbenchRadio"
+                           Content="LibraryWorkbench"
+                           GroupName="TargetLibrary"
+                           VerticalContentAlignment="Center"
+                           ToolTip="Promoted skills go here for refinement and staging"
+                           AutomationProperties.Name="Library Workbench"
+                           AutomationProperties.HelpText="Place skill in workbench for refinement"
+                           TabIndex="0"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Library Description -->
+        <TextBlock Grid.Row="3" 
+                  x:Name="LibraryDescription"
+                  Text="Raw, untested skills go here before workbench promotion."
+                  FontSize="11"
+                  Foreground="{StaticResource TextSecondaryBrush}"
+                  TextWrapping="Wrap"
+                  Margin="0,8,0,0"/>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" 
+                   Orientation="Horizontal" 
+                   HorizontalAlignment="Right"
+                   Margin="0,16,0,0">
+            <Button Style="{StaticResource PrimaryButton}"
+                   Click="CreateButton_Click"
+                   Width="80"
+                   Margin="0,0,8,0"
+                   IsDefault="True"
+                   x:Name="CreateButton"
+                   ToolTip="Create the new skill with the provided brief (Alt+C, Enter)"
+                   AutomationProperties.Name="Create Skill"
+                   AutomationProperties.HelpText="Create the new skill with the provided brief"
+                   TabIndex="0">
+                <AccessText>_Create</AccessText>
+            </Button>
+            <Button Style="{StaticResource SecondaryButton}"
+                   Click="CancelButton_Click"
+                   IsCancel="True"
+                   Width="80"
+                   ToolTip="Cancel and close without creating (Alt+X, Esc)"
+                   AutomationProperties.Name="Cancel"
+                   AutomationProperties.HelpText="Cancel skill creation"
+                   TabIndex="0">
+                <AccessText>_Cancel</AccessText>
+            </Button>
+        </StackPanel>
+        
+        <!-- Busy Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="5"
+               Background="#CC000000"
+               CornerRadius="4"
+               Visibility="Collapsed"
+               x:Name="BusyOverlay"
+               IsHitTestVisible="False"
+               AutomationProperties.Name="Creating skill overlay"
+               AutomationProperties.HelpText="Dialog is busy creating skill">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" 
+                            Width="120" 
+                            Height="4" 
+                            Margin="0,0,0,12"
+                            AutomationProperties.Name="Progress Indicator"/>
+                <TextBlock Text="Creating skill..." 
+                          Foreground="White"
+                          FontSize="14"
+                          HorizontalAlignment="Center"
+                          AutomationProperties.Name="Creating skill message"
+                          AutomationProperties.LiveSetting="Polite"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

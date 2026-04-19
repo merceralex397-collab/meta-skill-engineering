@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- ============================================= -->
+  <!-- Application Window Titles                     -->
+  <!-- ============================================= -->
+  <data name="WindowTitle_Main" xml:space="preserve">
+    <value>Meta Skill Studio</value>
+  </data>
+  <data name="WindowTitle_CreateSkill" xml:space="preserve">
+    <value>Create Skill</value>
+  </data>
+  <data name="WindowTitle_Settings" xml:space="preserve">
+    <value>Settings - Runtime Configuration</value>
+  </data>
+  <data name="WindowTitle_Benchmark" xml:space="preserve">
+    <value>Create Benchmarks</value>
+  </data>
+  <data name="WindowTitle_SelectSkill" xml:space="preserve">
+    <value>Select Skill</value>
+  </data>
+  <data name="WindowTitle_Pipeline" xml:space="preserve">
+    <value>Pipeline Execution</value>
+  </data>
+  <data name="WindowTitle_Analytics" xml:space="preserve">
+    <value>Analytics Dashboard</value>
+  </data>
+  <data name="WindowTitle_RunDetails" xml:space="preserve">
+    <value>Run Details</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Button Labels                                 -->
+  <!-- ============================================= -->
+  <data name="Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Button_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Button_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Button_DetectRuntimes" xml:space="preserve">
+    <value>Detect Runtimes</value>
+  </data>
+  <data name="Button_CopyClipboard" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="Button_StartPipeline" xml:space="preserve">
+    <value>Start Pipeline</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Main Window Action Buttons                    -->
+  <!-- ============================================= -->
+  <data name="Action_CreateSkill" xml:space="preserve">
+    <value>_Create Skill</value>
+  </data>
+  <data name="Action_ImproveSkill" xml:space="preserve">
+    <value>_Improve Skill</value>
+  </data>
+  <data name="Action_TestBenchmark" xml:space="preserve">
+    <value>_Test / Benchmark</value>
+  </data>
+  <data name="Action_MetaManage" xml:space="preserve">
+    <value>_Meta Manage</value>
+  </data>
+  <data name="Action_CreateBenchmarks" xml:space="preserve">
+    <value>Create _Benchmarks</value>
+  </data>
+  <data name="Action_Analytics" xml:space="preserve">
+    <value>_Analytics</value>
+  </data>
+  <data name="Action_RefreshSkills" xml:space="preserve">
+    <value>_Refresh Skills</value>
+  </data>
+  <data name="Action_Settings" xml:space="preserve">
+    <value>_Settings</value>
+  </data>
+  <data name="Action_RefreshRuns" xml:space="preserve">
+    <value>Refresh R_uns</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Tooltips                                      -->
+  <!-- ============================================= -->
+  <data name="Tooltip_Analytics" xml:space="preserve">
+    <value>View skill health analytics and trends (Alt+A)</value>
+  </data>
+  <data name="Tooltip_RefreshSkills" xml:space="preserve">
+    <value>Reload skill list from repository (Alt+R)</value>
+  </data>
+  <data name="Tooltip_Settings" xml:space="preserve">
+    <value>Configure runtimes and models (Alt+S)</value>
+  </data>
+  <data name="Tooltip_RefreshRuns" xml:space="preserve">
+    <value>Refresh run history (Alt+U)</value>
+  </data>
+  <data name="Tooltip_CreateSkill" xml:space="preserve">
+    <value>Create a new skill in LibraryUnverified or LibraryWorkbench (Alt+C)</value>
+  </data>
+  <data name="Tooltip_ImproveSkill" xml:space="preserve">
+    <value>Improve an existing skill with a specific goal (Alt+I)</value>
+  </data>
+  <data name="Tooltip_TestBenchmark" xml:space="preserve">
+    <value>Run validation, evaluation, and judge on a skill or all skills (Alt+T)</value>
+  </data>
+  <data name="Tooltip_MetaManage" xml:space="preserve">
+    <value>Execute meta-library management operations (Alt+M)</value>
+  </data>
+  <data name="Tooltip_CreateBenchmarks" xml:space="preserve">
+    <value>Generate benchmark test cases for a skill (Alt+B)</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Section Headers                               -->
+  <!-- ============================================= -->
+  <data name="Header_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Header_RunHistory" xml:space="preserve">
+    <value>Run History</value>
+  </data>
+  <data name="Header_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Header_CreateNewSkill" xml:space="preserve">
+    <value>Create New Skill</value>
+  </data>
+  <data name="Header_RuntimeConfiguration" xml:space="preserve">
+    <value>Runtime Configuration</value>
+  </data>
+  <data name="Header_CreateBenchmarkCases" xml:space="preserve">
+    <value>Create Benchmark Cases</value>
+  </data>
+  <data name="Header_PipelineProgress" xml:space="preserve">
+    <value>Pipeline Progress</value>
+  </data>
+  <data name="Header_Alerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="Header_SkillHealthOverview" xml:space="preserve">
+    <value>Skill Health Overview</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Labels                                        -->
+  <!-- ============================================= -->
+  <data name="Label_SkillBrief" xml:space="preserve">
+    <value>Skill Brief:</value>
+  </data>
+  <data name="Label_TargetLibrary" xml:space="preserve">
+    <value>Target Library:</value>
+  </data>
+  <data name="Label_SkillName" xml:space="preserve">
+    <value>Skill Name:</value>
+  </data>
+  <data name="Label_BenchmarkGoal" xml:space="preserve">
+    <value>Benchmark Goal:</value>
+  </data>
+  <data name="Label_CaseCount" xml:space="preserve">
+    <value>Case Count:</value>
+  </data>
+  <data name="Label_Runtime" xml:space="preserve">
+    <value>Runtime:</value>
+  </data>
+  <data name="Label_Model" xml:space="preserve">
+    <value>Model:</value>
+  </data>
+  <data name="Label_PipelineType" xml:space="preserve">
+    <value>Pipeline Type:</value>
+  </data>
+  <data name="Label_TargetSkill" xml:space="preserve">
+    <value>Target Skill:</value>
+  </data>
+  <data name="Label_BriefGoal" xml:space="preserve">
+    <value>Brief/Goal:</value>
+  </data>
+  <data name="Label_Search" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="Label_ExitCode" xml:space="preserve">
+    <value>Exit Code:</value>
+  </data>
+  <data name="Label_Duration" xml:space="preserve">
+    <value>Duration:</value>
+  </data>
+  <data name="Label_Started" xml:space="preserve">
+    <value>Started:</value>
+  </data>
+  <data name="Label_Ended" xml:space="preserve">
+    <value>Ended:</value>
+  </data>
+  <data name="Label_RoutingNotes" xml:space="preserve">
+    <value>Routing Notes:</value>
+  </data>
+  <data name="Label_PriorityFixes" xml:space="preserve">
+    <value>Priority Fixes:</value>
+  </data>
+  <data name="Label_QualityScore" xml:space="preserve">
+    <value>Quality Score</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Library Options                               -->
+  <!-- ============================================= -->
+  <data name="Library_Unverified" xml:space="preserve">
+    <value>LibraryUnverified (default)</value>
+  </data>
+  <data name="Library_Workbench" xml:space="preserve">
+    <value>LibraryWorkbench</value>
+  </data>
+  <data name="Library_Unverified_Description" xml:space="preserve">
+    <value>Raw, untested skills go here before workbench promotion.</value>
+  </data>
+  <data name="Library_Workbench_Description" xml:space="preserve">
+    <value>Skills under active development and testing.</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Pipeline Types                                -->
+  <!-- ============================================= -->
+  <data name="Pipeline_Creation" xml:space="preserve">
+    <value>Creation Pipeline</value>
+  </data>
+  <data name="Pipeline_Improvement" xml:space="preserve">
+    <value>Improvement Pipeline</value>
+  </data>
+  <data name="Pipeline_LibraryManagement" xml:space="preserve">
+    <value>Library Management Pipeline</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Role Configuration Tabs                         -->
+  <!-- ============================================= -->
+  <data name="Tab_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Tab_Improve" xml:space="preserve">
+    <value>Improve</value>
+  </data>
+  <data name="Tab_Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Tab_Orchestrate" xml:space="preserve">
+    <value>Orchestrate</value>
+  </data>
+  <data name="Tab_Judge" xml:space="preserve">
+    <value>Judge</value>
+  </data>
+  <data name="Tab_Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Tab_Trends" xml:space="preserve">
+    <value>Trends</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Role Descriptions                             -->
+  <!-- ============================================= -->
+  <data name="Role_Create_Title" xml:space="preserve">
+    <value>Creating Skills</value>
+  </data>
+  <data name="Role_Create_Description" xml:space="preserve">
+    <value>This runtime will be used for creating new skills from scratch.</value>
+  </data>
+  <data name="Role_Improve_Title" xml:space="preserve">
+    <value>Improving Skills</value>
+  </data>
+  <data name="Role_Improve_Description" xml:space="preserve">
+    <value>This runtime will be used for improving existing skills based on anti-pattern scans or specific goals.</value>
+  </data>
+  <data name="Role_Test_Title" xml:space="preserve">
+    <value>Testing / Benchmarking / Evaluating</value>
+  </data>
+  <data name="Role_Test_Description" xml:space="preserve">
+    <value>This runtime will be used for running evaluations, benchmarks, and trigger tests.</value>
+  </data>
+  <data name="Role_Orchestrate_Title" xml:space="preserve">
+    <value>Meta Management</value>
+  </data>
+  <data name="Role_Orchestrate_Description" xml:space="preserve">
+    <value>This runtime will be used for meta-library management, catalog curation, and lifecycle operations.</value>
+  </data>
+  <data name="Role_Judge_Title" xml:space="preserve">
+    <value>LLM Judge</value>
+  </data>
+  <data name="Role_Judge_Description" xml:space="preserve">
+    <value>This runtime will be used as the judge for quality evaluation of skill outputs.</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Dialog Descriptions                           -->
+  <!-- ============================================= -->
+  <data name="Desc_CreateSkill" xml:space="preserve">
+    <value>Provide a brief description of the skill you want to create.</value>
+  </data>
+  <data name="Desc_RuntimeConfig" xml:space="preserve">
+    <value>Configure AI runtimes and models for each operational role.</value>
+  </data>
+  <data name="Desc_CreateBenchmarks" xml:space="preserve">
+    <value>Generate evaluation test cases for a skill.</value>
+  </data>
+  <data name="Desc_SelectSkill" xml:space="preserve">
+    <value>Choose a skill from the list below.</value>
+  </data>
+  <data name="Desc_Pipeline" xml:space="preserve">
+    <value>Execute multi-phase skill pipelines with state persistence</value>
+  </data>
+  <data name="Desc_Analytics" xml:space="preserve">
+    <value>Skill health, trends, and performance metrics</value>
+  </data>
+  <data name="Desc_BenchmarkCases" xml:space="preserve">
+    <value>Benchmark cases include trigger-positive, trigger-negative, and behavior validation scenarios.</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Status Messages                               -->
+  <!-- ============================================= -->
+  <data name="Status_Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Status_Busy" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Status_DetectingRuntimes" xml:space="preserve">
+    <value>Scanning for available runtimes...</value>
+  </data>
+  <data name="Status_RuntimesAvailable" xml:space="preserve">
+    <value>{0} runtime(s) available</value>
+  </data>
+  <data name="Status_RuntimeDetectionFailed" xml:space="preserve">
+    <value>Runtime detection failed</value>
+  </data>
+  <data name="Status_ReadyToStartPipeline" xml:space="preserve">
+    <value>Ready to start pipeline</value>
+  </data>
+  <data name="Status_LoadingAnalytics" xml:space="preserve">
+    <value>Loading analytics...</value>
+  </data>
+  <data name="Status_NoRunsYet" xml:space="preserve">
+    <value>No runs recorded yet</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Operation Status Messages                     -->
+  <!-- ============================================= -->
+  <data name="Op_CreatingSkill" xml:space="preserve">
+    <value>Creating skill...</value>
+  </data>
+  <data name="Op_ImprovingSkill" xml:space="preserve">
+    <value>Improving skill...</value>
+  </data>
+  <data name="Op_RunningTests" xml:space="preserve">
+    <value>Running tests...</value>
+  </data>
+  <data name="Op_MetaManaging" xml:space="preserve">
+    <value>Managing meta-library...</value>
+  </data>
+  <data name="Op_CreatingBenchmarks" xml:space="preserve">
+    <value>Creating benchmarks...</value>
+  </data>
+  <data name="Op_RefreshingRuns" xml:space="preserve">
+    <value>Refreshing runs...</value>
+  </data>
+  <data name="Op_LoadingSkills" xml:space="preserve">
+    <value>Loading skills...</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Output Messages                               -->
+  <!-- ============================================= -->
+  <data name="Output_Welcome" xml:space="preserve">
+    <value>Welcome to Meta Skill Studio
+
+Ready to manage your AI skills.
+
+Configure runtimes via Settings button before first use.</value>
+  </data>
+  <data name="Output_ConfigurationUpdated" xml:space="preserve">
+    <value>Configuration updated successfully.</value>
+  </data>
+  <data name="Output_OperationCancelled" xml:space="preserve">
+    <value>Operation was cancelled.</value>
+  </data>
+  <data name="Output_LoadedSkillsCount" xml:space="preserve">
+    <value>Loaded {0} skills from repository.</value>
+  </data>
+  <data name="Output_LoadedRunsCount" xml:space="preserve">
+    <value>Loaded {0} runs.</value>
+  </data>
+  <data name="Output_NoRunsDirectory" xml:space="preserve">
+    <value>No runs directory found.</value>
+  </data>
+  <data name="Output_CreatingInLibrary" xml:space="preserve">
+    <value>Creating skill in {0}...</value>
+  </data>
+  <data name="Output_TestingAllSkills" xml:space="preserve">
+    <value>Testing all skills...</value>
+  </data>
+  <data name="Output_TestingSkill" xml:space="preserve">
+    <value>Testing skill: {0}</value>
+  </data>
+  <data name="Output_QualityScore" xml:space="preserve">
+    <value>Quality Score: {0}</value>
+  </data>
+  <data name="Output_ExitCode" xml:space="preserve">
+    <value>Exit code: {0}</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Checkboxes                                    -->
+  <!-- ============================================= -->
+  <data name="Checkbox_NewSkill" xml:space="preserve">
+    <value>New skill (no target)</value>
+  </data>
+  <data name="Checkbox_TestAllSkills" xml:space="preserve">
+    <value>Test all skills (no selection required)</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Expander Headers                              -->
+  <!-- ============================================= -->
+  <data name="Expander_InputParameters" xml:space="preserve">
+    <value>Input Parameters</value>
+  </data>
+  <data name="Expander_Stdout" xml:space="preserve">
+    <value>Standard Output</value>
+  </data>
+  <data name="Expander_Stderr" xml:space="preserve">
+    <value>Standard Error</value>
+  </data>
+  <data name="Expander_Artifacts" xml:space="preserve">
+    <value>Artifacts</value>
+  </data>
+  <data name="Expander_Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Data Grid Headers                             -->
+  <!-- ============================================= -->
+  <data name="Grid_Skill" xml:space="preserve">
+    <value>Skill</value>
+  </data>
+  <data name="Grid_TotalRuns" xml:space="preserve">
+    <value>Total Runs</value>
+  </data>
+  <data name="Grid_PassRate" xml:space="preserve">
+    <value>Pass Rate</value>
+  </data>
+  <data name="Grid_Quality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="Grid_LastRun" xml:space="preserve">
+    <value>Last Run</value>
+  </data>
+  <data name="Grid_Trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Chart Titles                                  -->
+  <!-- ============================================= -->
+  <data name="Chart_PassRateBySkill" xml:space="preserve">
+    <value>Pass Rate by Skill</value>
+  </data>
+  <data name="Chart_QualityScoreBySkill" xml:space="preserve">
+    <value>Average Quality Score by Skill</value>
+  </data>
+  <data name="Chart_RunActivity" xml:space="preserve">
+    <value>Run Activity (Last 30 Days)</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Quality Score Labels                          -->
+  <!-- ============================================= -->
+  <data name="Score_Excellent" xml:space="preserve">
+    <value>Excellent Quality</value>
+  </data>
+  <data name="Score_Good" xml:space="preserve">
+    <value>Good Quality</value>
+  </data>
+  <data name="Score_Acceptable" xml:space="preserve">
+    <value>Acceptable Quality</value>
+  </data>
+  <data name="Score_NeedsImprovement" xml:space="preserve">
+    <value>Needs Improvement</value>
+  </data>
+  <data name="Score_Poor" xml:space="preserve">
+    <value>Poor Quality</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Success/Failure Labels                        -->
+  <!-- ============================================= -->
+  <data name="Status_Success" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>FAILED</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Error Messages                                -->
+  <!-- ============================================= -->
+  <data name="Error_NoSkillsAvailable" xml:space="preserve">
+    <value>No skills available. Please check repository connection.</value>
+  </data>
+  <data name="Error_Title_NoSkills" xml:space="preserve">
+    <value>No Skills</value>
+  </data>
+  <data name="Error_CommandExecution" xml:space="preserve">
+    <value>COMMAND ERROR: {0}</value>
+  </data>
+  <data name="Error_RuntimeDetection" xml:space="preserve">
+    <value>Runtime detection failed</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Accessibility Labels                          -->
+  <!-- ============================================= -->
+  <data name="Automation_AppTitle" xml:space="preserve">
+    <value>Application Title Meta Skill Studio</value>
+  </data>
+  <data name="Automation_ActionsSection" xml:space="preserve">
+    <value>Actions Section</value>
+  </data>
+  <data name="Automation_RunHistorySection" xml:space="preserve">
+    <value>Run History Section</value>
+  </data>
+  <data name="Automation_OutputSection" xml:space="preserve">
+    <value>Output Section</value>
+  </data>
+  <data name="Automation_EmptyState" xml:space="preserve">
+    <value>Empty State: No runs recorded yet</value>
+  </data>
+  <data name="Automation_RunHistoryList" xml:space="preserve">
+    <value>Run History List</value>
+  </data>
+  <data name="Automation_OutputText" xml:space="preserve">
+    <value>Output Text</value>
+  </data>
+  <data name="Automation_RuntimeStatus" xml:space="preserve">
+    <value>Runtime Status</value>
+  </data>
+  <data name="Automation_StatusMessage" xml:space="preserve">
+    <value>Status Message</value>
+  </data>
+  <data name="Automation_SkillCount" xml:space="preserve">
+    <value>Skill Count</value>
+  </data>
+  <data name="Automation_ProgressIndicator" xml:space="preserve">
+    <value>Progress Indicator</value>
+  </data>
+  
+  <!-- ============================================= -->
+  <!-- Application Info                              -->
+  <!-- ============================================= -->
+  <data name="App_Subtitle" xml:space="preserve">
+    <value> - AI Skill Management</value>
+  </data>
+  <data name="Skills_CountFormat" xml:space="preserve">
+    <value>{0} skills</value>
+  </data>
+</root>

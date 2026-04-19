@@ -11,18 +11,18 @@ description: >-
   routing precision/recall (use skill-evaluation).
 ---
 
-# Purpose
+## Purpose
 
 Scan a SKILL.md against a concrete anti-pattern checklist (AP-1 through AP-16). For each pattern found, report it with a specific fix including before/after examples.
 
-# When to use
+## When to use
 
 - User says "check for anti-patterns", "what's wrong with this skill", "review before promotion"
 - Pre-promotion review: draft → stable
 - Skill producing unexpected routing or output and root cause is unclear
 - Quick structural audit after editing a skill
 
-# When NOT to use
+## When NOT to use
 
 - Full rewrite needed → `skill-creator`
 - Only trigger/description needs fixing → `skill-trigger-optimization`
@@ -30,18 +30,9 @@ Scan a SKILL.md against a concrete anti-pattern checklist (AP-1 through AP-16). 
 - Need to measure routing precision/recall quantitatively → `skill-evaluation`
 - Skill is working correctly — do not audit healthy skills
 
-# Procedure
+## Procedure
 
-Read the target SKILL.md. Before scanning, establish a quantitative baseline:
-
-```bash
-python3 scripts/check_skill_structure.py <skill-dir>/SKILL.md    # 10-point structural score
-python3 scripts/skill_lint.py <skill-dir>               # Format lint
-```
-
-Record the structural score and any lint issues — these often correlate with anti-pattern presence and provide a measurable before/after comparison.
-
-Check each anti-pattern below. For each PRESENT, write the specific fix with before/after.
+Read the target SKILL.md. Check each anti-pattern below. For each PRESENT, write the specific fix with before/after.
 
 > **Quick scan priority**
 > - **Quick scan (5 min):** Check AP-1, AP-7, AP-12 first — these are routing-critical. If the skill can't be found by the host, nothing else matters.
@@ -84,7 +75,7 @@ Check each anti-pattern below. For each PRESENT, write the specific fix with bef
 - Example after: `Output passes if: (1) all required sections present, (2) no placeholder text remains, (3) every code example is syntactically valid`
 - Fix: Replace with observable, countable criteria
 
-**AP-7: Missing "When NOT to use" section** · `HIGH` — causes overtriggering
+**AP-7: Missing "Do NOT use when" section** · `HIGH` — causes overtriggering
 - Pattern: No negative routing at all, or empty section
 - Fix: Add 2-4 confusion cases naming the alternative skill. Format: "Do NOT use when [scenario] (use `skill-name` instead)"
 
@@ -138,7 +129,7 @@ Check each anti-pattern below. For each PRESENT, write the specific fix with bef
 - Example after: `Verify: (1) all required sections present, (2) no TODO/placeholder text, (3) code examples parse without syntax errors`
 - Fix: Replace subjective quality language with concrete, checkable criteria
 
-# Output contract
+## Output contract
 ```
 ## Anti-Pattern Audit: [skill-name]
 

@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-variant-splitting
+canonical_name: skill-variant-splitting
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Split a broad skill into focused variants along stack, platform, scope, or domain axes.
+risk_level: low
+categories:
+  - meta
+  - refactoring

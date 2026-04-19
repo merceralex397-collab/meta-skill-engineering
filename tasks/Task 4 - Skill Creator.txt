@@ -1,0 +1,118 @@
+Task 4 - Skill Creator
+
+Objective
+
+Review the `skill creator` folder and the review notes in `tasks/`, then determine the best way to merge the overlapping skills into one solid, functional skill package that follows current best practices for agent skills and preserves the fullest useful functionality.
+
+Treat `skill creator/anthropiuc-skill-creator/` as the primary source for reusable process design. Examine its features, scripts, workflow stages, and support files to determine which parts should be taken, adapted, or split out into other areas of the skill ecosystem, especially evals, testing, benchmarking, iterative improvement loops, packaging, review/grading workflows, description optimization, and other reusable orchestration patterns.
+
+Scope
+
+1. Inspect the repo-owned material in `skill creator/`, especially:
+   - `skill creator/anthropiuc-skill-creator/`
+   - `skill creator/community-skill-harvester/`
+   - `skill creator/microsoft-skill-creator/`
+   - `skill creator/skill-authoring/`
+2. Read the review material in `tasks/`, especially the condensereview files and the independent review and rewrite-plan notes.
+3. Use those sources to determine:
+   - which skills are genuinely overlapping,
+   - which are complementary stages of one workflow,
+   - which should be merged,
+   - which should remain separate but be tightly coordinated.
+4. For `anthropiuc-skill-creator`, identify which capabilities should remain central to the merged skill and which should be adapted into separate specialist skills elsewhere in the repo.
+
+Required analysis
+
+1. Examine the `skill creator` folder as a package system, not as a set of unrelated files.
+2. Identify the intended role of each skill:
+   - creation,
+   - improvement,
+   - evaluation,
+   - benchmarking,
+   - packaging,
+   - provenance,
+   - safety review,
+   - harvesting/importing,
+   - description optimization.
+3. Compare the review findings and determine the strongest merge path for a single consolidated skill.
+4. Use `anthropiuc-skill-creator` as the model for evaluating full workflow coverage, then decide which parts of that workflow should be transplanted into other skills such as eval, testing, benchmarking, and packaging.
+5. Preserve best-in-class agent-skill practices:
+   - clear routing description,
+   - realistic user triggers,
+   - explicit negative boundaries,
+   - concise procedure,
+   - deterministic output contract,
+   - support files only when they add real value,
+   - strong validation and failure handling.
+6. Prefer a design that keeps the skill usable in real workflows, not just architecturally tidy.
+
+Best-practice merge criteria
+
+When deciding what to merge, favor the structure that:
+
+1. Minimizes user confusion at routing time.
+2. Avoids duplicate or near-duplicate functionality.
+3. Keeps a clean separation between:
+   - authoring versus improvement,
+   - evaluation versus benchmarking,
+   - packaging versus registry/catalog work,
+   - provenance versus safety review,
+   - orchestration versus primitive actions.
+4. Uses the simplest structure that still supports the full intended workflow.
+5. Retains functionality that is genuinely useful rather than removing it for neatness.
+6. Uses `anthropiuc-skill-creator` as the best candidate for identifying practical workflow features worth propagating into other skills.
+
+Microsoft comparison requirement
+
+Investigate whether there are similar easy-access sources for skills or skill-like information outside the Microsoft-specific skill creator example.
+
+Look for comparable patterns such as:
+
+1. public skill hubs or registries,
+2. skill marketplaces,
+3. package registries with metadata and discoverability,
+4. documentation repositories that expose reusable skill patterns,
+5. other vendor ecosystems that make skill discovery or reuse straightforward,
+6. database-like sources that can be queried or browsed easily for skill content, templates, or reusable agent workflows.
+
+For this comparison, determine:
+
+1. what the Microsoft skill creator does well,
+2. which parts of that experience are Microsoft-specific,
+3. which parts can be generalized to other ecosystems,
+4. which external sources could be used as equivalent reference models,
+5. what should be borrowed into the merged skill and what should not.
+6. whether any Microsoft-specific ideas map better to the anthropic workflow model or the broader repo skill set.
+
+Analysis rules
+
+1. Base conclusions on the actual files in this repository first.
+2. Treat `foundskills/` as reference-only if it helps explain imported techniques, but do not confuse it with the repo-owned skill inventory.
+3. Distinguish between:
+   - true merge candidates,
+   - workflow stages that should remain separate,
+   - editorial or boundary fixes that do not require a merge.
+4. If a review suggests a merge, check whether the underlying problem is actually:
+   - scope overlap,
+   - contract drift,
+   - naming confusion,
+   - workflow layering,
+   - or implementation inconsistency.
+5. Prefer merge decisions that are defensible from both contract scope and practical use.
+
+Expected deliverable
+
+Produce a clear recommendation for the best merged skill shape, including:
+
+1. the skills or sub-functions that should be folded together,
+2. the skills or sub-functions that should remain distinct,
+3. the recommended canonical role of the merged skill,
+4. the best routing description for that merged skill,
+5. the most important negative boundaries,
+6. any support files or scripts that should be kept, removed, or consolidated,
+7. any external skill-discovery or skill-information sources that should be used as design references.
+8. which `anthropiuc-skill-creator` mechanisms should be reused directly, which should be simplified, and which should be extracted into other skills.
+
+Decision standard
+
+The final recommendation should favor a single strong, functional, best-practice skill over a loose cluster of partially overlapping tools, but it should not merge away useful capability just to reduce file count.

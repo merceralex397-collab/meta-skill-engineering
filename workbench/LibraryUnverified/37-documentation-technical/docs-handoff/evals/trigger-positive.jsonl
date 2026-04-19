@@ -1,3 +1,0 @@
-{"input":"The user or repo work clearly points at docs handoff","expected":"docs-handoff","category":"Agent Role Candidate Skills"}
-{"input":"this task clearly needs docs handoff","expected":"docs-handoff","category":"Agent Role Candidate Skills"}
-{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around docs handoff","expected":"docs-handoff","category":"Agent Role Candidate Skills"}

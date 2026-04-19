@@ -1,0 +1,132 @@
+﻿<!--
+  Meta Skill Studio WiX Installer
+  
+  Build with:
+    wix build -arch x64 -ext WixToolset.UI.wixext -d "ProductVersion=X.Y.Z" -d "PublishDir=<absolute publish dir>" -o MetaSkillStudio-X.Y.Z.msi MetaSkillStudio.wxs
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <?define ProductName = "Meta Skill Studio" ?>
+  <?define ProductVersion = "1.0.0" ?>
+  <?define ProductCode = "*" ?>
+  <!-- Properly generated GUID for UpgradeCode - DO NOT CHANGE -->
+  <?define UpgradeCode = "8F5A7C9E-3D2B-4A1F-9E6C-5B8D4F7A2E01" ?>
+  <?define Manufacturer = "Meta Skill Studio Team" ?>
+  <?define ExeName = "MetaSkillStudio.exe" ?>
+  <?define MinPythonVersion = "3.11.0" ?>
+
+  <Package Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)" InstallerVersion="200" ProductCode="$(var.ProductCode)"><SummaryInformation Description="Meta Skill Studio - AI Skill Management Tool" Manufacturer="$(var.Manufacturer)" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Feature Id="ProductFeature" Title="Meta Skill Studio" Level="1" ConfigurableDirectory="INSTALLFOLDER">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ShortcutComponents" />
+    </Feature>
+
+    <!-- Properties -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="ARPCONTACT" Value="$(var.Manufacturer)" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/merceralex397-collab/Meta-Skill-Engineering" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/merceralex397-collab/Meta-Skill-Engineering/issues" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/merceralex397-collab/Meta-Skill-Engineering/releases" />
+    <Property Id="ARPCOMMENTS" Value="AI Skill Management Tool for Windows" />
+    
+    <Property Id="INSTALLDESKTOPSHORTCUT" Value="1" />
+    <Property Id="INSTALLLEVEL" Value="1" />
+    
+    <!-- Check for Python prerequisite -->
+    <Property Id="PYTHONINSTALLED">
+      <RegistrySearch Id="PythonRegistry311" Root="HKLM" Key="SOFTWARE\Python\PythonCore\3.11\InstallPath" Type="directory" />
+    </Property>
+    
+    <Property Id="PYTHONINSTALLED64">
+      <RegistrySearch Id="PythonRegistry31164" Root="HKLM" Key="SOFTWARE\Python\PythonCore\3.11\InstallPath" Type="directory" Bitness="always64" />
+    </Property>
+
+    <Property Id="PYTHON312INSTALLED">
+      <RegistrySearch Id="PythonRegistry312" Root="HKLM" Key="SOFTWARE\Python\PythonCore\3.12\InstallPath" Type="directory" />
+    </Property>
+
+    <Property Id="PYTHON312INSTALLED64">
+      <RegistrySearch Id="PythonRegistry31264" Root="HKLM" Key="SOFTWARE\Python\PythonCore\3.12\InstallPath" Type="directory" Bitness="always64" />
+    </Property>
+
+    <!-- Conditions -->
+    <Launch Condition="Installed OR (VersionNT &gt;= 603 AND VersionNT64)" Message="This application requires Windows 10/11 (64-bit)." />
+
+    <!-- Python warning (not blocking) -->
+    <Launch Condition="Installed OR PYTHONINSTALLED OR PYTHONINSTALLED64 OR PYTHON312INSTALLED OR PYTHON312INSTALLED64" Message="Python 3.11 or 3.12+ is recommended for full functionality. Visit https://python.org/downloads" />
+
+    <ui:WixUI Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    
+
+    <!-- Component Groups for proper organization -->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="RegistryEntries" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="ShortcutComponents">
+      <ComponentRef Id="ApplicationShortcuts" />
+      <ComponentRef Id="DesktopShortcut" />
+      <ComponentRef Id="AppDataFolderCreate" />
+    </ComponentGroup>
+
+      <StandardDirectory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="Meta Skill Studio">
+          <!-- Main executable component -->
+          <Component Id="MainExecutable" Bitness="always64">
+            <File Id="MetaSkillStudioEXE" Name="$(var.ExeName)" Source="$(var.PublishDir)\$(var.ExeName)" KeyPath="yes" Vital="yes">
+            </File>
+          </Component>
+          
+          <!-- Registry entries -->
+          <Component Id="RegistryEntries" Bitness="always64">
+            <RegistryKey Root="HKLM" Key="SOFTWARE\Meta Skill Studio">
+              <RegistryValue Type="string" Name="InstallDir" Value="[INSTALLFOLDER]" />
+              <RegistryValue Type="string" Name="Version" Value="$(var.ProductVersion)" />
+              <RegistryValue Type="string" Name="ExePath" Value="[INSTALLFOLDER]$(var.ExeName)" />
+            </RegistryKey>
+            <!-- Uninstall registry entries -->
+            <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\[ProductCode]">
+              <RegistryValue Type="string" Name="DisplayVersion" Value="$(var.ProductVersion)" />
+              <RegistryValue Type="string" Name="Publisher" Value="$(var.Manufacturer)" />
+              <RegistryValue Type="string" Name="DisplayIcon" Value="[INSTALLFOLDER]$(var.ExeName)" />
+            </RegistryKey>
+          </Component>
+        </Directory>
+      </StandardDirectory>
+
+      <StandardDirectory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Meta Skill Studio">
+          <Component Id="ApplicationShortcuts">
+            <Shortcut Id="ApplicationStartMenuShortcut" Name="Meta Skill Studio" Description="AI Skill Management Tool" Target="[#MetaSkillStudioEXE]" WorkingDirectory="INSTALLFOLDER" />
+            <Shortcut Id="UninstallProduct" Name="Uninstall Meta Skill Studio" Description="Remove Meta Skill Studio from your computer" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+            <RegistryValue Root="HKCU" Key="SOFTWARE\Meta Skill Studio" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </StandardDirectory>
+
+      <StandardDirectory Id="DesktopFolder">
+        <Component Id="DesktopShortcut" Condition="INSTALLDESKTOPSHORTCUT">
+          
+          <Shortcut Id="ApplicationDesktopShortcut" Name="Meta Skill Studio" Description="AI Skill Management Tool" Target="[#MetaSkillStudioEXE]" WorkingDirectory="INSTALLFOLDER" />
+          <RegistryValue Root="HKCU" Key="SOFTWARE\Meta Skill Studio" Name="desktopshortcut" Type="integer" Value="1" />
+        </Component>
+      </StandardDirectory>
+
+      <StandardDirectory Id="AppDataFolder">
+        <Directory Id="AppDataManufacturerFolder" Name="Meta Skill Studio">
+          <Component Id="AppDataFolderCreate">
+            <CreateFolder Directory="AppDataManufacturerFolder" />
+            <RemoveFolder Id="AppDataManufacturerFolder" On="uninstall" />
+            <RegistryValue Root="HKCU" Key="SOFTWARE\Meta Skill Studio" Name="appdata" Type="integer" Value="1" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </StandardDirectory>
+    </Package>
+</Wix>

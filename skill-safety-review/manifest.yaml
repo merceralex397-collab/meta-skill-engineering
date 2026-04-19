@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-safety-review
+canonical_name: skill-safety-review
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Audit a SKILL.md and its scripts for safety hazards before publishing or sharing.
+risk_level: low
+categories:
+  - meta
+  - governance

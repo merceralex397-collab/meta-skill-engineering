@@ -1,0 +1,93 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>MetaSkillStudio</RootNamespace>
+    <AssemblyName>MetaSkillStudio</AssemblyName>
+    
+    <!-- Version properties - these will be overridden by CI/CD -->
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix Condition=" '$(VersionSuffix)' == '' "></VersionSuffix>
+    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+    <AssemblyVersion Condition=" '$(AssemblyVersion)' == '' ">1.0.0.0</AssemblyVersion>
+    <FileVersion Condition=" '$(FileVersion)' == '' ">1.0.0.0</FileVersion>
+    <InformationalVersion Condition=" '$(InformationalVersion)' == '' ">$(Version)</InformationalVersion>
+    
+    <Company>Meta Skill Studio Team</Company>
+    <Product>Meta Skill Studio</Product>
+    <Description>AI Skill Management Tool</Description>
+    <Copyright>Copyright (c) 2026</Copyright>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>embedded</DebugType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    
+    <!-- Assembly metadata for CI/CD -->
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/merceralex397-collab/Meta-Skill-Engineering</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/merceralex397-collab/Meta-Skill-Engineering</PackageProjectUrl>
+  </PropertyGroup>
+
+  <!-- CI/CD version override target -->
+  <Target Name="SetVersionFromCI" BeforeTargets="BeforeBuild" Condition=" '$(CI_VERSION)' != '' ">
+    <PropertyGroup>
+      <Version>$(CI_VERSION)</Version>
+      <AssemblyVersion>$(CI_VERSION).0</AssemblyVersion>
+      <FileVersion>$(CI_VERSION).0</FileVersion>
+      <InformationalVersion>$(CI_VERSION)-$(CI_BUILD_NUMBER)</InformationalVersion>
+    </PropertyGroup>
+    <Message Text="Version overridden by CI: $(Version)" Importance="high" />
+  </Target>
+
+  <ItemGroup>
+    <!-- ScottPlot for professional charting -->
+    <PackageReference Include="ScottPlot.WPF" Version="5.0.21" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
+    <PackageReference Include="System.Formats.Asn1" Version="10.0.6" />
+    <PackageReference Include="System.IO.Packaging" Version="10.0.6" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.6" />
+    
+    <!-- System.Text.Json for high-performance JSON -->
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    
+    <!-- CommunityToolkit for MVVM support -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    
+    <!-- Microsoft Extensions for DI and hosting -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    
+    <!-- SQLite for analytics database -->
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+    
+    <!-- Windows compatibility -->
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="app.manifest" />
+    
+    <!-- Embedded Resources for Localization -->
+    <EmbeddedResource Update="Resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>MetaSkillStudio.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <Compile Update="Resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -1,5 +1,7 @@
 # Evaluation Cadence
 
+> Historical note: this document was imported from the older 12-skill branch model. Preserve it as reference material, but confirm script flags and inventory counts against the current repository before following it literally.
+
 How to test whether the meta-skill system is working correctly.
 
 ## Quick Check (2 minutes)

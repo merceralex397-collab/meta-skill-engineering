@@ -1,1 +1,15 @@
 eval-results/
+.meta-skill-studio/
+.wix/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.tools/
+windows-wpf/publish/
+windows-wpf/installer/*.msi
+windows-wpf/installer/*.wixpdb
+windows-wpf/installer/*.wixobj
+**/bin/
+**/obj/
+*:Zone.Identifier

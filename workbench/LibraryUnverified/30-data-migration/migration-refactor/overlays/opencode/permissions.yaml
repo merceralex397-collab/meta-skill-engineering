@@ -1,8 +1,0 @@
-skill: migration-refactor-codex-c
-permissions:
-  read:
-    - ./SKILL.md
-    - ./references/**
-    - ./evals/**
-  execute:
-    - ./scripts/**

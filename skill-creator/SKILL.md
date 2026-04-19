@@ -5,19 +5,20 @@ description: >-
   test-review-improve cycles. Use this for "create a skill for X", "write a
   skill that handles Y", "I need a new skill to do Z", "turn this workflow
   into a skill", or when a repeated task pattern should become a reusable
-  agent procedure. Do not use for splitting a broad skill into variants
+  agent procedure. Do not use for installing packaged
+  skills (skill-installer), splitting a broad skill into variants
   (skill-variant-splitting), adapting a skill to a different environment
   (skill-adaptation), improving an existing skill without full iteration
   (skill-improver), or running standalone evaluations without creation
   intent (skill-evaluation).
 ---
 
-# Purpose
+## Purpose
 
 Create new agent skills and iteratively improve them through structured
 draft-test-review-improve cycles.
 
-# When to use
+## When to use
 
 - User says "create a skill for X", "write a skill that…", "I need a skill to handle…"
 - Repeated task pattern needs capturing as a reusable procedure
@@ -25,15 +26,17 @@ draft-test-review-improve cycles.
 - User has a draft skill and wants to iterate on it with test feedback
 - Capability should be packaged for reuse across projects
 
-# When NOT to use
+## When NOT to use
 
 - Skill exists and needs improvement without full creation iteration → `skill-improver`
 - Only the description/trigger needs fixing → `skill-trigger-optimization`
 - Skill needs porting to a different environment → `skill-adaptation`
+- User wants to install a packaged skill → `skill-installer`
 - User wants to split one broad skill into several → `skill-variant-splitting`
 - User wants a standalone evaluation without creation → `skill-evaluation`
+- User wants to find external skills before building → `community-skill-harvester`
 
-# Procedure
+## Procedure
 
 ## Phase 1 — Capture intent
 
@@ -88,11 +91,10 @@ description: >-
 5. Make it slightly assertive about when to trigger — agents tend to
    under-trigger rather than over-trigger
 6. Include keywords and contexts that should activate the skill
-7. Keep the description under 1024 characters (hard limit per the Agent Skills specification)
 
 Flag a description if it: is under 12 words, has no action verb first,
 has no condition, lacks trigger examples, could apply to multiple skills,
-has no negative boundary, or exceeds 1024 characters.
+or has no negative boundary.
 
 ### Step 4 — Write the body sections
 
@@ -102,7 +104,7 @@ Every SKILL.md body contains these sections in order:
 What output does it produce?
 
 **When to use** (required) — 4–6 specific trigger phrases or observable
-conditions as "Use when:" plus 3–4 confusion cases as "When NOT to use:"
+conditions as "Use when:" plus 3–4 confusion cases as "Do NOT use when:"
 with named alternatives.
 
 **Procedure** (required) — Numbered steps. Each starts with a verb. Each
@@ -186,21 +188,20 @@ Good test prompts are:
 - Include edge cases and near-miss scenarios
 - Include cases that should NOT trigger the skill
 
-Save test cases as JSONL files in `evals/` using the canonical format (see AGENTS.md "Eval Suite Structure"):
+Save test cases to `evals/evals.json`:
 
-- `evals/trigger-positive.jsonl` — prompts that SHOULD trigger the skill
-- `evals/trigger-negative.jsonl` — prompts that should NOT trigger the skill
-- `evals/behavior.jsonl` — output quality checks
-
-For details on field schemas, delegate to `skill-testing-harness` or refer to AGENTS.md.
-
-Phase 3 creates seed eval files (2–5 cases each). For comprehensive test suites (8+ cases, adversarial scenarios, edge coverage), route to `skill-testing-harness` afterward.
-
-After creating eval files, validate the new skill's structure and verify eval files are parseable:
-
-```bash
-python3 scripts/check_skill_structure.py <skill-dir>/SKILL.md    # Structural scoring
-./scripts/run-evals.sh --dry-run <skill-name>                    # Verify JSONL is parseable
+```json
+{
+  "skill_name": "example-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "User's realistic task prompt",
+      "should_trigger": true,
+      "expected_output": "Description of expected result"
+    }
+  ]
+}
 ```
 
 Share the test cases with the user: "Here are test cases I'd like to try.
@@ -271,12 +272,12 @@ skill-name/
 Only create subdirectories if they contain actual files.
 
 After finalization, recommend next steps:
+- Run `skill-trigger-optimization` to optimize the description for routing
 - Run `skill-testing-harness` to build a formal eval suite
 - Run `skill-evaluation` to validate routing accuracy and output quality
-- Run `skill-trigger-optimization` to optimize the description for routing
 - Run `skill-safety-review` if the skill executes code or writes files
 
-# Output contract
+## Output contract
 
 Deliver a complete skill folder containing:
 
@@ -303,17 +304,6 @@ The SKILL.md must pass all Phase 2 Step 7 validation checks before delivery.
 - **User wants to skip testing**: Proceed without iteration but note that
   untested skills have unknown quality
 
-# Next steps
-
-1. Build test infrastructure → `skill-testing-harness`
-2. Evaluate routing and output quality → `skill-evaluation`
-3. Optimize trigger description → `skill-trigger-optimization`
-4. Review for safety hazards → `skill-safety-review`
-5. Manage lifecycle state → `skill-lifecycle-management`
-6. Compare variants if multiple drafts exist → `skill-benchmarking` (optional, not in standard pipeline)
-
-# References
-
 ## Skill structure reference
 
 ```
@@ -326,6 +316,18 @@ skill-name/
     ├── references/ - Docs loaded into context as needed
     └── assets/     - Files used in output (templates, icons, fonts)
 ```
+
+# Next steps
+
+1. Build test infrastructure → `skill-testing-harness`
+2. Evaluate routing and output quality → `skill-evaluation`
+3. Compare variants if multiple drafts → `skill-benchmarking`
+4. Optimize trigger description → `skill-trigger-optimization`
+5. Review for safety hazards → `skill-safety-review`
+6. Record provenance → `skill-provenance`
+7. Package for distribution → `skill-packaging`
+
+# References
 
 - Agent Skills specification: https://agentskills.io/specification
 - What are skills: https://agentskills.io/what-are-skills

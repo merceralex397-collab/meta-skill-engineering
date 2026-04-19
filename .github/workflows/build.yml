@@ -1,0 +1,334 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'windows-wpf/**'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'windows-wpf/**'
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  WIX_VERSION: '4.0.6'
+  SOLUTION_PATH: 'windows-wpf/MetaSkillStudio.sln'
+  PROJECT_PATH: 'windows-wpf/MetaSkillStudio/MetaSkillStudio.csproj'
+  TEST_PROJECT_PATH: 'windows-wpf/MetaSkillStudio.Tests/MetaSkillStudio.Tests.csproj'
+  PUBLISH_DIR: 'windows-wpf/publish'
+
+jobs:
+  # Security scan job - runs first
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore packages
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Check for vulnerable packages
+        run: |
+          echo "Checking for vulnerable packages..."
+          VULNERABLE=$(dotnet list ${{ env.SOLUTION_PATH }} package --vulnerable --include-transitive 2>/dev/null | grep -E "^\s*>" || true)
+          if [ -n "$VULNERABLE" ]; then
+            echo "::error::Vulnerable packages found:"
+            echo "$VULNERABLE"
+            dotnet list ${{ env.SOLUTION_PATH }} package --vulnerable --include-transitive
+            exit 1
+          else
+            echo "No vulnerable packages found."
+          fi
+
+      - name: Run security audit
+        run: |
+          dotnet audit ${{ env.SOLUTION_PATH }} || true
+
+  # Version calculation job
+  version:
+    name: Calculate Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.gitversion.outputs.semVer }}
+      assemblyVersion: ${{ steps.gitversion.outputs.assemblySemVer }}
+      informationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}
+      nugetVersion: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      isRelease: ${{ steps.check_release.outputs.is_release }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.12.1
+        with:
+          versionSpec: '5.x'
+
+      - name: Execute GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.12.1
+        with:
+          useConfigFile: true
+          configFilePath: 'windows-wpf/GitVersion.yml'
+
+      - name: Check if release branch
+        id: check_release
+        run: |
+          if [[ ${{ github.ref }} == refs/tags/v* ]] || [[ ${{ github.ref }} == refs/heads/release/* ]]; then
+            echo "is_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Display version
+        run: |
+          echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
+          echo "AssemblySemVer: ${{ steps.gitversion.outputs.assemblySemVer }}"
+          echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
+          echo "NuGetVersion: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+
+  # Build and test on Windows
+  build-windows:
+    name: Build Windows
+    needs: [security-scan, version]
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build Debug
+        run: |
+          dotnet build ${{ env.SOLUTION_PATH }} `
+            --configuration Debug `
+            --no-restore `
+            -p:Version=${{ needs.version.outputs.version }} `
+            -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} `
+            -p:FileVersion=${{ needs.version.outputs.assemblyVersion }} `
+            -p:InformationalVersion=${{ needs.version.outputs.informationalVersion }}
+
+      - name: Run tests
+        run: |
+          dotnet test ${{ env.SOLUTION_PATH }} `
+            --no-build `
+            --configuration Debug `
+            --verbosity normal `
+            --logger trx `
+            --results-directory TestResults `
+            --collect:"XPlat Code Coverage"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults/
+
+      - name: Build Release
+        run: |
+          dotnet build ${{ env.SOLUTION_PATH }} `
+            --configuration Release `
+            --no-restore `
+            -p:Version=${{ needs.version.outputs.version }} `
+            -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} `
+            -p:FileVersion=${{ needs.version.outputs.assemblyVersion }} `
+            -p:InformationalVersion=${{ needs.version.outputs.informationalVersion }}
+
+      - name: Publish single-file executable
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --no-build `
+            --output ${{ env.PUBLISH_DIR }} `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:EnableCompressionInSingleFile=true
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            windows-wpf/MetaSkillStudio/bin/Release/
+            ${{ env.PUBLISH_DIR }}/
+
+  # Build installer
+  build-installer:
+    name: Build Installer
+    needs: [build-windows, version]
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install WiX Toolset
+        run: |
+          $toolPath = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4'
+          dotnet tool install wix --version ${{ env.WIX_VERSION }} --tool-path $toolPath
+          & (Join-Path $toolPath 'wix.exe') extension add WixToolset.UI.wixext/${{ env.WIX_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Publish application
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --output ${{ env.PUBLISH_DIR }} `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:EnableCompressionInSingleFile=true `
+            -p:Version=${{ needs.version.outputs.version }} `
+            -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} `
+            -p:FileVersion=${{ needs.version.outputs.assemblyVersion }}
+
+      - name: Build MSI installer
+        working-directory: windows-wpf/installer
+        run: |
+          $wix = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4\wix.exe'
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE '${{ env.PUBLISH_DIR }}'
+          $msiVersion = '${{ needs.version.outputs.version }}'.Split('-')[0]
+
+          & $wix build `
+            -arch x64 `
+            -ext WixToolset.UI.wixext `
+            -d "ProductVersion=$msiVersion" `
+            -d "PublishDir=$publishDir" `
+            -o "MetaSkillStudio-${{ needs.version.outputs.version }}.msi" `
+            "MetaSkillStudio.wxs"
+
+      - name: Upload MSI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: windows-wpf/installer/*.msi
+
+  # Code signing (only on release builds)
+  sign-artifacts:
+    name: Sign Artifacts
+    needs: [build-installer, version]
+    runs-on: windows-latest
+    if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/heads/release/'))
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: ./artifacts/
+
+      - name: Download executable
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: ./build/
+
+      - name: Import code signing certificate
+        if: env.CODE_SIGNING_CERTIFICATE != ''
+        env:
+          CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
+          CODE_SIGNING_PASSWORD: ${{ secrets.CODE_SIGNING_PASSWORD }}
+        run: |
+          $certBytes = [Convert]::FromBase64String($env:CODE_SIGNING_CERTIFICATE)
+          $cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($certBytes, $env:CODE_SIGNING_PASSWORD)
+          $certPath = "${env:TEMP}\codesign.pfx"
+          [System.IO.File]::WriteAllBytes($certPath, $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pfx, $env:CODE_SIGNING_PASSWORD))
+          echo "CERT_PATH=$certPath" >> $env:GITHUB_ENV
+          echo "CERT_THUMBPRINT=$($cert.Thumbprint)" >> $env:GITHUB_ENV
+
+      - name: Sign executable
+        if: env.CODE_SIGNING_CERTIFICATE != ''
+        env:
+          CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
+          TIMESTAMP_SERVER: 'http://timestamp.digicert.com'
+        run: |
+          $signtool = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+          if (-not (Test-Path $signtool)) {
+            $signtool = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe"
+          }
+          if (-not (Test-Path $signtool)) {
+            $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits" -Recurse -Filter "signtool.exe" | Select-Object -First 1
+          }
+          
+          Get-ChildItem ./build -Recurse -Filter "MetaSkillStudio.exe" | ForEach-Object {
+            & $signtool sign /f $env:CERT_PATH /p $env:CODE_SIGNING_PASSWORD /tr $env:TIMESTAMP_SERVER /td sha256 /fd sha256 $_.FullName
+          }
+
+      - name: Sign MSI installer
+        if: env.CODE_SIGNING_CERTIFICATE != ''
+        env:
+          TIMESTAMP_SERVER: 'http://timestamp.digicert.com'
+        run: |
+          $signtool = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+          if (-not (Test-Path $signtool)) {
+            $signtool = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe"
+          }
+          
+          Get-ChildItem ./artifacts/*.msi | ForEach-Object {
+            & $signtool sign /f $env:CERT_PATH /p $env:CODE_SIGNING_PASSWORD /tr $env:TIMESTAMP_SERVER /td sha256 /fd sha256 $_.FullName
+          }
+
+      - name: Upload signed artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-installer
+          path: |
+            ./artifacts/*.msi
+            ./build/**/MetaSkillStudio.exe
+
+  # Create release
+  create-release:
+    name: Create Release
+    needs: [sign-artifacts, version]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - name: Download signed artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: signed-installer
+          path: ./release/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./release/**
+          generate_release_notes: true
+          prerelease: ${{ contains(needs.version.outputs.version, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

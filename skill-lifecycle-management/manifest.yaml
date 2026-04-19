@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-lifecycle-management
+canonical_name: skill-lifecycle-management
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Manage skill lifecycle states including promotion criteria and deprecation procedures.
+risk_level: low
+categories:
+  - meta
+  - library

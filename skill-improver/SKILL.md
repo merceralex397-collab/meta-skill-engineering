@@ -11,42 +11,42 @@ description: >-
   (use skill-anti-patterns).
 ---
 
-# Purpose
+## Purpose
 
 Improve an existing skill package. A skill is a reusable operating manual for an agent. Improving one means improving four things together:
 
 1. **Routing** — whether the right tasks activate it.
 2. **Execution** — whether the body gives concrete, repeatable procedure.
-3. **Support layers** — whether references, scripts, and evals exist where they help.
+3. **Support layers** — whether references, scripts, evals, and manifests exist where they help.
 4. **Maintainability** — whether the skill stays narrow and worth activating.
 
 Preserve the skill's core purpose unless the user explicitly asks to reposition it.
 
-# When to use
+## When to use
 
 Use when:
 
 - the user provides a SKILL.md and wants it improved,
 - the user says a skill feels weak, vague, generic, bloated, or under-specified,
 - the user wants better triggering, structure, examples, or supporting files,
-- the user wants to know whether a skill needs references/, scripts/, or evals/,
+- the user wants to know whether a skill needs references/, scripts/, evals/, or manifest,
 - the user wants a thin prompt upgraded into a durable skill package.
 
-# When NOT to use
+## When NOT to use
 
-- Creating a brand-new skill from scratch — use **skill-creator**
-- The problem is only the description/trigger and the body is fine — use **skill-trigger-optimization**
-- Porting or adapting a skill to a different stack or context — use **skill-adaptation**
-- Running a quick structural audit with no rewrite planned — use **skill-anti-patterns**
-- The task is a repo review, architecture review, or product planning exercise
+Do not use when:
 
-# Procedure
+- creating a brand-new skill from scratch — use **skill-creator**,
+- the problem is only the description/trigger and the body is fine — use **skill-trigger-optimization**,
+- porting or adapting a skill to a different stack or context — use **skill-adaptation**,
+- running a quick structural audit with no rewrite planned — use **skill-anti-patterns**,
+- the task is a repo review, architecture review, or product planning exercise.
 
 ## Improvement modes
 
 Choose the lightest mode that solves the real problem.
 
-### Mode selection guide
+## Mode selection guide
 
 Choose Mode 1 (Surgical edit) when:
 - Specific failure report with reproduction steps
@@ -67,7 +67,7 @@ Choose Mode 3 (Package upgrade) when:
 
 When in doubt: Start with Mode 1. If Mode 1 changes touch >30% of the file, switch to Mode 2.
 
-### Mode 1 — Surgical edit
+## Mode 1 — Surgical edit
 
 Use when the skill is broadly sound and mainly needs better trigger wording, clearer steps, stronger output contract, or removal of fluff.
 
@@ -92,17 +92,19 @@ Change summary template:
 - [ ] Failure case now handled
 ```
 
-### Mode 2 — Structural refactor
+## Mode 2 — Structural refactor
 
 Use when the skill has the right goal but poor execution: vague description, no phases, no decision rules, no failure handling, too much in one file.
 
 Output: rewritten SKILL.md, new references/ if justified, eval stubs or updated evals.
 
-### Mode 3 — Package upgrade
+## Mode 3 — Package upgrade
 
 Use when the skill should become a first-class reusable package: shared across projects, needs baseline comparisons, needs scripts for repeated mechanics.
 
-Output: improved SKILL.md, evals, references, scripts only where deterministic.
+Output: improved SKILL.md, manifest, evals, references, scripts only where deterministic, changelog.
+
+## Workflow
 
 Follow these phases in order unless the user clearly wants a lighter pass.
 
@@ -117,38 +119,9 @@ Identify:
 
 Read the existing skill package before editing. If the conversation provides enough context, extract it instead of re-asking.
 
-**Check for eval results.** Look for `eval-results/<skill-name>-eval.md` (symlink to latest run). If it exists, read it and extract:
-
-- Gate pass/fail status for each gate (precision, recall, behavior, structural, usefulness)
-- Trigger precision and recall percentages
-- Behavior pass rate and any failing cases
-- Usefulness scores and judge rationale (if present)
-- List of specific prompts that failed, with the reason (misrouted, wrong output, low usefulness)
-
-These quantitative signals become the primary input for Phase 2. If no eval results exist, proceed with the heuristic diagnosis below.
-
 ## Phase 2 — Diagnose the weakness
 
-Name the primary failure mode before rewriting.
-
-### Eval-driven diagnosis (preferred)
-
-When eval results from Phase 1 are available, use them as primary evidence:
-
-| Eval signal | → Failure mode | Primary fix target |
-|---|---|---|
-| Trigger precision < 80% | overtriggering | tighten description, add "do not use" boundaries |
-| Trigger recall < 80% | undertriggering | rewrite description with concrete trigger phrases |
-| Behavior pass rate < 80% | wrong output format or missing edge case | fix output contract, add missing procedure steps |
-| Usefulness score < 3/5 | prompt-blob syndrome or missing branching | replace prose with concrete steps, add decision rules |
-| Structural score < 8/10 | package rot | fix section ordering, add missing sections |
-| Multiple gates failing | compound failure | prioritize routing fixes first, then output quality |
-
-Cross-reference eval failures with the specific failing prompts to identify the root cause. A skill that fails on edge-case prompts needs different fixes than one that fails on core cases.
-
-### Heuristic diagnosis (fallback)
-
-When no eval results are available, map the reported or observed failure to a fix target:
+Name the primary failure mode before rewriting. Map it to a fix target:
 
 | Failure mode | Primary fix target |
 |---|---|
@@ -162,7 +135,7 @@ When no eval results are available, map the reported or observed failure to a fi
 | bloat | remove unnecessary steps or content |
 | resource mismatch | add or remove references/scripts as evidence warrants |
 | no proof | add eval stubs or test prompts |
-| package rot | update docs, add evals, review support layers |
+| package rot | add manifest/changelog/ownership metadata |
 
 Score informally against: routing quality, procedural clarity, decision support, support-layer quality, evaluation readiness, maintainability. See `references/skill-quality-rubric.md` for the detailed rubric.
 
@@ -175,7 +148,7 @@ Improve in this priority order:
 3. Add or improve workflow phases.
 4. Add decision rules for common branches.
 5. Add output contract and failure handling.
-6. Decide whether references, scripts, or evals are warranted.
+6. Decide whether references, scripts, evals, or manifest are warranted.
 
 For support-layer decisions, see `references/resource-decision-guide.md`.
 
@@ -195,6 +168,8 @@ Add scripts when a deterministic task recurs and a script reduces context waste.
 
 Add evals when routing quality matters or the user wants evidence the revision helped.
 
+Add manifest/packaging when the skill is meant to persist or be shared.
+
 Do not add scripts or references merely to make the package feel complete.
 
 ## Phase 6 — Self-review
@@ -210,24 +185,7 @@ Before presenting the result, verify:
 
 If any check fails, revise.
 
-## Phase 7 — Package the result
-
-Before packaging, compare the improved skill against the original to verify quality gates pass:
-
-```bash
-./scripts/run-baseline-comparison.sh <original-skill.md> <modified-skill.md>
-```
-
-This checks structural score delta, section preservation, name preservation, line limits, and eval regression. If gates fail, revise before delivering.
-
-Return:
-
-- the improved files,
-- a short rationale for each major change,
-- 2–5 recommended eval prompts for the improved skill,
-- risks or open questions, only if something could not be settled cleanly.
-
-# Output contract
+## Output contract
 
 Every improvement produces:
 
@@ -255,12 +213,17 @@ Every improvement produces:
 2. [prompt that should NOT trigger]
 3. [edge case prompt]
 
+### Phase 7 — Package the result
+Return:
+- the improved files,
+- a short rationale for each major change,
+- 2–5 recommended eval prompts for the improved skill,
+- risks or open questions, only if something could not be settled cleanly.
+
 ### Next steps
 - Run `skill-evaluation` to verify routing accuracy
 - Run `skill-testing-harness` if no evals/ directory exists
 ```
-
-# Failure handling
 
 ## Anti-patterns
 
@@ -274,51 +237,16 @@ Avoid these when improving a skill:
 
 For a full structural anti-pattern catalog, use **skill-anti-patterns**.
 
-## Incomplete skill
+# Failure handling
 
-If the skill is too incomplete to improve cleanly (missing description, no procedure, stub-only):
+If the skill is too incomplete to improve cleanly:
 
 1. Name what is missing.
 2. Preserve what can be salvaged.
 3. Produce the lightest viable improved draft.
 4. Mark assumptions explicitly.
 
-## Quick pass requested
-
-If the user wants a quick pass rather than a full package upgrade, do that. The point is to improve the skill, not force ceremony. Skip support-layer generation and focus on the SKILL.md body only.
-
-## Scope change mid-improvement
-
-If analysis reveals the skill's purpose should fundamentally change (e.g., it should be split, merged, or retired):
-
-1. Stop the improvement.
-2. Document the finding: what the skill currently does vs what it should do.
-3. Recommend the appropriate next action: `skill-variant-splitting` for splits, `skill-catalog-curation` for merges, `skill-lifecycle-management` for retirement.
-4. Do not rewrite a skill into something it was never meant to be.
-
-## Contradictory requirements
-
-If the SKILL.md contains instructions that contradict each other (e.g., description says "never modify files" but procedure step 3 says "write the output file"):
-
-1. List each contradiction with line references.
-2. Ask the user which intent is correct before rewriting.
-3. If no user is available, favor the description (it is the contract) and flag the procedure steps for review.
-
-## Missing support files
-
-If the skill references files that do not exist (phantom references):
-
-1. List each missing reference with the line that references it.
-2. Decide per reference: create the file with reasonable content, or remove the reference.
-3. Default to removing the reference unless the content is essential to the procedure.
-
-## Circular or conflicting cross-references
-
-If the skill's cross-references create loops (A→B→A) or point to skills that contradict this skill's purpose:
-
-1. Map the reference chain.
-2. Remove circular links — keep only the outbound reference that adds value.
-3. Flag conflicting cross-references for manual review.
+If the user wants a quick pass rather than a full package upgrade, do that. The point is to improve the skill, not force ceremony.
 
 # Next steps
 

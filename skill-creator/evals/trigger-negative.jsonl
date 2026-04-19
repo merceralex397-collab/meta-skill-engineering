@@ -5,4 +5,4 @@
 {"prompt": "Port this skill to work with a different tech stack", "expected": "no_trigger", "better_skill": "skill-adaptation", "notes": "Adapting existing skill, not creating"}
 {"prompt": "Write a Python function to parse JSON", "expected": "no_trigger", "better_skill": null, "notes": "General coding, not skill engineering"}
 {"prompt": "Check this skill for anti-patterns", "expected": "no_trigger", "better_skill": "skill-anti-patterns", "notes": "Auditing quality, not creating"}
-{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": null, "notes": "Packaging, not creating"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": "skill-packaging", "notes": "Packaging, not creating"}

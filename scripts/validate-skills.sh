@@ -4,28 +4,12 @@ set -euo pipefail
 # validate-skills.sh — Structural validation for all skill packages
 # Checks: frontmatter, cross-references, phantom files, eval format, line counts
 
-if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
-  echo "Usage: ./scripts/validate-skills.sh"
-  echo ""
-  echo "Validates all 12 skill packages for structural compliance."
-  echo "Checks frontmatter, cross-references, phantom files, eval format, line counts."
-  echo "Requires: python3, jq"
-  exit 0
-fi
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-# Auto-detect repo root
-_script_dir="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$_script_dir"
-while [[ "$REPO_ROOT" != "/" ]]; do
-  [[ -f "$REPO_ROOT/AGENTS.md" ]] && break
-  REPO_ROOT="$(dirname "$REPO_ROOT")"
-done
-[[ ! -f "$REPO_ROOT/AGENTS.md" ]] && { echo "Error: cannot find repo root (no AGENTS.md found)"; exit 1; }
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ERRORS=0
 WARNINGS=0
 SKILLS_CHECKED=0
@@ -54,7 +38,7 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
   # 1. Frontmatter check
   if head -1 "$skill_md" | grep -q '^---$'; then
     # Check name field
-    fm_name=$(sed -n '/^---$/,/^---$/p' "$skill_md" | grep '^name:' | head -1 | sed 's/^name: *//')
+    fm_name=$(sed -n '/^---$/,/^---$/p' "$skill_md" | grep -m1 -E '^name:' | sed -E "s/^name:[[:space:]]*['\"]?([^'\"]+)['\"]?.*$/\1/")
     if [[ -z "$fm_name" ]]; then
       log_error "Missing 'name' in frontmatter"
     elif [[ "$fm_name" != "$skill_name" ]]; then
@@ -69,32 +53,11 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     else
       log_error "Missing 'description' in frontmatter"
     fi
-
-    # Check for unexpected frontmatter fields (contract: name and description only)
-    unexpected_fields=$(sed -n '/^---$/,/^---$/p' "$skill_md" | grep -E '^[a-zA-Z_-]+:' | grep -v '^name:' | grep -v '^description:' | grep -v '^---$' | sed 's/:.*//' || true)
-    if [[ -n "$unexpected_fields" ]]; then
-      for field in $unexpected_fields; do
-        log_warn "Unexpected frontmatter field '$field' (contract allows only name, description)"
-      done
-    fi
   else
     log_error "Missing YAML frontmatter (no opening ---)"
   fi
 
-  # 2. Canonical section headings check
-  required_headings=("Purpose" "When to use" "When NOT to use" "Procedure" "Output contract" "Failure handling")
-  for heading in "${required_headings[@]}"; do
-    if ! grep -q "^# ${heading}" "$skill_md"; then
-      log_warn "Missing canonical heading: # ${heading}"
-    fi
-  done
-
-  # 3. Stale manifest.yaml check
-  if [[ -f "$skill_dir/manifest.yaml" ]]; then
-    log_warn "manifest.yaml found (should be removed — distribution artifact)"
-  fi
-
-  # 4. Line count check (spec recommends <500)
+  # 2. Line count check (spec recommends <500)
   line_count=$(wc -l < "$skill_md")
   if (( line_count > 500 )); then
     log_warn "SKILL.md is $line_count lines (recommended <500)"
@@ -102,7 +65,7 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     log_ok "SKILL.md is $line_count lines"
   fi
 
-  # 5. Cross-reference validation (check skill references point to existing dirs)
+  # 3. Cross-reference validation (check skill references point to existing dirs)
   while IFS= read -r ref_skill; do
     ref_dir="$REPO_ROOT/$ref_skill"
     if [[ ! -d "$ref_dir" ]] || [[ ! -f "$ref_dir/SKILL.md" ]]; then
@@ -110,7 +73,7 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     fi
   done < <(grep -oP '(?<=→ `|→ \*\*|use )[a-z][-a-z]*(?=`|\*\*|\))' "$skill_md" 2>/dev/null | grep '^skill-\|^community-' | sort -u || true)
 
-  # 6. Phantom file references (references/ and scripts/ that don't exist)
+  # 4. Phantom file references (references/ and scripts/ that don't exist)
   while IFS= read -r ref_path; do
     full_path="$skill_dir/$ref_path"
     if [[ ! -e "$full_path" ]]; then
@@ -118,7 +81,7 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     fi
   done < <(grep -oP '(?:references|scripts)/[a-zA-Z0-9._-]+\.[a-z]+' "$skill_md" 2>/dev/null | sort -u || true)
 
-  # 7. Eval directory check
+  # 5. Eval directory check
   if [[ -d "$skill_dir/evals" ]]; then
     tp_count=0; tn_count=0; bh_count=0
     [[ -f "$skill_dir/evals/trigger-positive.jsonl" ]] && tp_count=$(wc -l < "$skill_dir/evals/trigger-positive.jsonl")

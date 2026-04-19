@@ -1,0 +1,245 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Is this a prerelease?'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  WIX_VERSION: '4.0.6'
+  SOLUTION_PATH: 'windows-wpf/MetaSkillStudio.sln'
+  PROJECT_PATH: 'windows-wpf/MetaSkillStudio/MetaSkillStudio.csproj'
+  PUBLISH_DIR: 'windows-wpf/publish'
+
+jobs:
+  version:
+    name: Determine Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      is_prerelease: ${{ steps.get_version.outputs.is_prerelease }}
+      tag_name: ${{ steps.get_version.outputs.tag_name }}
+    steps:
+      - name: Get version from tag or input
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+            VERSION="${VERSION#v}"
+            IS_PRERELEASE="${{ github.event.inputs.prerelease }}"
+            TAG_NAME="v$VERSION"
+          else
+            VERSION=${GITHUB_REF#refs/tags/v}
+            IS_PRERELEASE="false"
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+            if [[ $VERSION =~ -[a-zA-Z] ]]; then
+              IS_PRERELEASE="true"
+            fi
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+          echo "Is Prerelease: $IS_PRERELEASE"
+          echo "Tag Name: $TAG_NAME"
+
+  build-and-sign:
+    name: Build and Sign Release
+    needs: version
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install WiX Toolset
+        run: |
+          $toolPath = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4'
+          dotnet tool install wix --version ${{ env.WIX_VERSION }} --tool-path $toolPath
+          & (Join-Path $toolPath 'wix.exe') extension add WixToolset.UI.wixext/${{ env.WIX_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build Release
+        run: |
+          dotnet build ${{ env.SOLUTION_PATH }} `
+            --configuration Release `
+            --no-restore `
+            -p:Version=${{ needs.version.outputs.version }} `
+            -p:AssemblyVersion=${{ needs.version.outputs.version }}.0 `
+            -p:FileVersion=${{ needs.version.outputs.version }}.0
+
+      - name: Run tests
+        run: |
+          dotnet test ${{ env.SOLUTION_PATH }} `
+            --no-build `
+            --configuration Release `
+            --verbosity normal
+
+      - name: Publish single-file executable
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --no-build `
+            --output ${{ env.PUBLISH_DIR }} `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:EnableCompressionInSingleFile=true
+
+      - name: Build MSI installer
+        working-directory: windows-wpf/installer
+        run: |
+          $wix = Join-Path $env:GITHUB_WORKSPACE '.tools\wix4\wix.exe'
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE '${{ env.PUBLISH_DIR }}'
+          $msiVersion = '${{ needs.version.outputs.version }}'.Split('-')[0]
+
+          & $wix build `
+            -arch x64 `
+            -ext WixToolset.UI.wixext `
+            -d "ProductVersion=$msiVersion" `
+            -d "PublishDir=$publishDir" `
+            -o "MetaSkillStudio-${{ needs.version.outputs.version }}.msi" `
+            "MetaSkillStudio.wxs"
+
+      - name: Import code signing certificate
+        if: secrets.CODE_SIGNING_CERTIFICATE != ''
+        env:
+          CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
+          CODE_SIGNING_PASSWORD: ${{ secrets.CODE_SIGNING_PASSWORD }}
+        run: |
+          $certBytes = [Convert]::FromBase64String($env:CODE_SIGNING_CERTIFICATE)
+          $cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($certBytes, $env:CODE_SIGNING_PASSWORD)
+          $certPath = "${env:TEMP}\codesign.pfx"
+          [System.IO.File]::WriteAllBytes($certPath, $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pfx, $env:CODE_SIGNING_PASSWORD))
+          echo "CERT_PATH=$certPath" >> $env:GITHUB_ENV
+
+      - name: Sign executable and MSI
+        if: secrets.CODE_SIGNING_CERTIFICATE != ''
+        env:
+          TIMESTAMP_SERVER: 'http://timestamp.digicert.com'
+        run: |
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE '${{ env.PUBLISH_DIR }}'
+          $signtool = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+          if (-not (Test-Path $signtool)) {
+            $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits" -Recurse -Filter "signtool.exe" | Select-Object -First 1
+          }
+          
+          # Sign executable
+          & $signtool sign /f $env:CERT_PATH /p $env:CODE_SIGNING_PASSWORD /tr $env:TIMESTAMP_SERVER /td sha256 /fd sha256 (Join-Path $publishDir "MetaSkillStudio.exe")
+          
+          # Sign MSI
+          & $signtool sign /f $env:CERT_PATH /p $env:CODE_SIGNING_PASSWORD /tr $env:TIMESTAMP_SERVER /td sha256 /fd sha256 "MetaSkillStudio-${{ needs.version.outputs.version }}.msi"
+        working-directory: windows-wpf/installer
+
+      - name: Calculate checksums
+        run: |
+          Get-FileHash -Algorithm SHA256 "${{ env.PUBLISH_DIR }}\MetaSkillStudio.exe" | Select-Object Hash | ForEach-Object { "SHA256: $($_.Hash)" } > checksums.txt
+          Get-FileHash -Algorithm SHA256 "windows-wpf\installer\MetaSkillStudio-${{ needs.version.outputs.version }}.msi" | Select-Object Hash | ForEach-Object { "SHA256: $($_.Hash)" } >> checksums.txt
+          Get-FileHash -Algorithm MD5 "${{ env.PUBLISH_DIR }}\MetaSkillStudio.exe" | Select-Object Hash | ForEach-Object { "MD5: $($_.Hash)" } >> checksums.txt
+          Get-FileHash -Algorithm MD5 "windows-wpf\installer\MetaSkillStudio-${{ needs.version.outputs.version }}.msi" | Select-Object Hash | ForEach-Object { "MD5: $($_.Hash)" } >> checksums.txt
+          Get-Content checksums.txt
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            ${{ env.PUBLISH_DIR }}/MetaSkillStudio.exe
+            windows-wpf/installer/MetaSkillStudio-${{ needs.version.outputs.version }}.msi
+            checksums.txt
+
+  create-release:
+    name: Create GitHub Release
+    needs: [version, build-and-sign]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+          path: ./release/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Meta Skill Studio ${{ needs.version.outputs.version }}"
+          tag_name: ${{ needs.version.outputs.tag_name }}
+          files: ./release/**
+          generate_release_notes: true
+          prerelease: ${{ needs.version.outputs.is_prerelease == 'true' }}
+          body: |
+            ## Meta Skill Studio ${{ needs.version.outputs.version }}
+
+            ### Downloads
+            - `MetaSkillStudio.exe` - Portable single-file executable (self-contained)
+            - `MetaSkillStudio-${{ needs.version.outputs.version }}.msi` - Windows Installer Package
+
+            ### Checksums
+            See `checksums.txt` for SHA256 and MD5 hashes.
+
+            ### Installation
+            **MSI Installer (Recommended):**
+            Download and run the `.msi` file to install Meta Skill Studio with Start Menu shortcuts and automatic updates.
+
+            **Portable Executable:**
+            Download `MetaSkillStudio.exe` and run directly. No installation required.
+
+            ### Requirements
+            - Windows 10/11 (64-bit)
+            - Python 3.11 or 3.12+ (for runtime functionality)
+
+            ### Code Signing
+            Executables are signed with Authenticode certificate when available.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  update-homebrew:
+    name: Update Homebrew Formula
+    needs: [version, create-release]
+    runs-on: ubuntu-latest
+    if: needs.version.outputs.is_prerelease == 'false'
+    steps:
+      - name: Trigger homebrew update
+        run: |
+          echo "Homebrew formula update would be triggered here"
+          echo "This requires a separate tap repository"
+
+  notify:
+    name: Send Notifications
+    needs: [version, create-release]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Release success notification
+        if: needs.create-release.result == 'success'
+        run: |
+          echo "Release ${{ needs.version.outputs.version }} published successfully!"
+
+      - name: Release failure notification
+        if: needs.create-release.result == 'failure'
+        run: |
+          echo "Release ${{ needs.version.outputs.version }} failed!"
+          exit 1

@@ -1,0 +1,71 @@
+mode: ContinuousDelivery
+branches:
+  main:
+    regex: ^main$
+    tag: ''
+    increment: Patch
+    is-source-branch-for:
+      - develop
+      - release
+    source-branches:
+      - develop
+      - release
+  develop:
+    regex: ^dev(elop)?(ment)?$
+    tag: alpha
+    increment: Minor
+    source-branches:
+      - main
+  feature:
+    regex: ^features?[/-]
+    tag: useBranchName
+    increment: Inherit
+    source-branches:
+      - develop
+      - main
+  release:
+    regex: ^releases?[/-]
+    tag: rc
+    increment: Inherit
+    source-branches:
+      - develop
+      - main
+  hotfix:
+    regex: ^hotfix(es)?[/-]
+    tag: beta
+    increment: Patch
+    source-branches:
+      - main
+  pull-request:
+    regex: ^(pull|pull\-requests|pr)[/-]
+    tag: pr
+    increment: Inherit
+    source-branches:
+      - develop
+      - main
+      - release
+      - feature
+      - hotfix
+
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatch
+assembly-informational-format: '{InformationalVersion}'
+
+# Version bump messages
+major-version-bump-message: "^(breaking|major):"
+minor-version-bump-message: "^(feature|feat|minor):"
+patch-version-bump-message: "^(fix|patch|bugfix):"
+no-bump-message: "^(none|skip|docs|style|refactor|test|chore):"
+
+# Build metadata
+continuous-delivery-fallback-tag: ci
+next-version: 1.0.0
+
+# Tag configuration
+tag-prefix: 'v'
+
+# Ignore shas (for merge commits, etc.)
+ignore:
+  sha: []
+
+merge-message-formats: {}
