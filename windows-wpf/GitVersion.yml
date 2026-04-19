@@ -64,9 +64,6 @@ next-version: 1.0.0
 # Tag configuration
 tag-prefix: 'v'
 
-# SemVer 2.0 configuration
-semantic-version-format: Strict
-
 # Ignore shas (for merge commits, etc.)
 ignore:
   sha: []

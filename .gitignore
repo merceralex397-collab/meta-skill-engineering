@@ -1,5 +1,6 @@
 eval-results/
 .meta-skill-studio/
+.wix/
 __pycache__/
 **/__pycache__/
 *.pyc
