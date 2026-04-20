@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Workflow cards with icons for quick actions on Dashboard
 - Status bar showing runtime status, skill count, and active model
 - `Library/` directory created as the verified tier
+- `windows-wpf\smoke-test-publish.ps1` to launch-validate the published exe and surface crash details from the Windows Application log
 - Discovery Pipeline documented (community-skill-harvester → evaluation → install)
 - All 17 skills mirrored in `.opencode/skills/`
 - CONTRIBUTING.md populated with guidelines
@@ -30,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Library count uses leaf-directory counting for accurate skill totals
 - Settings dialog rebranded from "OpenCode Configuration" to "AI Runtime Configuration"
 - Resource strings cleaned: "LibraryUnverified" → "Unverified", "LibraryWorkbench" → "In Testing"
+- `windows-wpf\build-release.ps1` now runs the publish smoke test by default
 - Stale files archived/removed: DEEP_INVESTIGATION_PLAN.md, active-issues.md, empty directories
 - Stale remote branches deleted: remediation-complete, task5/subtask-f2
 
@@ -37,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pipeline definitions in AGENTS.md and README.md corrected (community-skill-harvester leads creation pipeline)
 - docs/workflow.md: absolute Linux path replaced with relative path
 - All views properly wired to ViewModel commands
+- Published app startup regressions caused by duplicate `SectionHeader` resources and a missing `StudioTextBox` resource
 - Zone.Identifier and .blender-mcp already covered in .gitignore
 
 ## [1.0.0] - 2026-04-14

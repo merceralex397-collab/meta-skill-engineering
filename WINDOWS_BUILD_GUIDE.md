@@ -37,21 +37,19 @@ dotnet run --project MetaSkillStudio
 
 ## Publish the Portable Executable
 
+Use the staging script rather than raw `dotnet publish` so the full workspace bundle is assembled and the published exe is smoke-tested.
+
 ```powershell
 cd windows-wpf
-
-dotnet publish MetaSkillStudio `
-  -c Release `
-  -r win-x64 `
-  --self-contained true `
-  -p:PublishSingleFile=true `
-  -p:IncludeNativeLibrariesForSelfExtract=true `
-  -p:EnableCompressionInSingleFile=true
+.\build-release.ps1
 ```
 
 Expected output:
 
 - `windows-wpf\publish\MetaSkillStudio.exe`
+- A passing startup smoke test for the published exe
+
+Use `.\build-release.ps1 -SkipSmokeTest` only when you intentionally need staging without launch validation.
 
 ## Build the MSI Installer
 

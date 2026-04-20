@@ -16,6 +16,13 @@ This repository is a meta-skill engineering workspace. Treat each top-level skil
 - `.opencode/skills/` is an OpenCode mirror for selected repo-owned skills, not the authoritative root inventory.
 - `LibraryUnverified/` and `LibraryWorkbench/` are corpus/library areas, not repo-owned root skill packages.
 
+## WPF Release Validation
+
+- For `windows-wpf/` changes, `dotnet build` and `dotnet test` are not enough to claim completion.
+- Before marking WPF work complete, run `windows-wpf\build-release.ps1` and confirm the publish smoke test passes.
+- The smoke test must launch `windows-wpf\publish\MetaSkillStudio.exe`, verify it stays alive briefly, and fail on any matching `.NET Runtime`, `Application Error`, or `Windows Error Reporting` events.
+- Treat startup XAML/resource failures as blocking release issues even when compile and unit tests pass.
+
 ## Skill Package Shape
 
 - Every repo-owned skill package must contain `SKILL.md`.

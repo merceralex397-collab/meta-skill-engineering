@@ -2,7 +2,8 @@
 param(
     [string]$Configuration = "Release",
     [string]$Runtime = "win-x64",
-    [string]$OutputDir = "publish"
+    [string]$OutputDir = "publish",
+    [switch]$SkipSmokeTest
 )
 
 $ErrorActionPreference = "Stop"
@@ -103,6 +104,10 @@ foreach ($requiredPath in $requiredPaths) {
     if (-not (Test-Path $stagedPath)) {
         throw "Release bundle is missing required path: $requiredPath"
     }
+}
+
+if (-not $SkipSmokeTest) {
+    & (Join-Path $PSScriptRoot "smoke-test-publish.ps1") -PublishDir $stagingDir -WaitSeconds 10
 }
 
 Write-Host "Release bundle ready at $stagingDir"

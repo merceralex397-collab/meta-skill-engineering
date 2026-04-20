@@ -51,6 +51,8 @@ dotnet run --project MetaSkillStudio
 
 Output: `publish\MetaSkillStudio.exe`
 
+`build-release.ps1` now runs a startup smoke test against the published exe. Use `.\build-release.ps1 -SkipSmokeTest` only when you explicitly need to stage the bundle without launching the app.
+
 The staged `publish\` folder is the release artifact. It contains the WPF executable plus the bundled workspace files the app requires at runtime:
 - root skill packages
 - `LibraryUnverified` and `LibraryWorkbench`
