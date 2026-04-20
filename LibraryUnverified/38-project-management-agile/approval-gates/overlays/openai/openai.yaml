@@ -1,0 +1,18 @@
+name: approval-gates-codex-c
+version: 1
+summary: "Coordinate approval gates work with bounded delegation, artifact contracts, and rejoin points."
+invocation:
+  policy: auto
+  aliases:
+    - "approval-gates"
+    - "approval gates"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/approval-message-template.md"
+    - "../../references/gate-triggers.md"
+    - "../../references/pre-approval-evidence.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Prompt Crafting"
+  short_description: "Apply prompt crafting through a concrete workflow with explic..."
+  default_prompt: "Use $prompt-crafting-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

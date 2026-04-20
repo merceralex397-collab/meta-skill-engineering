@@ -1,0 +1,3 @@
+{"input":"Building, debugging, securing, or packaging an MCP server or MCP tool surface","expected":"mcp-protocol","category":"Generated Repo Core Skills"}
+{"input":"this task clearly needs mcp protocol","expected":"mcp-protocol","category":"Generated Repo Core Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around mcp protocol","expected":"mcp-protocol","category":"Generated Repo Core Skills"}

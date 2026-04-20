@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Run a premortem on this rollout and tell me what could kill it in the first month.","should_trigger":true}
+{"id":"tp-002","prompt":"Assume this migration fails after launch. What are the most likely causes?","should_trigger":true}

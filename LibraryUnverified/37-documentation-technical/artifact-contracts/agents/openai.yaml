@@ -1,0 +1,6 @@
+interface:
+  display_name: "Artifact Contracts"
+  short_description: "Coordinate artifact contracts work with bounded delegation, a..."
+  default_prompt: "Use $artifact-contracts-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

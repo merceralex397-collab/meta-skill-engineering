@@ -1,0 +1,6 @@
+interface:
+  display_name: "BigQuery Skill"
+  short_description: "Run bigquery skill with grounded sources, comparison, and dec..."
+  default_prompt: "Use $bigquery-skill-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

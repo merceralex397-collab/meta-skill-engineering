@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cloudflare"
+  short_description: "Handle cloudflare changes with preflight checks, verification..."
+  default_prompt: "Use $cloudflare-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

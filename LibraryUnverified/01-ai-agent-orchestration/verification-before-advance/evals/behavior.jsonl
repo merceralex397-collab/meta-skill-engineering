@@ -1,0 +1,2 @@
+{"input":"Use Verification Before Advance on a realistic task and return the result in a decision-ready shape.","must_include":["Critical Path","Delegates or Stages","Artifact Contracts","Rejoin Criteria"],"expected":"verification-before-advance"}
+{"input":"Apply Verification Before Advance but call out uncertainty and the next verification step explicitly.","must_include":["Critical Path","Rejoin Criteria"],"expected":"verification-before-advance"}

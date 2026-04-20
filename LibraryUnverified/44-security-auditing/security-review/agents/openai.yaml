@@ -1,0 +1,6 @@
+interface:
+  display_name: "Security Review"
+  short_description: "Execute the security review role with clear scope, evidence,..."
+  default_prompt: "Use $security-review-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

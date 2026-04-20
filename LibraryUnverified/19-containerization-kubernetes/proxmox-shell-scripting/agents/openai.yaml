@@ -1,0 +1,6 @@
+interface:
+  display_name: "Proxmox Shell Scripting"
+  short_description: "Handle proxmox shell scripting changes with preflight checks,..."
+  default_prompt: "Use $proxmox-shell-scripting-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

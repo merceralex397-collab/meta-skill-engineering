@@ -1,0 +1,3 @@
+{"input":"Write database migration SQL.","expected":"no-trigger"}
+{"input":"Plan a Vercel deployment rollback.","expected":"no-trigger"}
+{"input":"Audit API rate limits.","expected":"no-trigger"}

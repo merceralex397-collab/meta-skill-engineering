@@ -1,0 +1,6 @@
+interface:
+  display_name: "Worldbuilding and Lore Systems"
+  short_description: "Use worldbuilding and lore systems to guide creative system d..."
+  default_prompt: "Use $worldbuilding-lore-systems-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

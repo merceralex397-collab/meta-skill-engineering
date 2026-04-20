@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Inspector and Debugging"
+  short_description: "Design and verify mcp inspector and debugging with explicit c..."
+  default_prompt: "Use $mcp-inspector-debugging-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

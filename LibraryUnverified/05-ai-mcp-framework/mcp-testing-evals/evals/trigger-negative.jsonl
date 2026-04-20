@@ -1,0 +1,3 @@
+{"input":"Write a normal REST endpoint.","expected":"no-trigger"}
+{"input":"Review a CSS layout issue.","expected":"no-trigger"}
+{"input":"Summarize these meeting notes.","expected":"no-trigger"}

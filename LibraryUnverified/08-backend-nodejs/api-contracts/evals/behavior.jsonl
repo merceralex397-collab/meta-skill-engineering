@@ -1,0 +1,2 @@
+{"input":"Review an API change where one endpoint removes a response field and another adds a required request field.","must_include":["Boundary Inventory","Compatibility Risks","Contract Changes","Verification Plan"],"expected":"api-contracts"}
+{"input":"Apply API Contracts to a mismatch between the OpenAPI doc and real handler output, and state the next verification step.","must_include":["Boundary Inventory","Verification Plan"],"expected":"api-contracts"}

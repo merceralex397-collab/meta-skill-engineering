@@ -1,0 +1,6 @@
+interface:
+  display_name: "Docker and Containers"
+  short_description: "Handle docker and containers changes with preflight checks, v..."
+  default_prompt: "Use $docker-containers-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

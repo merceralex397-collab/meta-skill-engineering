@@ -1,0 +1,3 @@
+{"input":"Add a temporary print statement so I can see if this local script runs.","expected":"no-trigger"}
+{"input":"Pick a frontend analytics vendor for marketing pages.","expected":"no-trigger"}
+{"input":"Refactor this ORM query but keep the telemetry exactly as it is.","expected":"no-trigger"}

@@ -1,0 +1,2 @@
+{"input":"Use Image Editor on a realistic task and return the result in a decision-ready shape.","must_include":["Audience","Artifact Structure","Draft or Final Output","Review Notes"],"expected":"image-editor"}
+{"input":"Apply Image Editor but call out uncertainty and the next verification step explicitly.","must_include":["Audience","Review Notes"],"expected":"image-editor"}

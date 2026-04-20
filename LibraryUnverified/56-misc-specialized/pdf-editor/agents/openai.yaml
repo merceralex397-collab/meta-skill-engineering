@@ -1,0 +1,6 @@
+interface:
+  display_name: "PDF Editor"
+  short_description: "Produce pdf editor artifacts with source fidelity, audience c..."
+  default_prompt: "Use $pdf-editor-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

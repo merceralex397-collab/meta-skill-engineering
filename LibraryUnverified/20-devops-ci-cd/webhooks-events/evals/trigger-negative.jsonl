@@ -1,0 +1,3 @@
+{"input":"Design a generic REST create endpoint with request validation.","expected":"no-trigger"}
+{"input":"Tune the retry backoff for an upstream API client.","expected":"no-trigger"}
+{"input":"Add dashboard logs for a worker but keep delivery logic unchanged.","expected":"no-trigger"}

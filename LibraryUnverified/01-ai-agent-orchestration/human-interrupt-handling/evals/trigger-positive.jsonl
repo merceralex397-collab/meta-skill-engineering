@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at human interrupt handling","expected":"human-interrupt-handling","category":"Agentic Orchestration and Autonomy"}
+{"input":"this task clearly needs human interrupt handling","expected":"human-interrupt-handling","category":"Agentic Orchestration and Autonomy"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around human interrupt handling","expected":"human-interrupt-handling","category":"Agentic Orchestration and Autonomy"}

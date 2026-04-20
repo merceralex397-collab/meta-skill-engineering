@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cross-Platform Shell"
+  short_description: "Handle cross-platform shell changes with preflight checks, ve..."
+  default_prompt: "Use $cross-platform-shell-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

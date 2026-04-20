@@ -1,0 +1,6 @@
+interface:
+  display_name: "Process Doctor"
+  short_description: "Apply process doctor through a concrete workflow with explici..."
+  default_prompt: "Use $process-doctor-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

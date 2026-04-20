@@ -1,0 +1,6 @@
+interface:
+  display_name: "Financial Tracker Ops"
+  short_description: "Run financial tracker ops with grounded sources, comparison,..."
+  default_prompt: "Use $financial-tracker-ops-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

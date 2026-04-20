@@ -1,0 +1,18 @@
+name: firebase-sdk-codex-c
+version: 1
+summary: "Apply firebase sdk patterns with clear contracts, persistence rules, and verification."
+invocation:
+  policy: auto
+  aliases:
+    - "firebase-sdk"
+    - "firebase sdk"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/implementation-patterns.md"
+    - "../../references/validation-checklist.md"
+    - "../../references/failure-modes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

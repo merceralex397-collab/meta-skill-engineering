@@ -1,0 +1,2 @@
+{"input":"Review a FastAPI route refactor and return a plan that separates handler logic, dependencies, and response models.","must_include":["Service Surface","Router and Dependency Plan","Model and Error Shape","Validation"],"expected":"fastapi"}
+{"input":"Apply FastAPI to a bug where a blocking SDK call sits inside an async handler and state the next verification step.","must_include":["Service Surface","Validation"],"expected":"fastapi"}

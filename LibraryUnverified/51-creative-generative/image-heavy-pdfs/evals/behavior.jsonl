@@ -1,0 +1,2 @@
+{"input":"Use Image-Heavy PDFs on a realistic task and return the result in a decision-ready shape.","must_include":["Audience","Artifact Structure","Draft or Final Output","Review Notes"],"expected":"image-heavy-pdfs"}
+{"input":"Apply Image-Heavy PDFs but call out uncertainty and the next verification step explicitly.","must_include":["Audience","Review Notes"],"expected":"image-heavy-pdfs"}

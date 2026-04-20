@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Write acceptance criteria for this story and make them testable.","should_trigger":true}
+{"id":"tp-002","prompt":"These done conditions are fuzzy. Tighten them up and add edge cases.","should_trigger":true}

@@ -1,0 +1,3 @@
+{"input":"Compare this OpenAPI diff and tell me which changes are breaking for existing clients.","expected":"api-contracts","category":"Backend, API, and Data Skills"}
+{"input":"We changed an error body and made a field required. Review the API contract impact before we ship.","expected":"api-contracts","category":"Backend, API, and Data Skills"}
+{"input":"Audit whether our documented API matches the responses the service actually sends.","expected":"api-contracts","category":"Backend, API, and Data Skills"}

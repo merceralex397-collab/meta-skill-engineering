@@ -1,0 +1,8 @@
+{"prompt": "Install this skill on my machine", "expected": "no_trigger", "better_skill": "skill-installer", "notes": "Installation, not packaging"}
+{"prompt": "Create a new skill from scratch", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not packaging"}
+{"prompt": "Document the origin of this skill", "expected": "no_trigger", "better_skill": "skill-provenance", "notes": "Provenance, not packaging"}
+{"prompt": "Improve this skill's description and procedure", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not packaging"}
+{"prompt": "Check this skill for safety issues before publishing", "expected": "no_trigger", "better_skill": "skill-safety-review", "notes": "Safety review comes before packaging but is a separate skill"}
+{"prompt": "Deploy my application to production", "expected": "no_trigger", "better_skill": null, "notes": "Application deployment, not skill packaging"}
+{"prompt": "Create a Docker container for this app", "expected": "no_trigger", "better_skill": null, "notes": "Docker packaging, not skill packaging"}
+{"prompt": "Zip these files together", "expected": "no_trigger", "better_skill": null, "notes": "Generic file compression, not skill packaging"}

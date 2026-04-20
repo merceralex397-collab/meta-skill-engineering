@@ -1,0 +1,6 @@
+interface:
+  display_name: "API Contracts"
+  short_description: "Review API changes for breakage, schema drift, and compat."
+  default_prompt: "Use $api-contracts-codex-c to compare this API change against the current client-visible contract and flag any breaking or undocumented behavior."
+policy:
+  allow_implicit_invocation: true

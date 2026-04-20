@@ -1,0 +1,8 @@
+skill: failure-mode-analysis-codex-c
+permissions:
+  read:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute:
+    - ./scripts/**

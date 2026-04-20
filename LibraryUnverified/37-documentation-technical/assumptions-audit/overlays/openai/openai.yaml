@@ -1,0 +1,18 @@
+name: assumptions-audit-codex-c
+version: 1
+summary: "Review assumptions audit work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "assumptions-audit"
+    - "assumptions audit"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/assumption-taxonomy.md"
+    - "../../references/conversion-patterns.md"
+    - "../../references/danger-signals.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

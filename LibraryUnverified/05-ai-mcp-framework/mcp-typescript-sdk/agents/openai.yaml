@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP TypeScript SDK"
+  short_description: "Design and verify mcp typescript sdk with explicit contracts,..."
+  default_prompt: "Use $mcp-typescript-sdk-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

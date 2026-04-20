@@ -1,0 +1,18 @@
+name: fastapi-codex-c
+version: 1
+summary: "Build and review FastAPI services with explicit router layout, dependencies, response models, and lifespan-aware validation."
+invocation:
+  policy: auto
+  aliases:
+    - "fastapi"
+    - "fastapi"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/router-and-dependency-patterns.md"
+    - "../../references/validation-and-response-shapes.md"
+    - "../../references/async-lifespan-and-testing.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

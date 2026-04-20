@@ -35,13 +35,7 @@ Meta Skill Studio provides a single entrypoint for the five primary workflows:
 - See `windows-wpf/README.md` for build instructions
 - Features: MVVM architecture, async operations, single-file deployment, MSI installer
 
-First run performs runtime/model configuration by role (create, improve, test, orchestrate, judge) and auto-detects installed runtimes:
-
-- `codex`
-- `gemini`
-- `copilot`
-- `opencode`
-- `kilocode`
+First run performs OpenCode model configuration by role (create, improve, test, orchestrate, judge). OpenCode is the only supported execution runtime, and the studio reads repository defaults from `.opencode/opencode.json`.
 
 Run artifacts (outputs, scores, judge summaries, eval references) are stored in:
 
@@ -49,13 +43,20 @@ Run artifacts (outputs, scores, judge summaries, eval references) are stored in:
 
 ## Pipelines
 
-Three built-in flows connect the skills:
+Four built-in flows connect the skills:
 
 ### Creation Pipeline
 ```
-community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
+skill-creator → skill-testing-harness → skill-evaluation
     → skill-trigger-optimization → skill-safety-review → skill-provenance
     → skill-packaging → skill-installer → skill-lifecycle-management
+```
+
+### Discovery Pipeline
+```
+community-skill-harvester → skill-evaluation → skill-safety-review
+    → skill-provenance → skill-packaging → skill-installer
+    → skill-lifecycle-management
 ```
 
 ### Improvement Pipeline

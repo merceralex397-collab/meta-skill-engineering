@@ -46,7 +46,7 @@ namespace MetaSkillStudio.ViewModels
         private string _judgeSelectedModel = "auto";
         private ObservableCollection<string> _judgeAvailableModels = new() { "auto" };
 
-        private string _runtimeStatusMessage = "Scanning for available runtimes...";
+        private string _runtimeStatusMessage = "Checking AI runtime availability...";
 
         /// <summary>
         /// Initializes a new instance of the SettingsViewModel class.
@@ -63,7 +63,7 @@ namespace MetaSkillStudio.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the collection of available AI runtimes detected on the system.
+        /// Gets or sets the detected OpenCode runtime surfaced to the settings UI.
         /// </summary>
         public ObservableCollection<DetectedRuntime> AvailableRuntimes
         {
@@ -280,7 +280,7 @@ namespace MetaSkillStudio.ViewModels
         #region Commands
 
         /// <summary>
-        /// Gets the command to detect available runtimes on the system.
+        /// Gets the command to re-scan OpenCode on the system.
         /// </summary>
         public ICommand DetectRuntimesCommand { get; }
 
@@ -295,14 +295,20 @@ namespace MetaSkillStudio.ViewModels
         {
             try
             {
-                RuntimeStatusMessage = "Scanning for available runtimes...";
+                RuntimeStatusMessage = "Checking AI runtime availability...";
 
-                // Detect available runtimes
                 var runtimes = await _pythonService.DetectRuntimesAsync();
                 AvailableRuntimes = new ObservableCollection<DetectedRuntime>(runtimes);
 
-                var availableCount = runtimes.Count(r => r.IsAvailable);
-                RuntimeStatusMessage = $"Found {availableCount} available runtime(s): {string.Join(", ", runtimes.Where(r => r.IsAvailable).Select(r => r.Name))}";
+                var opencodeRuntime = runtimes.FirstOrDefault();
+                if (opencodeRuntime?.IsAvailable == true)
+                {
+                    RuntimeStatusMessage = $"AI runtime detected. {opencodeRuntime.Models.Count} model option(s) available.";
+                }
+                else
+                {
+                    RuntimeStatusMessage = "AI runtime not detected. Install the repo-local SDK/runtime dependencies or expose `opencode` on PATH.";
+                }
 
                 // Load existing configuration if available
                 var config = _pythonService.LoadConfiguration();
@@ -312,7 +318,7 @@ namespace MetaSkillStudio.ViewModels
                 }
                 else
                 {
-                    // Set defaults to first available runtime
+                    // Set defaults to the detected runtime
                     var defaultRuntime = runtimes.FirstOrDefault(r => r.IsAvailable);
                     if (defaultRuntime != null)
                     {
@@ -326,7 +332,7 @@ namespace MetaSkillStudio.ViewModels
             }
             catch (Exception ex)
             {
-                RuntimeStatusMessage = $"Error detecting runtimes: {ex.Message}";
+                RuntimeStatusMessage = $"Error detecting AI runtime: {ex.Message}";
                 throw;
             }
         }
@@ -336,7 +342,7 @@ namespace MetaSkillStudio.ViewModels
         /// </summary>
         private async Task DetectRuntimesAsync()
         {
-            RuntimeStatusMessage = "Re-scanning for runtimes...";
+            RuntimeStatusMessage = "Re-scanning AI runtime...";
             await LoadConfigurationAsync();
         }
 
@@ -344,7 +350,7 @@ namespace MetaSkillStudio.ViewModels
         /// Applies the loaded configuration to the ViewModel properties.
         /// </summary>
         /// <param name="config">The application configuration to apply.</param>
-        /// <param name="runtimes">The list of available runtimes.</param>
+        /// <param name="runtimes">The list of detected runtimes (OpenCode only).</param>
         private void ApplyConfiguration(AppConfiguration config, List<DetectedRuntime> runtimes)
         {
             if (config.Roles.TryGetValue("create", out var createRole))
@@ -392,31 +398,31 @@ namespace MetaSkillStudio.ViewModels
 
             config.Roles["create"] = new RoleConfiguration
             {
-                Runtime = CreateSelectedRuntime?.Name ?? "codex",
+                Runtime = "opencode",
                 Model = CreateSelectedModel
             };
 
             config.Roles["improve"] = new RoleConfiguration
             {
-                Runtime = ImproveSelectedRuntime?.Name ?? "codex",
+                Runtime = "opencode",
                 Model = ImproveSelectedModel
             };
 
             config.Roles["test"] = new RoleConfiguration
             {
-                Runtime = TestSelectedRuntime?.Name ?? "codex",
+                Runtime = "opencode",
                 Model = TestSelectedModel
             };
 
             config.Roles["orchestrate"] = new RoleConfiguration
             {
-                Runtime = OrchestrateSelectedRuntime?.Name ?? "codex",
+                Runtime = "opencode",
                 Model = OrchestrateSelectedModel
             };
 
             config.Roles["judge"] = new RoleConfiguration
             {
-                Runtime = JudgeSelectedRuntime?.Name ?? "codex",
+                Runtime = "opencode",
                 Model = JudgeSelectedModel
             };
 

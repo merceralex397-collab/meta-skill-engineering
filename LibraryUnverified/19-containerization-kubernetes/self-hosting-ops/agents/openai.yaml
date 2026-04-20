@@ -1,0 +1,6 @@
+interface:
+  display_name: "Self-Hosting Ops"
+  short_description: "Handle self-hosting ops changes with preflight checks, verifi..."
+  default_prompt: "Use $self-hosting-ops-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

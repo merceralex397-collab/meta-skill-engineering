@@ -1,0 +1,2 @@
+{"input":"Review a webhook worker and return a telemetry plan that covers correlation IDs, retry visibility, and redaction risks.","must_include":["Primary Questions","Event and Field Plan","Redaction and Cardinality Risks","Verification"],"expected":"observability-logging"}
+{"input":"Apply Observability and Logging to a service where operators cannot trace a failure across request, queue, and worker boundaries.","must_include":["Primary Questions","Verification"],"expected":"observability-logging"}

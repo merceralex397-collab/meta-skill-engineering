@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ticket Audit"
+  short_description: "Execute the ticket audit role with clear scope, evidence, and..."
+  default_prompt: "Use $ticket-audit-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

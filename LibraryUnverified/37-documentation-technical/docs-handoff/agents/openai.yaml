@@ -1,0 +1,6 @@
+interface:
+  display_name: "Docs Handoff"
+  short_description: "Execute the docs handoff role with clear scope, evidence, and..."
+  default_prompt: "Use $docs-handoff-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

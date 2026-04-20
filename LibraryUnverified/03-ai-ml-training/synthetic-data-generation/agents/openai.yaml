@@ -1,0 +1,6 @@
+interface:
+  display_name: "Synthetic Data Generation"
+  short_description: "Apply synthetic data generation with runtime boundaries, eval..."
+  default_prompt: "Use $synthetic-data-generation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

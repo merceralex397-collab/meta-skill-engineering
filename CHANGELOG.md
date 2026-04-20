@@ -8,19 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- WPF-based Meta Skill Studio GUI with modern Windows UI
-- Shared resources (Resources.resx) for localization support
-- Standardized eval artifact schema documentation
-- Pipeline definitions reference documentation
-- CHANGELOG template for tracking changes
+- Complete UI overhaul — modern card-based dashboard with collapsible AI Assistant sidebar
+- Chat-style AI assistant with conversation history (replaces form-based prompt)
+- Workflow cards with icons and descriptions for all 6 core operations
+- Status cards showing runtime, core skills, library count, and run history at a glance
+- New "Find External Skills" workflow (community-skill-harvester integration)
+- Discovery Pipeline documented (community-skill-harvester → evaluation → install)
+- All 17 skills mirrored in `.opencode/skills/` (was 12)
+- CONTRIBUTING.md populated with guidelines
 
 ### Changed
-- Consolidated pipeline definitions into `references/pipeline-definitions.md`
-- Updated skill-orchestrator to reference external pipeline definitions
+- User-facing terminology cleaned: "OpenCode" → "AI Runtime/Assistant", "repo-owned packages" → "Core Skills", "LibraryUnverified" → "Skill Library"
+- Settings dialog rebranded from "OpenCode Configuration" to "AI Runtime Configuration"
+- Skill names displayed as friendly titles (e.g., "Skill Creator" not "skill-creator")
+- Library count uses leaf-directory counting for more accurate skill totals
+- "OpenCode mirror" surface removed from UI entirely
+- Creation Pipeline corrected — `skill-creator` is the entry point, not `community-skill-harvester`
+- Stale files archived to `docs/historical/` (DEEP_INVESTIGATION_PLAN.md, active-issues.md, tasks/, "skill creator/")
+- Removed empty LibraryUnverified category directories and `.blender-mcp/`
 
 ### Fixed
-- Namespace consistency across all WPF project files
-- Added missing resource files to project configuration
+- Pipeline definitions in AGENTS.md and README.md corrected
+- All 12+ commands properly bound in new layout
 
 ## [1.0.0] - 2026-04-14
 

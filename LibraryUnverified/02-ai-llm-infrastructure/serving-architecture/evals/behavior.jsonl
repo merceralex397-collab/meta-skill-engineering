@@ -1,0 +1,2 @@
+{"input":"Use Serving Architecture on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"serving-architecture"}
+{"input":"Apply Serving Architecture but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"serving-architecture"}

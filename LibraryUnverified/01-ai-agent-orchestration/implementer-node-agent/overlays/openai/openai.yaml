@@ -1,0 +1,18 @@
+name: implementer-node-agent-codex-c
+version: 1
+summary: "Execute the implementer node agent role with clear scope, evidence, and handoff discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "implementer-node-agent"
+    - "implementer node agent"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/handoff-contract.md"
+    - "../../references/success-criteria.md"
+    - "../../references/anti-patterns.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

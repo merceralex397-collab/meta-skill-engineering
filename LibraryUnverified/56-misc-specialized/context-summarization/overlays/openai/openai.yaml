@@ -1,0 +1,18 @@
+name: context-summarization-codex-c
+version: 1
+summary: "Execute the context summarization role with clear scope, evidence, and handoff discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "context-summarization"
+    - "context summarization"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/restart-utility.md"
+    - "../../references/summary-order.md"
+    - "../../references/what-to-drop.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

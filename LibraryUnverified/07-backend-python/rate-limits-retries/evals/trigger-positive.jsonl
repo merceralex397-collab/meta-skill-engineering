@@ -1,0 +1,3 @@
+{"input":"Review this API client and tell me which failures should retry, what jitter to use, and how large the retry budget should be.","expected":"rate-limits-retries","category":"Backend, API, and Data Skills"}
+{"input":"We are getting 429s from an upstream provider. Design a safe retry policy that honors Retry-After and avoids a retry storm.","expected":"rate-limits-retries","category":"Backend, API, and Data Skills"}
+{"input":"Audit this worker for duplicate delivery risk before we increase retry attempts.","expected":"rate-limits-retries","category":"Backend, API, and Data Skills"}

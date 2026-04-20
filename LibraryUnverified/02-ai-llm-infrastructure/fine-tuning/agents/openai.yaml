@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fine Tuning"
+  short_description: "Apply fine tuning with runtime boundaries, eval cases, and sa..."
+  default_prompt: "Use $fine-tuning-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

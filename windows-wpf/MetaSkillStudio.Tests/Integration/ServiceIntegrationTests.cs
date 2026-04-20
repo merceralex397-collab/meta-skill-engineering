@@ -240,7 +240,7 @@ namespace MetaSkillStudio.Tests.Integration
             {
                 DetectedRuntimes = new System.Collections.Generic.List<DetectedRuntime>
                 {
-                    new DetectedRuntime { Name = "codex", Command = "codex" }
+                    new DetectedRuntime { Name = "opencode", Command = "opencode" }
                 }
             };
             configStorage.Save(config);

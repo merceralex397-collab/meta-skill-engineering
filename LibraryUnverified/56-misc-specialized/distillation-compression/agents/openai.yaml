@@ -1,0 +1,6 @@
+interface:
+  display_name: "Distillation and Compression"
+  short_description: "Apply distillation and compression with runtime boundaries, e..."
+  default_prompt: "Use $distillation-compression-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

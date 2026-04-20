@@ -1,7 +1,7 @@
 ---
 description: Orchestrates meta-skill engineering repository autonomously. Understands purpose: create, benchmark, and improve agent skills.
 mode: subagent
-model: minimax-coding-plan/Minimax-M2.7
+model: minimax-coding-plan/MiniMax-M2.7
 hidden: false
 tools:
   read: true

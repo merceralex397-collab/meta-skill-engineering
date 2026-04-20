@@ -1,0 +1,6 @@
+interface:
+  display_name: "LLM Integration"
+  short_description: "Apply llm integration with runtime boundaries, eval cases, an..."
+  default_prompt: "Use $llm-integration-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

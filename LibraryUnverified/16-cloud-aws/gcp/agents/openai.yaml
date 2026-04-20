@@ -1,0 +1,6 @@
+interface:
+  display_name: "Google Cloud Platform"
+  short_description: "Handle google cloud platform changes with preflight checks, v..."
+  default_prompt: "Use $gcp-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

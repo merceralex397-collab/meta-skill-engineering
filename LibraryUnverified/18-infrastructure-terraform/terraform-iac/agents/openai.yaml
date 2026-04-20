@@ -1,0 +1,6 @@
+interface:
+  display_name: "Terraform and IaC"
+  short_description: "Handle terraform and iac changes with preflight checks, verif..."
+  default_prompt: "Use $terraform-iac-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

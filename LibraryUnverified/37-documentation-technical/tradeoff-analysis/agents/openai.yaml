@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tradeoff Analysis"
+  short_description: "Review tradeoff analysis work with explicit evidence, risk ra..."
+  default_prompt: "Use $tradeoff-analysis-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

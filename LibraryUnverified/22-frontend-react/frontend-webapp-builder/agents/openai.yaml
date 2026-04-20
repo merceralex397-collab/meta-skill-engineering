@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend Webapp Builder"
+  short_description: "Run frontend webapp builder with grounded sources, comparison..."
+  default_prompt: "Use $frontend-webapp-builder-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

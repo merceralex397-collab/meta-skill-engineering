@@ -1,0 +1,6 @@
+interface:
+  display_name: "Shell Inspection"
+  short_description: "Execute the shell inspection role with clear scope, evidence,..."
+  default_prompt: "Use $shell-inspection-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

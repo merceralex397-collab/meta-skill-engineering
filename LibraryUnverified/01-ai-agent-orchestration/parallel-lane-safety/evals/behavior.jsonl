@@ -1,0 +1,2 @@
+{"input":"Use Parallel Lane Safety on a realistic task and return the result in a decision-ready shape.","must_include":["Critical Path","Delegates or Stages","Artifact Contracts","Rejoin Criteria"],"expected":"parallel-lane-safety"}
+{"input":"Apply Parallel Lane Safety but call out uncertainty and the next verification step explicitly.","must_include":["Critical Path","Rejoin Criteria"],"expected":"parallel-lane-safety"}

@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Where should I make this change in this repo? There are too many top-level folders.","should_trigger":true}
+{"id":"tp-002","prompt":"Map the repo layout and tell me which directories are source versus generated output.","should_trigger":true}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Red-Team Challenge"
+  short_description: "Review red-team challenge work with explicit evidence, risk r..."
+  default_prompt: "Use $red-team-challenge-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

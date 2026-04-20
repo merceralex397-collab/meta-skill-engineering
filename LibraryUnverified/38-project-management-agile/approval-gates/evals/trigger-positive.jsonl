@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Insert approval gates before this autonomous workflow deploys and publishes anything.","should_trigger":true}
+{"id":"tp-002","prompt":"Where should the workflow stop and ask for approval?","should_trigger":true}

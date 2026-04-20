@@ -1,0 +1,6 @@
+interface:
+  display_name: "Release Notes"
+  short_description: "Produce release notes artifacts with source fidelity, audienc..."
+  default_prompt: "Use $release-notes-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Runbook Writing"
+  short_description: "Produce runbook writing artifacts with source fidelity, audie..."
+  default_prompt: "Use $runbook-writing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

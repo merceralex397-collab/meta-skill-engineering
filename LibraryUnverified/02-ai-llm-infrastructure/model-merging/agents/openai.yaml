@@ -1,0 +1,6 @@
+interface:
+  display_name: "Model Merging"
+  short_description: "Apply model merging with runtime boundaries, eval cases, and..."
+  default_prompt: "Use $model-merging-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

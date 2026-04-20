@@ -1,0 +1,6 @@
+interface:
+  display_name: "SSH and tmux Remote Workflow"
+  short_description: "Handle ssh and tmux remote workflow changes with preflight ch..."
+  default_prompt: "Use $ssh-tmux-remote-workflow-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

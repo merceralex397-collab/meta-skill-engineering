@@ -1,0 +1,2 @@
+{"input":"Use Panel of Experts on a realistic task and return the result in a decision-ready shape.","must_include":["Critical Path","Delegates or Stages","Artifact Contracts","Rejoin Criteria"],"expected":"panel-of-experts"}
+{"input":"Apply Panel of Experts but call out uncertainty and the next verification step explicitly.","must_include":["Critical Path","Rejoin Criteria"],"expected":"panel-of-experts"}

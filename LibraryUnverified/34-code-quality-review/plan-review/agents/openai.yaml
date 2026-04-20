@@ -1,0 +1,6 @@
+interface:
+  display_name: "Plan Review"
+  short_description: "Review plan review work with explicit evidence, risk ranking,..."
+  default_prompt: "Use $plan-review-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

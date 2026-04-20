@@ -1,0 +1,6 @@
+interface:
+  display_name: "Vercel"
+  short_description: "Handle vercel changes with preflight checks, verification, an..."
+  default_prompt: "Use $vercel-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

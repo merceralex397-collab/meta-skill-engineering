@@ -1,0 +1,18 @@
+name: game-ui-hud-codex-c
+version: 1
+summary: "Use game ui and hud to guide creative system decisions without losing production discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "game-ui-hud"
+    - "game ui hud"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/design-direction.md"
+    - "../../references/production-checklist.md"
+    - "../../references/iteration-prompts.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

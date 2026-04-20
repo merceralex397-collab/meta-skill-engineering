@@ -1,0 +1,18 @@
+name: premortem-codex-c
+version: 1
+summary: "Review premortem work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "premortem"
+    - "premortem"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/failure-catalog.md"
+    - "../../references/leading-indicators.md"
+    - "../../references/report-template.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Game Performance Profiling"
+  short_description: "Use game performance profiling to guide creative system decis..."
+  default_prompt: "Use $performance-profiling-games-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

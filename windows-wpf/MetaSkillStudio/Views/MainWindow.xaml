@@ -5,252 +5,532 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Meta Skill Studio" 
-        Height="800" 
-        Width="1200"
-        MinWidth="800"
-        MinHeight="600"
+        Title="Meta Skill Studio"
+        Height="900" Width="1360"
+        MinWidth="1000" MinHeight="720"
         Background="{StaticResource BackgroundBrush}"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <!-- Header -->
-        <Border Grid.Row="0" 
-                Background="{StaticResource SurfaceBrush}" 
-                BorderBrush="{StaticResource BorderBrush}" 
-                BorderThickness="0,0,0,1"
-                Padding="16,12">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="Meta Skill Studio" 
-                              FontSize="20" 
-                              FontWeight="SemiBold"
-                              Foreground="{StaticResource PrimaryBrush}"
-                              AutomationProperties.Name="Application Title Meta Skill Studio"/>
-                    <TextBlock Text=" - AI Skill Management" 
-                              FontSize="14"
-                              Foreground="{StaticResource TextSecondaryBrush}"
-                              VerticalAlignment="Bottom"
-                              Margin="8,0,0,2"/>
-                </StackPanel>
-                
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Button Style="{StaticResource SecondaryButton}"
-                            Command="{Binding OpenAnalyticsCommand}"
-                            ToolTip="View skill health analytics and trends (Alt+A)"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="Analytics"
-                            AutomationProperties.HelpText="Opens the analytics dashboard to view skill health metrics"
-                            TabIndex="0">
-                        <AccessText>_Analytics</AccessText>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TOP MENU BAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Border Grid.Row="0" Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <DockPanel>
+                <Menu DockPanel.Dock="Left"
+                      Background="Transparent"
+                      Foreground="{StaticResource TextPrimaryBrush}"
+                      Padding="8,6">
+                    <MenuItem Header="_Studio">
+                        <MenuItem Header="_Quick Start" Command="{Binding OpenQuickStartCommand}" />
+                        <MenuItem Header="_Analytics" Command="{Binding OpenAnalyticsCommand}" />
+                        <MenuItem Header="_Settings" Command="{Binding OpenSettingsCommand}" />
+                        <Separator />
+                        <MenuItem Header="Refresh _Skills" Command="{Binding RefreshSkillsCommand}" />
+                        <MenuItem Header="Refresh _Runs" Command="{Binding RefreshRunsCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="_Workflows">
+                        <MenuItem Header="_Create Skill" Command="{Binding CreateSkillCommand}" />
+                        <MenuItem Header="_Improve Skill" Command="{Binding ImproveSkillCommand}" />
+                        <MenuItem Header="_Test / Evaluate" Command="{Binding TestBenchmarkCommand}" />
+                        <MenuItem Header="_Library Audit" Command="{Binding MetaManageCommand}" />
+                        <MenuItem Header="Create _Benchmarks" Command="{Binding CreateBenchmarksCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="_Library">
+                        <MenuItem Header="_Browse Skills" Command="{Binding RefreshSkillsCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="_Help">
+                        <MenuItem Header="_Quick Start Guide" Command="{Binding OpenQuickStartCommand}" />
+                        <MenuItem Header="_About" Command="{Binding OpenQuickStartCommand}" />
+                    </MenuItem>
+                </Menu>
+
+                <!-- Toolbar area (right-aligned) -->
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
+                            HorizontalAlignment="Right" Margin="0,0,12,0">
+                    <Button Style="{StaticResource IconButton}"
+                            Command="{Binding ToggleAssistantCommand}"
+                            ToolTip="Toggle AI Assistant panel"
+                            Margin="0,0,4,0">
+                        <TextBlock Text="&#x1F4AC;" FontSize="16" />
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}"
+                    <Button Style="{StaticResource IconButton}"
                             Command="{Binding RefreshSkillsCommand}"
-                            ToolTip="Reload skill list from repository (Alt+R)"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="Refresh Skills"
-                            AutomationProperties.HelpText="Reloads the skill list from the repository"
-                            TabIndex="0">
-                        <AccessText>_Refresh Skills</AccessText>
+                            ToolTip="Refresh skills">
+                        <TextBlock Text="&#x21BB;" FontSize="16" />
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}"
+                    <Button Style="{StaticResource IconButton}"
                             Command="{Binding OpenSettingsCommand}"
-                            ToolTip="Configure runtimes and models (Alt+S)"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="Settings"
-                            AutomationProperties.HelpText="Opens settings dialog to configure AI runtimes and models"
-                            TabIndex="0">
-                        <AccessText>_Settings</AccessText>
-                    </Button>
-                    <Button Style="{StaticResource SecondaryButton}"
-                            Command="{Binding RefreshRunsCommand}"
-                            ToolTip="Refresh run history (Alt+U)"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="Refresh Runs"
-                            AutomationProperties.HelpText="Refreshes the run history list"
-                            TabIndex="0">
-                        <AccessText>Refresh R_uns</AccessText>
+                            ToolTip="Settings" Margin="4,0,0,0">
+                        <TextBlock Text="&#x2699;" FontSize="16" />
                     </Button>
                 </StackPanel>
-            </Grid>
+
+                <TextBlock Text="Meta Skill Studio" FontSize="15" FontWeight="SemiBold"
+                           Foreground="{StaticResource PrimaryBrush}"
+                           VerticalAlignment="Center" Margin="16,0,0,0" />
+            </DockPanel>
         </Border>
-        
-        <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="16">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- MAIN CONTENT: SIDEBAR + DASHBOARD           -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280" />
+                <ColumnDefinition x:Name="SidebarColumn" Width="340"
+                                  MinWidth="0" MaxWidth="400" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
-            <!-- Left Panel: Actions -->
-            <Border Grid.Column="0" 
-                    Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource BorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Padding="16"
-                    Margin="0,0,16,0">
-                <StackPanel>
-                    <TextBlock Text="Actions" 
-                              FontSize="16" 
-                              FontWeight="SemiBold"
-                              Margin="0,0,0,16"
-                              AutomationProperties.Name="Actions Section"/>
-                    
-                    <Button Style="{StaticResource PrimaryButton}"
-                            Command="{Binding CreateSkillCommand}"
-                            ToolTip="Create a new skill in LibraryUnverified or LibraryWorkbench (Alt+C)"
-                            Margin="0,0,0,8"
-                            Height="36"
-                            AutomationProperties.Name="Create Skill"
-                            AutomationProperties.HelpText="Opens dialog to create a new skill"
-                            TabIndex="0">
-                        <AccessText>_Create Skill</AccessText>
-                    </Button>
-                    
-                    <Button Style="{StaticResource PrimaryButton}"
-                            Command="{Binding ImproveSkillCommand}"
-                            ToolTip="Improve an existing skill with a specific goal (Alt+I)"
-                            Margin="0,0,0,8"
-                            Height="36"
-                            AutomationProperties.Name="Improve Skill"
-                            AutomationProperties.HelpText="Opens dialog to improve an existing skill"
-                            TabIndex="0">
-                        <AccessText>_Improve Skill</AccessText>
-                    </Button>
-                    
-                    <Button Style="{StaticResource PrimaryButton}"
-                            Command="{Binding TestBenchmarkCommand}"
-                            ToolTip="Run validation, evaluation, and judge on a skill or all skills (Alt+T)"
-                            Margin="0,0,0,8"
-                            Height="36"
-                            AutomationProperties.Name="Test Benchmark"
-                            AutomationProperties.HelpText="Run tests and benchmarks on skills"
-                            TabIndex="0">
-                        <AccessText>_Test / Benchmark</AccessText>
-                    </Button>
-                    
-                    <Button Style="{StaticResource PrimaryButton}"
-                            Command="{Binding MetaManageCommand}"
-                            ToolTip="Execute meta-library management operations (Alt+M)"
-                            Margin="0,0,0,8"
-                            Height="36"
-                            AutomationProperties.Name="Meta Manage"
-                            AutomationProperties.HelpText="Execute meta-library management operations"
-                            TabIndex="0">
-                        <AccessText>_Meta Manage</AccessText>
-                    </Button>
-                    
-                    <Button Style="{StaticResource PrimaryButton}"
-                            Command="{Binding CreateBenchmarksCommand}"
-                            ToolTip="Generate benchmark test cases for a skill (Alt+B)"
-                            Margin="0,0,0,24"
-                            Height="36"
-                            AutomationProperties.Name="Create Benchmarks"
-                            AutomationProperties.HelpText="Generate benchmark test cases for a skill"
-                            TabIndex="0">
-                        <AccessText>Create _Benchmarks</AccessText>
-                    </Button>
-                    
-                    <Separator Margin="0,0,0,16"/>
-                    
-                    <TextBlock Text="Run History" 
-                              FontSize="14" 
-                              FontWeight="SemiBold"
-                              Margin="0,0,0,8"
-                              AutomationProperties.Name="Run History Section"/>
-                    
-                    <!-- Empty State for Run History -->
-                    <Grid>
-                        <TextBlock Text="No runs recorded yet"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Foreground="{StaticResource TextSecondaryBrush}"
-                                  TextWrapping="Wrap"
-                                  Margin="8"
-                                  Visibility="{Binding RunHistory.Count, Converter={StaticResource CountToVisibilityConverter}}"
-                                  AutomationProperties.Name="Empty State: No runs recorded yet"/>
-                        
-                        <ListBox ItemsSource="{Binding RunHistory}"
-                                SelectedItem="{Binding SelectedRun}"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                MaxHeight="300"
-                                AutomationProperties.Name="Run History List"
-                                AutomationProperties.HelpText="List of previous skill runs. Select a run to view details"
-                                TabIndex="0">
-                            <ListBox.ItemTemplate>
+
+            <!-- ─────────────────────────────────── -->
+            <!-- LEFT SIDEBAR: AI ASSISTANT          -->
+            <!-- ─────────────────────────────────── -->
+            <Border Grid.Column="0" Background="{StaticResource SidebarBrush}"
+                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0"
+                    Visibility="{Binding IsAssistantPanelOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+                <DockPanel>
+                    <!-- Sidebar header -->
+                    <Border DockPanel.Dock="Top" Padding="16,12"
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+                        <DockPanel>
+                            <TextBlock Text="AI Assistant" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                       Text="{Binding AssistantStatus}" FontSize="11"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       VerticalAlignment="Center" />
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Chat input area at bottom -->
+                    <Border DockPanel.Dock="Bottom" Padding="12"
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox Grid.Row="0"
+                                     Text="{Binding AssistantPrompt, UpdateSourceTrigger=PropertyChanged}"
+                                     MinHeight="60" MaxHeight="120"
+                                     AcceptsReturn="True" TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     FontSize="13">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" Modifiers="Ctrl"
+                                                Command="{Binding AssistantPromptCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <DockPanel Grid.Row="1" Margin="0,8,0,0">
+                                <TextBlock DockPanel.Dock="Left" Text="Ctrl+Enter to send"
+                                           FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
+                                           VerticalAlignment="Center" />
+                                <Button DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                        Style="{StaticResource PrimaryButton}"
+                                        Command="{Binding AssistantPromptCommand}"
+                                        Padding="16,8" FontSize="13">
+                                    <TextBlock Text="Send" />
+                                </Button>
+                            </DockPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Chat message area (scrollable) -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12,8">
+                        <ItemsControl ItemsSource="{Binding ChatHistory}">
+                            <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Padding="8,6" 
-                                           Background="Transparent"
-                                           CornerRadius="4">
-                                        <TextBlock Text="{Binding DisplayName}" 
-                                                  TextTrimming="CharacterEllipsis"
-                                                  AutomationProperties.Name="{Binding DisplayName}"/>
+                                    <Border Margin="0,4"
+                                            Padding="12,10"
+                                            CornerRadius="10"
+                                            MaxWidth="300">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="{StaticResource ChatAssistantBrush}" />
+                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Role}" Value="User">
+                                                        <Setter Property="Background" Value="{StaticResource ChatUserBrush}" />
+                                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Content}"
+                                                       TextWrapping="Wrap" FontSize="13"
+                                                       Foreground="{StaticResource TextPrimaryBrush}" />
+                                            <TextBlock Text="{Binding Timestamp, StringFormat='{}{0:HH:mm}'}"
+                                                       FontSize="10" Margin="0,4,0,0"
+                                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                                       HorizontalAlignment="Right" />
+                                        </StackPanel>
                                     </Border>
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </StackPanel>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
             </Border>
-            
-            <!-- Right Panel: Output -->
-            <Border Grid.Column="1" 
-                    Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource BorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Padding="16">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Row="0" 
-                              Text="Output" 
-                              FontSize="16" 
-                              FontWeight="SemiBold"
-                              Margin="0,0,0,12"
-                              AutomationProperties.Name="Output Section"/>
-                    
-                    <Border Grid.Row="1" 
-                            Background="#1E1E1E"
-                            CornerRadius="4"
-                            Padding="12">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <TextBlock Text="{Binding OutputText}"
-                                      FontFamily="Consolas, Courier New, monospace"
-                                      FontSize="12"
-                                      Foreground="#D4D4D4"
-                                      TextWrapping="Wrap"
-                                      AutomationProperties.Name="Output Text"
-                                      AutomationProperties.LiveSetting="Polite"/>
-                        </ScrollViewer>
+
+            <!-- Splitter -->
+            <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch" Background="Transparent"
+                          Visibility="{Binding IsAssistantPanelOpen, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+            <!-- ─────────────────────────────────── -->
+            <!-- MAIN DASHBOARD                      -->
+            <!-- ─────────────────────────────────── -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="24,20,24,24">
+
+                    <!-- ── STATUS CARDS ── -->
+                    <UniformGrid Columns="4" Margin="0,0,0,20">
+                        <!-- Runtime Status -->
+                        <Border Style="{StaticResource StatusCard}" Margin="0,0,12,0">
+                            <StackPanel>
+                                <TextBlock Text="&#x26A1;" FontSize="22" Margin="0,0,0,8" />
+                                <TextBlock Text="AI Runtime" FontSize="13" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding RuntimeStatusDisplay}" Margin="0,6,0,0"
+                                           FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Core Skills -->
+                        <Border Style="{StaticResource StatusCard}" Margin="0,0,12,0">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F3AF;" FontSize="22" Margin="0,0,0,8" />
+                                <TextBlock FontSize="13" FontWeight="SemiBold">
+                                    <Run Text="{Binding AvailableSkills.Count, Mode=OneWay}" />
+                                    <Run Text=" Core Skills" />
+                                </TextBlock>
+                                <TextBlock Text="Active skill packages in the repository"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Library -->
+                        <Border Style="{StaticResource StatusCard}" Margin="0,0,12,0">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F4DA;" FontSize="22" Margin="0,0,0,8" />
+                                <TextBlock FontSize="13" FontWeight="SemiBold">
+                                    <Run Text="{Binding LibrarySkillCount, Mode=OneWay}" />
+                                    <Run Text=" Library Skills" />
+                                </TextBlock>
+                                <TextBlock Text="Skills in the extended library"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Runs -->
+                        <Border Style="{StaticResource StatusCard}">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F4CA;" FontSize="22" Margin="0,0,0,8" />
+                                <TextBlock FontSize="13" FontWeight="SemiBold">
+                                    <Run Text="{Binding RunHistory.Count, Mode=OneWay}" />
+                                    <Run Text=" Runs" />
+                                </TextBlock>
+                                <TextBlock Text="{Binding RunHistoryStatusText}" Margin="0,6,0,0"
+                                           FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <!-- ── WORKFLOW CARDS ── -->
+                    <TextBlock Text="Workflows" Style="{StaticResource SectionHeader}"
+                               Margin="0,0,0,4" />
+                    <TextBlock Text="Launch skill creation, improvement, testing, and library management workflows."
+                               Style="{StaticResource SectionDescription}" Margin="0,0,0,16" />
+
+                    <UniformGrid Columns="3" Margin="0,0,0,24">
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding CreateSkillCommand}" Margin="0,0,12,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x2728;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Create Skill" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Generate a new skill from a description"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding ImproveSkillCommand}" Margin="0,0,12,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F527;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Improve Skill" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Enhance an existing skill with targeted improvements"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding TestBenchmarkCommand}" Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F9EA;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Test &amp; Evaluate" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Run quality tests and benchmark evaluations"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding MetaManageCommand}" Margin="0,0,12,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F4CB;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Library Audit" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Audit and organize your skill library"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding FindExternalSkillsCommand}" Margin="0,0,12,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F50D;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Find External Skills" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Search for community skills to import"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource WorkflowCardButton}"
+                                Command="{Binding CreateBenchmarksCommand}" Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F4C8;" FontSize="24" Margin="0,0,0,8" />
+                                <TextBlock Text="Create Benchmarks" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Text="Generate benchmark test cases for a skill"
+                                           Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+
+                    <!-- ── LIBRARY OVERVIEW ── -->
+                    <TextBlock Text="Skill Library" Style="{StaticResource SectionHeader}"
+                               Margin="0,0,0,4" />
+                    <TextBlock Text="Browse core skills and the extended library."
+                               Style="{StaticResource SectionDescription}" Margin="0,0,0,12" />
+
+                    <Border Background="{StaticResource SurfaceBrush}"
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                            CornerRadius="12" Padding="20,16" Margin="0,0,0,20">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.05" Color="Black" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Core Skills -->
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <DockPanel Margin="0,0,0,12">
+                                    <TextBlock Text="Core Skills" FontSize="14" FontWeight="SemiBold" />
+                                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                               FontSize="13" Foreground="{StaticResource PrimaryBrush}">
+                                        <Run Text="{Binding AvailableSkills.Count, Mode=OneWay}" />
+                                        <Run Text=" skills" />
+                                    </TextBlock>
+                                </DockPanel>
+                                <TextBox Text="{Binding SkillFilterText, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0,0,0,8"
+                                         Tag="Filter skills..." />
+                                <ListBox ItemsSource="{Binding FilteredSkills}"
+                                         SelectedItem="{Binding SelectedLibrarySkill}"
+                                         BorderThickness="0" Background="Transparent"
+                                         MaxHeight="300">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="10,8" Background="{StaticResource BackgroundBrush}"
+                                                    CornerRadius="8" Margin="0,0,0,4">
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding DisplayName}"
+                                                               FontWeight="SemiBold" FontSize="13" />
+                                                    <TextBlock Text="{Binding Description}"
+                                                               Margin="0,2,0,0" FontSize="12"
+                                                               TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                                               MaxHeight="34"
+                                                               Foreground="{StaticResource TextSecondaryBrush}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+
+                            <!-- Library Stats -->
+                            <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                <TextBlock Text="Library Overview" FontSize="14" FontWeight="SemiBold"
+                                           Margin="0,0,0,12" />
+                                <ItemsControl ItemsSource="{Binding LibrarySurfaces}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource BackgroundBrush}"
+                                                    CornerRadius="8" Padding="12,10" Margin="0,0,0,6">
+                                                <DockPanel>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                                                   FontSize="13" />
+                                                        <TextBlock Text="{Binding Description}"
+                                                                   Margin="0,2,0,0" FontSize="12"
+                                                                   TextWrapping="Wrap"
+                                                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                                                    </StackPanel>
+                                                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                                               VerticalAlignment="Top"
+                                                               Foreground="{StaticResource PrimaryBrush}"
+                                                               FontSize="13" FontWeight="SemiBold"
+                                                               Text="{Binding SkillCount, StringFormat='{}{0}'}" />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
                     </Border>
-                </Grid>
-            </Border>
+
+                    <!-- ── ACTIVITY / RECENT ── -->
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Activity Feed -->
+                        <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                                CornerRadius="12" Padding="20,16" Margin="0,0,12,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.05" Color="Black" />
+                            </Border.Effect>
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="Activity" FontSize="14"
+                                           FontWeight="SemiBold" Margin="0,0,0,12" />
+                                <Border Background="{StaticResource BackgroundBrush}"
+                                        CornerRadius="8" Padding="12">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                                        <TextBlock Text="{Binding OutputText}" FontFamily="Cascadia Code,Consolas,Segoe UI"
+                                                   FontSize="12" TextWrapping="Wrap"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </ScrollViewer>
+                                </Border>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Run History -->
+                        <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                                CornerRadius="12" Padding="20,16">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.05" Color="Black" />
+                            </Border.Effect>
+                            <DockPanel>
+                                <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+                                    <TextBlock Text="Run History" FontSize="14" FontWeight="SemiBold" />
+                                    <Button DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                            Style="{StaticResource SecondaryButton}"
+                                            Command="{Binding RefreshRunsCommand}"
+                                            Padding="10,4" FontSize="12">
+                                        <TextBlock Text="Refresh" />
+                                    </Button>
+                                </DockPanel>
+                                <ListBox ItemsSource="{Binding RunHistory}"
+                                         SelectedItem="{Binding SelectedRun}"
+                                         BorderThickness="0" Background="Transparent"
+                                         MaxHeight="200">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="10,8" Background="{StaticResource BackgroundBrush}"
+                                                    CornerRadius="6" Margin="0,0,0,4">
+                                                <TextBlock Text="{Binding DisplayName}"
+                                                           TextTrimming="CharacterEllipsis" FontSize="12" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- ── HELP & DOCS ── -->
+                    <Border Background="{StaticResource SurfaceBrush}"
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                            CornerRadius="12" Padding="20,16">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.05" Color="Black" />
+                        </Border.Effect>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock Text="Help &amp; Documentation" FontSize="14" FontWeight="SemiBold" />
+                                    <TextBlock Text="Guides for using the studio, building skills, and troubleshooting."
+                                               Margin="0,4,0,0" FontSize="12"
+                                               Foreground="{StaticResource TextSecondaryBrush}" />
+                                </StackPanel>
+                                <Button DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Command="{Binding OpenSelectedHelpResourceCommand}"
+                                        Padding="12,6" FontSize="12">
+                                    <TextBlock Text="Open" />
+                                </Button>
+                            </DockPanel>
+                            <ListBox ItemsSource="{Binding HelpResources}"
+                                     SelectedItem="{Binding SelectedHelpResource}"
+                                     BorderThickness="0" Background="Transparent" MaxHeight="180">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="10,8" Background="{StaticResource BackgroundBrush}"
+                                                CornerRadius="6" Margin="0,0,0,4">
+                                            <DockPanel>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="13" />
+                                                    <TextBlock Text="{Binding Description}"
+                                                               Margin="0,2,0,0" FontSize="12"
+                                                               TextWrapping="Wrap"
+                                                               Foreground="{StaticResource TextSecondaryBrush}" />
+                                                </StackPanel>
+                                                <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                                           Text="{Binding StatusText}"
+                                                           Foreground="{StaticResource AccentBrush}"
+                                                           FontSize="11" VerticalAlignment="Center" />
+                                            </DockPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
-        
-        <!-- Status Bar -->
-        <Border Grid.Row="2" 
-                Background="{StaticResource SurfaceBrush}"
-                BorderBrush="{StaticResource BorderBrush}"
-                BorderThickness="0,1,0,0"
-                Padding="16,8">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- STATUS BAR                                  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0"
+                Padding="16,6">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -258,45 +538,28 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                
-                <!-- Runtime Status -->
-                <Border Grid.Column="0" 
-                        Background="{StaticResource BackgroundBrush}"
-                        CornerRadius="4"
-                        Padding="8,4"
-                        Margin="0,0,16,0">
-                    <TextBlock Text="{Binding RuntimeStatus}" 
-                              FontSize="12"
-                              Foreground="{StaticResource TextSecondaryBrush}"
-                              AutomationProperties.Name="Runtime Status"/>
+
+                <Border Grid.Column="0" Background="{StaticResource BackgroundBrush}"
+                        CornerRadius="4" Padding="8,3" Margin="0,0,12,0">
+                    <TextBlock Text="{Binding RuntimeStatusDisplay}" FontSize="11"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
                 </Border>
-                
-                <!-- Status Message -->
-                <TextBlock Grid.Column="1" 
-                          Text="{Binding StatusText}" 
-                          Foreground="{StaticResource TextSecondaryBrush}"
-                          VerticalAlignment="Center"
-                          AutomationProperties.Name="Status Message"
-                          AutomationProperties.LiveSetting="Polite"/>
-                
-                <!-- Skill Count -->
-                <TextBlock Grid.Column="2" 
-                          Text="{Binding AvailableSkills.Count, StringFormat='{}{0} skills'}"
-                          FontSize="12"
-                          Foreground="{StaticResource TextSecondaryBrush}"
-                          VerticalAlignment="Center"
-                          Margin="0,0,16,0"
-                          AutomationProperties.Name="Skill Count"/>
-                
-                <!-- Progress -->
-                <ProgressBar Grid.Column="3" 
-                            IsIndeterminate="{Binding IsBusy}"
-                            Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
-                            Width="100"
-                            Height="4"
-                            VerticalAlignment="Center"
-                            AutomationProperties.Name="Progress Indicator"
-                            AutomationProperties.HelpText="Shows when application is busy processing"/>
+
+                <TextBlock Grid.Column="1" Text="{Binding StatusText}"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           VerticalAlignment="Center" FontSize="12" />
+
+                <TextBlock Grid.Column="2" FontSize="11"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           VerticalAlignment="Center" Margin="0,0,12,0">
+                    <Run Text="{Binding AvailableSkills.Count, Mode=OneWay}" />
+                    <Run Text=" core skills" />
+                </TextBlock>
+
+                <ProgressBar Grid.Column="3"
+                             IsIndeterminate="{Binding IsBusy}"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
+                             Width="80" Height="3" VerticalAlignment="Center" />
             </Grid>
         </Border>
     </Grid>

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unity"
+  short_description: "Use unity to guide creative system decisions without losing p..."
+  default_prompt: "Use $unity-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

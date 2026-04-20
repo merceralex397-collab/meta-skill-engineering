@@ -1,0 +1,2 @@
+{"input":"Use Frontend Performance on a realistic task and return the result in a decision-ready shape.","must_include":["Detected Stack Signals","Chosen Pattern","Implementation Notes","Validation"],"expected":"frontend-performance"}
+{"input":"Apply Frontend Performance but call out uncertainty and the next verification step explicitly.","must_include":["Detected Stack Signals","Validation"],"expected":"frontend-performance"}

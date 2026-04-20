@@ -1,0 +1,6 @@
+interface:
+  display_name: "Data Cleaning and Labeling"
+  short_description: "Apply data cleaning and labeling with runtime boundaries, eva..."
+  default_prompt: "Use $data-cleaning-labeling-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

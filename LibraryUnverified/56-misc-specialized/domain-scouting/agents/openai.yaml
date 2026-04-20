@@ -1,0 +1,6 @@
+interface:
+  display_name: "Domain Scouting"
+  short_description: "Run domain scouting with grounded sources, comparison, and de..."
+  default_prompt: "Use $domain-scouting-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Instruction Tuning"
+  short_description: "Apply instruction tuning with runtime boundaries, eval cases,..."
+  default_prompt: "Use $instruction-tuning-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

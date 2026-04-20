@@ -9,6 +9,13 @@ This repository is a meta-skill engineering workspace. Treat each top-level skil
 - Update root docs when repo-owned skill packages are added, removed, renamed, or materially re-scoped.
 - Do not conflate archived material in `skill creator/` with the active inventory.
 
+## Runtime and Studio Integration
+
+- Treat OpenCode as the canonical AI runtime for Meta Skill Studio surfaces and repo automation that needs an agent runtime.
+- Repository-level OpenCode defaults live in `.opencode/opencode.json`; do not introduce parallel runtime-selection guidance for Codex, Gemini, Copilot, or other CLIs in active docs/UI.
+- `.opencode/skills/` is an OpenCode mirror for selected repo-owned skills, not the authoritative root inventory.
+- `LibraryUnverified/` and `LibraryWorkbench/` are corpus/library areas, not repo-owned root skill packages.
+
 ## Skill Package Shape
 
 - Every repo-owned skill package must contain `SKILL.md`.
@@ -32,9 +39,16 @@ All skills should follow this section order:
 
 ### Creation Pipeline
 ```
-community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
+skill-creator → skill-testing-harness → skill-evaluation
     → skill-trigger-optimization → skill-safety-review → skill-provenance
     → skill-packaging → skill-installer → skill-lifecycle-management
+```
+
+### Discovery Pipeline
+```
+community-skill-harvester → skill-evaluation → skill-safety-review
+    → skill-provenance → skill-packaging → skill-installer
+    → skill-lifecycle-management
 ```
 
 ### Improvement Pipeline
@@ -46,6 +60,13 @@ skill-anti-patterns → skill-improver → skill-evaluation → skill-trigger-op
 ```
 skill-catalog-curation → skill-lifecycle-management
 ```
+
+### Auxiliary Skills
+
+- `skill-adaptation` — on-demand intervention tool for adapting skills to new contexts
+- `skill-variant-splitting` — on-demand intervention tool for splitting skills into variants
+- `skill-benchmarking` — used within the evaluation stage for quality measurement
+- `skill-orchestrator` — the pipeline engine that coordinates end-to-end workflows
 
 ## Entry Points
 

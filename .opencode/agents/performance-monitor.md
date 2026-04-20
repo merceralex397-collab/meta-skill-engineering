@@ -1,6 +1,6 @@
 ---
 description: Permanently monitors repository and agent performance. Analyzes eval results, agent configs. Auto-applies improvements without waiting for approval.
-model: minimax-coding-plan/Minimax-M2.7
+model: minimax-coding-plan/MiniMax-M2.7
 mode: subagent
 hidden: true
 tools:

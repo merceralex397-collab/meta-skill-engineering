@@ -1,0 +1,2 @@
+{"input":"Use Offline CPU Inference on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"offline-cpu-inference"}
+{"input":"Apply Offline CPU Inference but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"offline-cpu-inference"}

@@ -1,0 +1,2 @@
+{"input":"Use Training Infrastructure on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"training-infrastructure"}
+{"input":"Apply Training Infrastructure but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"training-infrastructure"}

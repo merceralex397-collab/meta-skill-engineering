@@ -1,0 +1,6 @@
+interface:
+  display_name: "Safety and Alignment"
+  short_description: "Apply safety and alignment with runtime boundaries, eval case..."
+  default_prompt: "Use $safety-alignment-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

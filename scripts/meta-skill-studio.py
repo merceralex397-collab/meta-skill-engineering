@@ -23,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--goal", help="Objective/goal for improve/meta/benchmarks")
     parser.add_argument("--library", choices=["LibraryUnverified", "LibraryWorkbench"], default="LibraryUnverified")
     parser.add_argument("--cases", type=int, default=8, help="Benchmark case count")
-    parser.add_argument("--setup", action="store_true", help="Run first-time runtime/model setup")
+    parser.add_argument("--setup", action="store_true", help="Run first-time OpenCode model setup")
     return parser.parse_args()
 
 
@@ -73,8 +73,7 @@ def main() -> int:
         if mode == "tui":
             core.configure_interactive_tui(force=True)
         elif mode == "gui":
-            # GUI will request explicit runtime/model choices from the user.
-            pass
+            core.configure_defaults(force=True)
         else:
             core.configure_defaults(force=True)
 

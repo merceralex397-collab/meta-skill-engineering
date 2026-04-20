@@ -1,0 +1,18 @@
+name: forms-validation-codex-c
+version: 1
+summary: "Apply forms and validation patterns with explicit UI state, accessibility, and review checks."
+invocation:
+  policy: auto
+  aliases:
+    - "forms-validation"
+    - "forms validation"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/implementation-patterns.md"
+    - "../../references/review-checklist.md"
+    - "../../references/common-pitfalls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "ORM Patterns"
+  short_description: "Apply orm patterns patterns with clear contracts, persistence..."
+  default_prompt: "Use $orm-patterns-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

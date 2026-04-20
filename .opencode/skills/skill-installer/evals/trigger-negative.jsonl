@@ -1,0 +1,8 @@
+{"prompt": "Create a new skill from scratch", "expected": "no_trigger", "better_skill": "skill-creator", "notes": "Creation, not installation"}
+{"prompt": "Package this skill for distribution", "expected": "no_trigger", "better_skill": "skill-packaging", "notes": "Packaging, not installing"}
+{"prompt": "Improve this installed skill's quality", "expected": "no_trigger", "better_skill": "skill-improver", "notes": "Improvement, not installation"}
+{"prompt": "Where did this skill come from? Check its provenance", "expected": "no_trigger", "better_skill": "skill-provenance", "notes": "Provenance audit, not installation"}
+{"prompt": "Uninstall this skill", "expected": "no_trigger", "better_skill": null, "notes": "Uninstallation is not covered by installer skill"}
+{"prompt": "Install Node.js on my machine", "expected": "no_trigger", "better_skill": null, "notes": "Software installation, not skill installation"}
+{"prompt": "Set up my development environment", "expected": "no_trigger", "better_skill": null, "notes": "Dev env setup, not skill installation"}
+{"prompt": "Update this skill to the latest version", "expected": "no_trigger", "better_skill": "skill-lifecycle-management", "notes": "Version management, not initial install"}

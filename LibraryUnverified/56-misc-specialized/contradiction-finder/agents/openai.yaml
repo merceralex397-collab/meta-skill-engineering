@@ -1,0 +1,6 @@
+interface:
+  display_name: "Contradiction Finder"
+  short_description: "Review contradiction finder work with explicit evidence, risk..."
+  default_prompt: "Use $contradiction-finder-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,2 @@
+{"input":"Use Background Jobs and Queues on a realistic task and return the result in a decision-ready shape.","must_include":["System Surface","Chosen Pattern","Edge Cases","Validation"],"expected":"background-jobs-queues"}
+{"input":"Apply Background Jobs and Queues but call out uncertainty and the next verification step explicitly.","must_include":["System Surface","Validation"],"expected":"background-jobs-queues"}

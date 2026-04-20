@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tokenizer Design"
+  short_description: "Apply tokenizer design with runtime boundaries, eval cases, a..."
+  default_prompt: "Use $tokenizer-design-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

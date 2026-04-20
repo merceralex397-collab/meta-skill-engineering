@@ -1,0 +1,18 @@
+name: background-jobs-queues-codex-c
+version: 1
+summary: "Apply background jobs and queues patterns with clear contracts, persistence rules, and verification."
+invocation:
+  policy: auto
+  aliases:
+    - "background-jobs-queues"
+    - "background jobs queues"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/implementation-patterns.md"
+    - "../../references/validation-checklist.md"
+    - "../../references/failure-modes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

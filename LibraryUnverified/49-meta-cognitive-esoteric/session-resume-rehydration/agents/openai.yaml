@@ -1,0 +1,6 @@
+interface:
+  display_name: "Session Resume Rehydration"
+  short_description: "Coordinate session resume rehydration work with bounded deleg..."
+  default_prompt: "Use $session-resume-rehydration-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

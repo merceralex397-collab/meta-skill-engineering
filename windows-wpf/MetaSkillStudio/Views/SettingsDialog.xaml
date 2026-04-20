@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Settings - Runtime Configuration" 
+        Title="Settings - AI Runtime Configuration" 
         Height="500" 
         Width="700"
         MinWidth="600"
@@ -24,12 +24,12 @@
         
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,16">
-            <TextBlock Text="Runtime Configuration" 
+            <TextBlock Text="AI Runtime Configuration" 
                       FontSize="20" 
                       FontWeight="SemiBold"
                       Foreground="{StaticResource PrimaryBrush}"
-                      AutomationProperties.Name="Runtime Configuration Header"/>
-            <TextBlock Text="Configure AI runtimes and models for each operational role." 
+                      AutomationProperties.Name="AI Runtime Configuration Header"/>
+            <TextBlock Text="Configure the AI model used for each operational role. Powered by the OpenCode runtime." 
                       FontSize="12"
                       Foreground="{StaticResource TextSecondaryBrush}"
                       Margin="0,4,0,0"/>
@@ -40,13 +40,13 @@
                    x:Name="RoleTabs"
                    Background="{StaticResource SurfaceBrush}"
                    BorderBrush="{StaticResource BorderBrush}"
-                   ToolTip="Select an operational role to configure its AI runtime and model"
+                   ToolTip="Select an operational role to configure its AI model"
                    AutomationProperties.Name="Role Configuration Tabs"
-                   AutomationProperties.HelpText="Select a role to configure its runtime and model"
+                   AutomationProperties.HelpText="Select a role to configure its AI model"
                    TabIndex="0">
             
             <!-- Create Tab -->
-            <TabItem Header="Create" ToolTip="Configure AI runtime for creating new skills" TabIndex="0">
+            <TabItem Header="Create" ToolTip="Configure AI model for creating new skills" TabIndex="0">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -71,16 +71,17 @@
                                   Text="Runtime:" 
                                   VerticalAlignment="Center"/>
                         <ComboBox Grid.Column="1"
-                                 x:Name="CreateRuntimeCombo"
-                                 ItemsSource="{Binding AvailableRuntimes}"
-                                 DisplayMemberPath="DisplayName"
-                                 SelectedItem="{Binding CreateSelectedRuntime}"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,6"
-                                 ToolTip="Select the AI runtime (e.g., GPT, Claude) for creating new skills"
-                                 AutomationProperties.Name="Create Runtime"
-                                 AutomationProperties.HelpText="Select the AI runtime for creating skills"
-                                 TabIndex="0"/>
+                                  x:Name="CreateRuntimeCombo"
+                                  ItemsSource="{Binding AvailableRuntimes}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedItem="{Binding CreateSelectedRuntime}"
+                                  IsEnabled="False"
+                                  VerticalContentAlignment="Center"
+                                  Padding="8,6"
+                                  ToolTip="AI execution runtime"
+                                  AutomationProperties.Name="AI Runtime"
+                                  AutomationProperties.HelpText="Displays the OpenCode runtime used for creating skills"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <Grid Grid.Row="2" Margin="0,12,0,0">
@@ -98,14 +99,14 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                 ToolTip="Select or type the specific AI model (e.g., gpt-4, claude-sonnet-4-5)"
-                                 AutomationProperties.Name="Create Model"
-                                 AutomationProperties.HelpText="Select or enter the AI model for creating skills"
-                                 TabIndex="0"/>
+                                  ToolTip="Select or type the AI model for this role"
+                                  AutomationProperties.Name="AI Model Selection"
+                                  AutomationProperties.HelpText="Select or enter the AI model"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <TextBlock Grid.Row="3" 
-                              Text="This runtime will be used for creating new skills from scratch."
+                              Text="AI model used for creating new skills from scratch."
                               Foreground="{StaticResource TextSecondaryBrush}"
                               TextWrapping="Wrap"
                               VerticalAlignment="Bottom"
@@ -114,7 +115,7 @@
             </TabItem>
             
             <!-- Improve Tab -->
-            <TabItem Header="Improve" ToolTip="Configure AI runtime for improving existing skills" TabIndex="0">
+            <TabItem Header="Improve" ToolTip="Configure AI model for improving existing skills" TabIndex="0">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -137,15 +138,16 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Runtime:" VerticalAlignment="Center"/>
                         <ComboBox Grid.Column="1"
-                                 ItemsSource="{Binding AvailableRuntimes}"
-                                 DisplayMemberPath="DisplayName"
-                                 SelectedItem="{Binding ImproveSelectedRuntime}"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,6"
-                                 ToolTip="Select the AI runtime for improving existing skills"
-                                 AutomationProperties.Name="Improve Runtime"
-                                 AutomationProperties.HelpText="Select the AI runtime for improving skills"
-                                 TabIndex="0"/>
+                                  ItemsSource="{Binding AvailableRuntimes}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedItem="{Binding ImproveSelectedRuntime}"
+                                  IsEnabled="False"
+                                  VerticalContentAlignment="Center"
+                                  Padding="8,6"
+                                  ToolTip="AI execution runtime"
+                                  AutomationProperties.Name="AI Runtime"
+                                  AutomationProperties.HelpText="AI execution runtime"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <Grid Grid.Row="2" Margin="0,12,0,0">
@@ -160,14 +162,14 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                 ToolTip="Select or type the specific AI model for skill improvement"
-                                 AutomationProperties.Name="Improve Model"
-                                 AutomationProperties.HelpText="Select or enter the AI model for improving skills"
-                                 TabIndex="0"/>
+                                  ToolTip="Select or type the AI model for this role"
+                                  AutomationProperties.Name="AI Model Selection"
+                                  AutomationProperties.HelpText="Select or enter the AI model"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <TextBlock Grid.Row="3" 
-                              Text="This runtime will be used for improving existing skills based on anti-pattern scans or specific goals."
+                              Text="AI model used for improving existing skills based on anti-pattern scans or specific goals."
                               Foreground="{StaticResource TextSecondaryBrush}"
                               TextWrapping="Wrap"
                               VerticalAlignment="Bottom"
@@ -176,7 +178,7 @@
             </TabItem>
             
             <!-- Test Tab -->
-            <TabItem Header="Test" ToolTip="Configure AI runtime for testing, benchmarking, and evaluation" TabIndex="0">
+            <TabItem Header="Test" ToolTip="Configure AI model for testing, benchmarking, and evaluation" TabIndex="0">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -199,15 +201,16 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Runtime:" VerticalAlignment="Center"/>
                         <ComboBox Grid.Column="1"
-                                 ItemsSource="{Binding AvailableRuntimes}"
-                                 DisplayMemberPath="DisplayName"
-                                 SelectedItem="{Binding TestSelectedRuntime}"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,6"
-                                 ToolTip="Select the AI runtime for testing and evaluation"
-                                 AutomationProperties.Name="Test Runtime"
-                                 AutomationProperties.HelpText="Select the AI runtime for testing and benchmarking"
-                                 TabIndex="0"/>
+                                  ItemsSource="{Binding AvailableRuntimes}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedItem="{Binding TestSelectedRuntime}"
+                                  IsEnabled="False"
+                                  VerticalContentAlignment="Center"
+                                  Padding="8,6"
+                                  ToolTip="AI execution runtime"
+                                  AutomationProperties.Name="AI Runtime"
+                                  AutomationProperties.HelpText="AI execution runtime"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <Grid Grid.Row="2" Margin="0,12,0,0">
@@ -222,14 +225,14 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                 ToolTip="Select or type the specific AI model for testing"
-                                 AutomationProperties.Name="Test Model"
-                                 AutomationProperties.HelpText="Select or enter the AI model for testing"
-                                 TabIndex="0"/>
+                                  ToolTip="Select or type the OpenCode model for testing"
+                                  AutomationProperties.Name="AI Model Selection"
+                                  AutomationProperties.HelpText="Select or enter the AI model"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <TextBlock Grid.Row="3" 
-                              Text="This runtime will be used for running evaluations, benchmarks, and trigger tests."
+                              Text="AI model used for running evaluations, benchmarks, and trigger tests."
                               Foreground="{StaticResource TextSecondaryBrush}"
                               TextWrapping="Wrap"
                               VerticalAlignment="Bottom"
@@ -238,7 +241,7 @@
             </TabItem>
             
             <!-- Orchestrate Tab -->
-            <TabItem Header="Orchestrate" ToolTip="Configure AI runtime for meta-library management and catalog operations" TabIndex="0">
+            <TabItem Header="Orchestrate" ToolTip="Configure AI model for library management and catalog operations" TabIndex="0">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -261,15 +264,16 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Runtime:" VerticalAlignment="Center"/>
                         <ComboBox Grid.Column="1"
-                                 ItemsSource="{Binding AvailableRuntimes}"
-                                 DisplayMemberPath="DisplayName"
-                                 SelectedItem="{Binding OrchestrateSelectedRuntime}"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,6"
-                                 ToolTip="Select the AI runtime for orchestration and meta-operations"
-                                 AutomationProperties.Name="Orchestrate Runtime"
-                                 AutomationProperties.HelpText="Select the AI runtime for meta management"
-                                 TabIndex="0"/>
+                                  ItemsSource="{Binding AvailableRuntimes}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedItem="{Binding OrchestrateSelectedRuntime}"
+                                  IsEnabled="False"
+                                  VerticalContentAlignment="Center"
+                                  Padding="8,6"
+                                  ToolTip="AI execution runtime"
+                                  AutomationProperties.Name="AI Runtime"
+                                  AutomationProperties.HelpText="AI execution runtime"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <Grid Grid.Row="2" Margin="0,12,0,0">
@@ -284,14 +288,14 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                 ToolTip="Select or type the specific AI model for orchestration"
-                                 AutomationProperties.Name="Orchestrate Model"
-                                 AutomationProperties.HelpText="Select or enter the AI model for orchestration"
-                                 TabIndex="0"/>
+                                  ToolTip="Select or type the OpenCode model for orchestration"
+                                  AutomationProperties.Name="AI Model Selection"
+                                  AutomationProperties.HelpText="Select or enter the AI model"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <TextBlock Grid.Row="3" 
-                              Text="This runtime will be used for meta-library management, catalog curation, and lifecycle operations."
+                              Text="AI model used for library management, catalog curation, and lifecycle operations."
                               Foreground="{StaticResource TextSecondaryBrush}"
                               TextWrapping="Wrap"
                               VerticalAlignment="Bottom"
@@ -300,7 +304,7 @@
             </TabItem>
             
             <!-- Judge Tab -->
-            <TabItem Header="Judge" ToolTip="Configure AI runtime for quality judgment and evaluation" TabIndex="0">
+            <TabItem Header="Judge" ToolTip="Configure AI model for quality judgment and evaluation" TabIndex="0">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -323,15 +327,16 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Runtime:" VerticalAlignment="Center"/>
                         <ComboBox Grid.Column="1"
-                                 ItemsSource="{Binding AvailableRuntimes}"
-                                 DisplayMemberPath="DisplayName"
-                                 SelectedItem="{Binding JudgeSelectedRuntime}"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,6"
-                                 ToolTip="Select the AI runtime for quality judgment"
-                                 AutomationProperties.Name="Judge Runtime"
-                                 AutomationProperties.HelpText="Select the AI runtime for judging quality"
-                                 TabIndex="0"/>
+                                  ItemsSource="{Binding AvailableRuntimes}"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedItem="{Binding JudgeSelectedRuntime}"
+                                  IsEnabled="False"
+                                  VerticalContentAlignment="Center"
+                                  Padding="8,6"
+                                  ToolTip="AI execution runtime"
+                                  AutomationProperties.Name="AI Runtime"
+                                  AutomationProperties.HelpText="AI execution runtime"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <Grid Grid.Row="2" Margin="0,12,0,0">
@@ -346,14 +351,14 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                 ToolTip="Select or type the specific AI model for quality judgment"
-                                 AutomationProperties.Name="Judge Model"
-                                 AutomationProperties.HelpText="Select or enter the AI model for judging"
-                                 TabIndex="0"/>
+                                  ToolTip="Select or type the AI model for this role"
+                                  AutomationProperties.Name="AI Model Selection"
+                                  AutomationProperties.HelpText="Select or enter the AI model"
+                                  TabIndex="0"/>
                     </Grid>
                     
                     <TextBlock Grid.Row="3" 
-                              Text="This runtime will be used as the judge for quality evaluation of skill outputs."
+                              Text="AI model used as the judge for quality evaluation of skill outputs."
                               Foreground="{StaticResource TextSecondaryBrush}"
                               TextWrapping="Wrap"
                               VerticalAlignment="Bottom"
@@ -362,7 +367,7 @@
             </TabItem>
         </TabControl>
         
-        <!-- Runtime Detection Status -->
+        <!-- AI Runtime Detection Status -->
         <Border Grid.Row="2" 
                 Background="#FFF9E6" 
                 BorderBrush="#FFE082" 
@@ -381,10 +386,10 @@
                           Margin="0,0,8,0"/>
                 <TextBlock Grid.Column="1" 
                           x:Name="RuntimeStatusText"
-                          Text="Scanning for available runtimes..."
+                          Text="Checking AI runtime availability..."
                           TextWrapping="Wrap"
                           VerticalAlignment="Center"
-                          AutomationProperties.Name="Runtime Status"
+                          AutomationProperties.Name="AI Runtime Status"
                           AutomationProperties.LiveSetting="Polite"/>
             </Grid>
         </Border>
@@ -396,22 +401,22 @@
                    Margin="0,16,0,0">
             <Button Style="{StaticResource SecondaryButton}"
                    Click="DetectRuntimesButton_Click"
-                   Width="120"
-                   Margin="0,0,8,0"
-                   ToolTip="Scan system for available AI runtimes (Alt+D)"
-                   AutomationProperties.Name="Detect Runtimes"
-                   AutomationProperties.HelpText="Scan for available AI runtimes"
+                    Width="120"
+                    Margin="0,0,8,0"
+                   ToolTip="Scan for the AI runtime and available models (Alt+D)"
+                   AutomationProperties.Name="Detect AI Runtime"
+                   AutomationProperties.HelpText="Scan for the AI runtime and available models"
                    TabIndex="0">
-                <AccessText>_Detect Runtimes</AccessText>
+                <AccessText>_Detect Runtime</AccessText>
             </Button>
             <Button Style="{StaticResource PrimaryButton}"
                    Click="SaveButton_Click"
                    Width="80"
-                   Margin="0,0,8,0"
-                   IsDefault="True"
-                   ToolTip="Save all runtime configuration changes (Alt+S, Enter)"
-                   AutomationProperties.Name="Save Settings"
-                   AutomationProperties.HelpText="Save runtime configuration"
+                    Margin="0,0,8,0"
+                    IsDefault="True"
+                   ToolTip="Save all model configuration changes (Alt+S, Enter)"
+                    AutomationProperties.Name="Save Settings"
+                   AutomationProperties.HelpText="Save model configuration"
                    TabIndex="0">
                 <AccessText>_Save</AccessText>
             </Button>

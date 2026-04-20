@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Rewrite these acceptance criteria to be measurable.","should_trigger":false}
+{"id":"tn-002","prompt":"Review this PR diff for bugs and regressions.","should_trigger":false}

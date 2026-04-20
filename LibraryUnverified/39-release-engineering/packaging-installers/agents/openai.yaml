@@ -1,0 +1,6 @@
+interface:
+  display_name: "Packaging and Installers"
+  short_description: "Handle packaging and installers changes with preflight checks..."
+  default_prompt: "Use $packaging-installers-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

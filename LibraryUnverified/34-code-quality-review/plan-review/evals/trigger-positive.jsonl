@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Review this rollout plan before we start. I want to know if the sequencing and rollback are sound.","should_trigger":true}
+{"id":"tp-002","prompt":"Sanity check this migration checklist and tell me what is missing before implementation.","should_trigger":true}

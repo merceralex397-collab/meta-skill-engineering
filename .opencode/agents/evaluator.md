@@ -1,6 +1,6 @@
 ---
 description: Runs evaluation tests against skills using the repository eval pipeline. Reports pass/fail gates and identifies skills ready for LibraryWorkbench promotion.
-model: minimax-coding-plan/Minimax-M2.7
+model: minimax-coding-plan/MiniMax-M2.7
 mode: subagent
 hidden: true
 tools:
@@ -52,4 +52,4 @@ Error handling:
 - If eval times out: report partial results with timeout warning
 - If model fails: retry once, then report failure with error message
 
-Model: Use minimax-coding-plan/Minimax-M2.7 for all eval runs.
+Model: Use minimax-coding-plan/MiniMax-M2.7 for all eval runs.

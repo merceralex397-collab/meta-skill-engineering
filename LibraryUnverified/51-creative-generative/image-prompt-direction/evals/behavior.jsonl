@@ -1,0 +1,2 @@
+{"input":"Use Image Prompt Direction on a realistic task and return the result in a decision-ready shape.","must_include":["Question","Sources","Comparison","Recommendation and Confidence"],"expected":"image-prompt-direction"}
+{"input":"Apply Image Prompt Direction but call out uncertainty and the next verification step explicitly.","must_include":["Question","Recommendation and Confidence"],"expected":"image-prompt-direction"}

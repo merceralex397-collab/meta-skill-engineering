@@ -1,0 +1,6 @@
+interface:
+  display_name: "Subagent Research Patterns"
+  short_description: "Coordinate subagent research patterns work with bounded deleg..."
+  default_prompt: "Use $subagent-research-patterns-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

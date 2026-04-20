@@ -1,0 +1,2 @@
+{"input":"Use MCP Security and Permissions on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Surface","Contracts","Risk Controls","Validation Plan"],"expected":"mcp-security-permissions"}
+{"input":"Apply MCP Security and Permissions but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Surface","Validation Plan"],"expected":"mcp-security-permissions"}

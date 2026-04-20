@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Review a production rollout plan that deploys before tests and lacks rollback.","assertions":["flags sequencing problem","flags missing rollback","returns a verdict"]}
+{"id":"bh-002","prompt":"Review a mostly sound implementation plan with missing verification receipts for two phases.","assertions":["identifies missing receipts","uses approved-with-conditions or stronger","suggests concrete repair"]}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Secret Management"
+  short_description: "Handle secret management changes with preflight checks, verif..."
+  default_prompt: "Use $secret-management-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

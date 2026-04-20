@@ -1,0 +1,2 @@
+{"input":"Use Design Tokens on a realistic task and return the result in a decision-ready shape.","must_include":["Detected Stack Signals","Chosen Pattern","Implementation Notes","Validation"],"expected":"design-tokens"}
+{"input":"Apply Design Tokens but call out uncertainty and the next verification step explicitly.","must_include":["Detected Stack Signals","Validation"],"expected":"design-tokens"}

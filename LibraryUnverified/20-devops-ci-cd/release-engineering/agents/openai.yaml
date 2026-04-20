@@ -1,0 +1,6 @@
+interface:
+  display_name: "Release Engineering"
+  short_description: "Apply release engineering through a concrete workflow with ex..."
+  default_prompt: "Use $release-engineering-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

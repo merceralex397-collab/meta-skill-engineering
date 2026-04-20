@@ -128,7 +128,7 @@
     <value>Create Skill</value>
   </data>
   <data name="WindowTitle_Settings" xml:space="preserve">
-    <value>Settings - Runtime Configuration</value>
+    <value>Settings - OpenCode Configuration</value>
   </data>
   <data name="WindowTitle_Benchmark" xml:space="preserve">
     <value>Create Benchmarks</value>
@@ -218,7 +218,7 @@
     <value>Reload skill list from repository (Alt+R)</value>
   </data>
   <data name="Tooltip_Settings" xml:space="preserve">
-    <value>Configure runtimes and models (Alt+S)</value>
+    <value>Configure OpenCode and role models (Alt+S)</value>
   </data>
   <data name="Tooltip_RefreshRuns" xml:space="preserve">
     <value>Refresh run history (Alt+U)</value>
@@ -255,7 +255,7 @@
     <value>Create New Skill</value>
   </data>
   <data name="Header_RuntimeConfiguration" xml:space="preserve">
-    <value>Runtime Configuration</value>
+    <value>OpenCode Configuration</value>
   </data>
   <data name="Header_CreateBenchmarkCases" xml:space="preserve">
     <value>Create Benchmark Cases</value>
@@ -289,7 +289,7 @@
     <value>Case Count:</value>
   </data>
   <data name="Label_Runtime" xml:space="preserve">
-    <value>Runtime:</value>
+    <value>OpenCode:</value>
   </data>
   <data name="Label_Model" xml:space="preserve">
     <value>Model:</value>
@@ -389,31 +389,31 @@
     <value>Creating Skills</value>
   </data>
   <data name="Role_Create_Description" xml:space="preserve">
-    <value>This runtime will be used for creating new skills from scratch.</value>
+    <value>OpenCode will be used for creating new skills from scratch.</value>
   </data>
   <data name="Role_Improve_Title" xml:space="preserve">
     <value>Improving Skills</value>
   </data>
   <data name="Role_Improve_Description" xml:space="preserve">
-    <value>This runtime will be used for improving existing skills based on anti-pattern scans or specific goals.</value>
+    <value>OpenCode will be used for improving existing skills based on anti-pattern scans or specific goals.</value>
   </data>
   <data name="Role_Test_Title" xml:space="preserve">
     <value>Testing / Benchmarking / Evaluating</value>
   </data>
   <data name="Role_Test_Description" xml:space="preserve">
-    <value>This runtime will be used for running evaluations, benchmarks, and trigger tests.</value>
+    <value>OpenCode will be used for running evaluations, benchmarks, and trigger tests.</value>
   </data>
   <data name="Role_Orchestrate_Title" xml:space="preserve">
     <value>Meta Management</value>
   </data>
   <data name="Role_Orchestrate_Description" xml:space="preserve">
-    <value>This runtime will be used for meta-library management, catalog curation, and lifecycle operations.</value>
+    <value>OpenCode will be used for meta-library management, catalog curation, and lifecycle operations.</value>
   </data>
   <data name="Role_Judge_Title" xml:space="preserve">
     <value>LLM Judge</value>
   </data>
   <data name="Role_Judge_Description" xml:space="preserve">
-    <value>This runtime will be used as the judge for quality evaluation of skill outputs.</value>
+    <value>OpenCode will be used as the judge for quality evaluation of skill outputs.</value>
   </data>
   
   <!-- ============================================= -->
@@ -423,7 +423,7 @@
     <value>Provide a brief description of the skill you want to create.</value>
   </data>
   <data name="Desc_RuntimeConfig" xml:space="preserve">
-    <value>Configure AI runtimes and models for each operational role.</value>
+    <value>OpenCode is the only supported execution runtime. Configure the model used for each operational role.</value>
   </data>
   <data name="Desc_CreateBenchmarks" xml:space="preserve">
     <value>Generate evaluation test cases for a skill.</value>
@@ -451,13 +451,13 @@
     <value>Processing...</value>
   </data>
   <data name="Status_DetectingRuntimes" xml:space="preserve">
-    <value>Scanning for available runtimes...</value>
+    <value>Checking OpenCode availability...</value>
   </data>
   <data name="Status_RuntimesAvailable" xml:space="preserve">
-    <value>{0} runtime(s) available</value>
+    <value>OpenCode detected. {0} model option(s) available.</value>
   </data>
   <data name="Status_RuntimeDetectionFailed" xml:space="preserve">
-    <value>Runtime detection failed</value>
+    <value>OpenCode detection failed</value>
   </data>
   <data name="Status_ReadyToStartPipeline" xml:space="preserve">
     <value>Ready to start pipeline</value>
@@ -641,7 +641,7 @@ Configure runtimes via Settings button before first use.</value>
     <value>COMMAND ERROR: {0}</value>
   </data>
   <data name="Error_RuntimeDetection" xml:space="preserve">
-    <value>Runtime detection failed</value>
+    <value>OpenCode detection failed</value>
   </data>
   
   <!-- ============================================= -->

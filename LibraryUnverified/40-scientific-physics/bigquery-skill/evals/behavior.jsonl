@@ -1,0 +1,2 @@
+{"input":"Use BigQuery Skill on a realistic task and return the result in a decision-ready shape.","must_include":["Question","Sources","Comparison","Recommendation and Confidence"],"expected":"bigquery-skill"}
+{"input":"Apply BigQuery Skill but call out uncertainty and the next verification step explicitly.","must_include":["Question","Recommendation and Confidence"],"expected":"bigquery-skill"}

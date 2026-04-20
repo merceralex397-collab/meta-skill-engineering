@@ -1,0 +1,6 @@
+interface:
+  display_name: "SEO and Structured Data"
+  short_description: "Apply seo and structured data patterns with explicit UI state..."
+  default_prompt: "Use $seo-structured-data-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

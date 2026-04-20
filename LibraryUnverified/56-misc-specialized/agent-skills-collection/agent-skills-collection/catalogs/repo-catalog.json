@@ -1,0 +1,108 @@
+{
+  "sources": [
+    {
+      "source": "https://github.com/anthropics/skills/tree/main/skills",
+      "kind": "official_repo",
+      "skill_count": 17,
+      "skills": [
+        "algorithmic-art",
+        "brand-guidelines",
+        "canvas-design",
+        "claude-api",
+        "doc-coauthoring",
+        "docx",
+        "frontend-design",
+        "internal-comms",
+        "mcp-builder",
+        "pdf",
+        "pptx",
+        "skill-creator",
+        "slack-gif-creator",
+        "theme-factory",
+        "web-artifacts-builder",
+        "webapp-testing",
+        "xlsx"
+      ],
+      "path_pattern": "skills/<name>/SKILL.md"
+    },
+    {
+      "source": "https://github.com/openai/skills/tree/main/skills/.curated",
+      "kind": "official_repo",
+      "skill_count": 35,
+      "skills": [
+        "aspnet-core",
+        "chatgpt-apps",
+        "cloudflare-deploy",
+        "develop-web-game",
+        "doc",
+        "figma-implement-design",
+        "figma",
+        "gh-address-comments",
+        "gh-fix-ci",
+        "imagegen",
+        "jupyter-notebook",
+        "linear",
+        "netlify-deploy",
+        "notion-knowledge-capture",
+        "notion-meeting-intelligence",
+        "notion-research-documentation",
+        "notion-spec-to-implementation",
+        "openai-docs",
+        "pdf",
+        "playwright-interactive",
+        "playwright",
+        "render-deploy",
+        "screenshot",
+        "security-best-practices",
+        "security-ownership-map",
+        "security-threat-model",
+        "sentry",
+        "slides",
+        "sora",
+        "speech",
+        "spreadsheet",
+        "transcribe",
+        "vercel-deploy",
+        "winui-app",
+        "yeet"
+      ],
+      "path_pattern": "skills/.curated/<name>/SKILL.md"
+    },
+    {
+      "source": "https://github.com/openai/skills/tree/main/skills/.system",
+      "kind": "official_repo",
+      "skill_count": 3,
+      "skills": [
+        "openai-docs",
+        "skill-creator",
+        "skill-installer"
+      ],
+      "path_pattern": "skills/.system/<name>/SKILL.md"
+    },
+    {
+      "source": "https://skills.sh/",
+      "kind": "directory",
+      "notes": "Large public leaderboard / registry. The page exposes many skills and repos, but no clean bulk export through the available tools in this environment."
+    },
+    {
+      "source": "https://agentskills.io/home",
+      "kind": "spec_and_examples_index",
+      "notes": "Spec site that links to example skills on GitHub rather than hosting a bulk skill corpus itself."
+    },
+    {
+      "source": "https://opencode.ai/docs/skills/",
+      "kind": "docs",
+      "notes": "Format and discovery documentation, not a bulk marketplace."
+    },
+    {
+      "source": "https://geminicli.com/docs/cli/creating-skills/",
+      "kind": "docs",
+      "notes": "Creation guide, not a bulk marketplace."
+    },
+    {
+      "source": "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-skills",
+      "kind": "docs",
+      "notes": "Creation guide, not a bulk marketplace."
+    }
+  ]
+}

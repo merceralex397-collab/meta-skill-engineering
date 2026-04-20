@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Coordinate a task where docs research and UI debugging can run in parallel but implementation depends on both.","assertions":["keeps implementation off the premature parallel path","defines contracts","states rejoin point"]}
+{"id":"bh-002","prompt":"Coordinate a task where two delegates would otherwise edit the same files.","assertions":["avoids overlapping write scopes","redesigns split or keeps work local","explains why"]}

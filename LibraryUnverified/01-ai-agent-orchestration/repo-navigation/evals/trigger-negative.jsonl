@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Write acceptance criteria for this ticket.","should_trigger":false}
+{"id":"tn-002","prompt":"Review this rollout plan for rollback gaps.","should_trigger":false}

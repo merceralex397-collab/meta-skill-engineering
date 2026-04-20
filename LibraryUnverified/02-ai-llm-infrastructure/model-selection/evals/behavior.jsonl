@@ -1,0 +1,2 @@
+{"input":"Use Model Selection on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"model-selection"}
+{"input":"Apply Model Selection but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"model-selection"}

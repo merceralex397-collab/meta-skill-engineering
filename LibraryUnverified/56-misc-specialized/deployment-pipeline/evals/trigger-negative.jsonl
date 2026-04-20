@@ -1,0 +1,3 @@
+{"input":"Tell me a joke.","expected":"no-trigger"}
+{"input":"Translate this sentence.","expected":"no-trigger"}
+{"input":"What is 2 + 2?","expected":"no-trigger"}

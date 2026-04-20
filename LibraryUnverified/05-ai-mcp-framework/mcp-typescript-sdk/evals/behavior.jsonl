@@ -1,0 +1,2 @@
+{"input":"Use MCP TypeScript SDK on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Surface","Contracts","Risk Controls","Validation Plan"],"expected":"mcp-typescript-sdk"}
+{"input":"Apply MCP TypeScript SDK but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Surface","Validation Plan"],"expected":"mcp-typescript-sdk"}

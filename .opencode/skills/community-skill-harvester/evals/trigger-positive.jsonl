@@ -1,0 +1,8 @@
+{"prompt": "Find useful skills from the community to add to our library", "expected": "trigger", "category": "core", "notes": "Direct community harvesting request"}
+{"prompt": "Search for open-source skills that could help with our workflow", "expected": "trigger", "category": "core", "notes": "External skill discovery"}
+{"prompt": "Harvest skills from popular GitHub repos that might be useful", "expected": "trigger", "category": "core", "notes": "Explicit harvest from GitHub"}
+{"prompt": "What community skills are available for code review?", "expected": "trigger", "category": "indirect", "notes": "Discovery of community skills by domain"}
+{"prompt": "Import best practices skills from the ecosystem", "expected": "trigger", "category": "paraphrase", "notes": "Ecosystem import = community harvesting"}
+{"prompt": "Find and evaluate external skills for adoption", "expected": "trigger", "category": "core", "notes": "Find + evaluate for adoption"}
+{"prompt": "Are there community-contributed skills we should be using?", "expected": "trigger", "category": "indirect", "notes": "Community contribution discovery"}
+{"prompt": "Scan the skill ecosystem for relevant skills to add", "expected": "trigger", "category": "paraphrase", "notes": "Ecosystem scan = harvesting"}

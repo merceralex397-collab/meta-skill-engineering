@@ -1,0 +1,6 @@
+interface:
+  display_name: "Misc Helper"
+  short_description: "Run misc helper with grounded sources, comparison, and decisi..."
+  default_prompt: "Use $misc-helper-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

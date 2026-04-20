@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at inference kernel optimization","expected":"inference-kernel-optimization","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"this task clearly needs inference kernel optimization","expected":"inference-kernel-optimization","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around inference kernel optimization","expected":"inference-kernel-optimization","category":"AI / LLM Training, Architecture, and Research"}

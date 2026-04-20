@@ -1,0 +1,6 @@
+interface:
+  display_name: "Pretraining Pipeline"
+  short_description: "Apply pretraining pipeline with runtime boundaries, eval case..."
+  default_prompt: "Use $pretraining-pipeline-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

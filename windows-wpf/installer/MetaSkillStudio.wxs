@@ -21,6 +21,7 @@
 
     <Feature Id="ProductFeature" Title="Meta Skill Studio" Level="1" ConfigurableDirectory="INSTALLFOLDER">
       <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="BundledWorkspaceComponents" />
       <ComponentGroupRef Id="ShortcutComponents" />
     </Feature>
 

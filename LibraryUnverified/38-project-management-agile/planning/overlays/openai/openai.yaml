@@ -1,0 +1,18 @@
+name: planning-codex-c
+version: 1
+summary: "Apply planning through a concrete workflow with explicit checks."
+invocation:
+  policy: auto
+  aliases:
+    - "planning"
+    - "planning"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/blocker-types.md"
+    - "../../references/receipt-examples.md"
+    - "../../references/stage-design.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

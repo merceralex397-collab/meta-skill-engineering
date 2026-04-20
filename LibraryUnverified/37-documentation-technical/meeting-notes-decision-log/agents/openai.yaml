@@ -1,0 +1,6 @@
+interface:
+  display_name: "Meeting Notes and Decision Log"
+  short_description: "Produce meeting notes and decision log artifacts with source..."
+  default_prompt: "Use $meeting-notes-decision-log-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

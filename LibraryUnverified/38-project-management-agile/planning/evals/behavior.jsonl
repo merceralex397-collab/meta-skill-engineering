@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Plan a multi-file change with missing access to a staging environment.","assertions":["surfaces blocker early","does not bury it late","includes validation receipts"]}
+{"id":"bh-002","prompt":"Plan an uncertain feature with several unknowns.","assertions":["uses stages","keeps first milestone bounded","ends with next concrete action"]}

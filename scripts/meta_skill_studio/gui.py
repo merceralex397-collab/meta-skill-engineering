@@ -159,33 +159,23 @@ def launch_gui(core: StudioCore) -> None:
                 runtimes = core.detect_runtimes()
                 if not runtimes:
                     raise RuntimeError(
-                        "No supported CLI runtime detected (codex, gemini, copilot, opencode, kilocode)."
+                        "OpenCode runtime not detected. Install the repo-local OpenCode SDK/runtime dependencies or expose `opencode` on PATH."
                     )
-                runtime_names = ", ".join(rt.name for rt in runtimes)
+                opencode_runtime = runtimes[0]
                 roles_cfg = {}
                 for role in ROLE_ORDER:
-                    runtime_name = simpledialog.askstring(
-                        "Configuration",
-                        f"{ROLE_LABELS[role]} runtime ({runtime_names}):",
-                        initialvalue=runtimes[0].name,
-                    )
-                    if not runtime_name:
-                        raise RuntimeError("Configuration cancelled.")
-                    selected = next((rt for rt in runtimes if rt.name == runtime_name), None)
-                    if not selected:
-                        raise RuntimeError(f"Unknown runtime: {runtime_name}")
-                    model_default = selected.models[0] if selected.models else "auto"
+                    model_default = opencode_runtime.models[0] if opencode_runtime.models else "auto"
                     model = simpledialog.askstring(
                         "Configuration",
-                        f"{ROLE_LABELS[role]} model:",
+                        f"{ROLE_LABELS[role]} OpenCode model:",
                         initialvalue=model_default,
                     )
                     if not model:
                         raise RuntimeError("Configuration cancelled.")
-                    roles_cfg[role] = {"runtime": runtime_name, "model": model}
+                    roles_cfg[role] = {"runtime": opencode_runtime.name, "model": model}
                 config = core.build_config(runtimes, roles_cfg)
                 core.save_config(config)
-                messagebox.showinfo("Configuration", "Runtime/model configuration updated.")
+                messagebox.showinfo("Configuration", "OpenCode model configuration updated.")
             except Exception as exc:  # noqa: BLE001
                 messagebox.showerror("Configuration error", str(exc))
 

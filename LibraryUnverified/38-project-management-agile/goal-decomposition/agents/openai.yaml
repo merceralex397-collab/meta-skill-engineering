@@ -1,0 +1,6 @@
+interface:
+  display_name: "Goal Decomposition"
+  short_description: "Coordinate goal decomposition work with bounded delegation, a..."
+  default_prompt: "Use $goal-decomposition-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

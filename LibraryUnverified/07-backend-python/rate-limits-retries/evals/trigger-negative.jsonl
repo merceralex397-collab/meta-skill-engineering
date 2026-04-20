@@ -1,0 +1,3 @@
+{"input":"Add one debug log line so I can inspect this request locally.","expected":"no-trigger"}
+{"input":"Design the public response schema for this endpoint.","expected":"no-trigger"}
+{"input":"Fix a CSS animation hitch on the dashboard.","expected":"no-trigger"}

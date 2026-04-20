@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at error handling","expected":"error-handling","category":"Generated Repo Core Skills"}
+{"input":"this task clearly needs error handling","expected":"error-handling","category":"Generated Repo Core Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around error handling","expected":"error-handling","category":"Generated Repo Core Skills"}

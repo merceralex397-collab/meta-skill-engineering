@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at reward modeling","expected":"reward-modeling","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"this task clearly needs reward modeling","expected":"reward-modeling","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around reward modeling","expected":"reward-modeling","category":"AI / LLM Training, Architecture, and Research"}

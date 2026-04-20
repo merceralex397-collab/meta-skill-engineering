@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at synthetic data generation","expected":"synthetic-data-generation","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"this task clearly needs synthetic data generation","expected":"synthetic-data-generation","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around synthetic data generation","expected":"synthetic-data-generation","category":"AI / LLM Training, Architecture, and Research"}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Background Jobs and Queues"
+  short_description: "Apply background jobs and queues patterns with clear contract..."
+  default_prompt: "Use $background-jobs-queues-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

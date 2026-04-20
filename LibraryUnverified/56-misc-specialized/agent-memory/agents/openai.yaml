@@ -1,0 +1,6 @@
+interface:
+  display_name: "Agent Memory"
+  short_description: "Apply agent memory with runtime boundaries, eval cases, and s..."
+  default_prompt: "Use $agent-memory-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

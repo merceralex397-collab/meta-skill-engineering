@@ -1,0 +1,6 @@
+interface:
+  display_name: "CV and Cover Letter"
+  short_description: "Run cv and cover letter with grounded sources, comparison, an..."
+  default_prompt: "Use $cv-cover-letter-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

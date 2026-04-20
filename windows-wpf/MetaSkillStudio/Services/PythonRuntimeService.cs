@@ -22,20 +22,16 @@ namespace MetaSkillStudio.Services
         private readonly IEnvironmentProvider _environmentProvider;
         private readonly IConfigurationStorage _configStorage;
         private readonly string _pythonPath;
+        private readonly string _nodePath;
         private readonly string _repoRoot;
         private readonly string _studioScriptPath;
+        private readonly string _opencodeConfigPath;
+        private readonly string _opencodeSdkBridgePath;
 
         // PERFORMANCE FIX: Use RegexCache for all compiled regex patterns with timeouts
 
-        // Known AI CLI runtimes and their probe commands
-        private static readonly List<(string Name, string Command, string[] ModelProbeArgs)> RuntimeProbes = new()
-        {
-            ("codex", "codex", new[] { "models" }),
-            ("gemini", "gemini", new[] { "model", "list" }),
-            ("copilot", "copilot", new[] { "--list-models" }),
-            ("opencode", "opencode", new[] { "--models" }),
-            ("kilocode", "kilocode", new[] { "list-models" })
-        };
+        private const string OpenCodeRuntimeName = "opencode";
+        private static readonly string[] OpenCodeModelProbeArgs = { "--models" };
 
         /// <summary>
         /// Initializes a new instance of the PythonRuntimeService class.
@@ -50,7 +46,10 @@ namespace MetaSkillStudio.Services
             
             _pythonPath = DetectPythonPath();
             _repoRoot = FindRepoRoot();
+            _nodePath = DetectNodePath();
             _studioScriptPath = _environmentProvider.CombinePaths(_repoRoot, "scripts", "meta-skill-studio.py");
+            _opencodeConfigPath = _environmentProvider.CombinePaths(_repoRoot, ".opencode", "opencode.json");
+            _opencodeSdkBridgePath = _environmentProvider.CombinePaths(_repoRoot, "scripts", "meta_skill_studio", "opencode_sdk_bridge.mjs");
         }
 
         /// <summary>
@@ -59,28 +58,27 @@ namespace MetaSkillStudio.Services
         /// <returns>A list of detected runtimes with their available models.</returns>
         public async Task<List<DetectedRuntime>> DetectRuntimesAsync()
         {
-            var runtimes = new List<DetectedRuntime>();
-
-            foreach (var (name, command, probeArgs) in RuntimeProbes)
-            {
-                var runtime = await DetectSingleRuntimeAsync(name, command, probeArgs);
-                if (runtime != null)
-                {
-                    runtimes.Add(runtime);
-                }
-            }
-
-            return runtimes;
+            var runtime = await DetectSingleRuntimeAsync(OpenCodeRuntimeName, OpenCodeRuntimeName, OpenCodeModelProbeArgs);
+            return new List<DetectedRuntime> { runtime };
         }
 
-        private async Task<DetectedRuntime?> DetectSingleRuntimeAsync(string name, string command, string[] probeArgs)
+        private async Task<DetectedRuntime> DetectSingleRuntimeAsync(string name, string command, string[] probeArgs)
         {
+            var configuredModel = GetConfiguredOpenCodeModel();
+
             try
             {
-                var commandPath = FindCommandPath(command);
+                var commandPath = string.Equals(name, OpenCodeRuntimeName, StringComparison.OrdinalIgnoreCase)
+                    ? FindPreferredOpenCodeCommandPath()
+                    : FindCommandPath(command);
                 if (string.IsNullOrEmpty(commandPath))
                 {
-                    return new DetectedRuntime { Name = name, Command = string.Empty, Models = new() };
+                    return new DetectedRuntime
+                    {
+                        Name = name,
+                        Command = string.Empty,
+                        Models = MergeModels(configuredModel, new List<string>())
+                    };
                 }
 
                 var models = await ProbeModelsAsync(commandPath, probeArgs);
@@ -89,14 +87,64 @@ namespace MetaSkillStudio.Services
                 {
                     Name = name,
                     Command = commandPath,
-                    Models = models.Any() ? models : new List<string> { "auto" }
+                    Models = MergeModels(configuredModel, models)
                 };
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"[PythonRuntimeService] Failed to detect runtime '{name}': {ex.Message}");
-                return new DetectedRuntime { Name = name, Command = string.Empty, Models = new() };
+                return new DetectedRuntime
+                {
+                    Name = name,
+                    Command = string.Empty,
+                    Models = MergeModels(configuredModel, new List<string>())
+                };
             }
+        }
+
+        private string? GetConfiguredOpenCodeModel()
+        {
+            try
+            {
+                if (!_environmentProvider.FileExists(_opencodeConfigPath))
+                {
+                    return null;
+                }
+
+                using var document = JsonDocument.Parse(File.ReadAllText(_opencodeConfigPath));
+                if (document.RootElement.TryGetProperty("model", out var modelProperty) &&
+                    modelProperty.ValueKind == JsonValueKind.String)
+                {
+                    var model = modelProperty.GetString();
+                    return string.IsNullOrWhiteSpace(model) ? null : model.Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[PythonRuntimeService] Failed to read OpenCode config: {ex.Message}");
+            }
+
+            return null;
+        }
+
+        private static List<string> MergeModels(string? configuredModel, List<string> discoveredModels)
+        {
+            var merged = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(configuredModel))
+            {
+                merged.Add(configuredModel);
+            }
+
+            foreach (var model in discoveredModels)
+            {
+                if (!string.IsNullOrWhiteSpace(model) && !merged.Contains(model))
+                {
+                    merged.Add(model);
+                }
+            }
+
+            return merged.Any() ? merged : new List<string> { "auto" };
         }
 
         private async Task<List<string>> ProbeModelsAsync(string commandPath, string[] probeArgs)
@@ -215,7 +263,37 @@ namespace MetaSkillStudio.Services
         /// <returns>The loaded configuration, or null if no configuration exists.</returns>
         public AppConfiguration? LoadConfiguration()
         {
-            return _configStorage.Load();
+            var config = _configStorage.Load();
+            if (config == null)
+            {
+                return null;
+            }
+
+            var configuredModel = GetConfiguredOpenCodeModel() ?? "auto";
+            config.DetectedRuntimes = config.DetectedRuntimes
+                .Where(runtime => string.Equals(runtime.Name, OpenCodeRuntimeName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var role in AppConfiguration.GetDefaultRoles().Keys)
+            {
+                if (!config.Roles.TryGetValue(role, out var roleConfig))
+                {
+                    config.Roles[role] = new RoleConfiguration
+                    {
+                        Runtime = OpenCodeRuntimeName,
+                        Model = configuredModel
+                    };
+                    continue;
+                }
+
+                roleConfig.Runtime = OpenCodeRuntimeName;
+                if (string.IsNullOrWhiteSpace(roleConfig.Model))
+                {
+                    roleConfig.Model = configuredModel;
+                }
+            }
+
+            return config;
         }
 
         /// <summary>
@@ -248,7 +326,7 @@ namespace MetaSkillStudio.Services
             {
                 config.Roles[role] = new RoleConfiguration
                 {
-                    Runtime = firstRuntime?.Name ?? "codex",
+                    Runtime = OpenCodeRuntimeName,
                     Model = defaultModel
                 };
             }
@@ -359,6 +437,11 @@ namespace MetaSkillStudio.Services
         /// <exception cref="TimeoutException">Thrown when execution exceeds the 30-minute timeout.</exception>
         public async Task<RunResult> ExecuteCommandAsync(string action, string parameter, TargetLibrary library = TargetLibrary.LibraryUnverified, int? benchmarkCases = null)
         {
+            if (string.Equals(action, "assistant", StringComparison.OrdinalIgnoreCase))
+            {
+                return await ExecuteAssistantCommandAsync(parameter);
+            }
+
             if (!_environmentProvider.FileExists(_studioScriptPath))
             {
                 throw new FileNotFoundException("Studio script not found", _studioScriptPath);
@@ -422,6 +505,104 @@ namespace MetaSkillStudio.Services
                 EndedAtUtc = endTime,
                 Input = new Dictionary<string, object> { ["action"] = action, ["parameter"] = parameter },
                 Artifacts = new Dictionary<string, object>()
+            };
+        }
+
+        private async Task<RunResult> ExecuteAssistantCommandAsync(string prompt)
+        {
+            if (!_environmentProvider.FileExists(_opencodeSdkBridgePath))
+            {
+                throw new FileNotFoundException("OpenCode SDK bridge script not found", _opencodeSdkBridgePath);
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _nodePath,
+                WorkingDirectory = _repoRoot,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            psi.ArgumentList.Add(_opencodeSdkBridgePath);
+            psi.ArgumentList.Add("assistant");
+            psi.ArgumentList.Add("--prompt");
+            psi.ArgumentList.Add(prompt);
+
+            var startTime = DateTime.UtcNow;
+            using var process = Process.Start(psi);
+
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start OpenCode SDK bridge");
+            }
+
+            var stdoutTask = process.StandardOutput.ReadToEndAsync();
+            var stderrTask = process.StandardError.ReadToEndAsync();
+
+            using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+            try
+            {
+                await process.WaitForExitAsync(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                try { process.Kill(); } catch { }
+                throw new TimeoutException("OpenCode assistant request exceeded the 10-minute timeout.");
+            }
+
+            var endTime = DateTime.UtcNow;
+            var stdout = await stdoutTask;
+            var stderr = await stderrTask;
+            var outputText = stdout.Trim();
+            var artifacts = new Dictionary<string, object>();
+
+            if (!string.IsNullOrWhiteSpace(stdout))
+            {
+                try
+                {
+                    using var document = JsonDocument.Parse(stdout);
+
+                    if (document.RootElement.TryGetProperty("response", out var responseProperty) &&
+                        responseProperty.ValueKind == JsonValueKind.String)
+                    {
+                        outputText = responseProperty.GetString() ?? string.Empty;
+                    }
+
+                    if (document.RootElement.TryGetProperty("sessionId", out var sessionProperty) &&
+                        sessionProperty.ValueKind == JsonValueKind.String)
+                    {
+                        artifacts["sessionId"] = sessionProperty.GetString() ?? string.Empty;
+                    }
+
+                    if (document.RootElement.TryGetProperty("model", out var modelProperty) &&
+                        modelProperty.ValueKind == JsonValueKind.String)
+                    {
+                        artifacts["model"] = modelProperty.GetString() ?? string.Empty;
+                    }
+                }
+                catch (JsonException)
+                {
+                    // Preserve the raw bridge output if JSON parsing fails.
+                }
+            }
+
+            return new RunResult
+            {
+                Action = "assistant",
+                ExitCode = process.ExitCode,
+                Stdout = outputText,
+                Stderr = stderr,
+                DurationSeconds = Math.Round((endTime - startTime).TotalSeconds, 3),
+                StartedAtUtc = startTime,
+                EndedAtUtc = endTime,
+                Input = new Dictionary<string, object>
+                {
+                    ["action"] = "assistant",
+                    ["parameter"] = prompt,
+                },
+                Artifacts = artifacts,
             };
         }
 
@@ -663,6 +844,60 @@ namespace MetaSkillStudio.Services
             return "python";
         }
 
+        private string DetectNodePath()
+        {
+            var candidates = new[]
+            {
+                "node",
+                @"C:\Program Files\nodejs\node.exe",
+                @"C:\Program Files (x86)\nodejs\node.exe",
+                _environmentProvider.CombinePaths(
+                    _environmentProvider.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                    "nodejs",
+                    "node.exe"),
+            };
+
+            foreach (var candidate in candidates)
+            {
+                var path = FindCommandPath(candidate);
+                if (!string.IsNullOrEmpty(path))
+                {
+                    return path;
+                }
+            }
+
+            return "node";
+        }
+
+        private string? FindPreferredOpenCodeCommandPath()
+        {
+            foreach (var candidate in GetLocalOpenCodeCandidates())
+            {
+                if (_environmentProvider.FileExists(candidate))
+                {
+                    return candidate;
+                }
+            }
+
+            return FindCommandPath(OpenCodeRuntimeName);
+        }
+
+        private IEnumerable<string> GetLocalOpenCodeCandidates()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", "opencode-windows-x64", "bin", "opencode.exe");
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", "opencode-windows-x64-baseline", "bin", "opencode.exe");
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", ".bin", "opencode.cmd");
+            }
+            else
+            {
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", "opencode-linux-x64", "bin", "opencode");
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", "opencode-linux-arm64", "bin", "opencode");
+                yield return _environmentProvider.CombinePaths(_repoRoot, ".opencode", "node_modules", ".bin", "opencode");
+            }
+        }
+
         private string? FindCommandPath(string command)
         {
             if (Path.IsPathRooted(command) && _environmentProvider.FileExists(command))
@@ -682,6 +917,14 @@ namespace MetaSkillStudio.Services
                     var withExe = fullPath + ".exe";
                     if (_environmentProvider.FileExists(withExe))
                         return withExe;
+
+                    var withCmd = fullPath + ".cmd";
+                    if (_environmentProvider.FileExists(withCmd))
+                        return withCmd;
+
+                    var withBat = fullPath + ".bat";
+                    if (_environmentProvider.FileExists(withBat))
+                        return withBat;
                 }
             }
 

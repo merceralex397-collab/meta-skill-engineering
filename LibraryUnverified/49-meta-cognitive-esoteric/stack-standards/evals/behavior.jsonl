@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Infer a TypeScript repo with pnpm, vitest, eslint, and a src/ app.","assertions":["detects package manager","extracts validation commands","matches existing patterns"]}
+{"id":"bh-002","prompt":"Handle a repo where README says npm but lockfile and CI use pnpm.","assertions":["flags mismatch","prefers enforced toolchain","reports both sources"]}

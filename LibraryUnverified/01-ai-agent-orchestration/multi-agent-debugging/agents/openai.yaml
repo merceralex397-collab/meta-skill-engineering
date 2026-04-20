@@ -1,0 +1,6 @@
+interface:
+  display_name: "Multi-Agent Debugging"
+  short_description: "Coordinate multi-agent debugging work with bounded delegation..."
+  default_prompt: "Use $multi-agent-debugging-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

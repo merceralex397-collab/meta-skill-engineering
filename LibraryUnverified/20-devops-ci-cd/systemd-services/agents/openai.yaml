@@ -1,0 +1,6 @@
+interface:
+  display_name: "systemd Services"
+  short_description: "Handle systemd services changes with preflight checks, verifi..."
+  default_prompt: "Use $systemd-services-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

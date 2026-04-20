@@ -1,0 +1,18 @@
+name: failure-mode-analysis-codex-c
+version: 1
+summary: "Review failure mode analysis work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "failure-mode-analysis"
+    - "failure mode analysis"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/evidence-rubric.md"
+    - "../../references/output-shape.md"
+    - "../../references/failure-signals.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

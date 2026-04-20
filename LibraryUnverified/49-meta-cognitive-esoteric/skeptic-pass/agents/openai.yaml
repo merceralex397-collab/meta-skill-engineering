@@ -1,0 +1,6 @@
+interface:
+  display_name: "Skeptic Pass"
+  short_description: "Review skeptic pass work with explicit evidence, risk ranking..."
+  default_prompt: "Use $skeptic-pass-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

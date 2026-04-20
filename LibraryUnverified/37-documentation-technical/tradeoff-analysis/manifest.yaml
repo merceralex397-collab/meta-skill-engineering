@@ -1,0 +1,34 @@
+schema_version: 1
+skill_id: tradeoff-analysis-codex-c
+canonical_name: tradeoff-analysis
+version: 0.1.0
+owner: codex
+status: draft
+summary: Compare explicit options across weighted criteria and hard constraints, then recommend one with clear regrets and reversal triggers.
+risk_level: low
+categories:
+  - planning
+  - decision-making
+compatibility:
+  clients:
+    - openai-codex
+    - opencode
+    - github-copilot
+    - gemini-cli
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - references/criteria-library.md
+  - references/bias-checks.md
+  - references/output-template.md
+  - scripts/decision_matrix.py
+security:
+  network_required: false
+  executes_local_code: true
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

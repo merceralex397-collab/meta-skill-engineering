@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend Performance"
+  short_description: "Apply frontend performance patterns with explicit UI state, a..."
+  default_prompt: "Use $frontend-performance-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"We already had an outage. Help me find the actual root cause.","should_trigger":false}
+{"id":"tn-002","prompt":"Compare two deployment options and recommend one.","should_trigger":false}

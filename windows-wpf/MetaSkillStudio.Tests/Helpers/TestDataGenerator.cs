@@ -232,8 +232,8 @@ namespace MetaSkillStudio.Tests.Helpers
         #region DetectedRuntime
 
         public static DetectedRuntime CreateDetectedRuntime(
-            string name = "codex",
-            string command = "codex",
+            string name = "opencode",
+            string command = "opencode",
             List<string>? models = null,
             bool isAvailable = true)
         {
@@ -242,17 +242,15 @@ namespace MetaSkillStudio.Tests.Helpers
             {
                 Name = name,
                 Command = isAvailable ? availableCommand : string.Empty,
-                Models = models ?? new List<string> { "gpt-4", "gpt-3.5-turbo" }
+                Models = models ?? new List<string> { "minimax-coding-plan/MiniMax-M2.7", "auto" }
             };
         }
 
-        public static List<DetectedRuntime> CreateDetectedRuntimeList(int count = 3)
+        public static List<DetectedRuntime> CreateDetectedRuntimeList(int count = 1)
         {
             var runtimes = new List<DetectedRuntime>
             {
-                CreateDetectedRuntime("codex", "codex", new List<string> { "gpt-4", "gpt-3.5-turbo" }, true),
-                CreateDetectedRuntime("gemini", "gemini", new List<string> { "gemini-pro", "gemini-ultra" }, true),
-                CreateDetectedRuntime("copilot", "copilot", new List<string> { "github-copilot" }, false)
+                CreateDetectedRuntime("opencode", "opencode", new List<string> { "minimax-coding-plan/MiniMax-M2.7", "auto" }, true)
             };
 
             return runtimes.GetRange(0, Math.Min(count, runtimes.Count));

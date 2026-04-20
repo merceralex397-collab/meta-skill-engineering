@@ -1,0 +1,18 @@
+name: database-persistence-codex-c
+version: 1
+summary: "Apply database persistence through a concrete workflow with explicit checks."
+invocation:
+  policy: auto
+  aliases:
+    - "database-persistence"
+    - "database persistence"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/workflow-notes.md"
+    - "../../references/review-checklist.md"
+    - "../../references/failure-modes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

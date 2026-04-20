@@ -1,0 +1,8 @@
+skill: input-mapping-controller-codex-c
+permissions:
+  read:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute:
+    - ./scripts/**

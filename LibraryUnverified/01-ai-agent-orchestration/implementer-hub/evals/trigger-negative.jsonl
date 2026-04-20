@@ -1,0 +1,3 @@
+{"input":"Design a new UI from scratch.","expected":"no-trigger"}
+{"input":"Explain a generic concept with no repo context.","expected":"no-trigger"}
+{"input":"Run one command and tell me the result.","expected":"no-trigger"}

@@ -1,0 +1,2 @@
+{"input":"Use Node Agent Patterns on a realistic task and return the result in a decision-ready shape.","must_include":["Scope","Approach","Checks","Next Step"],"expected":"node-agent-patterns"}
+{"input":"Apply Node Agent Patterns but call out uncertainty and the next verification step explicitly.","must_include":["Scope","Next Step"],"expected":"node-agent-patterns"}

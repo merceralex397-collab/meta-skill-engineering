@@ -1,0 +1,6 @@
+interface:
+  display_name: "Human Interrupt Handling"
+  short_description: "Coordinate human interrupt handling work with bounded delegat..."
+  default_prompt: "Use $human-interrupt-handling-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

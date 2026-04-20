@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP ChatGPT App Bridge"
+  short_description: "Design and verify mcp chatgpt app bridge with explicit contra..."
+  default_prompt: "Use $mcp-chatgpt-app-bridge-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,8 @@
+skill: config-files-xdg-codex-c
+permissions:
+  read:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute:
+    - ./scripts/**

@@ -1,0 +1,6 @@
+interface:
+  display_name: "API Schema"
+  short_description: "Apply api schema through a concrete workflow with explicit ch..."
+  default_prompt: "Use $api-schema-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

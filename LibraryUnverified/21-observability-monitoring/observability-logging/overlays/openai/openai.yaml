@@ -1,0 +1,18 @@
+name: observability-logging-codex-c
+version: 1
+summary: "Design structured backend telemetry that supports incident triage, redaction discipline, and searchable failure analysis."
+invocation:
+  policy: auto
+  aliases:
+    - "observability-logging"
+    - "observability logging"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/structured-event-schema.md"
+    - "../../references/pii-and-secrets-redaction.md"
+    - "../../references/trace-metric-log-triage.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

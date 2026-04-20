@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at distillation and compression","expected":"distillation-compression","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"this task clearly needs distillation and compression","expected":"distillation-compression","category":"AI / LLM Training, Architecture, and Research"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around distillation and compression","expected":"distillation-compression","category":"AI / LLM Training, Architecture, and Research"}

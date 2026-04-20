@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at pdf editor","expected":"pdf-editor","category":"Docs, Artifacts, and Media Skills"}
+{"input":"this task clearly needs pdf editor","expected":"pdf-editor","category":"Docs, Artifacts, and Media Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around pdf editor","expected":"pdf-editor","category":"Docs, Artifacts, and Media Skills"}

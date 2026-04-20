@@ -1,0 +1,6 @@
+interface:
+  display_name: "FastAPI"
+  short_description: "Audit or build FastAPI routes, models, and dependencies."
+  default_prompt: "Use $fastapi-codex-c to review this FastAPI service for router layout, dependency flow, request or response models, and boundary-safe error handling."
+policy:
+  allow_implicit_invocation: true

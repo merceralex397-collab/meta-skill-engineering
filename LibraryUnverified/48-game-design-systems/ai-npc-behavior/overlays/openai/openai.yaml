@@ -1,0 +1,18 @@
+name: ai-npc-behavior-codex-c
+version: 1
+summary: "Use ai npc behavior to guide creative system decisions without losing production discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "ai-npc-behavior"
+    - "ai npc behavior"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/design-direction.md"
+    - "../../references/production-checklist.md"
+    - "../../references/iteration-prompts.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "StarCraft Data Analysis"
+  short_description: "Run starcraft data analysis with grounded sources, comparison..."
+  default_prompt: "Use $starcraft-data-analysis-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

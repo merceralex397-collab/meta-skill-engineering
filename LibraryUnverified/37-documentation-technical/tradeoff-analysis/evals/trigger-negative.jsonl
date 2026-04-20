@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Review this implementation plan for missing rollback.","should_trigger":false}
+{"id":"tn-002","prompt":"Assume this initiative fails and tell me the likely causes.","should_trigger":false}

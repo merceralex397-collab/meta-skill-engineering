@@ -1,0 +1,6 @@
+interface:
+  display_name: "Business Idea Evaluation"
+  short_description: "Run business idea evaluation with grounded sources, compariso..."
+  default_prompt: "Use $business-idea-evaluation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

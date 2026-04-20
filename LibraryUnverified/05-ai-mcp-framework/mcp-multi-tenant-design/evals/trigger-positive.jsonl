@@ -1,0 +1,3 @@
+{"input":"Building, debugging, securing, or packaging an MCP server or MCP tool surface","expected":"mcp-multi-tenant-design","category":"MCP Skills"}
+{"input":"this task clearly needs mcp multi-tenant design","expected":"mcp-multi-tenant-design","category":"MCP Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around mcp multi-tenant design","expected":"mcp-multi-tenant-design","category":"MCP Skills"}

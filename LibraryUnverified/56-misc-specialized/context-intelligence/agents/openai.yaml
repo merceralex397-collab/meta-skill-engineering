@@ -1,0 +1,6 @@
+interface:
+  display_name: "Context Intelligence"
+  short_description: "Apply context intelligence through a concrete workflow with e..."
+  default_prompt: "Use $context-intelligence-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

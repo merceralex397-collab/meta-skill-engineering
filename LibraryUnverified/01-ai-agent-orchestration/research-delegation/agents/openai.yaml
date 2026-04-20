@@ -1,0 +1,6 @@
+interface:
+  display_name: "Research Delegation"
+  short_description: "Apply research delegation through a concrete workflow with ex..."
+  default_prompt: "Use $research-delegation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

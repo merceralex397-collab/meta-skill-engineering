@@ -11,13 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Dict, List, Optional
 
-RUNTIME_SPECS = [
-    {"name": "codex", "command": "codex"},
-    {"name": "gemini", "command": "gemini"},
-    {"name": "copilot", "command": "copilot"},
-    {"name": "opencode", "command": "opencode"},
-    {"name": "kilocode", "command": "kilocode"},
-]
+OPENCODE_RUNTIME = {"name": "opencode", "command": "opencode"}
 
 ROLE_ORDER = ["create", "improve", "test", "orchestrate", "judge"]
 ROLE_LABELS = {
@@ -65,6 +59,7 @@ class StudioCore:
         self.repo_root = repo_root
         self.state_dir = repo_root / ".meta-skill-studio"
         self.config_file = self.state_dir / "config.json"
+        self.opencode_config_file = repo_root / ".opencode" / "opencode.json"
         self.runs_dir = self.state_dir / "runs"
         self.library_unverified = repo_root / "LibraryUnverified"
         self.library_workbench = repo_root / "LibraryWorkbench"
@@ -105,20 +100,40 @@ class StudioCore:
         return skills
 
     def detect_runtimes(self) -> List[DetectedRuntime]:
-        found: List[DetectedRuntime] = []
-        for spec in RUNTIME_SPECS:
-            command_path = shutil.which(spec["command"])
-            if not command_path:
-                continue
-            models = self.discover_models(spec["command"])
-            found.append(
-                DetectedRuntime(
-                    name=spec["name"],
-                    command=command_path,
-                    models=models or ["auto"],
-                )
+        command_path = self.resolve_runtime_command(OPENCODE_RUNTIME["command"])
+        if not command_path:
+            return []
+
+        discovered_models = self.discover_models(command_path)
+        configured_model = self._configured_opencode_model()
+
+        merged_models: List[str] = []
+        for candidate in [configured_model, *discovered_models]:
+            if candidate and candidate not in merged_models:
+                merged_models.append(candidate)
+
+        return [
+            DetectedRuntime(
+                name=OPENCODE_RUNTIME["name"],
+                command=command_path,
+                models=merged_models or ["auto"],
             )
-        return found
+        ]
+
+    def _configured_opencode_model(self) -> Optional[str]:
+        if not self.opencode_config_file.exists():
+            return None
+
+        try:
+            config = json.loads(self.opencode_config_file.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return None
+
+        model = config.get("model")
+        if isinstance(model, str):
+            normalized = model.strip()
+            return normalized or None
+        return None
 
     def discover_models(self, command: str) -> List[str]:
         models: List[str] = []
@@ -187,18 +202,16 @@ class StudioCore:
         runtimes = self.detect_runtimes()
         if not runtimes:
             raise RuntimeError(
-                "No supported CLI runtime detected (codex, gemini, copilot, opencode, kilocode)."
+                "OpenCode runtime not detected. Install the repo-local OpenCode SDK/runtime dependencies or expose `opencode` on PATH."
             )
-        output_fn("\nDetected runtimes:")
-        for idx, rt in enumerate(runtimes, start=1):
-            output_fn(f"  {idx}. {rt.name} ({rt.command})")
+        opencode_runtime = runtimes[0]
+        output_fn("\nOpenCode detected:")
+        output_fn(f"  command: {opencode_runtime.command}")
         roles_cfg: Dict[str, Dict[str, str]] = {}
         for role in ROLE_ORDER:
-            output_fn(f"\nSelect runtime for {ROLE_LABELS[role]}:")
-            rt_idx = self._pick_index(input_fn, len(runtimes))
-            chosen_rt = runtimes[rt_idx]
-            model = self._choose_model(input_fn, output_fn, chosen_rt)
-            roles_cfg[role] = {"runtime": chosen_rt.name, "model": model}
+            output_fn(f"\nSelect OpenCode model for {ROLE_LABELS[role]}:")
+            model = self._choose_model(input_fn, output_fn, opencode_runtime)
+            roles_cfg[role] = {"runtime": opencode_runtime.name, "model": model}
         config = self.build_config(runtimes, roles_cfg)
         self.save_config(config)
         return config
@@ -223,7 +236,7 @@ class StudioCore:
         runtimes = self.detect_runtimes()
         if not runtimes:
             raise RuntimeError(
-                "No supported CLI runtime detected (codex, gemini, copilot, opencode, kilocode)."
+                "OpenCode runtime not detected. Install the repo-local OpenCode SDK/runtime dependencies or expose `opencode` on PATH."
             )
         chosen = runtimes[0]
         model = chosen.models[0] if chosen.models else "auto"
@@ -266,6 +279,10 @@ class StudioCore:
             output_fn("Invalid model selection.")
 
     def resolve_runtime_command(self, runtime_name: str) -> Optional[str]:
+        command = self._resolve_local_opencode_command()
+        if command:
+            return command
+
         command = shutil.which(runtime_name)
         if command:
             return command
@@ -277,26 +294,35 @@ class StudioCore:
                     return cmd
         return None
 
+    def _resolve_local_opencode_command(self) -> Optional[str]:
+        candidates = [
+            self.repo_root / ".opencode" / "node_modules" / "opencode-windows-x64" / "bin" / "opencode.exe",
+            self.repo_root / ".opencode" / "node_modules" / "opencode-windows-x64-baseline" / "bin" / "opencode.exe",
+            self.repo_root / ".opencode" / "node_modules" / "opencode-linux-x64" / "bin" / "opencode",
+            self.repo_root / ".opencode" / "node_modules" / "opencode-linux-arm64" / "bin" / "opencode",
+            self.repo_root / ".opencode" / "node_modules" / ".bin" / "opencode.cmd",
+            self.repo_root / ".opencode" / "node_modules" / ".bin" / "opencode",
+        ]
+        for candidate in candidates:
+            if candidate.exists():
+                return str(candidate)
+        return None
+
     def run_role_prompt(self, role: str, prompt: str) -> Dict:
         cfg = self.load_config()
         role_cfg = cfg.get("roles", {}).get(role)
         if not role_cfg:
             raise RuntimeError(f"Role not configured: {role}")
-        runtime = role_cfg["runtime"]
-        model = role_cfg.get("model", "auto")
+        runtime = OPENCODE_RUNTIME["name"]
+        model = role_cfg.get("model", self._configured_opencode_model() or "auto")
         command = self.resolve_runtime_command(runtime)
         if not command:
-            raise RuntimeError(f"Runtime not available on PATH: {runtime}")
+            raise RuntimeError("OpenCode runtime not available. Install the repo-local SDK/runtime dependencies or add opencode to PATH.")
         cmd = self.build_runtime_command(runtime, command, prompt, model)
         return self._run_command(cmd)
 
     @staticmethod
     def build_runtime_command(runtime: str, command: str, prompt: str, model: str) -> List[str]:
-        if runtime == "copilot":
-            cmd = [command, "-p", prompt, "--allow-all", "--autopilot", "--reasoning-effort", "high"]
-            if model and model != "auto":
-                cmd.extend(["--model", model])
-            return cmd
         cmd = [command, "-p", prompt]
         if model and model != "auto":
             cmd.extend(["--model", model])
@@ -391,8 +417,8 @@ class StudioCore:
     def run_test_benchmark_evaluate(self, target_skill: Optional[str] = None) -> Path:
         cfg = self.load_config()
         role_cfg = cfg.get("roles", {}).get("test", {})
-        runtime = role_cfg.get("runtime", "copilot")
-        model = role_cfg.get("model", "auto")
+        runtime = OPENCODE_RUNTIME["name"]
+        model = role_cfg.get("model", self._configured_opencode_model() or "auto")
 
         validate_cmd = [str(self.repo_root / "scripts" / "validate-skills.sh")]
         eval_cmd = [str(self.repo_root / "scripts" / "run-evals.sh")]

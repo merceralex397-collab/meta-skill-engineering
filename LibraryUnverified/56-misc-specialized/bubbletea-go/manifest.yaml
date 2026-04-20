@@ -1,0 +1,42 @@
+schema_version: 1
+skill_id: bubbletea-go-codex-c
+canonical_name: bubbletea-go
+version: 0.1.0
+owner: codex
+status: draft
+summary: Handle bubble tea for go tuis changes with preflight checks, verification, and rollback discipline.
+risk_level: low
+categories:
+  - cli
+  - systems
+  - and
+  - ops
+  - bubbletea
+  - go
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/preflight-checklist.md
+  - references/verification-checks.md
+  - references/rollback-notes.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

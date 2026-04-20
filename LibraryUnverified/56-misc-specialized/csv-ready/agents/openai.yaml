@@ -1,0 +1,6 @@
+interface:
+  display_name: "CSV Ready"
+  short_description: "Produce csv ready artifacts with source fidelity, audience cl..."
+  default_prompt: "Use $csv-ready-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

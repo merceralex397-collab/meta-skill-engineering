@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Security and Permissions"
+  short_description: "Design and verify mcp security and permissions with explicit..."
+  default_prompt: "Use $mcp-security-permissions-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

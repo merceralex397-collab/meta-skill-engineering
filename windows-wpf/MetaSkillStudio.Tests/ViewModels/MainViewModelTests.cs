@@ -123,6 +123,9 @@ namespace MetaSkillStudio.Tests.ViewModels
             _viewModel.OpenSettingsCommand.Should().NotBeNull();
             _viewModel.RefreshSkillsCommand.Should().NotBeNull();
             _viewModel.OpenAnalyticsCommand.Should().NotBeNull();
+            _viewModel.AssistantPromptCommand.Should().NotBeNull();
+            _viewModel.OpenQuickStartCommand.Should().NotBeNull();
+            _viewModel.OpenSelectedHelpResourceCommand.Should().NotBeNull();
         }
 
         [Fact]
@@ -130,6 +133,7 @@ namespace MetaSkillStudio.Tests.ViewModels
         {
             // Arrange
             _viewModel.IsBusy = false;
+            _viewModel.AssistantPrompt = "Help me";
 
             // Assert
             _viewModel.CreateSkillCommand.CanExecute(null).Should().BeTrue();
@@ -137,6 +141,7 @@ namespace MetaSkillStudio.Tests.ViewModels
             _viewModel.TestBenchmarkCommand.CanExecute(null).Should().BeTrue();
             _viewModel.MetaManageCommand.CanExecute(null).Should().BeTrue();
             _viewModel.CreateBenchmarksCommand.CanExecute(null).Should().BeTrue();
+            _viewModel.AssistantPromptCommand.CanExecute(null).Should().BeTrue();
         }
 
         [Fact]
@@ -144,6 +149,8 @@ namespace MetaSkillStudio.Tests.ViewModels
         {
             // Arrange
             _viewModel.IsBusy = true;
+            _viewModel.IsAssistantBusy = true;
+            _viewModel.AssistantPrompt = "Help me";
 
             // Assert
             _viewModel.CreateSkillCommand.CanExecute(null).Should().BeFalse();
@@ -151,6 +158,31 @@ namespace MetaSkillStudio.Tests.ViewModels
             _viewModel.TestBenchmarkCommand.CanExecute(null).Should().BeFalse();
             _viewModel.MetaManageCommand.CanExecute(null).Should().BeFalse();
             _viewModel.CreateBenchmarksCommand.CanExecute(null).Should().BeFalse();
+            _viewModel.AssistantPromptCommand.CanExecute(null).Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task RefreshSkillsAsync_UpdatesFilteredSkills()
+        {
+            _mockPythonService.AddSkill(TestDataGenerator.CreateSkillInfo("skill-alpha"));
+            _mockPythonService.AddSkill(TestDataGenerator.CreateSkillInfo("skill-beta"));
+
+            var method = typeof(MainViewModel).GetMethod("RefreshSkillsAsync",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            await (Task)method!.Invoke(_viewModel, null)!;
+
+            _viewModel.SkillFilterText = "beta";
+
+            _viewModel.FilteredSkills.Should().ContainSingle();
+            _viewModel.FilteredSkills[0].Name.Should().Be("skill-beta");
+        }
+
+        [Fact]
+        public void Constructor_LoadsHelpResources()
+        {
+            _viewModel.HelpResources.Should().NotBeEmpty();
+            _viewModel.HelpResources.Should().Contain(resource => resource.Title == "Studio Guide");
+            _viewModel.SelectedHelpResource.Should().NotBeNull();
         }
 
         #endregion
@@ -219,7 +251,7 @@ namespace MetaSkillStudio.Tests.ViewModels
         public async Task UpdateRuntimeStatusAsync_UpdatesStatusText()
         {
             // Arrange
-            _mockPythonService.AddDetectedRuntime(TestDataGenerator.CreateDetectedRuntime("codex", isAvailable: true));
+            _mockPythonService.AddDetectedRuntime(TestDataGenerator.CreateDetectedRuntime("opencode", isAvailable: true));
 
             // Act
             var method = typeof(MainViewModel).GetMethod("UpdateRuntimeStatusAsync",
@@ -227,7 +259,7 @@ namespace MetaSkillStudio.Tests.ViewModels
             await (Task)method!.Invoke(_viewModel, null)!;
 
             // Assert
-            _viewModel.RuntimeStatus.Should().Contain("1 runtime(s) available");
+            _viewModel.RuntimeStatus.Should().Contain("AI Runtime Ready");
         }
 
         [Fact]

@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at realtime and websocket","expected":"realtime-websocket","category":"Backend, API, and Data Skills"}
+{"input":"this task clearly needs realtime and websocket","expected":"realtime-websocket","category":"Backend, API, and Data Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around realtime and websocket","expected":"realtime-websocket","category":"Backend, API, and Data Skills"}

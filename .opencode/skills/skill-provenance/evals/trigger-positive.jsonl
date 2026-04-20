@@ -1,0 +1,9 @@
+{"prompt": "Where did this skill come from? Check its origin", "expected": "trigger", "category": "core", "notes": "Direct provenance inquiry"}
+{"prompt": "Audit this skill's provenance and authorship", "expected": "trigger", "category": "core", "notes": "Explicit provenance audit"}
+{"prompt": "Document the origin and trust chain for this skill", "expected": "trigger", "category": "core", "notes": "Origin documentation request"}
+{"prompt": "What's the license on this external skill we imported?", "expected": "trigger", "category": "core", "notes": "License check implies provenance"}
+{"prompt": "Establish trust level for this skill before we use it", "expected": "trigger", "category": "core", "notes": "Trust evaluation before adoption"}
+{"prompt": "Can we trust this third-party skill? Check its background", "expected": "trigger", "category": "indirect", "notes": "Trust check on external skill"}
+{"prompt": "Record who wrote this skill and what evidence it's based on", "expected": "trigger", "category": "paraphrase", "notes": "Authorship and evidence recording"}
+{"prompt": "We're adopting this external skill, document where it came from", "expected": "trigger", "category": "core", "notes": "Adoption provenance documentation"}
+{"prompt": "Is this skill original or derived from something else?", "expected": "trigger", "category": "indirect", "notes": "Derivation check = provenance"}

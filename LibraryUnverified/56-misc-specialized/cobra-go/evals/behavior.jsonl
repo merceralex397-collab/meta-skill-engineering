@@ -1,0 +1,2 @@
+{"input":"Use Cobra for Go CLIs on a realistic task and return the result in a decision-ready shape.","must_include":["Environment","Change Plan","Verification","Rollback or Monitoring"],"expected":"cobra-go"}
+{"input":"Apply Cobra for Go CLIs but call out uncertainty and the next verification step explicitly.","must_include":["Environment","Rollback or Monitoring"],"expected":"cobra-go"}

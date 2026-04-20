@@ -1,0 +1,8 @@
+skill: linux-ubuntu-ops-codex-c
+permissions:
+  read:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute:
+    - ./scripts/**

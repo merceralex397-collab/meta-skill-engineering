@@ -1,0 +1,18 @@
+name: release-binaries-codex-c
+version: 1
+summary: "Handle release binaries changes with preflight checks, verification, and rollback discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "release-binaries"
+    - "release binaries"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/preflight-checklist.md"
+    - "../../references/verification-checks.md"
+    - "../../references/rollback-notes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

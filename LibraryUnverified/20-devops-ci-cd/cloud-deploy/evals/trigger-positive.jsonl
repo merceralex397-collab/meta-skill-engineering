@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at cloud deploy","expected":"cloud-deploy","category":"Cloud Platform and DevOps Skills"}
+{"input":"this task clearly needs cloud deploy","expected":"cloud-deploy","category":"Cloud Platform and DevOps Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around cloud deploy","expected":"cloud-deploy","category":"Cloud Platform and DevOps Skills"}

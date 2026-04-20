@@ -1,0 +1,41 @@
+schema_version: 1
+skill_id: fastapi-codex-c
+canonical_name: fastapi
+version: 0.1.0
+owner: codex
+status: draft
+summary: Build and review FastAPI services with explicit router layout, dependencies, response models, and lifespan-aware validation.
+risk_level: low
+categories:
+  - backend
+  - api
+  - fastapi
+  - python
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/router-and-dependency-patterns.md
+  - references/validation-and-response-shapes.md
+  - references/async-lifespan-and-testing.md
+  - scripts/route_inventory.py
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: true
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

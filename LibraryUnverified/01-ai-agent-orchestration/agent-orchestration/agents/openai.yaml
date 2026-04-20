@@ -1,0 +1,6 @@
+interface:
+  display_name: "Agent Orchestration"
+  short_description: "Coordinate agent orchestration work with bounded delegation,..."
+  default_prompt: "Use $agent-orchestration-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

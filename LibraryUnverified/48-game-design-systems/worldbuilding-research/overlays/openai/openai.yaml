@@ -1,0 +1,18 @@
+name: worldbuilding-research-codex-c
+version: 1
+summary: "Run worldbuilding research with grounded sources, comparison, and decision-ready conclusions."
+invocation:
+  policy: auto
+  aliases:
+    - "worldbuilding-research"
+    - "worldbuilding research"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/source-plan.md"
+    - "../../references/comparison-matrix.md"
+    - "../../references/claim-discipline.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

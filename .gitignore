@@ -10,6 +10,8 @@ windows-wpf/publish/
 windows-wpf/installer/*.msi
 windows-wpf/installer/*.wixpdb
 windows-wpf/installer/*.wixobj
+windows-wpf/installer/HarvestedWorkspace.wxs
 **/bin/
 **/obj/
 *:Zone.Identifier
+.blender-mcp/

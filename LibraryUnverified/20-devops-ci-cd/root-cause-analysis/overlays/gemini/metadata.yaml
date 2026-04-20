@@ -1,0 +1,11 @@
+name: root-cause-analysis-codex-c
+activation:
+  requires_user_approval: true
+  description: "Allows the agent to load the Root Cause Analysis skill and its bundled references."
+permissions:
+  read_paths:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute_paths:
+    - ./scripts/**

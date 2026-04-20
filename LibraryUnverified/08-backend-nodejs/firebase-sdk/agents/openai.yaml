@@ -1,0 +1,6 @@
+interface:
+  display_name: "Firebase SDK"
+  short_description: "Apply firebase sdk patterns with clear contracts, persistence..."
+  default_prompt: "Use $firebase-sdk-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

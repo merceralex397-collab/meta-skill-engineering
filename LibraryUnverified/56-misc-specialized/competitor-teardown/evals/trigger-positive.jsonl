@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at competitor teardown","expected":"competitor-teardown","category":"Business, Research, and Optional Domain Skills"}
+{"input":"this task clearly needs competitor teardown","expected":"competitor-teardown","category":"Business, Research, and Optional Domain Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around competitor teardown","expected":"competitor-teardown","category":"Business, Research, and Optional Domain Skills"}

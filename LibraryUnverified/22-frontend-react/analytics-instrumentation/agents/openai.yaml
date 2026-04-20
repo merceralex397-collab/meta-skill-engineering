@@ -1,0 +1,6 @@
+interface:
+  display_name: "Analytics Instrumentation"
+  short_description: "Apply analytics instrumentation patterns with explicit UI sta..."
+  default_prompt: "Use $analytics-instrumentation-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

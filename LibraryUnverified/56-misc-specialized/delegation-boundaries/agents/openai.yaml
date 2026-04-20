@@ -1,0 +1,6 @@
+interface:
+  display_name: "Delegation Boundaries"
+  short_description: "Coordinate delegation boundaries work with bounded delegation..."
+  default_prompt: "Use $delegation-boundaries-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

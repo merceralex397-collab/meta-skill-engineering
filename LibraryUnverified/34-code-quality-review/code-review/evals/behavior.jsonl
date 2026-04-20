@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Review a patch with a likely regression and no tests.","assertions":["reports regression","mentions missing tests","orders findings by severity"]}
+{"id":"bh-002","prompt":"Review a patch with no obvious bug but weak validation.","assertions":["does not invent fake bugs","mentions residual risk","keeps summary secondary"]}

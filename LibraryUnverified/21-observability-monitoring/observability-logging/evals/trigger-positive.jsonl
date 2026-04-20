@@ -1,0 +1,3 @@
+{"input":"Review this backend service and tell me whether its logs, traces, and metrics are good enough for incident triage.","expected":"observability-logging","category":"Backend, API, and Data Skills"}
+{"input":"Design a structured event schema for request failures, retries, and external dependency calls without leaking secrets.","expected":"observability-logging","category":"Backend, API, and Data Skills"}
+{"input":"Audit whether our worker logs have correlation IDs, stable event names, and useful failure fields.","expected":"observability-logging","category":"Backend, API, and Data Skills"}

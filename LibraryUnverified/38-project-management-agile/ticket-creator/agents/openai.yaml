@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ticket Creator"
+  short_description: "Execute the ticket creator role with clear scope, evidence, a..."
+  default_prompt: "Use $ticket-creator-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,3 @@
+{"input":"Write a generic Python script to rename files in a directory.","expected":"no-trigger"}
+{"input":"Design the public API contract before we choose a web framework.","expected":"no-trigger"}
+{"input":"Review this React loading state and form validation flow.","expected":"no-trigger"}

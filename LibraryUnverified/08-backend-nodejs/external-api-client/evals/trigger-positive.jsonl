@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at external api client","expected":"external-api-client","category":"Generated Repo Core Skills"}
+{"input":"this task clearly needs external api client","expected":"external-api-client","category":"Generated Repo Core Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around external api client","expected":"external-api-client","category":"Generated Repo Core Skills"}

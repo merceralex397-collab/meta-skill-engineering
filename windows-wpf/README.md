@@ -2,18 +2,19 @@
 
 A modern, native Windows application built with C# and WPF (Windows Presentation Foundation) for managing AI skills.
 
-## Status: Active Hardening
+## Status: Release Bundle Ready
 
-This WPF application is the supported Windows delivery path for Meta Skill Studio. It currently builds and tests successfully in-repo, but release packaging, documentation, and repository integration are still being hardened.
+This WPF application is the supported Windows delivery path for Meta Skill Studio. It builds successfully in-repo, stages a working bundled release, and produces an MSI installer from that staged bundle.
 
 ## Features
 
 - **Modern Windows UI**: Native WPF with Material Design styling
 - **MVVM Architecture**: Clean separation of concerns with data binding
 - **Async Operations**: Non-blocking UI during skill operations
+- **OpenCode-first Execution**: Uses OpenCode as the only supported AI runtime
 - **Integrated Python Backend**: Communicates with the existing Python skill engine
-- **Single-File Deployment**: Self-contained executable with the .NET runtime embedded
-- **Professional Installer**: MSI package for distribution
+- **Bundled Workspace Delivery**: Publish output includes the required skills, scripts, docs, and OpenCode runtime payload
+- **Professional Installer**: MSI package built from the staged release bundle
 - **Localization Ready**: Resources.resx for future localization support
 
 ## Prerequisites
@@ -22,10 +23,11 @@ This WPF application is the supported Windows delivery path for Meta Skill Studi
 - **Windows 10/11** (64-bit)
 - **.NET 8.0 SDK** - Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 - **Python 3.11 or 3.12+** - For the backend skill engine (runtime dependency)
+- **OpenCode SDK/runtime** - Required for the embedded assistant and AI-powered studio workflows
 
 ### Optional (for development)
 - **Visual Studio 2022** - For XAML designer and debugging
-- **WiX Toolset v3.11+** - For building the MSI installer (`winget install WiXToolset.WiXToolset`)
+- **WiX Toolset v4** - For building the MSI installer (`dotnet tool install --tool-path .\.tools\wix4 wix --version 4.0.6`)
 
 ## Quick Start
 
@@ -41,17 +43,20 @@ dotnet build MetaSkillStudio.sln
 dotnet run --project MetaSkillStudio
 ```
 
-### 2. Create Single-File Executable
+### 2. Create Release Bundle
 
 ```powershell
-dotnet publish MetaSkillStudio -c Release -r win-x64 `
-  --self-contained true `
-  -p:PublishSingleFile=true `
-  -p:IncludeNativeLibrariesForSelfExtract=true `
-  -p:EnableCompressionInSingleFile=true
+.\build-release.ps1
 ```
 
-Output: `MetaSkillStudio\bin\Release\net8.0-windows\win-x64\publish\MetaSkillStudio.exe`
+Output: `publish\MetaSkillStudio.exe`
+
+The staged `publish\` folder is the release artifact. It contains the WPF executable plus the bundled workspace files the app requires at runtime:
+- root skill packages
+- `LibraryUnverified` and `LibraryWorkbench`
+- `scripts\`
+- `.opencode\`
+- `README.md`, `AGENTS.md`, and `docs\`
 
 ### 3. Create Installer (Optional)
 
@@ -66,6 +71,7 @@ cd installer
 ```
 windows-wpf/
 ├── MetaSkillStudio.sln              # Solution file
+├── build-release.ps1                # Release bundle staging script
 ├── MetaSkillStudio/
 │   ├── MetaSkillStudio.csproj       # Project file
 │   ├── App.xaml                     # Application resources & styles
@@ -77,7 +83,7 @@ windows-wpf/
 │   │   ├── MainWindow.xaml          # Main window UI (1200x800)
 │   │   ├── MainWindow.xaml.cs       # Main window code-behind
 │   │   ├── CreateSkillDialog.xaml   # Create skill dialog
-│   │   ├── SettingsDialog.xaml      # Runtime configuration
+│   │   ├── SettingsDialog.xaml      # OpenCode model configuration
 │   │   ├── BenchmarkDialog.xaml     # Benchmark creation
 │   │   ├── SkillSelectionDialog.xaml # Skill picker
 │   │   ├── PipelineDialog.xaml      # Pipeline execution
@@ -90,7 +96,7 @@ windows-wpf/
 │   ├── Models/
 │   │   └── ApplicationModels.cs      # Data models
 │   ├── Services/
-│   │   ├── PythonRuntimeService.cs  # Python interop
+│   │   ├── PythonRuntimeService.cs  # Python interop + OpenCode detection
 │   │   ├── ConfigurationStorage.cs   # Settings persistence
 │   │   ├── DialogService.cs          # Dialog helpers
 │   │   └── Interfaces/               # Service interfaces
@@ -127,15 +133,15 @@ The WPF application acts as a frontend that communicates with the existing Pytho
 │              scripts/meta-skill-studio.py                    │
 │              (Your existing Python backend)                   │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐   │
-│  │StudioCore    │ │ meta_skill_  │ │ Runtime calls    │   │
-│  │              │ │ studio pkg   │ │ (codex/gemini)   │   │
+│  │StudioCore    │ │ meta_skill_  │ │ OpenCode calls   │   │
+│  │              │ │ studio pkg   │ │ (opencode)       │   │
 │  └──────────────┘ └──────────────┘ └──────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ## Configuration
 
-### Python Runtime Detection
+### Python Detection
 
 The app automatically detects Python in this order:
 1. Environment variable `PYTHON_PATH`
@@ -146,12 +152,20 @@ The app automatically detects Python in this order:
    - `%LocalAppData%\Microsoft\WindowsApps\python.exe`
    - `%ProgramFiles%\Python311\python.exe`
 
+### OpenCode Detection
+
+The app treats OpenCode as the canonical AI runtime:
+- Detects the repo-local OpenCode runtime (or a PATH-installed fallback)
+- Reads `.opencode/opencode.json` for the repository's configured default model
+- Surfaces OpenCode-managed models in the WPF settings dialog
+- Saves role configuration with `opencode` as the runtime for every workflow
+
 ### Finding the Repository
 
-The app looks for the Meta-Skill-Engineering repository by:
+The app looks for the Meta-Skill-Engineering workspace by:
 1. Checking `META_SKILL_STUDIO_REPO_ROOT` or `META_SKILL_REPO_ROOT`
 2. Looking for `AGENTS.md` from the current working directory upward
-3. Falling back to the configured app path and application base directory
+3. Falling back to the bundled workspace beside the published executable
 
 ## Troubleshooting
 
@@ -165,7 +179,20 @@ python --version
 
 ### "Repository not found" error
 
-Ensure the WPF project is inside or next to your Meta-Skill-Engineering repository, and that `AGENTS.md` exists in the repo root.
+If you are using a development checkout, ensure the WPF project is inside or next to your Meta-Skill-Engineering repository, and that `AGENTS.md` exists in the repo root.
+
+If you are using a published release bundle, keep `MetaSkillStudio.exe` inside the staged `publish\` folder structure. Do not copy the exe out on its own.
+
+### "OpenCode not detected" error
+
+Install the repo-local OpenCode SDK/runtime dependencies or provide `opencode` on PATH:
+```powershell
+npm install --prefix .opencode
+```
+
+For release builds, `.\build-release.ps1` stages the repo-local OpenCode runtime into `publish\.opencode\`.
+
+The repository-level OpenCode defaults are stored in `.opencode\opencode.json`.
 
 ### Build errors
 
@@ -201,12 +228,13 @@ The application is ready for localization via `Resources.resx`. To add a new lan
 
 ## Distribution
 
-### Single Executable
+### Release Bundle
 
-The `dotnet publish` command creates a single-file executable with the .NET runtime embedded:
-- Location: `MetaSkillStudio\bin\Release\net8.0-windows\win-x64\publish\MetaSkillStudio.exe`
-- Size: ~10-15 MB (includes .NET runtime)
-- The Python backend is still required on the target machine for skill execution workflows
+The `.\build-release.ps1` script creates a staged release bundle:
+- Location: `publish\MetaSkillStudio.exe`
+- Includes the bundled repository content required by the app
+- Includes the repo-local OpenCode SDK/runtime assets
+- Should be distributed as the full `publish\` folder, not as a standalone exe
 
 ### MSI Installer
 
@@ -226,7 +254,7 @@ The WiX installer creates a professional MSI:
 | Async UI | Manual threading | Native async/await |
 | Startup Time | Slower | Fast |
 | Memory Usage | Higher | Lower |
-| Distribution Size | ~20-30 MB | ~10-15 MB |
+| Distribution Size | ~20-30 MB | ~400 MB bundled workspace |
 | Code Changes | Minimal | Full C# rewrite |
 | Maintenance | Single codebase | Dual codebase |
 | Localization | Hardcoded strings | Resources.resx ready |

@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Map a repo with src/, docs/, dist/, and exported bundles.","assertions":["classifies derived paths correctly","identifies canonical source","recommends edit surface"]}
+{"id":"bh-002","prompt":"Map a repo split into user-owned folders and shared tooling.","assertions":["notes ownership boundaries","avoids suggesting cross-boundary edits","separates tooling from source"]}

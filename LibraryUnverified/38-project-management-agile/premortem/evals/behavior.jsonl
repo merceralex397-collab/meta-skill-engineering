@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Run a premortem on a plan that assumes a vendor API will behave the same in production as in staging.","assertions":["names integration failure mode","states why plausible","adds an early indicator and control"]}
+{"id":"bh-002","prompt":"Run a premortem on a launch plan with no clear owner for rollout monitoring.","assertions":["surfaces team/process failure mode","ranks it as meaningful","adds ownership or alerting control"]}

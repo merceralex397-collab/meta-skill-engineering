@@ -1,0 +1,42 @@
+schema_version: 1
+skill_id: orm-patterns-codex-c
+canonical_name: orm-patterns
+version: 0.1.0
+owner: codex
+status: draft
+summary: Apply orm patterns patterns with clear contracts, persistence rules, and verification.
+risk_level: low
+categories:
+  - backend
+  - api
+  - and
+  - data
+  - orm
+  - patterns
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/implementation-patterns.md
+  - references/validation-checklist.md
+  - references/failure-modes.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

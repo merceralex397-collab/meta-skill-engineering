@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tailscale and Private Networking"
+  short_description: "Handle tailscale and private networking changes with prefligh..."
+  default_prompt: "Use $tailscale-private-networking-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

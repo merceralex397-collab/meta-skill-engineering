@@ -1,0 +1,6 @@
+interface:
+  display_name: "Serving Architecture"
+  short_description: "Apply serving architecture with runtime boundaries, eval case..."
+  default_prompt: "Use $serving-architecture-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

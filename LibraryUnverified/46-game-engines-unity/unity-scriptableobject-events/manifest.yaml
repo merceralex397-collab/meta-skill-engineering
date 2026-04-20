@@ -1,0 +1,44 @@
+schema_version: 1
+skill_id: unity-scriptableobject-events-codex-c
+canonical_name: unity-scriptableobject-events
+version: 0.1.0
+owner: codex
+status: draft
+summary: Use unity scriptableobject events to guide creative system decisions without losing production discipline.
+risk_level: low
+categories:
+  - game
+  - engines
+  - and
+  - creative
+  - tech
+  - unity
+  - scriptableobject
+  - events
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/design-direction.md
+  - references/production-checklist.md
+  - references/iteration-prompts.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

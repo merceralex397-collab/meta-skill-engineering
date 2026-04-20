@@ -1,0 +1,33 @@
+schema_version: 1
+skill_id: approval-gates-codex-c
+canonical_name: approval-gates
+version: 0.1.0
+owner: codex
+status: draft
+summary: Add explicit human approval checkpoints before high-risk workflow transitions.
+risk_level: moderate
+categories:
+  - orchestration
+  - safety
+compatibility:
+  clients:
+    - openai-codex
+    - opencode
+    - github-copilot
+    - gemini-cli
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - references/gate-triggers.md
+  - references/pre-approval-evidence.md
+  - references/approval-message-template.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

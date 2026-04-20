@@ -1,0 +1,6 @@
+interface:
+  display_name: "Scope Pressure Test"
+  short_description: "Review scope pressure test work with explicit evidence, risk..."
+  default_prompt: "Use $scope-pressure-test-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -47,8 +47,8 @@ namespace MetaSkillStudio.Tests.Models
         public void DetectedRuntime_DisplayName_ContainsAvailabilityIndicator()
         {
             // Arrange
-            var availableRuntime = new DetectedRuntime { Name = "codex", Command = System.Environment.ProcessPath! };
-            var unavailableRuntime = new DetectedRuntime { Name = "gemini", Command = "" };
+            var availableRuntime = new DetectedRuntime { Name = "opencode", Command = System.Environment.ProcessPath! };
+            var unavailableRuntime = new DetectedRuntime { Name = "opencode", Command = "" };
 
             // Assert
             availableRuntime.DisplayName.Should().Contain("✓");
@@ -65,8 +65,8 @@ namespace MetaSkillStudio.Tests.Models
             // Arrange
             var skill = new SkillInfo { Name = "test-skill", Description = null };
 
-            // Assert
-            skill.DisplayName.Should().Be("test-skill");
+            // Assert — now returns friendly title-cased name
+            skill.DisplayName.Should().Be("Test Skill");
         }
 
         [Fact]
@@ -75,9 +75,8 @@ namespace MetaSkillStudio.Tests.Models
             // Arrange
             var skill = new SkillInfo { Name = "test-skill", Description = "A test skill description" };
 
-            // Assert
-            skill.DisplayName.Should().Contain("test-skill");
-            skill.DisplayName.Should().Contain("A test skill description");
+            // Assert — friendly name, description shown separately
+            skill.DisplayName.Should().Be("Test Skill");
         }
 
         [Fact]
@@ -87,9 +86,8 @@ namespace MetaSkillStudio.Tests.Models
             var longDescription = new string('a', 100);
             var skill = new SkillInfo { Name = "test-skill", Description = longDescription };
 
-            // Assert
-            skill.DisplayName.Should().EndWith("...");
-            skill.DisplayName.Length.Should().BeLessThan(70); // Name + " - " + 50 chars + "..."
+            // Assert — friendly name only (description is displayed separately in the UI)
+            skill.DisplayName.Should().Be("Test Skill");
         }
 
         #endregion

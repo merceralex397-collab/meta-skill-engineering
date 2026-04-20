@@ -1,0 +1,2 @@
+{"input":"Use Proxmox Shell Scripting on a realistic task and return the result in a decision-ready shape.","must_include":["Environment","Change Plan","Verification","Rollback or Monitoring"],"expected":"proxmox-shell-scripting"}
+{"input":"Apply Proxmox Shell Scripting but call out uncertainty and the next verification step explicitly.","must_include":["Environment","Rollback or Monitoring"],"expected":"proxmox-shell-scripting"}

@@ -1,0 +1,18 @@
+name: distillation-compression-codex-c
+version: 1
+summary: "Apply distillation and compression with runtime boundaries, eval cases, and safety-aware tradeoffs."
+invocation:
+  policy: auto
+  aliases:
+    - "distillation-compression"
+    - "distillation compression"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/runtime-contracts.md"
+    - "../../references/eval-cases.md"
+    - "../../references/risk-controls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

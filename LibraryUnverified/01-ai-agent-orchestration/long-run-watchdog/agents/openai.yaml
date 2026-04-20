@@ -1,0 +1,6 @@
+interface:
+  display_name: "Long-Run Watchdog"
+  short_description: "Coordinate long-run watchdog work with bounded delegation, ar..."
+  default_prompt: "Use $long-run-watchdog-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

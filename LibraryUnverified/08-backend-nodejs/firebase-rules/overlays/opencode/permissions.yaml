@@ -1,0 +1,8 @@
+skill: firebase-rules-codex-c
+permissions:
+  read:
+    - ./SKILL.md
+    - ./references/**
+    - ./evals/**
+  execute:
+    - ./scripts/**

@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Plan this feature before you write code.","should_trigger":true}
+{"id":"tp-002","prompt":"Break this objective into a safe implementation plan with validation steps.","should_trigger":true}

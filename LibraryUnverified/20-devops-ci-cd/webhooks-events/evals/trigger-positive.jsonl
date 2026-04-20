@@ -1,0 +1,3 @@
+{"input":"Review this webhook receiver for signature verification, duplicate delivery protection, and acknowledgement timing.","expected":"webhooks-events","category":"Backend, API, and Data Skills"}
+{"input":"Design the processing flow for provider callbacks so we can acknowledge fast and replay safely after downstream failures.","expected":"webhooks-events","category":"Backend, API, and Data Skills"}
+{"input":"Audit why our event receiver creates duplicate side effects when the provider retries the same delivery.","expected":"webhooks-events","category":"Backend, API, and Data Skills"}

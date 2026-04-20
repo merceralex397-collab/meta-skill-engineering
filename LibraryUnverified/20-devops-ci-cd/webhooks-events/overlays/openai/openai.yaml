@@ -1,0 +1,18 @@
+name: webhooks-events-codex-c
+version: 1
+summary: "Design inbound webhook and event-processing flows with signature verification, fast acknowledgement, and replay-safe idempotency."
+invocation:
+  policy: auto
+  aliases:
+    - "webhooks-events"
+    - "webhooks events"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/inbound-signature-verification.md"
+    - "../../references/delivery-and-idempotency.md"
+    - "../../references/replay-debugging-checklist.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

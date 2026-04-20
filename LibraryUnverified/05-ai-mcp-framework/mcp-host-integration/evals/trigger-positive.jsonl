@@ -1,0 +1,3 @@
+{"input":"Building, debugging, securing, or packaging an MCP server or MCP tool surface","expected":"mcp-host-integration","category":"MCP Skills"}
+{"input":"this task clearly needs mcp host integration","expected":"mcp-host-integration","category":"MCP Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around mcp host integration","expected":"mcp-host-integration","category":"MCP Skills"}

@@ -1,0 +1,18 @@
+name: performance-profiling-games-codex-c
+version: 1
+summary: "Use game performance profiling to guide creative system decisions without losing production discipline."
+invocation:
+  policy: auto
+  aliases:
+    - "performance-profiling-games"
+    - "performance profiling games"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/design-direction.md"
+    - "../../references/production-checklist.md"
+    - "../../references/iteration-prompts.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

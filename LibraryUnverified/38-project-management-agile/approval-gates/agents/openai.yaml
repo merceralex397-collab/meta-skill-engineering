@@ -1,0 +1,6 @@
+interface:
+  display_name: "Approval Gates"
+  short_description: "Coordinate approval gates work with bounded delegation, artif..."
+  default_prompt: "Use $approval-gates-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

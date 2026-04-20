@@ -1,0 +1,6 @@
+interface:
+  display_name: "Steelman"
+  short_description: "Review steelman work with explicit evidence, risk ranking, an..."
+  default_prompt: "Use $steelman-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

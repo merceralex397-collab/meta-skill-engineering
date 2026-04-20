@@ -1,0 +1,18 @@
+name: context-management-memory-codex-c
+version: 1
+summary: "Apply context management and memory with runtime boundaries, eval cases, and safety-aware tradeoffs."
+invocation:
+  policy: auto
+  aliases:
+    - "context-management-memory"
+    - "context management memory"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/runtime-contracts.md"
+    - "../../references/eval-cases.md"
+    - "../../references/risk-controls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

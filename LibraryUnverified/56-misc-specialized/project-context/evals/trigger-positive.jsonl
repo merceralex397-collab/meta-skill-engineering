@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Before you touch anything, get the project context for this repo and tell me what docs matter.","should_trigger":true}
+{"id":"tp-002","prompt":"I just opened this repo. What should I read first before planning a fix?","should_trigger":true}

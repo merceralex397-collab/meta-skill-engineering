@@ -1,0 +1,6 @@
+interface:
+  display_name: "Reward Modeling"
+  short_description: "Apply reward modeling with runtime boundaries, eval cases, an..."
+  default_prompt: "Use $reward-modeling-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

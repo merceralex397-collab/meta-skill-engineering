@@ -1,0 +1,2 @@
+{"input":"Use Ticket Audit on a realistic task and return the result in a decision-ready shape.","must_include":["Assigned Scope","Evidence Collected","Recommended Action","Handoff Notes"],"expected":"ticket-audit"}
+{"input":"Apply Ticket Audit but call out uncertainty and the next verification step explicitly.","must_include":["Assigned Scope","Handoff Notes"],"expected":"ticket-audit"}

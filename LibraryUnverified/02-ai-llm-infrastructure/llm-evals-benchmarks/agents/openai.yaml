@@ -1,0 +1,6 @@
+interface:
+  display_name: "LLM Evals and Benchmarks"
+  short_description: "Apply llm evals and benchmarks with runtime boundaries, eval..."
+  default_prompt: "Use $llm-evals-benchmarks-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

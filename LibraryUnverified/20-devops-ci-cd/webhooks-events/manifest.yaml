@@ -1,0 +1,41 @@
+schema_version: 1
+skill_id: webhooks-events-codex-c
+canonical_name: webhooks-events
+version: 0.1.0
+owner: codex
+status: draft
+summary: Design inbound webhook and event-processing flows with signature verification, fast acknowledgement, and replay-safe idempotency.
+risk_level: low
+categories:
+  - backend
+  - webhooks
+  - events
+  - delivery
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/inbound-signature-verification.md
+  - references/delivery-and-idempotency.md
+  - references/replay-debugging-checklist.md
+  - scripts/webhook_signature.py
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: true
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

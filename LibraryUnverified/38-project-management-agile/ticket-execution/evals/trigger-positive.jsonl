@@ -1,0 +1,2 @@
+{"id":"tp-001","prompt":"Work this issue through the expected ticket stages and tell me what evidence you need before moving on.","should_trigger":true}
+{"id":"tp-002","prompt":"Execute this ticket with a plan-first, validate-before-done workflow.","should_trigger":true}

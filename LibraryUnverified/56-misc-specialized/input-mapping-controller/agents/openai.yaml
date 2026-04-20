@@ -1,0 +1,6 @@
+interface:
+  display_name: "Input Mapping and Controller Support"
+  short_description: "Use input mapping and controller support to guide creative sy..."
+  default_prompt: "Use $input-mapping-controller-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

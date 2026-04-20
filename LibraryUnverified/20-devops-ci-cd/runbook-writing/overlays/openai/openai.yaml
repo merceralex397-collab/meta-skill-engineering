@@ -1,0 +1,18 @@
+name: runbook-writing-codex-c
+version: 1
+summary: "Produce runbook writing artifacts with source fidelity, audience clarity, and review structure."
+invocation:
+  policy: auto
+  aliases:
+    - "runbook-writing"
+    - "runbook writing"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/artifact-structure.md"
+    - "../../references/quality-checklist.md"
+    - "../../references/audience-adjustments.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

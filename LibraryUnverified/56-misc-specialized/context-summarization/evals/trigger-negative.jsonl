@@ -1,0 +1,2 @@
+{"id":"tn-001","prompt":"Review this patch for bugs.","should_trigger":false}
+{"id":"tn-002","prompt":"Verify this backlog before execution.","should_trigger":false}

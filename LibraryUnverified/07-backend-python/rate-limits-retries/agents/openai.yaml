@@ -1,0 +1,6 @@
+interface:
+  display_name: "Rate Limits and Retries"
+  short_description: "Design bounded retry policy, backoff, and idempotency."
+  default_prompt: "Use $rate-limits-retries-codex-c to review this client or worker for retry classification, backoff budget, and idempotency safety."
+policy:
+  allow_implicit_invocation: true

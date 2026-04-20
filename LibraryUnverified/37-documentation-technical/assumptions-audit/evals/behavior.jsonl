@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Audit a rollout plan that assumes another team will prepare dashboards and approvals.","assertions":["extracts ownership assumptions","ranks risk","converts them into gates or tasks"]}
+{"id":"bh-002","prompt":"Audit a spec that assumes source data is clean but provides no evidence.","assertions":["classifies data-quality assumption","marks evidence status","suggests validation work"]}

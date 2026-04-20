@@ -1,0 +1,18 @@
+name: agent-orchestration-codex-c
+version: 1
+summary: "Coordinate agent orchestration work with bounded delegation, artifact contracts, and rejoin points."
+invocation:
+  policy: auto
+  aliases:
+    - "agent-orchestration"
+    - "agent orchestration"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/delegate-shapes.md"
+    - "../../references/handoff-checklist.md"
+    - "../../references/parallelism-rules.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Document to Structured Data"
+  short_description: "Produce document to structured data artifacts with source fid..."
+  default_prompt: "Use $document-to-structured-data-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

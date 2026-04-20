@@ -1,0 +1,6 @@
+interface:
+  display_name: "MCP Marketplace Publishing"
+  short_description: "Design and verify mcp marketplace publishing with explicit co..."
+  default_prompt: "Use $mcp-marketplace-publishing-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

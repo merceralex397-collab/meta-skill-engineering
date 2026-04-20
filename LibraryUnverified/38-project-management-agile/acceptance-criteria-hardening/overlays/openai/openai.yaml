@@ -1,0 +1,18 @@
+name: acceptance-criteria-hardening-codex-c
+version: 1
+summary: "Review acceptance criteria hardening work with explicit evidence, risk ranking, and next-step recommendations."
+invocation:
+  policy: auto
+  aliases:
+    - "acceptance-criteria-hardening"
+    - "acceptance criteria hardening"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/boundary-cases.md"
+    - "../../references/criterion-patterns.md"
+    - "../../references/weak-language-catalog.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

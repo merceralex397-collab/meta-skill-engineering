@@ -1,0 +1,44 @@
+schema_version: 1
+skill_id: cv-cover-letter-codex-c
+canonical_name: cv-cover-letter
+version: 0.1.0
+owner: codex
+status: draft
+summary: Run cv and cover letter with grounded sources, comparison, and decision-ready conclusions.
+risk_level: low
+categories:
+  - business
+  - research
+  - and
+  - optional
+  - domains
+  - cv
+  - cover
+  - letter
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/source-plan.md
+  - references/comparison-matrix.md
+  - references/claim-discipline.md
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: false
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

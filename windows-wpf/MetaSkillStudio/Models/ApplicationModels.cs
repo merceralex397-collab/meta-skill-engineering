@@ -94,7 +94,22 @@ namespace MetaSkillStudio.Models
     }
 
     /// <summary>
-    /// Represents a detected AI CLI runtime (codex, gemini, copilot, opencode, kilocode)
+    /// Represents a single message in the AI assistant chat history.
+    /// </summary>
+    public class ChatMessage
+    {
+        /// <summary>User, Assistant, or System.</summary>
+        public string Role { get; set; } = "User";
+
+        /// <summary>The message content.</summary>
+        public string Content { get; set; } = string.Empty;
+
+        /// <summary>When the message was created.</summary>
+        public DateTime Timestamp { get; set; } = DateTime.Now;
+    }
+
+    /// <summary>
+    /// Represents the detected OpenCode execution runtime and its available models.
     /// </summary>
     public class DetectedRuntime : ObservableModel
     {
@@ -104,7 +119,7 @@ namespace MetaSkillStudio.Models
         private bool? _isAvailableCache;
 
         /// <summary>
-        /// Gets or sets the name of the AI CLI runtime.
+        /// Gets or sets the runtime name. OpenCode is the only supported runtime.
         /// </summary>
         [JsonPropertyName("name")]
         public string Name
@@ -114,7 +129,7 @@ namespace MetaSkillStudio.Models
         }
 
         /// <summary>
-        /// Gets or sets the command path for the runtime executable.
+        /// Gets or sets the command path for the OpenCode executable.
         /// </summary>
         [JsonPropertyName("command")]
         public string Command
@@ -133,7 +148,7 @@ namespace MetaSkillStudio.Models
         }
 
         /// <summary>
-        /// Gets or sets the list of available models for this runtime.
+        /// Gets or sets the list of models surfaced by OpenCode for this runtime.
         /// </summary>
         [JsonPropertyName("models")]
         public List<string> Models
@@ -177,7 +192,7 @@ namespace MetaSkillStudio.Models
     }
 
     /// <summary>
-    /// Configuration for a specific role (create, improve, test, orchestrate, judge)
+    /// Configuration for a specific role (create, improve, test, orchestrate, judge).
     /// </summary>
     public class RoleConfiguration : ObservableModel
     {
@@ -185,7 +200,7 @@ namespace MetaSkillStudio.Models
         private string _model = "auto";
 
         /// <summary>
-        /// Gets or sets the AI CLI runtime to use for this role.
+        /// Gets or sets the execution runtime for this role. OpenCode is the only supported value.
         /// </summary>
         [JsonPropertyName("runtime")]
         public string Runtime
@@ -251,7 +266,7 @@ namespace MetaSkillStudio.Models
     }
 
     /// <summary>
-    /// Application configuration stored in .meta-skill-studio/config.json
+    /// Application configuration stored in .meta-skill-studio/config.json.
     /// </summary>
     public class AppConfiguration : ObservableModel
     {
@@ -415,19 +430,22 @@ namespace MetaSkillStudio.Models
                 if (_cachedDisplayName != null && _lastDescriptionForCache == _description)
                     return _cachedDisplayName;
 
-                // Recompute and cache
                 _lastDescriptionForCache = _description;
-                if (!string.IsNullOrEmpty(_description))
-                {
-                    var preview = _description.Length > 50 ? _description[..50] + "..." : _description;
-                    _cachedDisplayName = $"{_name} - {preview}";
-                }
-                else
-                {
-                    _cachedDisplayName = _name;
-                }
+                _cachedDisplayName = ToFriendlyName(_name);
                 return _cachedDisplayName;
             }
+        }
+
+        private static string ToFriendlyName(string folderName)
+        {
+            if (string.IsNullOrEmpty(folderName)) return folderName;
+            var words = folderName.Replace('-', ' ').Replace('_', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > 0)
+                    words[i] = char.ToUpper(words[i][0]) + words[i][1..];
+            }
+            return string.Join(' ', words);
         }
 
         /// <summary>
@@ -438,6 +456,155 @@ namespace MetaSkillStudio.Models
             _cachedDisplayName = null;
             OnPropertyChanged(nameof(DisplayName));
         }
+    }
+
+    /// <summary>
+    /// Summary information about a visible skill-library surface.
+    /// </summary>
+    public class LibrarySurfaceInfo : ObservableModel
+    {
+        private string _name = string.Empty;
+        private string _relativePath = string.Empty;
+        private string _description = string.Empty;
+        private int _directoryCount;
+        private int _skillCount;
+
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        public string RelativePath
+        {
+            get => _relativePath;
+            set
+            {
+                if (SetProperty(ref _relativePath, value))
+                {
+                    OnPropertyChanged(nameof(DirectorySummary));
+                }
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
+        public int DirectoryCount
+        {
+            get => _directoryCount;
+            set
+            {
+                if (SetProperty(ref _directoryCount, value))
+                {
+                    OnPropertyChanged(nameof(DirectorySummary));
+                }
+            }
+        }
+
+        public int SkillCount
+        {
+            get => _skillCount;
+            set => SetProperty(ref _skillCount, value);
+        }
+
+        [JsonIgnore]
+        public string DirectorySummary => $"{DirectoryCount} folders - {RelativePath}";
+    }
+
+    /// <summary>
+    /// A single onboarding or readiness item for the studio dashboard.
+    /// </summary>
+    public class ChecklistItem : ObservableModel
+    {
+        private string _title = string.Empty;
+        private string _description = string.Empty;
+        private bool _isComplete;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
+        public bool IsComplete
+        {
+            get => _isComplete;
+            set
+            {
+                if (SetProperty(ref _isComplete, value))
+                {
+                    OnPropertyChanged(nameof(StatusGlyph));
+                    OnPropertyChanged(nameof(StatusText));
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public string StatusGlyph => IsComplete ? "✓" : "•";
+
+        [JsonIgnore]
+        public string StatusText => IsComplete ? "Ready" : "Needs attention";
+    }
+
+    /// <summary>
+    /// A documentation or help resource that can be opened from the studio dashboard.
+    /// </summary>
+    public class HelpResourceInfo : ObservableModel
+    {
+        private string _title = string.Empty;
+        private string _relativePath = string.Empty;
+        private string _description = string.Empty;
+        private string _fullPath = string.Empty;
+        private bool _isAvailable;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+        public string RelativePath
+        {
+            get => _relativePath;
+            set => SetProperty(ref _relativePath, value);
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
+        public string FullPath
+        {
+            get => _fullPath;
+            set => SetProperty(ref _fullPath, value);
+        }
+
+        public bool IsAvailable
+        {
+            get => _isAvailable;
+            set
+            {
+                if (SetProperty(ref _isAvailable, value))
+                {
+                    OnPropertyChanged(nameof(StatusText));
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public string StatusText => IsAvailable ? "Available" : "Missing";
     }
 
     /// <summary>

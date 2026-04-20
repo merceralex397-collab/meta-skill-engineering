@@ -1,0 +1,6 @@
+interface:
+  display_name: "Quantization Strategy"
+  short_description: "Apply quantization strategy with runtime boundaries, eval cas..."
+  default_prompt: "Use $quantization-strategy-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

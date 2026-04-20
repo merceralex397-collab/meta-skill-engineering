@@ -64,7 +64,7 @@ def run_tui(core: StudioCore) -> None:
         print("3. Test / benchmark / evaluate skill")
         print("4. Meta Manage")
         print("5. Create benchmarks")
-        print("6. Reconfigure runtimes/models")
+        print("6. Reconfigure OpenCode models")
         print("7. Show recent runs")
         print("8. Exit")
         choice = input("Select option: ").strip()
@@ -97,7 +97,7 @@ def run_tui(core: StudioCore) -> None:
                 run_file = core.run_create_benchmarks(skill_name=skill, benchmark_goal=goal, cases=cases)
                 _print_run_preview(run_file)
             elif choice == "6":
-                print("Re-running first-run runtime/model setup.")
+                print("Re-running OpenCode model setup.")
                 config = core.configure_interactive_tui(force=True)
                 print("Updated roles:")
                 for role, role_cfg in config["roles"].items():

@@ -1,0 +1,18 @@
+name: local-git-specialist-codex-c
+version: 1
+summary: "Apply local git specialist through a concrete workflow with explicit checks."
+invocation:
+  policy: auto
+  aliases:
+    - "local-git-specialist"
+    - "local git specialist"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/workflow-notes.md"
+    - "../../references/review-checklist.md"
+    - "../../references/failure-modes.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"

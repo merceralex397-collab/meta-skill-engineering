@@ -1,0 +1,2 @@
+{"input":"Use Implementer Context on a realistic task and return the result in a decision-ready shape.","must_include":["Assigned Scope","Evidence Collected","Recommended Action","Handoff Notes"],"expected":"implementer-context"}
+{"input":"Apply Implementer Context but call out uncertainty and the next verification step explicitly.","must_include":["Assigned Scope","Handoff Notes"],"expected":"implementer-context"}

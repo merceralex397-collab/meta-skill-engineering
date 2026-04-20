@@ -1,0 +1,2 @@
+{"input":"Use LLM Evals and Benchmarks on a realistic task and return the result in a decision-ready shape.","must_include":["Runtime Context","Interfaces and Schemas","Safety or Cost Controls","Evaluation Plan"],"expected":"llm-evals-benchmarks"}
+{"input":"Apply LLM Evals and Benchmarks but call out uncertainty and the next verification step explicitly.","must_include":["Runtime Context","Evaluation Plan"],"expected":"llm-evals-benchmarks"}

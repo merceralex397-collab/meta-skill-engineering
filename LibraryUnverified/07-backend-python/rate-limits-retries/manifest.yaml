@@ -1,0 +1,41 @@
+schema_version: 1
+skill_id: rate-limits-retries-codex-c
+canonical_name: rate-limits-retries
+version: 0.1.0
+owner: codex
+status: draft
+summary: Design bounded retry behavior with explicit throttling rules, backoff budgets, and idempotency safeguards.
+risk_level: low
+categories:
+  - backend
+  - retries
+  - rate-limit
+  - resilience
+compatibility:
+  clients:
+    - openai-codex
+    - gemini-cli
+    - opencode
+    - github-copilot
+requires:
+  tools: []
+artifacts:
+  - SKILL.md
+  - manifest.yaml
+  - references/retry-classification-matrix.md
+  - references/backoff-and-jitter-patterns.md
+  - references/idempotency-and-budgeting.md
+  - scripts/backoff_budget.py
+  - evals/trigger-positive.jsonl
+  - evals/trigger-negative.jsonl
+  - evals/behavior.jsonl
+  - evals/expected-outcomes.md
+security:
+  network_required: false
+  executes_local_code: true
+  writes_files: false
+  destructive_actions: false
+provenance:
+  source_repo: local://skilllibrary
+  maintainer: codex
+  signed: false

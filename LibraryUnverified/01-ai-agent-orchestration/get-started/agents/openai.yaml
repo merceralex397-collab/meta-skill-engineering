@@ -1,0 +1,6 @@
+interface:
+  display_name: "Get Started"
+  short_description: "Design and verify get started with explicit contracts, permis..."
+  default_prompt: "Use $get-started-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Offline CPU Inference"
+  short_description: "Apply offline cpu inference with runtime boundaries, eval cas..."
+  default_prompt: "Use $offline-cpu-inference-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

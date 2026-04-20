@@ -1,0 +1,3 @@
+{"input":"The user or repo work clearly points at api debugging","expected":"api-debugging","category":"Backend, API, and Data Skills"}
+{"input":"this task clearly needs api debugging","expected":"api-debugging","category":"Backend, API, and Data Skills"}
+{"input":"a plan, ticket, or repo state would benefit from explicit guardrails around api debugging","expected":"api-debugging","category":"Backend, API, and Data Skills"}

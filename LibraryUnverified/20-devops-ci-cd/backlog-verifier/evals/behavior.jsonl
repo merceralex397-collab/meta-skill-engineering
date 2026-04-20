@@ -1,0 +1,2 @@
+{"id":"bh-001","prompt":"Verify a backlog with duplicate tickets and a missing prerequisite.","assertions":["finds overlap","flags prerequisite gap","suggests repair"]}
+{"id":"bh-002","prompt":"Verify a backlog with one vague ticket and one well-scoped ticket.","assertions":["separates ready from weak items","uses readiness criteria","does not flatten all items to same status"]}

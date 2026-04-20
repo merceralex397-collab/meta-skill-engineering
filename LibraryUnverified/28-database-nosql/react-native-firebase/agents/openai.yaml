@@ -1,0 +1,6 @@
+interface:
+  display_name: "React Native Firebase"
+  short_description: "Apply react native firebase patterns with explicit UI state,..."
+  default_prompt: "Use $react-native-firebase-codex-c to handle this task with a concrete workflow and explicit verification."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,18 @@
+name: vue-codex-c
+version: 1
+summary: "Apply vue patterns with explicit UI state, accessibility, and review checks."
+invocation:
+  policy: auto
+  aliases:
+    - "vue"
+    - "vue"
+artifacts:
+  skill_file: "../../SKILL.md"
+  references:
+    - "../../references/implementation-patterns.md"
+    - "../../references/review-checklist.md"
+    - "../../references/common-pitfalls.md"
+  evals:
+    - "../../evals/trigger-positive.jsonl"
+    - "../../evals/trigger-negative.jsonl"
+    - "../../evals/behavior.jsonl"
