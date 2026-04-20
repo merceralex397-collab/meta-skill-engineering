@@ -8,28 +8,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Complete UI overhaul — modern card-based dashboard with collapsible AI Assistant sidebar
-- Chat-style AI assistant with conversation history (replaces form-based prompt)
-- Workflow cards with icons and descriptions for all 6 core operations
-- Status cards showing runtime, core skills, library count, and run history at a glance
-- New "Find External Skills" workflow (community-skill-harvester integration)
+- **Complete Studio UI overhaul** — 3-panel layout: navigation rail (left), content area (center), AI assistant (right, collapsible)
+- **10 dedicated views**: Dashboard, Skill Library, Create Skill, Improve Skill, Test & Evaluate, Automation, Import Skills, Library Management, Analytics, Settings
+- **Library browser** with 3-tier system: Unverified → In Testing → Verified, with search, promote/demote
+- **Automation view** — continuous improvement loop with quality threshold and max iterations
+- **Import view** — import skills from local folders
+- **Analytics view** — library health metrics, run history, verified rate
+- Chat-style AI assistant with conversation history, model picker, clear conversation
+- Workflow cards with icons for quick actions on Dashboard
+- Status bar showing runtime status, skill count, and active model
+- `Library/` directory created as the verified tier
 - Discovery Pipeline documented (community-skill-harvester → evaluation → install)
-- All 17 skills mirrored in `.opencode/skills/` (was 12)
+- All 17 skills mirrored in `.opencode/skills/`
 - CONTRIBUTING.md populated with guidelines
 
 ### Changed
-- User-facing terminology cleaned: "OpenCode" → "AI Runtime/Assistant", "repo-owned packages" → "Core Skills", "LibraryUnverified" → "Skill Library"
-- Settings dialog rebranded from "OpenCode Configuration" to "AI Runtime Configuration"
+- **Layout restructured**: nav rail left, content center, assistant right (VS Code-style)
+- **Terminology cleaned**: all user-facing "OpenCode" → "AI Runtime/Assistant", raw folder names → friendly display names
+- **Creation Pipeline corrected** — `community-skill-harvester` now documented as the entry point feeding into `skill-creator`
 - Skill names displayed as friendly titles (e.g., "Skill Creator" not "skill-creator")
-- Library count uses leaf-directory counting for more accurate skill totals
-- "OpenCode mirror" surface removed from UI entirely
-- Creation Pipeline corrected — `skill-creator` is the entry point, not `community-skill-harvester`
-- Stale files archived to `docs/historical/` (DEEP_INVESTIGATION_PLAN.md, active-issues.md, tasks/, "skill creator/")
-- Removed empty LibraryUnverified category directories and `.blender-mcp/`
+- Library count uses leaf-directory counting for accurate skill totals
+- Settings dialog rebranded from "OpenCode Configuration" to "AI Runtime Configuration"
+- Resource strings cleaned: "LibraryUnverified" → "Unverified", "LibraryWorkbench" → "In Testing"
+- Stale files archived/removed: DEEP_INVESTIGATION_PLAN.md, active-issues.md, empty directories
+- Stale remote branches deleted: remediation-complete, task5/subtask-f2
 
 ### Fixed
-- Pipeline definitions in AGENTS.md and README.md corrected
-- All 12+ commands properly bound in new layout
+- Pipeline definitions in AGENTS.md and README.md corrected (community-skill-harvester leads creation pipeline)
+- docs/workflow.md: absolute Linux path replaced with relative path
+- All views properly wired to ViewModel commands
+- Zone.Identifier and .blender-mcp already covered in .gitignore
 
 ## [1.0.0] - 2026-04-14
 

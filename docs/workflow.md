@@ -9,7 +9,7 @@
 ## Before You Start
 
 ### 1. Read AGENTS.md Completely
-You MUST read and understand `/home/rowan/Meta-Skill-Engineering/AGENTS.md` before making any changes. Pay special attention to:
+You MUST read and understand `AGENTS.md` (in the repository root) before making any changes. Pay special attention to:
 - **Critical Behavioral Guardrails** (Sections 1-7)
 - **Approval Gates** (when to ask for permission)
 - **Verification Protocol** (mandatory pre-flight checklist)

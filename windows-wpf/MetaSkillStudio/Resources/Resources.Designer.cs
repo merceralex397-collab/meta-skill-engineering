@@ -754,7 +754,7 @@ namespace MetaSkillStudio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LibraryUnverified (default).
+        ///   Looks up a localized string similar to Unverified (default).
         /// </summary>
         public static string Library_Unverified {
             get {
@@ -772,7 +772,7 @@ namespace MetaSkillStudio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LibraryWorkbench.
+        ///   Looks up a localized string similar to In Testing.
         /// </summary>
         public static string Library_Workbench {
             get {
@@ -1276,7 +1276,7 @@ namespace MetaSkillStudio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a new skill in LibraryUnverified or LibraryWorkbench (Alt+C).
+        ///   Looks up a localized string similar to Create a new skill in Unverified or In Testing library (Alt+C).
         /// </summary>
         public static string Tooltip_CreateSkill {
             get {

@@ -224,7 +224,7 @@
     <value>Refresh run history (Alt+U)</value>
   </data>
   <data name="Tooltip_CreateSkill" xml:space="preserve">
-    <value>Create a new skill in LibraryUnverified or LibraryWorkbench (Alt+C)</value>
+    <value>Create a new skill in Unverified or In Testing library (Alt+C)</value>
   </data>
   <data name="Tooltip_ImproveSkill" xml:space="preserve">
     <value>Improve an existing skill with a specific goal (Alt+I)</value>
@@ -332,10 +332,10 @@
   <!-- Library Options                               -->
   <!-- ============================================= -->
   <data name="Library_Unverified" xml:space="preserve">
-    <value>LibraryUnverified (default)</value>
+    <value>Unverified (default)</value>
   </data>
   <data name="Library_Workbench" xml:space="preserve">
-    <value>LibraryWorkbench</value>
+    <value>In Testing</value>
   </data>
   <data name="Library_Unverified_Description" xml:space="preserve">
     <value>Raw, untested skills go here before workbench promotion.</value>

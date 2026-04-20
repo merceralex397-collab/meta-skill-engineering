@@ -47,7 +47,7 @@ Four built-in flows connect the skills:
 
 ### Creation Pipeline
 ```
-skill-creator → skill-testing-harness → skill-evaluation
+community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
     → skill-trigger-optimization → skill-safety-review → skill-provenance
     → skill-packaging → skill-installer → skill-lifecycle-management
 ```

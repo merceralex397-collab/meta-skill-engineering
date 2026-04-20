@@ -307,7 +307,7 @@ namespace MetaSkillStudio.ViewModels
                 }
                 else
                 {
-                    RuntimeStatusMessage = "AI runtime not detected. Install the repo-local SDK/runtime dependencies or expose `opencode` on PATH.";
+                    RuntimeStatusMessage = "AI runtime not detected. Install the required SDK and runtime dependencies.";
                 }
 
                 // Load existing configuration if available

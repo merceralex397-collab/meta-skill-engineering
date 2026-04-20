@@ -135,4 +135,43 @@ namespace MetaSkillStudio.Converters
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// Returns Visible when the bound value equals the converter parameter, Collapsed otherwise.
+    /// Used for page switching: Visibility="{Binding SelectedPage, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter=Dashboard}"
+    /// </summary>
+    public class EqualityToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || parameter == null) return Visibility.Collapsed;
+            return value.ToString() == parameter.ToString() ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns true when the bound value equals the converter parameter.
+    /// Used for nav rail active state: IsChecked="{Binding SelectedPage, Converter={StaticResource EqualityConverter}, ConverterParameter=Dashboard}"
+    /// </summary>
+    public class EqualityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || parameter == null) return false;
+            return value.ToString() == parameter.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (parameter == null) return Binding.DoNothing;
+            if (value is true && targetType.IsEnum)
+                return Enum.Parse(targetType, parameter.ToString()!);
+            return Binding.DoNothing;
+        }
+    }
 }

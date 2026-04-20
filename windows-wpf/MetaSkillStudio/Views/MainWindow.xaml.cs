@@ -1,4 +1,6 @@
 using System.Windows;
+using MetaSkillStudio.Models;
+using MetaSkillStudio.ViewModels;
 
 namespace MetaSkillStudio.Views
 {
@@ -14,6 +16,23 @@ namespace MetaSkillStudio.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private MainViewModel? VM => DataContext as MainViewModel;
+
+        private void LibTierUnverified_Checked(object sender, RoutedEventArgs e)
+        {
+            if (VM != null) VM.SelectedLibraryTier = TargetLibrary.LibraryUnverified;
+        }
+
+        private void LibTierTesting_Checked(object sender, RoutedEventArgs e)
+        {
+            if (VM != null) VM.SelectedLibraryTier = TargetLibrary.LibraryWorkbench;
+        }
+
+        private void LibTierVerified_Checked(object sender, RoutedEventArgs e)
+        {
+            if (VM != null) VM.SelectedLibraryTier = TargetLibrary.Library;
         }
     }
 }

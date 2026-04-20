@@ -42,6 +42,29 @@ namespace MetaSkillStudio.ViewModels
         private string _assistantStatus = "Ready";
         private string _quickStartSummary = "Complete the checklist below to get started.";
         private int _librarySkillCount;
+        private StudioPage _selectedPage = StudioPage.Dashboard;
+        private List<LibrarySkillEntry> _libraryEntries = new();
+        private List<LibrarySkillEntry> _filteredLibraryEntries = new();
+        private List<LibraryCategory> _libraryCategories = new();
+        private TargetLibrary _selectedLibraryTier = TargetLibrary.LibraryUnverified;
+        private string _selectedLibraryCategory = string.Empty;
+        private string _librarySearchText = string.Empty;
+        private LibrarySkillEntry? _selectedLibraryEntry;
+        private int _libraryUnverifiedCount;
+        private int _libraryTestingCount;
+        private int _libraryVerifiedCount;
+        private string _selectedLibrarySkillContent = string.Empty;
+        private string _importPath = string.Empty;
+        private string _importStatus = string.Empty;
+        private string _createSkillName = string.Empty;
+        private string _createSkillDescription = string.Empty;
+        private string _improveSkillGoal = string.Empty;
+        private SkillInfo? _improveSelectedSkill;
+        private string _testStatus = string.Empty;
+        private int _automationThreshold = 70;
+        private int _automationMaxIterations = 5;
+        private bool _automationRunning;
+        private string _automationStatus = string.Empty;
 
         public MainViewModel(IPythonRuntimeService pythonService, IDialogService dialogService)
         {
@@ -57,9 +80,9 @@ namespace MetaSkillStudio.ViewModels
             CreateBenchmarksCommand = new RelayCommand(async () => await CreateBenchmarksAsync(), () => !IsBusy);
             FindExternalSkillsCommand = new RelayCommand(async () => await FindExternalSkillsAsync(), () => !IsBusy);
             RefreshRunsCommand = new RelayCommand(async () => await RefreshRunsAsync(), () => !IsBusy);
-            OpenSettingsCommand = new RelayCommand(async () => await OpenSettingsAsync(), () => !IsBusy);
+            OpenSettingsCommand = new RelayCommand(async () => { SelectedPage = StudioPage.Settings; await Task.CompletedTask; });
             RefreshSkillsCommand = new RelayCommand(async () => await RefreshSkillsAsync(), () => !IsBusy);
-            OpenAnalyticsCommand = new RelayCommand(async () => await OpenAnalyticsAsync(), () => !IsBusy);
+            OpenAnalyticsCommand = new RelayCommand(async () => { SelectedPage = StudioPage.Analytics; await Task.CompletedTask; });
             AssistantPromptCommand = new RelayCommand(async () => await SendAssistantPromptAsync(), () => !IsAssistantBusy && !string.IsNullOrWhiteSpace(AssistantPrompt));
             ToggleAssistantCommand = new RelayCommand(() =>
             {
@@ -76,6 +99,28 @@ namespace MetaSkillStudio.ViewModels
                 OpenSelectedHelpResource();
                 return Task.CompletedTask;
             }, () => !IsBusy && SelectedHelpResource?.IsAvailable == true);
+
+            // Navigation commands
+            NavigateCommand = new RelayCommand<StudioPage>(page =>
+            {
+                SelectedPage = page;
+                return Task.CompletedTask;
+            });
+            ClearChatCommand = new RelayCommand(() =>
+            {
+                ChatHistory.Clear();
+                AssistantStatus = "Ready";
+                return Task.CompletedTask;
+            });
+            RefreshLibraryCommand = new RelayCommand(async () => await RefreshLibraryAsync(), () => !IsBusy);
+            PromoteSkillCommand = new RelayCommand(async () => await PromoteSkillAsync(), () => !IsBusy && SelectedLibraryEntry != null);
+            DemoteSkillCommand = new RelayCommand(async () => await DemoteSkillAsync(), () => !IsBusy && SelectedLibraryEntry != null);
+            ImportFromFolderCommand = new RelayCommand(async () => await ImportFromFolderAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(ImportPath));
+            InlineCreateSkillCommand = new RelayCommand(async () => await InlineCreateSkillAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(CreateSkillDescription));
+            InlineImproveSkillCommand = new RelayCommand(async () => await InlineImproveSkillAsync(), () => !IsBusy && ImproveSelectedSkill != null);
+            InlineTestSkillCommand = new RelayCommand(async () => await InlineTestSkillAsync(), () => !IsBusy);
+            StartAutomationCommand = new RelayCommand(async () => await StartAutomationAsync(), () => !IsBusy && !AutomationRunning);
+            StopAutomationCommand = new RelayCommand(() => { AutomationRunning = false; return Task.CompletedTask; }, () => AutomationRunning);
 
             UpdateChecklistAndLibraryState();
             InitializeAsync().SafeFireAndForget("MainViewModel.InitializeAsync");
@@ -242,7 +287,7 @@ namespace MetaSkillStudio.ViewModels
         }
 
         public string SelectedSkillSummary => SelectedLibrarySkill == null
-            ? "Select a core skill to view details."
+            ? "Select a skill to view details."
             : $"{SelectedLibrarySkill.DisplayName}\n{SelectedLibrarySkill.Description ?? "No description available."}";
 
         public List<HelpResourceInfo> HelpResources
@@ -263,6 +308,186 @@ namespace MetaSkillStudio.ViewModels
             }
         }
 
+        public StudioPage SelectedPage
+        {
+            get => _selectedPage;
+            set
+            {
+                if (SetProperty(ref _selectedPage, value))
+                {
+                    OnPropertyChanged(nameof(SelectedPage));
+                    if (value == StudioPage.Library) RefreshLibraryAsync().SafeFireAndForget("RefreshLibrary");
+                }
+            }
+        }
+
+        public List<LibrarySkillEntry> LibraryEntries
+        {
+            get => _libraryEntries;
+            set => SetProperty(ref _libraryEntries, value);
+        }
+
+        public List<LibrarySkillEntry> FilteredLibraryEntries
+        {
+            get => _filteredLibraryEntries;
+            set => SetProperty(ref _filteredLibraryEntries, value);
+        }
+
+        public List<LibraryCategory> LibraryCategories
+        {
+            get => _libraryCategories;
+            set => SetProperty(ref _libraryCategories, value);
+        }
+
+        public TargetLibrary SelectedLibraryTier
+        {
+            get => _selectedLibraryTier;
+            set
+            {
+                if (SetProperty(ref _selectedLibraryTier, value))
+                    FilterLibrary();
+            }
+        }
+
+        public string SelectedLibraryCategory
+        {
+            get => _selectedLibraryCategory;
+            set
+            {
+                if (SetProperty(ref _selectedLibraryCategory, value))
+                    FilterLibrary();
+            }
+        }
+
+        public string LibrarySearchText
+        {
+            get => _librarySearchText;
+            set
+            {
+                if (SetProperty(ref _librarySearchText, value))
+                    FilterLibrary();
+            }
+        }
+
+        public LibrarySkillEntry? SelectedLibraryEntry
+        {
+            get => _selectedLibraryEntry;
+            set
+            {
+                if (SetProperty(ref _selectedLibraryEntry, value))
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                    if (value != null) LoadSkillContent(value);
+                }
+            }
+        }
+
+        public int LibraryUnverifiedCount
+        {
+            get => _libraryUnverifiedCount;
+            set => SetProperty(ref _libraryUnverifiedCount, value);
+        }
+
+        public int LibraryTestingCount
+        {
+            get => _libraryTestingCount;
+            set => SetProperty(ref _libraryTestingCount, value);
+        }
+
+        public int LibraryVerifiedCount
+        {
+            get => _libraryVerifiedCount;
+            set => SetProperty(ref _libraryVerifiedCount, value);
+        }
+
+        public string SelectedLibrarySkillContent
+        {
+            get => _selectedLibrarySkillContent;
+            set => SetProperty(ref _selectedLibrarySkillContent, value);
+        }
+
+        public string ImportPath
+        {
+            get => _importPath;
+            set
+            {
+                if (SetProperty(ref _importPath, value))
+                    CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public string ImportStatus
+        {
+            get => _importStatus;
+            set => SetProperty(ref _importStatus, value);
+        }
+
+        public string CreateSkillName
+        {
+            get => _createSkillName;
+            set => SetProperty(ref _createSkillName, value);
+        }
+
+        public string CreateSkillDescription
+        {
+            get => _createSkillDescription;
+            set
+            {
+                if (SetProperty(ref _createSkillDescription, value))
+                    CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public string ImproveSkillGoal
+        {
+            get => _improveSkillGoal;
+            set => SetProperty(ref _improveSkillGoal, value);
+        }
+
+        public SkillInfo? ImproveSelectedSkill
+        {
+            get => _improveSelectedSkill;
+            set
+            {
+                if (SetProperty(ref _improveSelectedSkill, value))
+                    CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public string TestStatus
+        {
+            get => _testStatus;
+            set => SetProperty(ref _testStatus, value);
+        }
+
+        public int AutomationThreshold
+        {
+            get => _automationThreshold;
+            set => SetProperty(ref _automationThreshold, value);
+        }
+
+        public int AutomationMaxIterations
+        {
+            get => _automationMaxIterations;
+            set => SetProperty(ref _automationMaxIterations, value);
+        }
+
+        public bool AutomationRunning
+        {
+            get => _automationRunning;
+            set
+            {
+                if (SetProperty(ref _automationRunning, value))
+                    CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public string AutomationStatus
+        {
+            get => _automationStatus;
+            set => SetProperty(ref _automationStatus, value);
+        }
+
         public ICommand CreateSkillCommand { get; }
         public ICommand ImproveSkillCommand { get; }
         public ICommand TestBenchmarkCommand { get; }
@@ -277,6 +502,17 @@ namespace MetaSkillStudio.ViewModels
         public ICommand ToggleAssistantCommand { get; }
         public ICommand OpenQuickStartCommand { get; }
         public ICommand OpenSelectedHelpResourceCommand { get; }
+        public ICommand NavigateCommand { get; }
+        public ICommand ClearChatCommand { get; }
+        public ICommand RefreshLibraryCommand { get; }
+        public ICommand PromoteSkillCommand { get; }
+        public ICommand DemoteSkillCommand { get; }
+        public ICommand ImportFromFolderCommand { get; }
+        public ICommand InlineCreateSkillCommand { get; }
+        public ICommand InlineImproveSkillCommand { get; }
+        public ICommand InlineTestSkillCommand { get; }
+        public ICommand StartAutomationCommand { get; }
+        public ICommand StopAutomationCommand { get; }
 
         #endregion
 
@@ -325,7 +561,7 @@ namespace MetaSkillStudio.ViewModels
             {
                 AvailableSkills = _pythonService.ListSkills();
                 UpdateChecklistAndLibraryState();
-                AppendOutput($"Loaded {AvailableSkills.Count} core skills.");
+                AppendOutput($"Loaded {AvailableSkills.Count} skills.");
             });
         }
 
@@ -610,21 +846,6 @@ namespace MetaSkillStudio.ViewModels
             });
         }
 
-        private async Task OpenSettingsAsync()
-        {
-            var result = _dialogService.ShowSettingsDialog();
-            if (result == true)
-            {
-                await UpdateRuntimeStatusAsync();
-                AppendOutput("Settings updated.");
-            }
-        }
-
-        private async Task OpenAnalyticsAsync()
-        {
-            await Task.Run(() => _dialogService.ShowAnalyticsDialog());
-        }
-
         private void OpenQuickStart()
         {
             var checklist = StartupChecklist.Any()
@@ -789,7 +1010,7 @@ namespace MetaSkillStudio.ViewModels
                 new ChecklistItem
                 {
                     Title = "Core Skills",
-                    Description = $"{AvailableSkills.Count} core skill packages loaded.",
+                    Description = $"{AvailableSkills.Count} skills available.",
                     IsComplete = AvailableSkills.Count >= 17,
                 },
                 new ChecklistItem
@@ -946,6 +1167,387 @@ namespace MetaSkillStudio.ViewModels
 
             return count;
         }
+
+        #region Library Methods
+
+        private async Task RefreshLibraryAsync()
+        {
+            await Task.Run(() =>
+            {
+                var repoRoot = ResolveRepoRoot();
+                var entries = new List<LibrarySkillEntry>();
+
+                var tiers = new[]
+                {
+                    (TargetLibrary.LibraryUnverified, "LibraryUnverified"),
+                    (TargetLibrary.LibraryWorkbench, "LibraryWorkbench"),
+                    (TargetLibrary.Library, "Library"),
+                };
+
+                foreach (var (tier, dirName) in tiers)
+                {
+                    var tierPath = Path.Combine(repoRoot, dirName);
+                    if (!Directory.Exists(tierPath)) continue;
+
+                    foreach (var catDir in Directory.GetDirectories(tierPath))
+                    {
+                        var catName = Path.GetFileName(catDir);
+                        if (catName.StartsWith('.')) continue;
+                        var catDisplay = FormatCategoryName(catName);
+
+                        foreach (var skillDir in Directory.GetDirectories(catDir))
+                        {
+                            var skillName = Path.GetFileName(skillDir);
+                            if (skillName.StartsWith('.')) continue;
+                            var skillMdPath = Path.Combine(skillDir, "SKILL.md");
+                            var hasSkillMd = File.Exists(skillMdPath);
+                            string? desc = null;
+                            if (hasSkillMd)
+                            {
+                                try
+                                {
+                                    var lines = File.ReadLines(skillMdPath).Take(10);
+                                    desc = lines.FirstOrDefault(l => !string.IsNullOrWhiteSpace(l) && !l.StartsWith('#') && !l.StartsWith("---"));
+                                }
+                                catch { /* ignore read errors */ }
+                            }
+
+                            entries.Add(new LibrarySkillEntry
+                            {
+                                Name = skillName,
+                                DisplayName = FormatSkillName(skillName),
+                                Category = catName,
+                                CategoryDisplay = catDisplay,
+                                FullPath = skillDir,
+                                Tier = tier,
+                                HasSkillMd = hasSkillMd,
+                                Description = desc
+                            });
+                        }
+
+                        // Also check for direct SKILL.md in category (flat skills)
+                        if (File.Exists(Path.Combine(catDir, "SKILL.md")) && !entries.Any(e => e.FullPath == catDir))
+                        {
+                            entries.Add(new LibrarySkillEntry
+                            {
+                                Name = catName,
+                                DisplayName = FormatSkillName(catName),
+                                Category = Path.GetFileName(tierPath),
+                                CategoryDisplay = FormatCategoryName(Path.GetFileName(tierPath)),
+                                FullPath = catDir,
+                                Tier = tier,
+                                HasSkillMd = true,
+                            });
+                        }
+                    }
+                }
+
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    LibraryEntries = entries;
+                    LibraryUnverifiedCount = entries.Count(e => e.Tier == TargetLibrary.LibraryUnverified);
+                    LibraryTestingCount = entries.Count(e => e.Tier == TargetLibrary.LibraryWorkbench);
+                    LibraryVerifiedCount = entries.Count(e => e.Tier == TargetLibrary.Library);
+                    LibrarySkillCount = entries.Count;
+                    FilterLibrary();
+                });
+            });
+        }
+
+        private void FilterLibrary()
+        {
+            var filtered = LibraryEntries.Where(e => e.Tier == SelectedLibraryTier);
+
+            if (!string.IsNullOrWhiteSpace(SelectedLibraryCategory))
+                filtered = filtered.Where(e => e.Category == SelectedLibraryCategory);
+
+            if (!string.IsNullOrWhiteSpace(LibrarySearchText))
+            {
+                var search = LibrarySearchText.ToLowerInvariant();
+                filtered = filtered.Where(e =>
+                    e.DisplayName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    (e.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    e.CategoryDisplay.Contains(search, StringComparison.OrdinalIgnoreCase));
+            }
+
+            FilteredLibraryEntries = filtered.OrderBy(e => e.CategoryDisplay).ThenBy(e => e.DisplayName).ToList();
+
+            // Update categories for the selected tier
+            LibraryCategories = LibraryEntries
+                .Where(e => e.Tier == SelectedLibraryTier)
+                .GroupBy(e => e.Category)
+                .Select(g => new LibraryCategory
+                {
+                    Name = g.Key,
+                    DisplayName = FormatCategoryName(g.Key),
+                    SkillCount = g.Count(),
+                    Tier = SelectedLibraryTier,
+                })
+                .OrderBy(c => c.DisplayName)
+                .ToList();
+        }
+
+        private void LoadSkillContent(LibrarySkillEntry entry)
+        {
+            try
+            {
+                var skillMdPath = Path.Combine(entry.FullPath, "SKILL.md");
+                if (File.Exists(skillMdPath))
+                    SelectedLibrarySkillContent = File.ReadAllText(skillMdPath);
+                else
+                    SelectedLibrarySkillContent = "No SKILL.md file found.";
+            }
+            catch (Exception ex)
+            {
+                SelectedLibrarySkillContent = $"Error reading skill: {ex.Message}";
+            }
+        }
+
+        private async Task PromoteSkillAsync()
+        {
+            if (SelectedLibraryEntry == null) return;
+            var entry = SelectedLibraryEntry;
+            var nextTier = entry.Tier switch
+            {
+                TargetLibrary.LibraryUnverified => "LibraryWorkbench",
+                TargetLibrary.LibraryWorkbench => "Library",
+                _ => null
+            };
+
+            if (nextTier == null)
+            {
+                AppendOutput("Skill is already in the verified library.");
+                return;
+            }
+
+            await ExecuteOperationAsync($"Promoting {entry.DisplayName}...", async () =>
+            {
+                var repoRoot = ResolveRepoRoot();
+                var targetDir = Path.Combine(repoRoot, nextTier, entry.Category);
+                var targetPath = Path.Combine(targetDir, entry.Name);
+                var tempPath = targetPath + "_promoting";
+
+                try
+                {
+                    Directory.CreateDirectory(targetDir);
+                    CopyDirectory(entry.FullPath, tempPath);
+                    if (Directory.Exists(targetPath)) Directory.Delete(targetPath, true);
+                    Directory.Move(tempPath, targetPath);
+                    Directory.Delete(entry.FullPath, true);
+                    AppendOutput($"Promoted {entry.DisplayName} to {nextTier}.");
+                    await RefreshLibraryAsync();
+                }
+                catch
+                {
+                    if (Directory.Exists(tempPath)) Directory.Delete(tempPath, true);
+                    throw;
+                }
+            });
+        }
+
+        private async Task DemoteSkillAsync()
+        {
+            if (SelectedLibraryEntry == null) return;
+            var entry = SelectedLibraryEntry;
+            var prevTier = entry.Tier switch
+            {
+                TargetLibrary.Library => "LibraryWorkbench",
+                TargetLibrary.LibraryWorkbench => "LibraryUnverified",
+                _ => null
+            };
+
+            if (prevTier == null)
+            {
+                AppendOutput("Skill is already in the unverified library.");
+                return;
+            }
+
+            await ExecuteOperationAsync($"Demoting {entry.DisplayName}...", async () =>
+            {
+                var repoRoot = ResolveRepoRoot();
+                var targetDir = Path.Combine(repoRoot, prevTier, entry.Category);
+                var targetPath = Path.Combine(targetDir, entry.Name);
+                var tempPath = targetPath + "_demoting";
+
+                try
+                {
+                    Directory.CreateDirectory(targetDir);
+                    CopyDirectory(entry.FullPath, tempPath);
+                    if (Directory.Exists(targetPath)) Directory.Delete(targetPath, true);
+                    Directory.Move(tempPath, targetPath);
+                    Directory.Delete(entry.FullPath, true);
+                    AppendOutput($"Demoted {entry.DisplayName} to {prevTier}.");
+                    await RefreshLibraryAsync();
+                }
+                catch
+                {
+                    if (Directory.Exists(tempPath)) Directory.Delete(tempPath, true);
+                    throw;
+                }
+            });
+        }
+
+        private static void CopyDirectory(string src, string dst)
+        {
+            Directory.CreateDirectory(dst);
+            foreach (var file in Directory.GetFiles(src))
+                File.Copy(file, Path.Combine(dst, Path.GetFileName(file)));
+            foreach (var dir in Directory.GetDirectories(src))
+                CopyDirectory(dir, Path.Combine(dst, Path.GetFileName(dir)));
+        }
+
+        private async Task ImportFromFolderAsync()
+        {
+            if (string.IsNullOrWhiteSpace(ImportPath)) return;
+            await ExecuteOperationAsync("Importing skill...", async () =>
+            {
+                var sourcePath = ImportPath.Trim();
+                if (!Directory.Exists(sourcePath))
+                {
+                    ImportStatus = "Error: Directory does not exist.";
+                    return;
+                }
+
+                if (!File.Exists(Path.Combine(sourcePath, "SKILL.md")))
+                {
+                    ImportStatus = "Error: No SKILL.md found in the folder.";
+                    return;
+                }
+
+                var repoRoot = ResolveRepoRoot();
+                var skillName = Path.GetFileName(sourcePath);
+                var targetPath = Path.Combine(repoRoot, "LibraryUnverified", "imported", skillName);
+                Directory.CreateDirectory(Path.Combine(repoRoot, "LibraryUnverified", "imported"));
+                CopyDirectory(sourcePath, targetPath);
+                ImportStatus = $"Imported {skillName} to Unverified library.";
+                ImportPath = string.Empty;
+                await RefreshLibraryAsync();
+            });
+        }
+
+        private async Task InlineCreateSkillAsync()
+        {
+            if (string.IsNullOrWhiteSpace(CreateSkillDescription)) return;
+            var brief = string.IsNullOrWhiteSpace(CreateSkillName)
+                ? CreateSkillDescription
+                : $"{CreateSkillName}: {CreateSkillDescription}";
+
+            await ExecuteOperationAsync("Creating skill...", async () =>
+            {
+                var result = await _pythonService.ExecuteCommandAsync("create", brief);
+                AppendOutput(result.Stdout);
+                if (result.IsSuccess)
+                {
+                    AppendOutput("Skill created successfully.");
+                    CreateSkillName = string.Empty;
+                    CreateSkillDescription = string.Empty;
+                    await RefreshLibraryAsync();
+                }
+            });
+        }
+
+        private async Task InlineImproveSkillAsync()
+        {
+            if (ImproveSelectedSkill == null) return;
+            var parameter = string.IsNullOrWhiteSpace(ImproveSkillGoal)
+                ? ImproveSelectedSkill.Name
+                : $"{ImproveSelectedSkill.Name}|{ImproveSkillGoal}";
+
+            await ExecuteOperationAsync("Improving skill...", async () =>
+            {
+                var result = await _pythonService.ExecuteCommandAsync("improve", parameter);
+                AppendOutput(result.Stdout);
+                if (result.IsSuccess)
+                {
+                    AppendOutput($"Skill '{ImproveSelectedSkill.DisplayName}' improved.");
+                    ImproveSkillGoal = string.Empty;
+                    await RefreshLibraryAsync();
+                }
+            });
+        }
+
+        private async Task InlineTestSkillAsync()
+        {
+            var selectedSkill = SelectedLibraryEntry?.Name ?? SelectedLibrarySkill?.Name;
+            if (string.IsNullOrEmpty(selectedSkill))
+            {
+                TestStatus = "Select a skill to test first.";
+                return;
+            }
+
+            await ExecuteOperationAsync($"Testing {selectedSkill}...", async () =>
+            {
+                var result = await _pythonService.ExecuteCommandAsync("test", selectedSkill);
+                TestStatus = result.IsSuccess ? "Test completed successfully." : "Test failed. See output for details.";
+                AppendOutput(result.Stdout);
+            });
+        }
+
+        private async Task StartAutomationAsync()
+        {
+            AutomationRunning = true;
+            AutomationStatus = "Starting automation loop...";
+            var skills = FilteredLibraryEntries.Where(e => e.Tier == TargetLibrary.LibraryWorkbench).Take(10).ToList();
+
+            if (!skills.Any())
+            {
+                AutomationStatus = "No skills in testing tier. Promote skills first.";
+                AutomationRunning = false;
+                return;
+            }
+
+            for (int iteration = 1; iteration <= AutomationMaxIterations && AutomationRunning; iteration++)
+            {
+                foreach (var skill in skills)
+                {
+                    if (!AutomationRunning) break;
+                    AutomationStatus = $"Iteration {iteration}/{AutomationMaxIterations}: Testing {skill.DisplayName}...";
+
+                    try
+                    {
+                        var testResult = await _pythonService.ExecuteCommandAsync("test", skill.Name);
+                        AppendOutput($"[Auto] {skill.DisplayName}: {testResult.StatusText}");
+
+                        if (!testResult.IsSuccess && AutomationRunning)
+                        {
+                            AutomationStatus = $"Iteration {iteration}: Improving {skill.DisplayName}...";
+                            await _pythonService.ExecuteCommandAsync("improve", skill.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        AppendOutput($"[Auto] Error on {skill.DisplayName}: {ex.Message}");
+                    }
+                }
+            }
+
+            AutomationStatus = AutomationRunning ? "Automation complete." : "Automation stopped.";
+            AutomationRunning = false;
+            await RefreshLibraryAsync();
+        }
+
+        private static string FormatCategoryName(string folderName)
+        {
+            if (string.IsNullOrEmpty(folderName)) return folderName;
+            // Strip leading numeric prefix like "01-"
+            var stripped = System.Text.RegularExpressions.Regex.Replace(folderName, @"^\d+[-_]?", "");
+            if (string.IsNullOrEmpty(stripped)) stripped = folderName;
+            return FormatSkillName(stripped);
+        }
+
+        private static string FormatSkillName(string folderName)
+        {
+            if (string.IsNullOrEmpty(folderName)) return folderName;
+            var words = folderName.Replace('-', ' ').Replace('_', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > 0)
+                    words[i] = char.ToUpper(words[i][0]) + words[i][1..];
+            }
+            return string.Join(' ', words);
+        }
+
+        #endregion
 
         #region INotifyPropertyChanged
 

@@ -90,7 +90,7 @@
                       Margin="0,0,16,0"/>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <RadioButton x:Name="UnverifiedRadio"
-                           Content="LibraryUnverified (default)"
+                           Content="Unverified (default)"
                            GroupName="TargetLibrary"
                            IsChecked="True"
                            Margin="0,0,16,0"
@@ -100,7 +100,7 @@
                            AutomationProperties.HelpText="Place skill in unverified library for initial development"
                            TabIndex="0"/>
                 <RadioButton x:Name="WorkbenchRadio"
-                           Content="LibraryWorkbench"
+                           Content="In Testing"
                            GroupName="TargetLibrary"
                            VerticalContentAlignment="Center"
                            ToolTip="Promoted skills go here for refinement and staging"

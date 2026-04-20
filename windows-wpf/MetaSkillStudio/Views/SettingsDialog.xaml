@@ -29,7 +29,7 @@
                       FontWeight="SemiBold"
                       Foreground="{StaticResource PrimaryBrush}"
                       AutomationProperties.Name="AI Runtime Configuration Header"/>
-            <TextBlock Text="Configure the AI model used for each operational role. Powered by the OpenCode runtime." 
+            <TextBlock Text="Configure the AI model used for each operational role. Powered by the AI runtime." 
                       FontSize="12"
                       Foreground="{StaticResource TextSecondaryBrush}"
                       Margin="0,4,0,0"/>
@@ -80,7 +80,7 @@
                                   Padding="8,6"
                                   ToolTip="AI execution runtime"
                                   AutomationProperties.Name="AI Runtime"
-                                  AutomationProperties.HelpText="Displays the OpenCode runtime used for creating skills"
+                                  AutomationProperties.HelpText="Displays the AI runtime used for creating skills"
                                   TabIndex="0"/>
                     </Grid>
                     
@@ -225,7 +225,7 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                  ToolTip="Select or type the OpenCode model for testing"
+                                  ToolTip="Select or type the AI model for testing"
                                   AutomationProperties.Name="AI Model Selection"
                                   AutomationProperties.HelpText="Select or enter the AI model"
                                   TabIndex="0"/>
@@ -288,7 +288,7 @@
                                  IsEditable="True"
                                  VerticalContentAlignment="Center"
                                  Padding="8,6"
-                                  ToolTip="Select or type the OpenCode model for orchestration"
+                                  ToolTip="Select or type the AI model for orchestration"
                                   AutomationProperties.Name="AI Model Selection"
                                   AutomationProperties.HelpText="Select or enter the AI model"
                                   TabIndex="0"/>

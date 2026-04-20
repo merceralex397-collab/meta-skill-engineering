@@ -11,6 +11,8 @@
             <converters:StringEmptyToVisibilityConverter x:Key="StringEmptyToVisibilityConverter" />
             <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
             <converters:InverseCountToVisibilityConverter x:Key="InverseCountToVisibilityConverter" />
+            <converters:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter" />
+            <converters:EqualityConverter x:Key="EqualityConverter" />
 
             <!-- Validation Error Template -->
             <ControlTemplate x:Key="ErrorTemplate">
@@ -37,9 +39,14 @@
             <Color x:Key="PrimaryDarkColor">#1D4ED8</Color>
             <Color x:Key="PrimaryLightColor">#DBEAFE</Color>
             <Color x:Key="AccentColor">#10B981</Color>
-            <Color x:Key="BackgroundColor">#F3F4F6</Color>
+            <Color x:Key="BackgroundColor">#F5F5F5</Color>
             <Color x:Key="SurfaceColor">#FFFFFF</Color>
             <Color x:Key="SidebarColor">#F8FAFC</Color>
+            <Color x:Key="NavRailBgColor">#1E1E2E</Color>
+            <Color x:Key="NavRailActiveColor">#2563EB</Color>
+            <Color x:Key="NavRailTextColor">#A0A0B0</Color>
+            <Color x:Key="NavRailTextActiveColor">#FFFFFF</Color>
+            <Color x:Key="NavRailHoverColor">#2A2A3E</Color>
             <Color x:Key="TextPrimaryColor">#111827</Color>
             <Color x:Key="TextSecondaryColor">#6B7280</Color>
             <Color x:Key="BorderColor">#E5E7EB</Color>
@@ -58,6 +65,11 @@
             <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
             <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
             <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource SidebarColor}" />
+            <SolidColorBrush x:Key="NavRailBgBrush" Color="{StaticResource NavRailBgColor}" />
+            <SolidColorBrush x:Key="NavRailActiveBrush" Color="{StaticResource NavRailActiveColor}" />
+            <SolidColorBrush x:Key="NavRailTextBrush" Color="{StaticResource NavRailTextColor}" />
+            <SolidColorBrush x:Key="NavRailTextActiveBrush" Color="{StaticResource NavRailTextActiveColor}" />
+            <SolidColorBrush x:Key="NavRailHoverBrush" Color="{StaticResource NavRailHoverColor}" />
             <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
             <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
@@ -290,6 +302,86 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <!-- ═══════════════════════════════════════════ -->
+            <!-- Nav Rail Button (VS Code activity bar)      -->
+            <!-- ═══════════════════════════════════════════ -->
+            <Style x:Key="NavRailButton" TargetType="RadioButton">
+                <Setter Property="Width" Value="52" />
+                <Setter Property="Height" Value="44" />
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="GroupName" Value="NavRail" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Grid>
+                                <Border x:Name="IndicatorBorder" Width="3" HorizontalAlignment="Left"
+                                        Background="Transparent" CornerRadius="0,2,2,0" />
+                                <Border x:Name="HoverBg" Background="Transparent" CornerRadius="6" Margin="6,2,6,2" />
+                                <ContentPresenter x:Name="Cp" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  TextBlock.Foreground="{StaticResource NavRailTextBrush}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="HoverBg" Property="Background" Value="{StaticResource NavRailHoverBrush}" />
+                                    <Setter TargetName="Cp" Property="TextBlock.Foreground" Value="{StaticResource NavRailTextActiveBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="IndicatorBorder" Property="Background" Value="{StaticResource NavRailActiveBrush}" />
+                                    <Setter TargetName="Cp" Property="TextBlock.Foreground" Value="{StaticResource NavRailTextActiveBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Content Card -->
+            <Style x:Key="ContentCard" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="20" />
+            </Style>
+
+            <!-- Section Header -->
+            <Style x:Key="SectionHeader" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                <Setter Property="Margin" Value="0,0,0,16" />
+            </Style>
+
+            <!-- Page Title -->
+            <Style x:Key="PageTitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                <Setter Property="Margin" Value="0,0,0,20" />
+            </Style>
+
+            <!-- Chat Bubble User -->
+            <Style x:Key="ChatBubbleUser" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource ChatUserBrush}" />
+                <Setter Property="CornerRadius" Value="12,12,4,12" />
+                <Setter Property="Padding" Value="12,8" />
+                <Setter Property="MaxWidth" Value="400" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Margin" Value="60,4,8,4" />
+            </Style>
+
+            <!-- Chat Bubble Assistant -->
+            <Style x:Key="ChatBubbleAssistant" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource ChatAssistantBrush}" />
+                <Setter Property="CornerRadius" Value="12,12,12,4" />
+                <Setter Property="Padding" Value="12,8" />
+                <Setter Property="MaxWidth" Value="400" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="8,4,60,4" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

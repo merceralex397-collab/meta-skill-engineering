@@ -68,4 +68,38 @@ namespace MetaSkillStudio.Commands
             return _execute();
         }
     }
+
+    /// <summary>
+    /// Generic relay command that accepts a typed parameter.
+    /// </summary>
+    public class RelayCommand<T> : ICommand
+    {
+        private readonly Func<T, Task> _execute;
+        private readonly Func<bool>? _canExecute;
+
+        public RelayCommand(Func<T, Task> execute, Func<bool>? canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
+
+        public void Execute(object? parameter)
+        {
+            if (parameter is T typed)
+            {
+                _execute(typed).SafeFireAndForget(ex =>
+                {
+                    Debug.WriteLine($"[RelayCommand<T>] Unhandled exception: {ex}");
+                });
+            }
+        }
+    }
 }

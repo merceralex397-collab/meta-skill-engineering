@@ -106,6 +106,10 @@ namespace MetaSkillStudio.Models
 
         /// <summary>When the message was created.</summary>
         public DateTime Timestamp { get; set; } = DateTime.Now;
+
+        /// <summary>Whether this message is from the user.</summary>
+        [JsonIgnore]
+        public bool IsUser => string.Equals(Role, "User", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
@@ -620,7 +624,55 @@ namespace MetaSkillStudio.Models
         /// <summary>
         /// Workbench library for skills that have passed initial validation.
         /// </summary>
-        LibraryWorkbench
+        LibraryWorkbench,
+
+        /// <summary>
+        /// Verified library for production-ready skills.
+        /// </summary>
+        Library
+    }
+
+    /// <summary>
+    /// Pages available in the studio navigation rail.
+    /// </summary>
+    public enum StudioPage
+    {
+        Dashboard,
+        Library,
+        Create,
+        Improve,
+        Test,
+        Automation,
+        Import,
+        Manage,
+        Analytics,
+        Settings
+    }
+
+    /// <summary>
+    /// A skill in a library tier with category context.
+    /// </summary>
+    public class LibrarySkillEntry
+    {
+        public string Name { get; set; } = string.Empty;
+        public string DisplayName { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public string CategoryDisplay { get; set; } = string.Empty;
+        public string FullPath { get; set; } = string.Empty;
+        public TargetLibrary Tier { get; set; }
+        public bool HasSkillMd { get; set; }
+        public string? Description { get; set; }
+    }
+
+    /// <summary>
+    /// A category within a library tier.
+    /// </summary>
+    public class LibraryCategory
+    {
+        public string Name { get; set; } = string.Empty;
+        public string DisplayName { get; set; } = string.Empty;
+        public int SkillCount { get; set; }
+        public TargetLibrary Tier { get; set; }
     }
 
     /// <summary>
