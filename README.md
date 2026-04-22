@@ -2,6 +2,8 @@
 
 Meta Skill Engineering is a **headless-first skill-engineering platform** for creating, evaluating, improving, packaging, installing, and governing agent skills.
 
+Within the canonical Scafforge workspace this repo lives at `agent-tools/meta-skill-engineering/`, but it remains a standalone product when cloned and operated directly.
+
 The repository contains **17 repo-owned root skill packages** plus the automation surfaces used to operate them. The authoritative execution path is the **Python Studio CLI**; TUI, tkinter GUI, and WPF are convenience shells layered on top of the same workflow truth.
 
 ## Authoritative surfaces
