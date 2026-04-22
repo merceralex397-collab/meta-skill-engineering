@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MetaSkillStudio.Commands;
@@ -55,23 +56,41 @@ namespace MetaSkillStudio.ViewModels
         private int _libraryVerifiedCount;
         private string _selectedLibrarySkillContent = string.Empty;
         private string _importPath = string.Empty;
+        private string _importGitHubUrl = string.Empty;
         private string _importStatus = string.Empty;
+        private string _importCategory = "imported";
+        private TargetLibrary _selectedImportLibrary = TargetLibrary.LibraryUnverified;
         private string _createSkillName = string.Empty;
         private string _createSkillDescription = string.Empty;
+        private TargetLibrary _selectedCreateLibrary = TargetLibrary.LibraryUnverified;
         private string _improveSkillGoal = string.Empty;
         private SkillInfo? _improveSelectedSkill;
         private string _testStatus = string.Empty;
+        private SkillInfo? _testSelectedSkill;
         private int _automationThreshold = 70;
         private int _automationMaxIterations = 5;
         private bool _automationRunning;
         private string _automationStatus = string.Empty;
+        private string _selectedAssistantModel = "auto";
+        private string _assistantActiveModel = "Auto";
+        private List<ProviderStatusInfo> _providerStatuses = new();
+        private ProviderStatusInfo? _selectedProviderStatus;
+        private List<RuntimeModelInfo> _runtimeModels = new();
+        private List<AnalyticsMetricInfo> _analyticsMetrics = new();
 
-        public MainViewModel(IPythonRuntimeService pythonService, IDialogService dialogService)
+        public MainViewModel(IPythonRuntimeService pythonService, IDialogService dialogService, bool initializeOnConstruction = true)
         {
             _pythonService = pythonService ?? throw new ArgumentNullException(nameof(pythonService));
             _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
 
             ChatHistory = new ObservableCollection<ChatMessage>();
+            AssistantModelOptions = new ObservableCollection<string> { "auto" };
+            ImportLibraryOptions = new ObservableCollection<TargetLibrary>(new[]
+            {
+                TargetLibrary.LibraryUnverified,
+                TargetLibrary.LibraryWorkbench,
+                TargetLibrary.Library,
+            });
 
             CreateSkillCommand = new RelayCommand(async () => await CreateSkillAsync(), () => !IsBusy);
             ImproveSkillCommand = new RelayCommand(async () => await ImproveSkillAsync(), () => !IsBusy);
@@ -112,10 +131,21 @@ namespace MetaSkillStudio.ViewModels
                 AssistantStatus = "Ready";
                 return Task.CompletedTask;
             });
+            NewConversationCommand = new RelayCommand(() =>
+            {
+                StartNewConversation();
+                return Task.CompletedTask;
+            });
+            RefreshSettingsDataCommand = new RelayCommand(async () => await RefreshSettingsInsightsAsync(), () => !IsBusy);
+            AddProviderCommand = new RelayCommand(async () => await AddProviderAsync(), () => !IsBusy);
+            SignOutProviderCommand = new RelayCommand(async () => await SignOutProviderAsync(), () => !IsBusy && SelectedProviderStatus?.Authenticated == true);
+            RefreshAnalyticsCommand = new RelayCommand(async () => await RefreshAnalyticsAsync(), () => !IsBusy);
             RefreshLibraryCommand = new RelayCommand(async () => await RefreshLibraryAsync(), () => !IsBusy);
             PromoteSkillCommand = new RelayCommand(async () => await PromoteSkillAsync(), () => !IsBusy && SelectedLibraryEntry != null);
             DemoteSkillCommand = new RelayCommand(async () => await DemoteSkillAsync(), () => !IsBusy && SelectedLibraryEntry != null);
+            MoveSkillCommand = new RelayCommand(async () => await MoveSkillAsync(), () => !IsBusy && SelectedLibraryEntry != null);
             ImportFromFolderCommand = new RelayCommand(async () => await ImportFromFolderAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(ImportPath));
+            ImportFromGitHubCommand = new RelayCommand(async () => await ImportFromGitHubAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(ImportGitHubUrl));
             InlineCreateSkillCommand = new RelayCommand(async () => await InlineCreateSkillAsync(), () => !IsBusy && !string.IsNullOrWhiteSpace(CreateSkillDescription));
             InlineImproveSkillCommand = new RelayCommand(async () => await InlineImproveSkillAsync(), () => !IsBusy && ImproveSelectedSkill != null);
             InlineTestSkillCommand = new RelayCommand(async () => await InlineTestSkillAsync(), () => !IsBusy);
@@ -123,7 +153,11 @@ namespace MetaSkillStudio.ViewModels
             StopAutomationCommand = new RelayCommand(() => { AutomationRunning = false; return Task.CompletedTask; }, () => AutomationRunning);
 
             UpdateChecklistAndLibraryState();
-            InitializeAsync().SafeFireAndForget("MainViewModel.InitializeAsync");
+            StartNewConversation();
+            if (initializeOnConstruction)
+            {
+                InitializeAsync().SafeFireAndForget("MainViewModel.InitializeAsync");
+            }
         }
 
         #region Properties
@@ -180,6 +214,18 @@ namespace MetaSkillStudio.ViewModels
         {
             get => _assistantStatus;
             set => SetProperty(ref _assistantStatus, value);
+        }
+
+        public string SelectedAssistantModel
+        {
+            get => _selectedAssistantModel;
+            set => SetProperty(ref _selectedAssistantModel, value);
+        }
+
+        public string AssistantActiveModel
+        {
+            get => _assistantActiveModel;
+            set => SetProperty(ref _assistantActiveModel, value);
         }
 
         public string QuickStartSummary
@@ -256,6 +302,10 @@ namespace MetaSkillStudio.ViewModels
 
         public ObservableCollection<ChatMessage> ChatHistory { get; }
 
+        public ObservableCollection<string> AssistantModelOptions { get; }
+
+        public ObservableCollection<TargetLibrary> ImportLibraryOptions { get; }
+
         public List<SkillInfo> AvailableSkills
         {
             get => _availableSkills;
@@ -317,6 +367,8 @@ namespace MetaSkillStudio.ViewModels
                 {
                     OnPropertyChanged(nameof(SelectedPage));
                     if (value == StudioPage.Library) RefreshLibraryAsync().SafeFireAndForget("RefreshLibrary");
+                    if (value == StudioPage.Settings) RefreshSettingsInsightsAsync().SafeFireAndForget("RefreshSettings");
+                    if (value == StudioPage.Analytics) RefreshAnalyticsAsync().SafeFireAndForget("RefreshAnalytics");
                 }
             }
         }
@@ -422,6 +474,28 @@ namespace MetaSkillStudio.ViewModels
             set => SetProperty(ref _importStatus, value);
         }
 
+        public string ImportGitHubUrl
+        {
+            get => _importGitHubUrl;
+            set
+            {
+                if (SetProperty(ref _importGitHubUrl, value))
+                    CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public string ImportCategory
+        {
+            get => _importCategory;
+            set => SetProperty(ref _importCategory, value);
+        }
+
+        public TargetLibrary SelectedImportLibrary
+        {
+            get => _selectedImportLibrary;
+            set => SetProperty(ref _selectedImportLibrary, value);
+        }
+
         public string CreateSkillName
         {
             get => _createSkillName;
@@ -436,6 +510,12 @@ namespace MetaSkillStudio.ViewModels
                 if (SetProperty(ref _createSkillDescription, value))
                     CommandManager.InvalidateRequerySuggested();
             }
+        }
+
+        public TargetLibrary SelectedCreateLibrary
+        {
+            get => _selectedCreateLibrary;
+            set => SetProperty(ref _selectedCreateLibrary, value);
         }
 
         public string ImproveSkillGoal
@@ -458,6 +538,12 @@ namespace MetaSkillStudio.ViewModels
         {
             get => _testStatus;
             set => SetProperty(ref _testStatus, value);
+        }
+
+        public SkillInfo? TestSelectedSkill
+        {
+            get => _testSelectedSkill;
+            set => SetProperty(ref _testSelectedSkill, value);
         }
 
         public int AutomationThreshold
@@ -488,6 +574,57 @@ namespace MetaSkillStudio.ViewModels
             set => SetProperty(ref _automationStatus, value);
         }
 
+        public List<ProviderStatusInfo> ProviderStatuses
+        {
+            get => _providerStatuses;
+            set
+            {
+                if (SetProperty(ref _providerStatuses, value))
+                {
+                    OnPropertyChanged(nameof(AuthenticatedProviderCount));
+                    OnPropertyChanged(nameof(ProviderStatusSummary));
+                }
+            }
+        }
+
+        public ProviderStatusInfo? SelectedProviderStatus
+        {
+            get => _selectedProviderStatus;
+            set
+            {
+                if (SetProperty(ref _selectedProviderStatus, value))
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }
+        }
+
+        public List<RuntimeModelInfo> RuntimeModels
+        {
+            get => _runtimeModels;
+            set
+            {
+                if (SetProperty(ref _runtimeModels, value))
+                {
+                    OnPropertyChanged(nameof(RecommendedModelCount));
+                }
+            }
+        }
+
+        public List<AnalyticsMetricInfo> AnalyticsMetrics
+        {
+            get => _analyticsMetrics;
+            set => SetProperty(ref _analyticsMetrics, value);
+        }
+
+        public int AuthenticatedProviderCount => ProviderStatuses.Count(provider => provider.Authenticated);
+
+        public int RecommendedModelCount => RuntimeModels.Count(model => model.Recommended);
+
+        public string ProviderStatusSummary => ProviderStatuses.Count == 0
+            ? "No providers detected yet."
+            : $"{AuthenticatedProviderCount} connected / {ProviderStatuses.Count} detected";
+
         public ICommand CreateSkillCommand { get; }
         public ICommand ImproveSkillCommand { get; }
         public ICommand TestBenchmarkCommand { get; }
@@ -504,10 +641,17 @@ namespace MetaSkillStudio.ViewModels
         public ICommand OpenSelectedHelpResourceCommand { get; }
         public ICommand NavigateCommand { get; }
         public ICommand ClearChatCommand { get; }
+        public ICommand NewConversationCommand { get; }
+        public ICommand RefreshSettingsDataCommand { get; }
+        public ICommand AddProviderCommand { get; }
+        public ICommand SignOutProviderCommand { get; }
+        public ICommand RefreshAnalyticsCommand { get; }
         public ICommand RefreshLibraryCommand { get; }
         public ICommand PromoteSkillCommand { get; }
         public ICommand DemoteSkillCommand { get; }
+        public ICommand MoveSkillCommand { get; }
         public ICommand ImportFromFolderCommand { get; }
+        public ICommand ImportFromGitHubCommand { get; }
         public ICommand InlineCreateSkillCommand { get; }
         public ICommand InlineImproveSkillCommand { get; }
         public ICommand InlineTestSkillCommand { get; }
@@ -521,6 +665,8 @@ namespace MetaSkillStudio.ViewModels
             await RefreshSkillsAsync();
             await RefreshRunsAsync();
             await UpdateRuntimeStatusAsync();
+            await LoadProviderAndModelDataAsync(appendOutput: false);
+            await LoadAnalyticsDataAsync(appendOutput: false);
         }
 
         private async Task UpdateRuntimeStatusAsync()
@@ -533,6 +679,10 @@ namespace MetaSkillStudio.ViewModels
                 {
                     var activeModel = opencodeRuntime.Models.FirstOrDefault(model => !string.Equals(model, "auto", StringComparison.OrdinalIgnoreCase))
                         ?? opencodeRuntime.DefaultModel;
+                    SyncAssistantModels(opencodeRuntime.Models);
+                    AssistantActiveModel = string.Equals(activeModel, "auto", StringComparison.OrdinalIgnoreCase)
+                        ? "Auto"
+                        : activeModel;
                     RuntimeStatus = string.Equals(activeModel, "auto", StringComparison.OrdinalIgnoreCase)
                         ? "AI Runtime Ready"
                         : $"AI Runtime Ready - {activeModel}";
@@ -540,12 +690,16 @@ namespace MetaSkillStudio.ViewModels
                 }
                 else
                 {
+                    SyncAssistantModels(Array.Empty<string>());
+                    AssistantActiveModel = "Unavailable";
                     RuntimeStatus = "AI runtime not detected";
                     RuntimeStatusDisplay = "Not detected";
                 }
             }
             catch
             {
+                SyncAssistantModels(Array.Empty<string>());
+                AssistantActiveModel = "Unavailable";
                 RuntimeStatus = "Runtime detection failed";
                 RuntimeStatusDisplay = "Detection failed";
             }
@@ -753,30 +907,39 @@ namespace MetaSkillStudio.ViewModels
             ChatHistory.Add(new ChatMessage { Role = "User", Content = userMessage });
             AssistantPrompt = string.Empty;
 
-            // Build prompt with conversation history for context
-            var promptBuilder = new StringBuilder();
-            if (ChatHistory.Count > 1)
-            {
-                promptBuilder.AppendLine("Previous conversation context:");
-                foreach (var msg in ChatHistory.SkipLast(1))
-                {
-                    promptBuilder.AppendLine($"{msg.Role}: {msg.Content}");
-                }
-                promptBuilder.AppendLine();
-            }
-            promptBuilder.AppendLine(userMessage);
-
             IsAssistantBusy = true;
             AssistantStatus = "Thinking...";
 
             try
             {
-                var result = await _pythonService.ExecuteCommandAsync("assistant", promptBuilder.ToString());
+                var assistantRequest = JsonSerializer.Serialize(new
+                {
+                    prompt = userMessage,
+                    model = string.Equals(SelectedAssistantModel, "auto", StringComparison.OrdinalIgnoreCase) ? null : SelectedAssistantModel,
+                    page = GetAssistantPageContext(),
+                    history = ChatHistory
+                        .SkipLast(1)
+                        .TakeLast(10)
+                        .Select(message => new
+                        {
+                            role = message.Role,
+                            content = message.Content,
+                            timestamp = message.Timestamp.ToString("O")
+                        })
+                });
+
+                var result = await _pythonService.ExecuteCommandAsync("assistant", assistantRequest);
                 var responseContent = string.IsNullOrWhiteSpace(result.Stdout)
                     ? result.CombinedOutput
                     : result.Stdout.Trim();
 
                 ChatHistory.Add(new ChatMessage { Role = "Assistant", Content = responseContent });
+                if (result.Artifacts.TryGetValue("model", out var modelArtifact) &&
+                    modelArtifact is string modelName &&
+                    !string.IsNullOrWhiteSpace(modelName))
+                {
+                    AssistantActiveModel = modelName;
+                }
                 AssistantStatus = result.IsSuccess ? "Ready" : "Request failed";
 
                 AppendOutput(result.IsSuccess
@@ -1168,6 +1331,274 @@ namespace MetaSkillStudio.ViewModels
             return count;
         }
 
+        private void StartNewConversation()
+        {
+            ChatHistory.Clear();
+            ChatHistory.Add(new ChatMessage
+            {
+                Role = "Assistant",
+                Content = "Ready when you are. Ask me to create, improve, test, import, or manage skills and I will guide the workflow."
+            });
+            AssistantStatus = "Ready";
+        }
+
+        private void SyncAssistantModels(IEnumerable<string> models)
+        {
+            var normalized = new List<string> { "auto" };
+            normalized.AddRange(
+                models
+                    .Where(model =>
+                        !string.IsNullOrWhiteSpace(model) &&
+                        !string.Equals(model, "auto", StringComparison.OrdinalIgnoreCase))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(model => model, StringComparer.OrdinalIgnoreCase));
+
+            if (AssistantModelOptions.SequenceEqual(normalized, StringComparer.OrdinalIgnoreCase))
+            {
+                if (!normalized.Contains(SelectedAssistantModel, StringComparer.OrdinalIgnoreCase))
+                {
+                    SelectedAssistantModel = "auto";
+                }
+                return;
+            }
+
+            AssistantModelOptions.Clear();
+            foreach (var model in normalized)
+            {
+                AssistantModelOptions.Add(model);
+            }
+
+            if (!AssistantModelOptions.Contains(SelectedAssistantModel, StringComparer.OrdinalIgnoreCase))
+            {
+                SelectedAssistantModel = "auto";
+            }
+        }
+
+        private string GetAssistantPageContext()
+        {
+            return SelectedPage switch
+            {
+                StudioPage.Dashboard => "Dashboard",
+                StudioPage.Library => "Library browser",
+                StudioPage.Create => "Create skill workflow",
+                StudioPage.Improve => "Improve skill workflow",
+                StudioPage.Test => "Test and evaluate workflow",
+                StudioPage.Automation => "Automation workflow",
+                StudioPage.Import => "Import skills workflow",
+                StudioPage.Manage => "Library management",
+                StudioPage.Analytics => "Analytics",
+                StudioPage.Settings => "Settings",
+                _ => "Studio"
+            };
+        }
+
+        private async Task RefreshSettingsInsightsAsync()
+        {
+            await ExecuteOperationAsync("Refreshing providers and models...", async () =>
+            {
+                await LoadProviderAndModelDataAsync();
+            });
+        }
+
+        private async Task LoadProviderAndModelDataAsync(bool appendOutput = true)
+        {
+            var modelsResult = await _pythonService.ExecuteCommandAsync("list-models", string.Empty);
+            var providersResult = await _pythonService.ExecuteCommandAsync("list-providers", string.Empty);
+
+            var runtimeModels = ParseRuntimeModels(modelsResult.Stdout);
+            var providers = ParseProviderStatuses(providersResult.Stdout, runtimeModels);
+
+            RuntimeModels = runtimeModels;
+            ProviderStatuses = providers;
+            if (SelectedProviderStatus == null || !ProviderStatuses.Contains(SelectedProviderStatus))
+            {
+                SelectedProviderStatus = ProviderStatuses.FirstOrDefault(provider => provider.Authenticated) ?? ProviderStatuses.FirstOrDefault();
+            }
+
+            if (appendOutput)
+            {
+                AppendOutput($"Loaded {ProviderStatuses.Count} providers and {RuntimeModels.Count} available models.");
+            }
+        }
+
+        private async Task AddProviderAsync()
+        {
+            var (result, providerName) = _dialogService.ShowInputDialog(
+                "Connect Provider",
+                "Enter the provider ID to connect (for example minimax-coding-plan, moonshotai, or bigpickle):",
+                string.Empty);
+            if (result != true || string.IsNullOrWhiteSpace(providerName))
+            {
+                return;
+            }
+
+            var runtime = (await _pythonService.DetectRuntimesAsync())
+                .FirstOrDefault(candidate => candidate.IsAvailable && !string.IsNullOrWhiteSpace(candidate.Command));
+            if (runtime == null)
+            {
+                _dialogService.ShowMessage("No OpenCode runtime was detected, so provider authentication cannot be started.", "Runtime unavailable", MessageType.Warning);
+                return;
+            }
+
+            try
+            {
+                var repoRoot = ResolveRepoRoot();
+                var escapedCommand = runtime.Command.Replace("'", "''", StringComparison.Ordinal);
+                var escapedProvider = providerName.Trim().Replace("'", "''", StringComparison.Ordinal);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoExit -Command \"& '{escapedCommand}' auth login '{escapedProvider}'\"",
+                    WorkingDirectory = repoRoot,
+                    UseShellExecute = true,
+                });
+
+                StatusText = $"Opened provider login for {providerName.Trim()}.";
+                AppendOutput($"Opened provider sign-in flow for {providerName.Trim()} in a separate terminal.");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowMessage(
+                    $"Could not start provider sign-in.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
+                    "Provider sign-in failed",
+                    MessageType.Error);
+            }
+        }
+
+        private async Task SignOutProviderAsync()
+        {
+            if (SelectedProviderStatus == null)
+            {
+                _dialogService.ShowMessage("Select a connected provider first.", "No provider selected", MessageType.Warning);
+                return;
+            }
+
+            await ExecuteOperationAsync($"Signing out {SelectedProviderStatus.Name}...", async () =>
+            {
+                var result = await _pythonService.ExecuteCommandAsync("auth-provider", $"{SelectedProviderStatus.Name}|logout");
+                AppendOutput(result.CombinedOutput);
+                await LoadProviderAndModelDataAsync();
+            });
+        }
+
+        private async Task RefreshAnalyticsAsync()
+        {
+            await ExecuteOperationAsync("Refreshing analytics...", async () =>
+            {
+                await LoadAnalyticsDataAsync();
+            });
+        }
+
+        private async Task LoadAnalyticsDataAsync(bool appendOutput = true)
+        {
+            var statsResult = await _pythonService.ExecuteCommandAsync("opencode-stats", string.Empty);
+            AnalyticsMetrics = BuildAnalyticsMetrics(statsResult.Stdout);
+            if (appendOutput)
+            {
+                AppendOutput($"Loaded {AnalyticsMetrics.Count} analytics metrics.");
+            }
+        }
+
+        private List<RuntimeModelInfo> ParseRuntimeModels(string output)
+        {
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return new List<RuntimeModelInfo>();
+            }
+
+            using var document = JsonDocument.Parse(output);
+            if (!document.RootElement.TryGetProperty("models", out var modelsElement) || modelsElement.ValueKind != JsonValueKind.Array)
+            {
+                return new List<RuntimeModelInfo>();
+            }
+
+            return modelsElement.EnumerateArray()
+                .Select(item => new RuntimeModelInfo
+                {
+                    Runtime = item.TryGetProperty("runtime", out var runtimeProperty) ? runtimeProperty.GetString() ?? string.Empty : string.Empty,
+                    Model = item.TryGetProperty("model", out var modelProperty) ? modelProperty.GetString() ?? string.Empty : string.Empty,
+                    Provider = item.TryGetProperty("provider", out var providerProperty) ? providerProperty.GetString() ?? string.Empty : string.Empty,
+                    Recommended = item.TryGetProperty("recommended", out var recommendedProperty) && recommendedProperty.ValueKind == JsonValueKind.True,
+                })
+                .Where(model => !string.IsNullOrWhiteSpace(model.Model))
+                .OrderByDescending(model => model.Recommended)
+                .ThenBy(model => model.Provider, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(model => model.Model, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        private List<ProviderStatusInfo> ParseProviderStatuses(string output, IReadOnlyCollection<RuntimeModelInfo> runtimeModels)
+        {
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return new List<ProviderStatusInfo>();
+            }
+
+            using var document = JsonDocument.Parse(output);
+            if (!document.RootElement.TryGetProperty("providers", out var providersElement) || providersElement.ValueKind != JsonValueKind.Array)
+            {
+                return new List<ProviderStatusInfo>();
+            }
+
+            return providersElement.EnumerateArray()
+                .Select(item =>
+                {
+                    var name = item.TryGetProperty("name", out var nameProperty) ? nameProperty.GetString() ?? string.Empty : string.Empty;
+                    return new ProviderStatusInfo
+                    {
+                        Name = name,
+                        Authenticated = item.TryGetProperty("authenticated", out var authProperty) && authProperty.ValueKind == JsonValueKind.True,
+                        Raw = item.TryGetProperty("raw", out var rawProperty) ? rawProperty.GetString() ?? string.Empty : string.Empty,
+                        ModelCount = runtimeModels.Count(model => string.Equals(model.Provider, name, StringComparison.OrdinalIgnoreCase)),
+                    };
+                })
+                .Where(provider => !string.IsNullOrWhiteSpace(provider.Name))
+                .OrderByDescending(provider => provider.Authenticated)
+                .ThenBy(provider => provider.Name, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        private List<AnalyticsMetricInfo> BuildAnalyticsMetrics(string output)
+        {
+            var metrics = new List<AnalyticsMetricInfo>
+            {
+                new AnalyticsMetricInfo { Label = "Library skills", Value = LibrarySkillCount.ToString() },
+                new AnalyticsMetricInfo { Label = "Recorded runs", Value = RunHistory.Count.ToString() },
+                new AnalyticsMetricInfo { Label = "Connected providers", Value = AuthenticatedProviderCount.ToString() },
+                new AnalyticsMetricInfo { Label = "Available models", Value = RuntimeModels.Count.ToString() },
+            };
+
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return metrics;
+            }
+
+            using var document = JsonDocument.Parse(output);
+            if (document.RootElement.TryGetProperty("stats", out var statsElement) && statsElement.ValueKind == JsonValueKind.Object)
+            {
+                metrics.AddRange(
+                    statsElement.EnumerateObject()
+                        .Select(property => new AnalyticsMetricInfo
+                        {
+                            Label = FormatAnalyticsLabel(property.Name),
+                            Value = property.Value.ValueKind == JsonValueKind.String
+                                ? property.Value.GetString() ?? string.Empty
+                                : property.Value.ToString()
+                        })
+                        .Where(metric => !string.IsNullOrWhiteSpace(metric.Value)));
+            }
+
+            return metrics;
+        }
+
+        private static string FormatAnalyticsLabel(string key)
+        {
+            return string.Join(
+                " ",
+                key.Split('_', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(token => char.ToUpperInvariant(token[0]) + token[1..]));
+        }
+
         #region Library Methods
 
         private async Task RefreshLibraryAsync()
@@ -1256,7 +1687,28 @@ namespace MetaSkillStudio.ViewModels
 
         private void FilterLibrary()
         {
-            var filtered = LibraryEntries.Where(e => e.Tier == SelectedLibraryTier);
+            var tierEntries = LibraryEntries.Where(e => e.Tier == SelectedLibraryTier).ToList();
+
+            LibraryCategories = tierEntries
+                .GroupBy(e => e.Category)
+                .Select(g => new LibraryCategory
+                {
+                    Name = g.Key,
+                    DisplayName = FormatCategoryName(g.Key),
+                    SkillCount = g.Count(),
+                    Tier = SelectedLibraryTier,
+                })
+                .OrderBy(c => c.DisplayName)
+                .ToList();
+
+            if (!string.IsNullOrWhiteSpace(SelectedLibraryCategory) &&
+                !LibraryCategories.Any(category => string.Equals(category.Name, SelectedLibraryCategory, StringComparison.OrdinalIgnoreCase)))
+            {
+                _selectedLibraryCategory = string.Empty;
+                OnPropertyChanged(nameof(SelectedLibraryCategory));
+            }
+
+            IEnumerable<LibrarySkillEntry> filtered = tierEntries;
 
             if (!string.IsNullOrWhiteSpace(SelectedLibraryCategory))
                 filtered = filtered.Where(e => e.Category == SelectedLibraryCategory);
@@ -1271,20 +1723,6 @@ namespace MetaSkillStudio.ViewModels
             }
 
             FilteredLibraryEntries = filtered.OrderBy(e => e.CategoryDisplay).ThenBy(e => e.DisplayName).ToList();
-
-            // Update categories for the selected tier
-            LibraryCategories = LibraryEntries
-                .Where(e => e.Tier == SelectedLibraryTier)
-                .GroupBy(e => e.Category)
-                .Select(g => new LibraryCategory
-                {
-                    Name = g.Key,
-                    DisplayName = FormatCategoryName(g.Key),
-                    SkillCount = g.Count(),
-                    Tier = SelectedLibraryTier,
-                })
-                .OrderBy(c => c.DisplayName)
-                .ToList();
         }
 
         private void LoadSkillContent(LibrarySkillEntry entry)
@@ -1322,26 +1760,12 @@ namespace MetaSkillStudio.ViewModels
 
             await ExecuteOperationAsync($"Promoting {entry.DisplayName}...", async () =>
             {
-                var repoRoot = ResolveRepoRoot();
-                var targetDir = Path.Combine(repoRoot, nextTier, entry.Category);
-                var targetPath = Path.Combine(targetDir, entry.Name);
-                var tempPath = targetPath + "_promoting";
-
-                try
-                {
-                    Directory.CreateDirectory(targetDir);
-                    CopyDirectory(entry.FullPath, tempPath);
-                    if (Directory.Exists(targetPath)) Directory.Delete(targetPath, true);
-                    Directory.Move(tempPath, targetPath);
-                    Directory.Delete(entry.FullPath, true);
-                    AppendOutput($"Promoted {entry.DisplayName} to {nextTier}.");
-                    await RefreshLibraryAsync();
-                }
-                catch
-                {
-                    if (Directory.Exists(tempPath)) Directory.Delete(tempPath, true);
-                    throw;
-                }
+                var result = await _pythonService.ExecuteCommandAsync(
+                    "promote-skill",
+                    $"{entry.Name}|{entry.Category}|{MapLibraryTier(entry.Tier)}");
+                AppendOutput(result.CombinedOutput);
+                await RefreshLibraryAsync();
+                await RefreshRunsAsync();
             });
         }
 
@@ -1364,26 +1788,41 @@ namespace MetaSkillStudio.ViewModels
 
             await ExecuteOperationAsync($"Demoting {entry.DisplayName}...", async () =>
             {
-                var repoRoot = ResolveRepoRoot();
-                var targetDir = Path.Combine(repoRoot, prevTier, entry.Category);
-                var targetPath = Path.Combine(targetDir, entry.Name);
-                var tempPath = targetPath + "_demoting";
+                var result = await _pythonService.ExecuteCommandAsync(
+                    "demote-skill",
+                    $"{entry.Name}|{entry.Category}|{MapLibraryTier(entry.Tier)}");
+                AppendOutput(result.CombinedOutput);
+                await RefreshLibraryAsync();
+                await RefreshRunsAsync();
+            });
+        }
 
-                try
-                {
-                    Directory.CreateDirectory(targetDir);
-                    CopyDirectory(entry.FullPath, tempPath);
-                    if (Directory.Exists(targetPath)) Directory.Delete(targetPath, true);
-                    Directory.Move(tempPath, targetPath);
-                    Directory.Delete(entry.FullPath, true);
-                    AppendOutput($"Demoted {entry.DisplayName} to {prevTier}.");
-                    await RefreshLibraryAsync();
-                }
-                catch
-                {
-                    if (Directory.Exists(tempPath)) Directory.Delete(tempPath, true);
-                    throw;
-                }
+        private async Task MoveSkillAsync()
+        {
+            if (SelectedLibraryEntry == null)
+            {
+                return;
+            }
+
+            var entry = SelectedLibraryEntry;
+            var (result, targetCategory) = _dialogService.ShowInputDialog(
+                "Move Skill",
+                $"Enter the new category for {entry.DisplayName}:",
+                entry.Category);
+            if (result != true || string.IsNullOrWhiteSpace(targetCategory))
+            {
+                return;
+            }
+
+            await ExecuteOperationAsync($"Moving {entry.DisplayName}...", async () =>
+            {
+                var runResult = await _pythonService.ExecuteCommandAsync(
+                    "move-skill",
+                    $"{entry.Name}|{entry.Category}|{targetCategory.Trim()}",
+                    entry.Tier);
+                AppendOutput(runResult.CombinedOutput);
+                await RefreshLibraryAsync();
+                await RefreshRunsAsync();
             });
         }
 
@@ -1399,29 +1838,47 @@ namespace MetaSkillStudio.ViewModels
         private async Task ImportFromFolderAsync()
         {
             if (string.IsNullOrWhiteSpace(ImportPath)) return;
-            await ExecuteOperationAsync("Importing skill...", async () =>
+            await ImportSkillAsync(ImportPath.Trim(), "folder");
+        }
+
+        private static string MapLibraryTier(TargetLibrary tier)
+        {
+            return tier switch
             {
-                var sourcePath = ImportPath.Trim();
-                if (!Directory.Exists(sourcePath))
+                TargetLibrary.LibraryWorkbench => "LibraryWorkbench",
+                TargetLibrary.Library => "Library",
+                _ => "LibraryUnverified"
+            };
+        }
+
+        private async Task ImportFromGitHubAsync()
+        {
+            if (string.IsNullOrWhiteSpace(ImportGitHubUrl)) return;
+            await ImportSkillAsync(ImportGitHubUrl.Trim(), "GitHub");
+        }
+
+        private async Task ImportSkillAsync(string source, string sourceLabel)
+        {
+            await ExecuteOperationAsync($"Importing skill from {sourceLabel}...", async () =>
+            {
+                var category = string.IsNullOrWhiteSpace(ImportCategory) ? "imported" : ImportCategory.Trim();
+                var result = await _pythonService.ExecuteCommandAsync(
+                    "import-skill",
+                    $"{source}|{category}",
+                    SelectedImportLibrary);
+
+                AppendOutput(result.CombinedOutput);
+                if (!result.IsSuccess)
                 {
-                    ImportStatus = "Error: Directory does not exist.";
+                    ImportStatus = $"Import failed: {result.Stderr}".Trim();
                     return;
                 }
 
-                if (!File.Exists(Path.Combine(sourcePath, "SKILL.md")))
-                {
-                    ImportStatus = "Error: No SKILL.md found in the folder.";
-                    return;
-                }
-
-                var repoRoot = ResolveRepoRoot();
-                var skillName = Path.GetFileName(sourcePath);
-                var targetPath = Path.Combine(repoRoot, "LibraryUnverified", "imported", skillName);
-                Directory.CreateDirectory(Path.Combine(repoRoot, "LibraryUnverified", "imported"));
-                CopyDirectory(sourcePath, targetPath);
-                ImportStatus = $"Imported {skillName} to Unverified library.";
+                ImportStatus = $"Imported skill into {SelectedImportLibrary} / {category}.";
                 ImportPath = string.Empty;
+                ImportGitHubUrl = string.Empty;
                 await RefreshLibraryAsync();
+                await RefreshRunsAsync();
             });
         }
 
@@ -1434,7 +1891,7 @@ namespace MetaSkillStudio.ViewModels
 
             await ExecuteOperationAsync("Creating skill...", async () =>
             {
-                var result = await _pythonService.ExecuteCommandAsync("create", brief);
+                var result = await _pythonService.ExecuteCommandAsync("create", brief, SelectedCreateLibrary);
                 AppendOutput(result.Stdout);
                 if (result.IsSuccess)
                 {
@@ -1468,7 +1925,7 @@ namespace MetaSkillStudio.ViewModels
 
         private async Task InlineTestSkillAsync()
         {
-            var selectedSkill = SelectedLibraryEntry?.Name ?? SelectedLibrarySkill?.Name;
+            var selectedSkill = TestSelectedSkill?.Name ?? SelectedLibraryEntry?.Name ?? SelectedLibrarySkill?.Name;
             if (string.IsNullOrEmpty(selectedSkill))
             {
                 TestStatus = "Select a skill to test first.";
@@ -1487,7 +1944,7 @@ namespace MetaSkillStudio.ViewModels
         {
             AutomationRunning = true;
             AutomationStatus = "Starting automation loop...";
-            var skills = FilteredLibraryEntries.Where(e => e.Tier == TargetLibrary.LibraryWorkbench).Take(10).ToList();
+            var skills = LibraryEntries.Where(e => e.Tier == TargetLibrary.LibraryWorkbench).Take(10).ToList();
 
             if (!skills.Any())
             {
@@ -1506,12 +1963,35 @@ namespace MetaSkillStudio.ViewModels
                     try
                     {
                         var testResult = await _pythonService.ExecuteCommandAsync("test", skill.Name);
-                        AppendOutput($"[Auto] {skill.DisplayName}: {testResult.StatusText}");
+                        var testJudge = _pythonService.ParseJudgeOutput(testResult.Stdout);
+                        var startingScore = testJudge?.QualityScore ?? (testResult.IsSuccess ? 100 : 0);
+                        AppendOutput($"[Auto] {skill.DisplayName}: score {startingScore}/100.");
 
-                        if (!testResult.IsSuccess && AutomationRunning)
+                        if (startingScore >= AutomationThreshold)
+                        {
+                            AppendOutput($"[Auto] {skill.DisplayName}: threshold met, no improvement needed.");
+                            continue;
+                        }
+
+                        if (AutomationRunning)
                         {
                             AutomationStatus = $"Iteration {iteration}: Improving {skill.DisplayName}...";
-                            await _pythonService.ExecuteCommandAsync("improve", skill.Name);
+                            var improveResult = await _pythonService.ExecuteCommandAsync("improve", skill.Name);
+                            AppendOutput(improveResult.CombinedOutput);
+
+                            var recheckResult = await _pythonService.ExecuteCommandAsync("test", skill.Name);
+                            var recheckJudge = _pythonService.ParseJudgeOutput(recheckResult.Stdout);
+                            var endingScore = recheckJudge?.QualityScore ?? (recheckResult.IsSuccess ? 100 : 0);
+                            AppendOutput($"[Auto] {skill.DisplayName}: score moved {startingScore}/100 -> {endingScore}/100.");
+
+                            if (endingScore < startingScore)
+                            {
+                                AppendOutput($"[Auto] {skill.DisplayName}: improvement regressed; stopping further automatic changes for this pass.");
+                            }
+                            else if (endingScore == startingScore)
+                            {
+                                AppendOutput($"[Auto] {skill.DisplayName}: no measurable improvement this pass.");
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1524,6 +2004,7 @@ namespace MetaSkillStudio.ViewModels
             AutomationStatus = AutomationRunning ? "Automation complete." : "Automation stopped.";
             AutomationRunning = false;
             await RefreshLibraryAsync();
+            await RefreshRunsAsync();
         }
 
         private static string FormatCategoryName(string folderName)

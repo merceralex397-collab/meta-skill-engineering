@@ -53,12 +53,17 @@ namespace MetaSkillStudio
             
             // ViewModels
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<LibraryPageViewModel>();
+            services.AddSingleton<ImportPageViewModel>();
+            services.AddSingleton<SettingsPageViewModel>();
+            services.AddSingleton<AnalyticsPageViewModel>();
+            services.AddSingleton<ShellViewModel>();
             services.AddSingleton<AnalyticsViewModel>();
             
             // Views
             services.AddSingleton<MainWindow>(provider =>
             {
-                var viewModel = provider.GetRequiredService<MainViewModel>();
+                var viewModel = provider.GetRequiredService<ShellViewModel>();
                 return new MainWindow { DataContext = viewModel };
             });
         }

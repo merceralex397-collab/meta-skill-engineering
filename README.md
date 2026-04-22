@@ -1,131 +1,143 @@
 # Meta Skill Engineering
 
-A meta-skill engineering workspace containing 17 skills that create, refine, test, package, and govern agent skills.
+Meta Skill Engineering is a **headless-first skill-engineering platform** for creating, evaluating, improving, packaging, installing, and governing agent skills.
 
-## Repository Layout
+The repository contains **17 repo-owned root skill packages** plus the automation surfaces used to operate them. The authoritative execution path is the **Python Studio CLI**; TUI, tkinter GUI, and WPF are convenience shells layered on top of the same workflow truth.
 
-- `./<skill-name>/` — repo-owned skill packages at the repository root. Each package has a `SKILL.md` baseline contract and may include `references/`, `scripts/`, `evals/`, `assets/`, or `agents/`.
-- `skill creator/` — archived source material from the pre-consolidation state.
-- `tasks/` — task notes, worklogs, reviews, and maintenance instructions.
-- `scripts/` — automation scripts (eval runner, orchestration).
-- `LibraryUnverified/` — raw skills pending validation/evaluation.
-- `LibraryWorkbench/` — skills and benchmark packs under active testing.
+## Authoritative surfaces
 
-## Meta Skill Studio (User-Facing CLI/TUI/GUI/WPF)
+- **Headless execution:** `python scripts/meta-skill-studio.py --mode cli`
+- **CLI contract:** `docs/cli/action-contract.md`
+- **Feature inventory:** `docs/cli/feature-inventory.md`
+- **Surface authority:** `docs/architecture/surface-authority.md`
+- **Evaluation disposition:** `docs/evaluation/plugin-eval-disposition.md`
 
-Meta Skill Studio provides a single entrypoint for the five primary workflows:
-1. Create skill
-2. Improve skill
-3. Test / benchmark / evaluate skill
-4. Meta Manage
-5. Create benchmarks
+## Quick agent/operator start
 
-### Launch Modes
-
-**Python-based (cross-platform):**
-- TUI (default in interactive terminal):
-  - `./scripts/meta-skill-studio.py`
-- GUI (tkinter):
-  - `./scripts/meta-skill-studio.py --mode gui`
-- CLI action mode:
-  - `./scripts/meta-skill-studio.py --mode cli --action create --brief "Create a skill for ..."`
-
-**WPF Edition (Windows native):**
-- Native Windows WPF application in `windows-wpf/`
-- See `windows-wpf/README.md` for build instructions
-- Features: MVVM architecture, async operations, single-file deployment, MSI installer
-
-First run performs OpenCode model configuration by role (create, improve, test, orchestrate, judge). OpenCode is the only supported execution runtime, and the studio reads repository defaults from `.opencode/opencode.json`.
-
-Run artifacts (outputs, scores, judge summaries, eval references) are stored in:
-
-- `.meta-skill-studio/runs/`
-
-## Pipelines
-
-Four built-in flows connect the skills:
-
-### Creation Pipeline
-```
-community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
-    → skill-trigger-optimization → skill-safety-review → skill-provenance
-    → skill-packaging → skill-installer → skill-lifecycle-management
+```bash
+python scripts/meta-skill-studio.py --mode cli --action list-actions --format json
+python scripts/meta-skill-studio.py --mode cli --action list-skills --format json
+python scripts/meta-skill-studio.py --mode cli --action validate-skills --format json
 ```
 
-### Discovery Pipeline
-```
-community-skill-harvester → skill-evaluation → skill-safety-review
-    → skill-provenance → skill-packaging → skill-installer
-    → skill-lifecycle-management
-```
+Run artifacts are stored in `.meta-skill-studio/runs/`. Pipeline state and final reports are stored in `tasks/pipelines/`.
 
-### Improvement Pipeline
-```
-skill-anti-patterns → skill-improver → skill-evaluation → skill-trigger-optimization
-```
+## Repository layout
 
-### Library Management Pipeline
-```
-skill-catalog-curation → skill-lifecycle-management
-```
+- `./<skill-name>/` — the 17 repo-owned root skill packages
+- `scripts/` — authoritative automation entrypoints and Studio backend package
+- `docs/` — operational/reference documentation
+- `LibraryUnverified/` — imported or raw skills awaiting validation
+- `LibraryWorkbench/` — skills under active evaluation or benchmark work
+- `Library/` — verified library tier
+- `windows-wpf/` — Windows-native convenience shell and packaging path
+- `skill creator/` — archived pre-consolidation material
+- `tasks/` — worklogs, reviews, and orchestrator pipeline state/report artifacts
 
-## Entry Points
+## Meta Skill Studio surfaces
 
-| Goal | Start here |
-|------|-----------|
-| Create a new skill | `skill-creator` |
-| Improve an existing skill | `skill-anti-patterns` (diagnose) → `skill-improver` (fix) |
-| Audit the skill library | `skill-catalog-curation` |
-| Find external skills | `community-skill-harvester` |
+### Python Studio CLI — authoritative
 
-## Skill Inventory
+The Python CLI is the required contract for headless agents and automation. Canonical workflow families include:
+
+- authoring: `create`, `improve`
+- evaluation: `validate-skills`, `run-evals`, `evaluate-skill`, `benchmark-skill`, `compare-runs`, `improvement-brief`
+- library/catalog: `find-skills`, `import-skill`, `promote-skill`, `demote-skill`, `move-skill`, `meta-manage`, `catalog-audit`
+- governance/distribution: `safety-review`, `provenance-review`, `package-skill`, `install-skill`, `lifecycle-review`
+- orchestration: `run-pipeline`, `resume-pipeline`
+- introspection/runtime: `list-actions`, `list-skills`, `list-runs`, `show-run`, `list-models`, `list-providers`, `auth-provider`, `opencode-stats`
+
+Prefer `--format json` for machine-readable output.
+
+### TUI and tkinter GUI — convenience shells
+
+- `python scripts/meta-skill-studio.py`
+- `python scripts/meta-skill-studio.py --mode gui`
+
+These are useful local shells, but they are **not** the source of workflow truth.
+
+### Windows WPF — convenience shell and delivery path
+
+The supported Windows app path lives in `windows-wpf/`. It provides:
+
+- native Windows shell UX
+- bundled workspace release builds
+- MSI packaging
+- inline assistant, analytics, provider/model, import, and library views
+
+See `windows-wpf/README.md` for build and publish guidance. WPF remains layered on the same documented workflow contract; it is not the only real product path.
+
+## Root skill inventory
 
 | Folder | Purpose |
 | --- | --- |
 | `community-skill-harvester` | Find external skills from public registries and evaluate them for adoption. |
 | `skill-adaptation` | Rewrite a skill's context-dependent references for a new environment. |
-| `skill-anti-patterns` | Scan SKILL.md for concrete anti-patterns and report fixes. |
+| `skill-anti-patterns` | Scan `SKILL.md` for concrete anti-patterns and report fixes. |
 | `skill-benchmarking` | Compare skill variants on the same test cases. |
-| `skill-catalog-curation` | Audit library for duplicates and gaps; maintain catalog index and registry. |
-| `skill-creator` | Create new agent skills from scratch and iterate through test-review-improve cycles. |
-| `skill-evaluation` | Evaluate a single skill's routing accuracy, output quality, and baseline value. |
-| `skill-improver` | Improve an existing skill package — routing, procedure, support layers. |
+| `skill-catalog-curation` | Audit library organization, duplicates, and gaps. |
+| `skill-creator` | Create new agent skills from scratch. |
+| `skill-evaluation` | Evaluate routing accuracy and output quality. |
+| `skill-improver` | Improve an existing skill package and its support layers. |
 | `skill-installer` | Install a skill package into a local agent client skill directory. |
-| `skill-lifecycle-management` | Manage skills through lifecycle states; execute deprecation and retirement. |
-| `skill-orchestrator` | Coordinate end-to-end meta-skill workflows across the repository pipelines. |
-| `skill-packaging` | Bundle one or more skills into versioned archives with manifests and overlays. |
-| `skill-provenance` | Audit and record origin, authorship, license, and trust level for a skill. |
-| `skill-safety-review` | Audit a skill for safety hazards before publication or import. |
-| `skill-testing-harness` | Build test infrastructure (JSONL eval suites) for a skill. |
-| `skill-trigger-optimization` | Fix skill routing by rewriting description and boundary text. |
-| `skill-variant-splitting` | Split a broad skill into focused variants. |
+| `skill-lifecycle-management` | Manage lifecycle state, promotion, deprecation, and retirement. |
+| `skill-orchestrator` | Coordinate documented multi-skill workflows. |
+| `skill-packaging` | Bundle skills into archives or delivery artifacts. |
+| `skill-provenance` | Audit origin, authorship, trust, and supporting evidence. |
+| `skill-safety-review` | Audit a skill for safety hazards before adoption or release. |
+| `skill-testing-harness` | Build JSONL eval suites and test infrastructure. |
+| `skill-trigger-optimization` | Improve routing through description and boundary changes. |
+| `skill-variant-splitting` | Split broad skills into focused variants. |
 
-## Skill Categories
+## Pipelines
 
-**Creation & Improvement**
-- `skill-creator` — create new skills
-- `skill-improver` — improve existing skills (includes reference extraction)
-- `community-skill-harvester` — find and evaluate external skills
+### Creation
 
-**Quality & Testing**
-- `skill-testing-harness` — build test infrastructure
-- `skill-evaluation` — evaluate routing and output quality
-- `skill-benchmarking` — compare skill variants
-- `skill-anti-patterns` — audit for structural anti-patterns
-- `skill-trigger-optimization` — fix routing descriptions
+```text
+community-skill-harvester → skill-creator → skill-testing-harness → skill-evaluation
+    → skill-trigger-optimization → skill-safety-review → skill-provenance
+    → skill-packaging → skill-installer → skill-lifecycle-management
+```
 
-**Safety & Provenance**
-- `skill-safety-review` — audit for safety hazards
-- `skill-provenance` — audit and record origin and trust
+### Discovery
 
-**Packaging & Distribution**
-- `skill-packaging` — bundle skills with manifest and overlays (single or batch)
-- `skill-installer` — install skill packages
+```text
+community-skill-harvester → skill-evaluation → skill-safety-review
+    → skill-provenance → skill-packaging → skill-installer
+    → skill-lifecycle-management
+```
 
-**Library Management**
-- `skill-catalog-curation` — audit library, maintain catalog index and registry
-- `skill-lifecycle-management` — manage maturity states, deprecation, and retirement
+### Improvement
 
-**Transformation**
-- `skill-adaptation` — port skills to new environments
-- `skill-variant-splitting` — split broad skills into focused variants
+```text
+skill-anti-patterns → skill-improver → skill-evaluation → skill-trigger-optimization
+```
+
+### Library management
+
+```text
+skill-catalog-curation → skill-lifecycle-management
+```
+
+## Available root scripts
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/meta-skill-studio.py` | Authoritative CLI/TUI/GUI entrypoint |
+| `scripts/validate-skills.sh` | Structural validator for repo-owned root skills |
+| `scripts/run-evals.sh` | JSONL eval runner |
+| `scripts/pre-commit-check.sh` | Local pre-commit checks |
+| `scripts/nightly-full-test.sh` | Nightly-oriented repository test wrapper |
+| `scripts/regression-alert.sh` | Regression alert helper |
+| `scripts/run-meta-skill-cycle.sh` | Experimental orchestration helper, not part of the authoritative contract |
+
+## Evaluation posture
+
+- JSONL fixture-driven evals remain the base testing model.
+- `evaluate-skill` now emits a versioned run artifact with a measurement plan and improvement brief.
+- `compare-runs` and `improvement-brief` turn evaluation output into reusable follow-up artifacts.
+- Full plugin-eval cost/budget machinery is **not** applied blindly repo-wide; see `docs/evaluation/plugin-eval-disposition.md`.
+
+## Contributing
+
+Read `AGENTS.md` first. When changing CLI, scripts, or workflow contracts, keep `README.md`, `AGENTS.md`, and `.github/copilot-instructions.md` aligned with the implementation.

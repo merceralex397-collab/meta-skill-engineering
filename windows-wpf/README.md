@@ -6,6 +6,8 @@ A modern, native Windows application built with C# and WPF (Windows Presentation
 
 This WPF application is the supported Windows delivery path for Meta Skill Studio. It builds successfully in-repo, stages a working bundled release, and produces an MSI installer from that staged bundle.
 
+It is a **Windows convenience shell**, not the authoritative workflow contract. The authoritative headless surface remains `scripts/meta-skill-studio.py --mode cli`; see `docs/architecture/surface-authority.md` and `docs/cli/action-contract.md`.
+
 ## Features
 
 - **Modern Windows UI**: Native WPF with Material Design styling
@@ -13,6 +15,10 @@ This WPF application is the supported Windows delivery path for Meta Skill Studi
 - **Async Operations**: Non-blocking UI during skill operations
 - **OpenCode-first Execution**: Uses OpenCode as the only supported AI runtime
 - **Integrated Python Backend**: Communicates with the existing Python skill engine
+- **Library-aware workflows**: Browse categories, move skills between tiers, and re-home skills across categories
+- **Import surfaces**: Import skill packages from local folders or GitHub URLs directly into a chosen tier/category
+- **Provider management**: View connected providers, launch sign-in, sign out providers, and inspect available models inline
+- **Usage analytics**: Inline analytics page for runtime stats, run counts, provider state, and model inventory
 - **Bundled Workspace Delivery**: Publish output includes the required skills, scripts, docs, and OpenCode runtime payload
 - **Professional Installer**: MSI package built from the staged release bundle
 - **Localization Ready**: Resources.resx for future localization support
@@ -52,6 +58,15 @@ dotnet run --project MetaSkillStudio
 Output: `publish\MetaSkillStudio.exe`
 
 `build-release.ps1` now runs a startup smoke test against the published exe. Use `.\build-release.ps1 -SkipSmokeTest` only when you explicitly need to stage the bundle without launching the app.
+
+Inside the app, the main workflow surface now includes:
+- a left navigation rail
+- a top Studio/Help menu
+- a category-aware library browser
+- import from folder or GitHub
+- inline provider/model settings
+- inline analytics and run history
+- a right-side assistant panel with model selection and conversation controls
 
 The staged `publish\` folder is the release artifact. It contains the WPF executable plus the bundled workspace files the app requires at runtime:
 - root skill packages
