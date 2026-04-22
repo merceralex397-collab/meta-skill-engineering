@@ -16,6 +16,14 @@ This repository is a meta-skill engineering workspace. Treat each top-level skil
 - `.opencode/skills/` is an OpenCode mirror for selected repo-owned skills, not the authoritative root inventory.
 - `LibraryUnverified/` and `LibraryWorkbench/` are corpus/library areas, not repo-owned root skill packages.
 
+## Surface Authority
+
+- The authoritative headless execution surface is `scripts/meta-skill-studio.py --mode cli`.
+- `scripts/meta_skill_studio/app.py` (`StudioCore`) is the shared workflow backend that UI shells must align to.
+- `docs/cli/action-contract.md` is the published CLI contract; `docs/cli/feature-inventory.md` is the audit baseline.
+- TUI, tkinter GUI, and `windows-wpf/` are convenience shells layered on the same workflow truth, not competing contracts.
+- `scripts/meta_skill_studio/opencode_sdk_bridge.mjs` is an assistant-chat helper, not the authoritative workflow surface.
+
 ## WPF Release Validation
 
 - For `windows-wpf/` changes, `dotnet build` and `dotnet test` are not enough to claim completion.
@@ -98,3 +106,15 @@ skill-catalog-curation → skill-lifecycle-management
 - `skill creator/` is archived source material from the pre-consolidation state.
 - `tasks/` is documentation, worklogs, and reviews — not a skill package.
 - `scripts/` contains automation scripts for running evals and orchestration.
+
+## Available Root Scripts
+
+| Script | Purpose |
+|------|-----------|
+| `scripts/meta-skill-studio.py` | Authoritative CLI/TUI/GUI entrypoint |
+| `scripts/validate-skills.sh` | Structural validator for repo-owned root skills |
+| `scripts/run-evals.sh` | JSONL eval runner |
+| `scripts/pre-commit-check.sh` | Local pre-commit checks |
+| `scripts/nightly-full-test.sh` | Nightly-oriented repository test wrapper |
+| `scripts/regression-alert.sh` | Regression alert helper |
+| `scripts/run-meta-skill-cycle.sh` | Experimental orchestration helper; not part of the authoritative CLI contract |

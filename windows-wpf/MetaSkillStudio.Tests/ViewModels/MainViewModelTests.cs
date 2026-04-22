@@ -15,6 +15,7 @@ namespace MetaSkillStudio.Tests.ViewModels
     /// Unit tests for MainViewModel.
     /// Tests properties, commands, and interactions with services.
     /// </summary>
+    [Collection("WPF isolation")]
     public class MainViewModelTests
     {
         private readonly MockPythonRuntimeService _mockPythonService;
@@ -25,7 +26,7 @@ namespace MetaSkillStudio.Tests.ViewModels
         {
             _mockPythonService = new MockPythonRuntimeService();
             _mockDialogService = new MockDialogService();
-            _viewModel = new MainViewModel(_mockPythonService, _mockDialogService);
+            _viewModel = new MainViewModel(_mockPythonService, _mockDialogService, initializeOnConstruction: false);
         }
 
         #region Property Tests
@@ -39,6 +40,9 @@ namespace MetaSkillStudio.Tests.ViewModels
             _viewModel.IsBusy.Should().BeFalse();
             _viewModel.RuntimeStatus.Should().NotBeNull();
             _viewModel.AvailableSkills.Should().BeEmpty();
+            _viewModel.ChatHistory.Should().ContainSingle();
+            _viewModel.ChatHistory[0].Role.Should().Be("Assistant");
+            _viewModel.AssistantModelOptions.Should().Contain("auto");
         }
 
         [Fact]
@@ -251,7 +255,10 @@ namespace MetaSkillStudio.Tests.ViewModels
         public async Task UpdateRuntimeStatusAsync_UpdatesStatusText()
         {
             // Arrange
-            _mockPythonService.AddDetectedRuntime(TestDataGenerator.CreateDetectedRuntime("opencode", isAvailable: true));
+            _mockPythonService.AddDetectedRuntime(TestDataGenerator.CreateDetectedRuntime(
+                "opencode",
+                models: new List<string> { "auto", "minimax/text-01", "kimi/k2.5-turbo" },
+                isAvailable: true));
 
             // Act
             var method = typeof(MainViewModel).GetMethod("UpdateRuntimeStatusAsync",
@@ -260,6 +267,8 @@ namespace MetaSkillStudio.Tests.ViewModels
 
             // Assert
             _viewModel.RuntimeStatus.Should().Contain("AI Runtime Ready");
+            _viewModel.AssistantModelOptions.Should().Contain("minimax/text-01");
+            _viewModel.AssistantModelOptions.Should().Contain("kimi/k2.5-turbo");
         }
 
         [Fact]
@@ -349,6 +358,48 @@ namespace MetaSkillStudio.Tests.ViewModels
             // Assert
             propertyChangedRaised.Should().BeTrue();
             _viewModel.SelectedRun.Should().Be(runInfo);
+        }
+
+        [Fact]
+        public async Task ImportFromGitHubAsync_UsesBackendImportCommand()
+        {
+            _viewModel.ImportGitHubUrl = "https://github.com/example/skill-repo";
+            _viewModel.ImportCategory = "github-imports";
+            _viewModel.SelectedImportLibrary = TargetLibrary.LibraryWorkbench;
+
+            var method = typeof(MainViewModel).GetMethod("ImportFromGitHubAsync",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            await (Task)method!.Invoke(_viewModel, null)!;
+
+            _mockPythonService.ExecuteCommandParameters.Should().Contain(parameter =>
+                parameter.Action == "import-skill" &&
+                parameter.Parameter == "https://github.com/example/skill-repo|github-imports" &&
+                parameter.Library == TargetLibrary.LibraryWorkbench);
+        }
+
+        [Fact]
+        public async Task MoveSkillAsync_UsesSelectedSkillAndTargetCategory()
+        {
+            _viewModel.SelectedLibraryEntry = new LibrarySkillEntry
+            {
+                Name = "demo-skill",
+                DisplayName = "Demo Skill",
+                Category = "old-category",
+                Tier = TargetLibrary.LibraryWorkbench,
+                FullPath = "C:\\demo-skill"
+            };
+            _mockDialogService.NextInputDialogResult = (true, "new-category");
+
+            var method = typeof(MainViewModel).GetMethod("MoveSkillAsync",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            await (Task)method!.Invoke(_viewModel, null)!;
+
+            _mockPythonService.ExecuteCommandParameters.Should().Contain(parameter =>
+                parameter.Action == "move-skill" &&
+                parameter.Parameter == "demo-skill|old-category|new-category" &&
+                parameter.Library == TargetLibrary.LibraryWorkbench);
         }
 
         #endregion

@@ -94,6 +94,13 @@ namespace MetaSkillStudio.Tests.Mocks
             if (ShouldThrowOnExecuteCommand)
                 throw new System.InvalidOperationException("Mock execution failure");
 
+            if (_runResults.Count > 0)
+            {
+                var queuedResult = _runResults[0];
+                _runResults.RemoveAt(0);
+                return Task.FromResult(queuedResult);
+            }
+
             // Return a mock result based on the action
             var result = new RunResult
             {

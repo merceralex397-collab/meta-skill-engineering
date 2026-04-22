@@ -32,33 +32,32 @@ Optional usefulness fields for `--usefulness` mode: `"usefulness_criteria": "...
 
 No other eval formats are active. Do not use `evals.json`, `output-tests.jsonl`, `triggers.yaml`, `outputs.yaml`, or `baselines.yaml`.
 
+## Surface Authority
+
+- The authoritative headless execution surface is `scripts/meta-skill-studio.py --mode cli`.
+- `scripts/meta_skill_studio/app.py` (`StudioCore`) is the shared workflow backend that TUI, tkinter GUI, and WPF should map onto.
+- `docs/cli/action-contract.md` is the published CLI verb contract, and `docs/cli/feature-inventory.md` is the audit baseline.
+- `windows-wpf/` is a Windows convenience shell and packaging surface, not the only real product path.
+- `scripts/meta_skill_studio/opencode_sdk_bridge.mjs` is an assistant-chat helper, not the authoritative create/improve/evaluate/library-management surface.
+
 ## Available Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/validate-skills.sh` | Validate all root skill packages for structural compliance |
-| `scripts/run-evals.sh` | Run trigger and behavior tests; `--observe`/`--strict` routing, `--runs N` for majority voting, `--usefulness` for LLM-as-Judge scoring (requires `copilot` CLI + `jq`) |
-| `scripts/run-trigger-optimization.sh` | Automated trigger optimization with 60/40 train/test split and held-out validation |
-| `scripts/run-full-cycle.sh` | Full 5-step evaluation cadence |
-| `scripts/run-baseline-comparison.sh` | Before/after comparison with gates |
-| `scripts/run-corpus-eval.sh` | Two-layer meta-skill evaluation against corpus |
-| `scripts/run-regression-suite.sh` | Regression protection runner |
-| `scripts/check_skill_structure.py` | 10-point structural scoring for a skill |
-| `scripts/check_preservation.py` | Jaccard similarity for content preservation |
-| `scripts/skill_lint.py` | Lint a SKILL.md for format issues |
-| `scripts/harvest_failures.py` | Convert failures into regression cases |
-| `scripts/sync-to-skills.sh` | Sync root scripts to per-skill `scripts/` directories per manifest |
-| `scripts/run-meta-skill-cycle.sh` | **Optional/experimental** — orchestrate meta-skill cycle via non-interactive Copilot |
+| `scripts/meta-skill-studio.py` | Authoritative CLI/TUI/GUI entrypoint for Meta Skill Studio |
+| `scripts/validate-skills.sh` | Validate root skill package structure |
+| `scripts/run-evals.sh` | Run JSONL trigger/behavior evals |
+| `scripts/pre-commit-check.sh` | Local pre-commit checks |
+| `scripts/nightly-full-test.sh` | Nightly-oriented repository test wrapper |
+| `scripts/regression-alert.sh` | Regression alert helper |
+| `scripts/run-meta-skill-cycle.sh` | **Optional/experimental** — orchestrate a non-authoritative meta-skill cycle |
 
 After editing any SKILL.md, run `scripts/validate-skills.sh` to confirm compliance.
-
-After editing any script in root `scripts/`, run `scripts/sync-to-skills.sh` to propagate changes to per-skill copies.
 
 ## Key Rules
 
 - Frontmatter must contain only `name` and `description`. No other fields.
 - **Keep root docs current with every commit.** When a commit changes scripts, eval capabilities, skill contracts, or repo structure, update `AGENTS.md`, `README.md`, and `.github/copilot-instructions.md` in the same commit so they never drift from the implemented system.
-- **Script distribution**: Root `scripts/` = source-of-truth dev copies. Per-skill `scripts/` = deployed copies. Edit in root, then run `scripts/sync-to-skills.sh` to propagate. Never edit per-skill copies directly.
 - Do not create `manifest.yaml` in skill packages — it is a stale distribution artifact.
 - Do not add license, compatibility, or release metadata to skills.
 - `archive/` is read-only historical storage. Do not modify archived skills.
@@ -107,15 +106,9 @@ After every commit that changes scripts, skill contracts, or repo structure, dif
 | Evaluate a skill | `skill-evaluation` |
 | Audit the library | `skill-catalog-curation` |
 
-## Extension Tools
+## Workflow References
 
-This project includes a `meta-skill-tools` extension (`.github/extensions/meta-skill-tools/`) that provides:
-
-- `mse_validate_skill` — validate a single skill's structural compliance
-- `mse_validate_all` — validate all root skill packages at once
-- `mse_lint_skill` — lint a SKILL.md for format issues
-- `mse_check_preservation` — check content preservation between original and modified skill
-
-These tools automatically run the appropriate Python/Bash scripts. Use them instead of invoking scripts manually.
-
-The extension also auto-validates any SKILL.md after you edit it, injecting the validation result into context.
+- CLI contract: `docs/cli/action-contract.md`
+- Feature inventory: `docs/cli/feature-inventory.md`
+- Surface authority: `docs/architecture/surface-authority.md`
+- Evaluation disposition: `docs/evaluation/plugin-eval-disposition.md`

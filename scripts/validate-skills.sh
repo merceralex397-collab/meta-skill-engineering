@@ -13,6 +13,18 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ERRORS=0
 WARNINGS=0
 SKILLS_CHECKED=0
+PYTHON_BIN="${PYTHON_BIN:-}"
+
+if [[ -z "$PYTHON_BIN" ]]; then
+  if command -v python3 >/dev/null 2>&1 && [[ "$(command -v python3)" != *WindowsApps* ]]; then
+    PYTHON_BIN="python3"
+  elif command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+  else
+    echo "Error: python3 or python is required"
+    exit 1
+  fi
+fi
 
 log_error() { echo -e "${RED}  ✗ $1${NC}"; ERRORS=$((ERRORS + 1)); }
 log_warn()  { echo -e "${YELLOW}  ⚠ $1${NC}"; WARNINGS=$((WARNINGS + 1)); }
@@ -111,7 +123,7 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
       [[ -f "$jsonl_file" ]] || continue
       fname=$(basename "$jsonl_file")
       while IFS= read -r line; do
-        if ! echo "$line" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
+        if ! echo "$line" | "$PYTHON_BIN" -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
           log_error "$fname contains invalid JSON line"
           break
         fi

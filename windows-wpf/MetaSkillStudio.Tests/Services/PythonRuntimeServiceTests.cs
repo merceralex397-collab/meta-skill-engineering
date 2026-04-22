@@ -85,6 +85,74 @@ namespace MetaSkillStudio.Tests.Services
             arguments.Should().Contain(action);
         }
 
+        [Theory]
+        [InlineData("find-skills", "agent skills for summarization", "--goal", "agent skills for summarization")]
+        [InlineData("list-models", "", null, null)]
+        [InlineData("list-providers", "", null, null)]
+        [InlineData("opencode-stats", "", null, null)]
+        public void AddArgumentsToList_HandlesAdditionalActions(string action, string parameter, string? expectedFlag, string? expectedValue)
+        {
+            var arguments = InvokeAddArguments(action, parameter, TargetLibrary.LibraryUnverified);
+
+            arguments.Should().ContainInOrder("--mode", "cli", "--action", action);
+            if (!string.IsNullOrWhiteSpace(expectedFlag))
+            {
+                arguments.Should().ContainInOrder(expectedFlag!, expectedValue!);
+            }
+        }
+
+        [Fact]
+        public void AddArgumentsToList_BuildsImportSkillArguments()
+        {
+            var arguments = InvokeAddArguments("import-skill", @"C:\skills\demo-skill|custom-category", TargetLibrary.Library);
+
+            arguments.Should().ContainInOrder(
+                "--mode", "cli",
+                "--action", "import-skill",
+                "--source", @"C:\skills\demo-skill",
+                "--library", "Library",
+                "--category", "custom-category");
+        }
+
+        [Fact]
+        public void AddArgumentsToList_BuildsPromoteSkillArguments()
+        {
+            var arguments = InvokeAddArguments("promote-skill", "demo-skill|custom-category|LibraryUnverified", TargetLibrary.LibraryUnverified);
+
+            arguments.Should().ContainInOrder(
+                "--mode", "cli",
+                "--action", "promote-skill",
+                "--skill", "demo-skill",
+                "--category", "custom-category",
+                "--from-library", "LibraryUnverified");
+        }
+
+        [Fact]
+        public void AddArgumentsToList_BuildsMoveSkillArguments()
+        {
+            var arguments = InvokeAddArguments("move-skill", "demo-skill|old-category|new-category", TargetLibrary.LibraryWorkbench);
+
+            arguments.Should().ContainInOrder(
+                "--mode", "cli",
+                "--action", "move-skill",
+                "--skill", "demo-skill",
+                "--category", "old-category",
+                "--to-category", "new-category",
+                "--library", "LibraryWorkbench");
+        }
+
+        [Fact]
+        public void AddArgumentsToList_BuildsAuthProviderArguments()
+        {
+            var arguments = InvokeAddArguments("auth-provider", "minimax|logout", TargetLibrary.LibraryUnverified);
+
+            arguments.Should().ContainInOrder(
+                "--mode", "cli",
+                "--action", "auth-provider",
+                "--provider", "minimax",
+                "--logout");
+        }
+
         [Fact]
         public void AddArgumentsToList_KeepsQuotedBriefAsSingleArgument()
         {
@@ -103,6 +171,67 @@ namespace MetaSkillStudio.Tests.Services
 
             Assert.Throws<TargetInvocationException>(() =>
                 method?.Invoke(_service, new object[] { arguments, "invalid-action", "param", TargetLibrary.LibraryUnverified, null }));
+        }
+
+        #endregion
+
+        #region Assistant Request Parsing Tests
+
+        [Fact]
+        public void ParseAssistantRequest_BuildsContextualPromptFromJsonPayload()
+        {
+            var method = typeof(PythonRuntimeService).GetMethod("ParseAssistantRequest",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+
+            method.Should().NotBeNull();
+
+            const string payload = """
+                {
+                  "prompt": "Create test cases for the selected skill.",
+                  "model": "minimax/text-01",
+                  "page": "Test and evaluate workflow",
+                  "history": [
+                    { "role": "User", "content": "I need help with skill testing." },
+                    { "role": "Assistant", "content": "Select the skill and I can create benchmark cases." }
+                  ]
+                }
+                """;
+
+            var request = method!.Invoke(_service, new object[] { payload });
+            request.Should().NotBeNull();
+
+            var requestType = request!.GetType();
+            var promptText = requestType.GetProperty("PromptText")!.GetValue(request) as string;
+            var model = requestType.GetProperty("Model")!.GetValue(request) as string;
+            var page = requestType.GetProperty("Page")!.GetValue(request) as string;
+
+            promptText.Should().Contain("Current page: Test and evaluate workflow");
+            promptText.Should().Contain("Conversation history:");
+            promptText.Should().Contain("User: I need help with skill testing.");
+            promptText.Should().Contain("Assistant: Select the skill and I can create benchmark cases.");
+            promptText.Should().Contain("User request:");
+            promptText.Should().Contain("Create test cases for the selected skill.");
+            model.Should().Be("minimax/text-01");
+            page.Should().Be("Test and evaluate workflow");
+        }
+
+        [Fact]
+        public void ParseAssistantRequest_PreservesPlainTextPrompt()
+        {
+            var method = typeof(PythonRuntimeService).GetMethod("ParseAssistantRequest",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+
+            method.Should().NotBeNull();
+
+            var request = method!.Invoke(_service, new object[] { "Summarize the selected library skill." });
+            request.Should().NotBeNull();
+
+            var requestType = request!.GetType();
+            var promptText = requestType.GetProperty("PromptText")!.GetValue(request) as string;
+            var model = requestType.GetProperty("Model")!.GetValue(request) as string;
+
+            promptText.Should().Be("Summarize the selected library skill.");
+            model.Should().BeNull();
         }
 
         #endregion

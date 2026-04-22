@@ -515,96 +515,204 @@ namespace MetaSkillStudio.Services
                 throw new FileNotFoundException("OpenCode SDK bridge script not found", _opencodeSdkBridgePath);
             }
 
-            var psi = new ProcessStartInfo
+            var request = ParseAssistantRequest(prompt);
+            if (string.IsNullOrWhiteSpace(request.PromptText))
             {
-                FileName = _nodePath,
-                WorkingDirectory = _repoRoot,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            psi.ArgumentList.Add(_opencodeSdkBridgePath);
-            psi.ArgumentList.Add("assistant");
-            psi.ArgumentList.Add("--prompt");
-            psi.ArgumentList.Add(prompt);
-
-            var startTime = DateTime.UtcNow;
-            using var process = Process.Start(psi);
-
-            if (process == null)
-            {
-                throw new InvalidOperationException("Failed to start OpenCode SDK bridge");
+                throw new InvalidOperationException("Assistant prompt is required.");
             }
 
-            var stdoutTask = process.StandardOutput.ReadToEndAsync();
-            var stderrTask = process.StandardError.ReadToEndAsync();
+            var promptFilePath = Path.Combine(Path.GetTempPath(), $"meta-skill-studio-assistant-{Guid.NewGuid():N}.txt");
+            File.WriteAllText(promptFilePath, request.PromptText);
 
-            using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
             try
             {
-                await process.WaitForExitAsync(cts.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                try { process.Kill(); } catch { }
-                throw new TimeoutException("OpenCode assistant request exceeded the 10-minute timeout.");
-            }
+                var psi = new ProcessStartInfo
+                {
+                    FileName = _nodePath,
+                    WorkingDirectory = _repoRoot,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
-            var endTime = DateTime.UtcNow;
-            var stdout = await stdoutTask;
-            var stderr = await stderrTask;
-            var outputText = stdout.Trim();
-            var artifacts = new Dictionary<string, object>();
+                psi.ArgumentList.Add(_opencodeSdkBridgePath);
+                psi.ArgumentList.Add("assistant");
+                psi.ArgumentList.Add("--prompt-file");
+                psi.ArgumentList.Add(promptFilePath);
+                if (!string.IsNullOrWhiteSpace(request.Model))
+                {
+                    psi.ArgumentList.Add("--model");
+                    psi.ArgumentList.Add(request.Model);
+                }
 
-            if (!string.IsNullOrWhiteSpace(stdout))
+                var startTime = DateTime.UtcNow;
+                using var process = Process.Start(psi);
+
+                if (process == null)
+                {
+                    throw new InvalidOperationException("Failed to start OpenCode SDK bridge");
+                }
+
+                var stdoutTask = process.StandardOutput.ReadToEndAsync();
+                var stderrTask = process.StandardError.ReadToEndAsync();
+
+                using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+                try
+                {
+                    await process.WaitForExitAsync(cts.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    try { process.Kill(); } catch { }
+                    throw new TimeoutException("OpenCode assistant request exceeded the 10-minute timeout.");
+                }
+
+                var endTime = DateTime.UtcNow;
+                var stdout = await stdoutTask;
+                var stderr = await stderrTask;
+                var outputText = stdout.Trim();
+                var artifacts = new Dictionary<string, object>();
+
+                if (!string.IsNullOrWhiteSpace(stdout))
+                {
+                    try
+                    {
+                        using var document = JsonDocument.Parse(stdout);
+
+                        if (document.RootElement.TryGetProperty("response", out var responseProperty) &&
+                            responseProperty.ValueKind == JsonValueKind.String)
+                        {
+                            outputText = responseProperty.GetString() ?? string.Empty;
+                        }
+
+                        if (document.RootElement.TryGetProperty("sessionId", out var sessionProperty) &&
+                            sessionProperty.ValueKind == JsonValueKind.String)
+                        {
+                            artifacts["sessionId"] = sessionProperty.GetString() ?? string.Empty;
+                        }
+
+                        if (document.RootElement.TryGetProperty("model", out var modelProperty) &&
+                            modelProperty.ValueKind == JsonValueKind.String)
+                        {
+                            artifacts["model"] = modelProperty.GetString() ?? string.Empty;
+                        }
+                    }
+                    catch (JsonException)
+                    {
+                        // Preserve the raw bridge output if JSON parsing fails.
+                    }
+                }
+
+                return new RunResult
+                {
+                    Action = "assistant",
+                    ExitCode = process.ExitCode,
+                    Stdout = outputText,
+                    Stderr = stderr,
+                    DurationSeconds = Math.Round((endTime - startTime).TotalSeconds, 3),
+                    StartedAtUtc = startTime,
+                    EndedAtUtc = endTime,
+                    Input = new Dictionary<string, object>
+                    {
+                        ["action"] = "assistant",
+                        ["parameter"] = request.OriginalInput,
+                        ["page"] = request.Page ?? string.Empty,
+                        ["model"] = request.Model ?? "auto",
+                    },
+                    Artifacts = artifacts,
+                };
+            }
+            finally
             {
                 try
                 {
-                    using var document = JsonDocument.Parse(stdout);
-
-                    if (document.RootElement.TryGetProperty("response", out var responseProperty) &&
-                        responseProperty.ValueKind == JsonValueKind.String)
+                    if (File.Exists(promptFilePath))
                     {
-                        outputText = responseProperty.GetString() ?? string.Empty;
-                    }
-
-                    if (document.RootElement.TryGetProperty("sessionId", out var sessionProperty) &&
-                        sessionProperty.ValueKind == JsonValueKind.String)
-                    {
-                        artifacts["sessionId"] = sessionProperty.GetString() ?? string.Empty;
-                    }
-
-                    if (document.RootElement.TryGetProperty("model", out var modelProperty) &&
-                        modelProperty.ValueKind == JsonValueKind.String)
-                    {
-                        artifacts["model"] = modelProperty.GetString() ?? string.Empty;
+                        File.Delete(promptFilePath);
                     }
                 }
-                catch (JsonException)
+                catch
                 {
-                    // Preserve the raw bridge output if JSON parsing fails.
+                    // Best effort cleanup only.
                 }
             }
-
-            return new RunResult
-            {
-                Action = "assistant",
-                ExitCode = process.ExitCode,
-                Stdout = outputText,
-                Stderr = stderr,
-                DurationSeconds = Math.Round((endTime - startTime).TotalSeconds, 3),
-                StartedAtUtc = startTime,
-                EndedAtUtc = endTime,
-                Input = new Dictionary<string, object>
-                {
-                    ["action"] = "assistant",
-                    ["parameter"] = prompt,
-                },
-                Artifacts = artifacts,
-            };
         }
+
+        private AssistantBridgeRequest ParseAssistantRequest(string parameter)
+        {
+            if (string.IsNullOrWhiteSpace(parameter))
+            {
+                return new AssistantBridgeRequest(string.Empty, null, null, parameter);
+            }
+
+            try
+            {
+                using var document = JsonDocument.Parse(parameter);
+                if (!document.RootElement.TryGetProperty("prompt", out var promptProperty) ||
+                    promptProperty.ValueKind != JsonValueKind.String)
+                {
+                    return new AssistantBridgeRequest(parameter.Trim(), null, null, parameter);
+                }
+
+                var promptText = promptProperty.GetString()?.Trim() ?? string.Empty;
+                var selectedModel = document.RootElement.TryGetProperty("model", out var modelProperty) &&
+                                    modelProperty.ValueKind == JsonValueKind.String
+                    ? modelProperty.GetString()?.Trim()
+                    : null;
+                var pageContext = document.RootElement.TryGetProperty("page", out var pageProperty) &&
+                                  pageProperty.ValueKind == JsonValueKind.String
+                    ? pageProperty.GetString()?.Trim()
+                    : null;
+
+                var builder = new System.Text.StringBuilder();
+                builder.AppendLine("You are operating inside Meta Skill Studio.");
+                if (!string.IsNullOrWhiteSpace(pageContext))
+                {
+                    builder.AppendLine($"Current page: {pageContext}");
+                }
+
+                if (document.RootElement.TryGetProperty("history", out var historyProperty) &&
+                    historyProperty.ValueKind == JsonValueKind.Array)
+                {
+                    var history = historyProperty.EnumerateArray()
+                        .Select(item =>
+                        {
+                            var role = item.TryGetProperty("role", out var roleProperty) && roleProperty.ValueKind == JsonValueKind.String
+                                ? roleProperty.GetString()?.Trim()
+                                : null;
+                            var content = item.TryGetProperty("content", out var contentProperty) && contentProperty.ValueKind == JsonValueKind.String
+                                ? contentProperty.GetString()?.Trim()
+                                : null;
+                            return (Role: role, Content: content);
+                        })
+                        .Where(item => !string.IsNullOrWhiteSpace(item.Role) && !string.IsNullOrWhiteSpace(item.Content))
+                        .ToList();
+
+                    if (history.Count > 0)
+                    {
+                        builder.AppendLine();
+                        builder.AppendLine("Conversation history:");
+                        foreach (var entry in history)
+                        {
+                            builder.AppendLine($"{entry.Role}: {entry.Content}");
+                        }
+                    }
+                }
+
+                builder.AppendLine();
+                builder.AppendLine("User request:");
+                builder.AppendLine(promptText);
+
+                return new AssistantBridgeRequest(builder.ToString().Trim(), selectedModel, pageContext, parameter);
+            }
+            catch (JsonException)
+            {
+                return new AssistantBridgeRequest(parameter.Trim(), null, null, parameter);
+            }
+        }
+
+        private sealed record AssistantBridgeRequest(string PromptText, string? Model, string? Page, string OriginalInput);
 
         /// <summary>
         /// Adds arguments to ArgumentList based on action type.
@@ -613,7 +721,12 @@ namespace MetaSkillStudio.Services
         /// </summary>
         private void AddArgumentsToList(IList<string> argumentList, string action, string parameter, TargetLibrary library, int? benchmarkCases)
         {
-            var libraryName = library == TargetLibrary.LibraryWorkbench ? "LibraryWorkbench" : "LibraryUnverified";
+            var libraryName = library switch
+            {
+                TargetLibrary.LibraryWorkbench => "LibraryWorkbench",
+                TargetLibrary.Library => "Library",
+                _ => "LibraryUnverified"
+            };
 
             switch (action.ToLower())
             {
@@ -663,6 +776,15 @@ namespace MetaSkillStudio.Services
                     argumentList.Add(parameter);
                     break;
 
+                case "find-skills":
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add("find-skills");
+                    argumentList.Add("--goal");
+                    argumentList.Add(parameter);
+                    break;
+
                 case "benchmarks":
                     var benchParts = parameter.Split('|', 2);
                     if (benchParts.Length != 2)
@@ -677,6 +799,81 @@ namespace MetaSkillStudio.Services
                     argumentList.Add(benchParts[1]);
                     argumentList.Add("--cases");
                     argumentList.Add((benchmarkCases ?? 8).ToString());
+                    break;
+
+                case "import-skill":
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add("import-skill");
+                    var importParts = parameter.Split('|', 2);
+                    argumentList.Add("--source");
+                    argumentList.Add(importParts[0]);
+                    argumentList.Add("--library");
+                    argumentList.Add(libraryName);
+                    if (importParts.Length == 2 && !string.IsNullOrWhiteSpace(importParts[1]))
+                    {
+                        argumentList.Add("--category");
+                        argumentList.Add(importParts[1]);
+                    }
+                    break;
+
+                case "promote-skill":
+                case "demote-skill":
+                    var moveTierParts = parameter.Split('|', 3);
+                    if (moveTierParts.Length != 3)
+                        throw new ArgumentException($"{action} parameter must be 'skill|category|fromLibrary' format");
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add(action.ToLowerInvariant());
+                    argumentList.Add("--skill");
+                    argumentList.Add(moveTierParts[0]);
+                    argumentList.Add("--category");
+                    argumentList.Add(moveTierParts[1]);
+                    argumentList.Add("--from-library");
+                    argumentList.Add(moveTierParts[2]);
+                    break;
+
+                case "move-skill":
+                    var moveParts = parameter.Split('|', 3);
+                    if (moveParts.Length != 3)
+                        throw new ArgumentException("move-skill parameter must be 'skill|category|targetCategory' format");
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add("move-skill");
+                    argumentList.Add("--skill");
+                    argumentList.Add(moveParts[0]);
+                    argumentList.Add("--category");
+                    argumentList.Add(moveParts[1]);
+                    argumentList.Add("--to-category");
+                    argumentList.Add(moveParts[2]);
+                    argumentList.Add("--library");
+                    argumentList.Add(libraryName);
+                    break;
+
+                case "list-models":
+                case "list-providers":
+                case "opencode-stats":
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add(action.ToLowerInvariant());
+                    break;
+
+                case "auth-provider":
+                    var authParts = parameter.Split('|', 2);
+                    argumentList.Add("--mode");
+                    argumentList.Add("cli");
+                    argumentList.Add("--action");
+                    argumentList.Add("auth-provider");
+                    argumentList.Add("--provider");
+                    argumentList.Add(authParts[0]);
+                    if (authParts.Length == 2 && string.Equals(authParts[1], "logout", StringComparison.OrdinalIgnoreCase))
+                    {
+                        argumentList.Add("--logout");
+                    }
                     break;
 
                 case "reconfigure":

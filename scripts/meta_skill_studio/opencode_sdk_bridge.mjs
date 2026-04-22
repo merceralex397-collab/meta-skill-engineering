@@ -10,7 +10,7 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function parseArgs(argv) {
-  const args = {action: "assistant", prompt: ""};
+  const args = {action: "assistant", prompt: "", promptFile: "", model: ""};
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "assistant") {
@@ -20,9 +20,27 @@ function parseArgs(argv) {
     if (arg === "--prompt") {
       args.prompt = argv[i + 1] ?? "";
       i += 1;
+      continue;
+    }
+    if (arg === "--prompt-file") {
+      args.promptFile = argv[i + 1] ?? "";
+      i += 1;
+      continue;
+    }
+    if (arg === "--model") {
+      args.model = argv[i + 1] ?? "";
+      i += 1;
     }
   }
   return args;
+}
+
+function resolvePrompt(args) {
+  if (args.promptFile) {
+    return fs.readFileSync(args.promptFile, "utf8");
+  }
+
+  return args.prompt;
 }
 
 async function getFreePort() {
@@ -223,7 +241,7 @@ function extractResponseText(result) {
     .join("\n\n");
 }
 
-function buildModelCandidates(repoModel, providersPayload) {
+function buildModelCandidates(repoModel, providersPayload, preferredModel) {
   const candidates = [];
   const seen = new Set();
   const pushCandidate = (candidate) => {
@@ -237,6 +255,8 @@ function buildModelCandidates(repoModel, providersPayload) {
       candidates.push(candidate);
     }
   };
+
+  pushCandidate(normalizeModelSelection(preferredModel, providersPayload));
 
   const normalizedRepoModel = normalizeModelSelection(repoModel, providersPayload);
   pushCandidate(normalizedRepoModel);
@@ -338,14 +358,14 @@ async function promptWithCandidate(client, baseUrl, prompt, candidate) {
   return {ok: false, error: "Timed out waiting for the assistant response."};
 }
 
-async function runAssistant(prompt) {
+async function runAssistant(prompt, preferredModel) {
   const server = await startServer();
   const {baseUrl, child} = server;
   const client = createOpencodeClient({baseUrl, throwOnError: true});
 
   try {
     const providersPayload = (await client.config.providers()).data;
-    const candidates = buildModelCandidates(readRepoModel(), providersPayload);
+    const candidates = buildModelCandidates(readRepoModel(), providersPayload, preferredModel);
     const failures = [];
 
     for (const candidate of candidates) {
@@ -371,8 +391,9 @@ async function runAssistant(prompt) {
 }
 
 const args = parseArgs(process.argv.slice(2));
+const prompt = resolvePrompt(args).trim();
 
-if (!args.prompt.trim()) {
+if (!prompt) {
   console.error(JSON.stringify({ok: false, error: "Assistant prompt is required."}));
   process.exit(1);
 }
@@ -382,7 +403,7 @@ try {
     throw new Error(`Unsupported SDK bridge action: ${args.action}`);
   }
 
-  await runAssistant(args.prompt.trim());
+  await runAssistant(prompt, args.model?.trim() || null);
 } catch (error) {
   console.error(
     JSON.stringify({

@@ -676,6 +676,115 @@ namespace MetaSkillStudio.Models
     }
 
     /// <summary>
+    /// Provider authentication and availability information for Settings.
+    /// </summary>
+    public class ProviderStatusInfo : ObservableModel
+    {
+        private string _name = string.Empty;
+        private bool _authenticated;
+        private int _modelCount;
+        private string _raw = string.Empty;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (SetProperty(ref _name, value))
+                {
+                    OnPropertyChanged(nameof(StatusLabel));
+                }
+            }
+        }
+
+        public bool Authenticated
+        {
+            get => _authenticated;
+            set
+            {
+                if (SetProperty(ref _authenticated, value))
+                {
+                    OnPropertyChanged(nameof(StatusLabel));
+                }
+            }
+        }
+
+        public int ModelCount
+        {
+            get => _modelCount;
+            set => SetProperty(ref _modelCount, value);
+        }
+
+        public string Raw
+        {
+            get => _raw;
+            set => SetProperty(ref _raw, value);
+        }
+
+        [JsonIgnore]
+        public string StatusLabel => Authenticated ? "Connected" : "Needs sign-in";
+    }
+
+    /// <summary>
+    /// Runtime model surfaced in Settings and Assistant.
+    /// </summary>
+    public class RuntimeModelInfo : ObservableModel
+    {
+        private string _runtime = string.Empty;
+        private string _provider = string.Empty;
+        private string _model = string.Empty;
+        private bool _recommended;
+
+        public string Runtime
+        {
+            get => _runtime;
+            set => SetProperty(ref _runtime, value);
+        }
+
+        public string Provider
+        {
+            get => _provider;
+            set => SetProperty(ref _provider, value);
+        }
+
+        public string Model
+        {
+            get => _model;
+            set => SetProperty(ref _model, value);
+        }
+
+        public bool Recommended
+        {
+            get => _recommended;
+            set => SetProperty(ref _recommended, value);
+        }
+
+        [JsonIgnore]
+        public string DisplayName => string.IsNullOrWhiteSpace(Provider) ? Model : $"{Provider} / {Model}";
+    }
+
+    /// <summary>
+    /// A single analytics metric surfaced in the inline dashboard.
+    /// </summary>
+    public class AnalyticsMetricInfo : ObservableModel
+    {
+        private string _label = string.Empty;
+        private string _value = string.Empty;
+
+        public string Label
+        {
+            get => _label;
+            set => SetProperty(ref _label, value);
+        }
+
+        public string Value
+        {
+            get => _value;
+            set => SetProperty(ref _value, value);
+        }
+    }
+
+    /// <summary>
     /// Result from a Python command execution
     /// </summary>
     public class RunResult : ObservableModel
