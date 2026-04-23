@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This repository is a meta-skill engineering workspace. Treat each top-level skill directory as a first-class package with `SKILL.md` as the baseline contract.
+This repository is a meta-skill engineering workspace. In the canonical Scafforge workspace it lives at `agent-tools/meta-skill-engineering/`, but it must remain usable as a standalone product. Treat each top-level skill directory as a first-class package with `SKILL.md` as the baseline contract.
 
 ## Working Rules
 
