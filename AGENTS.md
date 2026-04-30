@@ -2,6 +2,32 @@
 
 This repository is a meta-skill engineering workspace. In the canonical Scafforge workspace it lives at `agent-tools/meta-skill-engineering/`, but it must remain usable as a standalone product. Treat each top-level skill directory as a first-class package with `SKILL.md` as the baseline contract.
 
+## Purpose
+
+Maintain the repo-owned skill packages, skill creation/improvement workflows, and Meta Skill Studio surfaces for skill engineering.
+
+## Owns
+
+- repo-owned root skill packages
+- `SKILL.md` structure and package guidance
+- Meta Skill Studio CLI/TUI/GUI workflow surfaces
+- skill validation, eval, and packaging scripts
+- OpenCode integration defaults for this repo
+
+## Does not own
+
+- archived source material in `skill creator/` as active inventory
+- `LibraryUnverified/` or `LibraryWorkbench/` as repo-owned root skill packages
+- parallel runtime-selection guidance for unrelated AI CLIs
+
+## Required read order
+
+1. `AGENTS.md`
+2. `README.md`
+3. `docs/cli/action-contract.md`
+4. `docs/cli/feature-inventory.md`
+5. relevant root skill package `SKILL.md`
+
 ## Working Rules
 
 - Prefer direct, factual documentation and implementation notes.
@@ -30,6 +56,27 @@ This repository is a meta-skill engineering workspace. In the canonical Scafforg
 - Before marking WPF work complete, run `windows-wpf\build-release.ps1` and confirm the publish smoke test passes.
 - The smoke test must launch `windows-wpf\publish\MetaSkillStudio.exe`, verify it stays alive briefly, and fail on any matching `.NET Runtime`, `Application Error`, or `Windows Error Reporting` events.
 - Treat startup XAML/resource failures as blocking release issues even when compile and unit tests pass.
+
+## Commands
+
+```bash
+./scripts/validate-skills.sh
+./scripts/run-evals.sh
+./scripts/pre-commit-check.sh
+```
+
+```powershell
+python scripts/meta-skill-studio.py --mode cli
+python scripts/validate_cli_contract.py
+windows-wpf\build-release.ps1
+```
+
+## Completion evidence
+
+- List changed skill packages, scripts, docs, or Studio surfaces.
+- Include relevant validation commands and results.
+- For WPF work, include `windows-wpf\build-release.ps1` and smoke-test result.
+- State whether the root skill inventory count changed; do not change it without repo evidence.
 
 ## Skill Package Shape
 
