@@ -46,7 +46,7 @@ The Python CLI is the required contract for headless agents and automation. Cano
 - evaluation: `validate-skills`, `run-evals`, `evaluate-skill`, `benchmark-skill`, `compare-runs`, `improvement-brief`
 - library/catalog: `find-skills`, `import-skill`, `promote-skill`, `demote-skill`, `move-skill`, `meta-manage`, `catalog-audit`
 - governance/distribution: `safety-review`, `provenance-review`, `package-skill`, `install-skill`, `lifecycle-review`
-- orchestration: `run-pipeline`, `resume-pipeline`
+- orchestration: `run-pipeline`, `resume-pipeline`, `ingest-skill-fault`
 - introspection/runtime: `list-actions`, `list-skills`, `list-runs`, `show-run`, `list-models`, `list-providers`, `auth-provider`, `opencode-stats`
 
 Prefer `--format json` for machine-readable output.
@@ -140,6 +140,8 @@ skill-catalog-curation → skill-lifecycle-management
 - `evaluate-skill` now emits a versioned run artifact with a measurement plan and improvement brief.
 - `compare-runs` and `improvement-brief` turn evaluation output into reusable follow-up artifacts.
 - `package-skill` now builds a checksum-verified archive from the real skill folder instead of relying on a prompt-only packaging request.
+- `catalog-audit` is deterministic and reports library tier metadata, release-facing metadata blockers, and root/library inventory overlap.
+- `ingest-skill-fault` accepts Archive fault packets and writes tracked pipeline disposition artifacts without promoting unverified skills.
 - Full plugin-eval cost/budget machinery is **not** applied blindly repo-wide; see `docs/evaluation/plugin-eval-disposition.md`.
 
 ## Contributing

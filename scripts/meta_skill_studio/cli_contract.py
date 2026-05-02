@@ -91,7 +91,6 @@ ACTION_SPECS: Tuple[ActionSpec, ...] = (
         category="library",
         summary="Audit library/workbench organization while keeping the 17 root skills distinct.",
         optional_args=("goal",),
-        requires_role_config=True,
     ),
     ActionSpec(
         name="find-skills",
@@ -146,16 +145,14 @@ ACTION_SPECS: Tuple[ActionSpec, ...] = (
         category="distribution",
         summary="Prepare packaging work for a target skill.",
         required_args=("skill",),
-        optional_args=("destination", "goal"),
-        requires_role_config=True,
+        optional_args=("destination", "goal", "library", "category", "acknowledge-unverified"),
     ),
     ActionSpec(
         name="install-skill",
         category="distribution",
         summary="Prepare or execute installation work for a target skill.",
         required_args=("skill",),
-        optional_args=("destination", "goal"),
-        requires_role_config=True,
+        optional_args=("destination", "goal", "library", "category", "acknowledge-unverified"),
     ),
     ActionSpec(
         name="lifecycle-review",
@@ -179,6 +176,12 @@ ACTION_SPECS: Tuple[ActionSpec, ...] = (
         summary="Resume an existing documented orchestrator pipeline by run id.",
         required_args=("run-id",),
         requires_role_config=True,
+    ),
+    ActionSpec(
+        name="ingest-skill-fault",
+        category="orchestration",
+        summary="Ingest an Archive skill-fault packet into a tracked Meta Skill pipeline disposition.",
+        required_args=("packet",),
     ),
     ActionSpec(
         name="list-actions",

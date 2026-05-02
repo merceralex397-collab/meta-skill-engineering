@@ -1,0 +1,4 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  MetaSkillStudio -> C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\MetaSkillStudio\bin\Release\net8.0-windows\win-x64\MetaSkillStudio.dll
+  MetaSkillStudio -> C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\MetaSkillStudio\bin\Release\net8.0-windows\win-x64\publish\

@@ -11,7 +11,7 @@ Promotion requires all of the following evidence:
 - `skill-safety-review` and `skill-provenance` have no release-blocking findings
 - `skill-packaging` produces a verified archive with checksums
 
-This directory contains **881 skills** organized into **56 thematic categories** for the Meta-Skill-Engineering project.
+The current machine-audited count is **889 unverified `SKILL.md` packages**. Treat this count as corpus inventory only; it is not part of the 17 repo-owned root skill inventory and not a verified product-skill count.
 
 ## 📊 Organization Overview
 
@@ -149,9 +149,9 @@ During categorization, we discovered several unusual skill types:
 
 ## 📈 Statistics
 
-- **Total skills categorized:** ~858
+- **Total unverified skill packages:** 889, based on `catalog-audit`
 - **Categories created:** 56
-- **Skills remaining in skillstosort:** 23 (metadata, templates, special collections)
+- **Skills remaining in skillstosort:** use `catalog-audit` for current machine-readable inventory
 - **Most populated category:** misc-specialized (170 skills)
 - **Least populated categories:** Several with 4-5 skills each
 

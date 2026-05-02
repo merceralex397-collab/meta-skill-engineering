@@ -1,0 +1,12 @@
+COMMAND: pwsh -NoProfile -File .\windows-wpf\build-release.ps1
+START: 2026-05-01T09:57:31.3468911+01:00
+Publishing Meta Skill Studio...
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  MetaSkillStudio -> C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\MetaSkillStudio\bin\Release\net8.0-windows\win-x64\MetaSkillStudio.dll
+  MetaSkillStudio -> C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\MetaSkillStudio\bin\Release\net8.0-windows\win-x64\publish\
+Smoke testing MetaSkillStudio.exe from C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\publish ...
+Smoke test passed: MetaSkillStudio.exe stayed alive for 10 second(s).
+Release bundle ready at C:\Users\rowan\Documents\GitHub\scafforge\agent-tools\meta-skill-engineering\windows-wpf\publish
+EXIT_CODE: 0
+END: 2026-05-01T09:58:39.7974868+01:00

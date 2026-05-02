@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "candidate_id": "archive-skill-fault-fixture-001",
+  "failure_family": "skill-fault",
+  "source_archive_path": "tasks/research/skill-faults/archive-skill-fault-fixture-001.md",
+  "reported_at": "2026-05-01T00:00:00Z",
+  "summary": "The skill-creator trigger boundary missed a direct skill creation request during Archive triage.",
+  "impact": "A valid skill creation request may route to generic implementation instead of the repo-owned skill creation workflow.",
+  "target_skill": "skill-creator",
+  "routing_hints": {
+    "suspected_trigger_issue": true,
+    "requires_safety_review": true
+  },
+  "evidence": [
+    {
+      "kind": "routing-miss",
+      "path": "tasks/research/skill-faults/archive-skill-fault-fixture-001.md",
+      "excerpt": "The operator asked for a new reusable skill, but no skill creation workflow was selected.",
+      "severity": "medium"
+    }
+  ]
+}

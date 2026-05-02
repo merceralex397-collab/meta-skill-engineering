@@ -1,5 +1,6 @@
 eval-results/
 .meta-skill-studio/
+tasks/library-catalog-audit-*.json
 .wix/
 __pycache__/
 **/__pycache__/

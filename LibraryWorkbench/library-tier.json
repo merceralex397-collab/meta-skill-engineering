@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "tier": "LibraryWorkbench",
+  "status": "workbench",
+  "release_ready": false,
+  "distribution_requires_acknowledgement": true,
+  "description": "Skills under active normalization, evaluation, safety review, and provenance work."
+}

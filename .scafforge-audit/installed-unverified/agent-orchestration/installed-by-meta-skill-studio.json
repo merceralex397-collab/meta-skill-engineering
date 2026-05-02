@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "installed_at": "2026-05-01T18:17:08.826190+00:00",
+  "skill_name": "agent-orchestration",
+  "source": {
+    "scope": "library",
+    "library": "LibraryUnverified",
+    "category": "01-ai-agent-orchestration",
+    "path": "C:\\Users\\rowan\\Documents\\GitHub\\scafforge\\agent-tools\\meta-skill-engineering\\LibraryUnverified\\01-ai-agent-orchestration\\agent-orchestration",
+    "status": "unverified",
+    "release_ready": false,
+    "distribution_requires_acknowledgement": true
+  },
+  "destination": "C:\\Users\\rowan\\Documents\\GitHub\\scafforge\\agent-tools\\meta-skill-engineering\\.scafforge-audit\\installed-unverified\\agent-orchestration",
+  "acknowledge_unverified": true
+}

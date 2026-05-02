@@ -39,6 +39,7 @@ No other eval formats are active. Do not use `evals.json`, `output-tests.jsonl`,
 - `docs/cli/action-contract.md` is the published CLI verb contract, and `docs/cli/feature-inventory.md` is the audit baseline.
 - `windows-wpf/` is a Windows convenience shell and packaging surface, not the only real product path.
 - `scripts/meta_skill_studio/opencode_sdk_bridge.mjs` is an assistant-chat helper, not the authoritative create/improve/evaluate/library-management surface.
+- Archive `skill-fault` evidence enters Meta through `ingest-skill-fault` packets and creates tracked `tasks/pipelines/` disposition artifacts without promoting unverified skills.
 
 ## Available Scripts
 

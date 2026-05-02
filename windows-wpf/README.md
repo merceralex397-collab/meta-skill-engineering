@@ -59,6 +59,11 @@ Output: `publish\MetaSkillStudio.exe`
 
 `build-release.ps1` now runs a startup smoke test against the published exe. Use `.\build-release.ps1 -SkipSmokeTest` only when you explicitly need to stage the bundle without launching the app.
 
+Latest release-validation evidence for the Scafforge v2 plan is retained under:
+
+- `.scafforge-audit/validation/wpf-build-release-after-meta-release-work.txt`
+- `.scafforge-audit/validation/wpf-dotnet-test-release-after-meta-release-work.txt`
+
 Inside the app, the main workflow surface now includes:
 - a left navigation rail
 - a top Studio/Help menu

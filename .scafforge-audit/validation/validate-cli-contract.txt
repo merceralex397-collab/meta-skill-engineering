@@ -1,0 +1,5 @@
+COMMAND: python scripts/validate_cli_contract.py
+START: 2026-05-01T09:52:22.8403097+01:00
+CLI contract validation passed: 30 actions documented.
+EXIT_CODE: 0
+END: 2026-05-01T09:52:23.0834062+01:00

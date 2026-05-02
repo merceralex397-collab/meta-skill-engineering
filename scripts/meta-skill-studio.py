@@ -30,6 +30,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--library", choices=["LibraryUnverified", "LibraryWorkbench", "Library"], help="Library tier")
     parser.add_argument("--source", help="Source path or URL for import actions")
     parser.add_argument("--destination", help="Destination path for package/install style actions")
+    parser.add_argument("--packet", help="JSON input packet for ingest actions")
+    parser.add_argument(
+        "--acknowledge-unverified",
+        action="store_true",
+        help="Allow package/install from non-verified library tiers",
+    )
     parser.add_argument(
         "--from-library",
         dest="from_library",
@@ -143,13 +149,30 @@ def run_cli_action(core: StudioCore, args: argparse.Namespace, parser: argparse.
         return core.run_provenance_review(args.skill, args.goal)
     if action == "package-skill":
         _require(parser, bool(args.skill), "--skill is required for package-skill")
-        return core.run_package_skill(args.skill, args.destination, args.goal)
+        return core.run_package_skill(
+            args.skill,
+            args.destination,
+            args.goal,
+            library_name=args.library,
+            category=args.category,
+            acknowledge_unverified=args.acknowledge_unverified,
+        )
     if action == "install-skill":
         _require(parser, bool(args.skill), "--skill is required for install-skill")
-        return core.run_install_skill(args.skill, args.destination, args.goal)
+        return core.run_install_skill(
+            args.skill,
+            args.destination,
+            args.goal,
+            library_name=args.library,
+            category=args.category,
+            acknowledge_unverified=args.acknowledge_unverified,
+        )
     if action == "lifecycle-review":
         _require(parser, bool(args.skill), "--skill is required for lifecycle-review")
         return core.run_lifecycle_review(args.skill, args.goal)
+    if action == "ingest-skill-fault":
+        _require(parser, bool(args.packet), "--packet is required for ingest-skill-fault")
+        return core.run_ingest_skill_fault(args.packet)
     if action == "run-pipeline":
         _require(parser, bool(args.pipeline), "--pipeline is required for run-pipeline")
         if args.pipeline == "creation":

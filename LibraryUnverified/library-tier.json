@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "tier": "LibraryUnverified",
+  "status": "unverified",
+  "release_ready": false,
+  "distribution_requires_acknowledgement": true,
+  "description": "Raw, imported, or research-corpus skills that have not completed evaluation."
+}

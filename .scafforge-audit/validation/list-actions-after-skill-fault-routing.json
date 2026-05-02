@@ -1,0 +1,414 @@
+{
+  "actions": [
+    {
+      "name": "create",
+      "category": "authoring",
+      "summary": "Create a new skill package in a target library tier.",
+      "required_args": [
+        "brief"
+      ],
+      "optional_args": [
+        "library"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "improve",
+      "category": "authoring",
+      "summary": "Improve an existing skill package against a concrete goal.",
+      "required_args": [
+        "skill",
+        "goal"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "evaluate-skill",
+      "category": "evaluation",
+      "summary": "Run validation, evals, and a structured judge summary for one skill or all skills.",
+      "required_args": [],
+      "optional_args": [
+        "skill"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": [
+        "test"
+      ]
+    },
+    {
+      "name": "benchmark-skill",
+      "category": "evaluation",
+      "summary": "Generate benchmark fixtures for a skill.",
+      "required_args": [
+        "skill",
+        "goal"
+      ],
+      "optional_args": [
+        "cases"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": [
+        "benchmarks"
+      ]
+    },
+    {
+      "name": "validate-skills",
+      "category": "evaluation",
+      "summary": "Run the structural validator across repo-owned root skill packages.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "run-evals",
+      "category": "evaluation",
+      "summary": "Invoke the JSONL eval runner for one skill or all skills.",
+      "required_args": [],
+      "optional_args": [
+        "skill"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "compare-runs",
+      "category": "evaluation",
+      "summary": "Compare two Studio run artifacts and report quality and execution deltas.",
+      "required_args": [
+        "before-run",
+        "after-run"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "improvement-brief",
+      "category": "evaluation",
+      "summary": "Extract a prioritized improvement brief from a Studio run artifact.",
+      "required_args": [
+        "run-file"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "meta-manage",
+      "category": "library",
+      "summary": "Run a general meta-management workflow across the repository.",
+      "required_args": [
+        "goal"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "catalog-audit",
+      "category": "library",
+      "summary": "Audit library/workbench organization while keeping the 17 root skills distinct.",
+      "required_args": [],
+      "optional_args": [
+        "goal"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "find-skills",
+      "category": "library",
+      "summary": "Search for external skills relevant to a topic.",
+      "required_args": [
+        "goal"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "import-skill",
+      "category": "library",
+      "summary": "Import a local folder or GitHub-hosted skill into a library tier/category.",
+      "required_args": [
+        "source"
+      ],
+      "optional_args": [
+        "library",
+        "category"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "promote-skill",
+      "category": "library",
+      "summary": "Promote a skill upward between library tiers.",
+      "required_args": [
+        "skill",
+        "category",
+        "from-library"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "demote-skill",
+      "category": "library",
+      "summary": "Demote a skill downward between library tiers.",
+      "required_args": [
+        "skill",
+        "category",
+        "from-library"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "move-skill",
+      "category": "library",
+      "summary": "Move a skill to another category within the same library tier.",
+      "required_args": [
+        "skill",
+        "category",
+        "to-category",
+        "library"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "safety-review",
+      "category": "governance",
+      "summary": "Run a skill-safety-review style audit for a target skill.",
+      "required_args": [
+        "skill"
+      ],
+      "optional_args": [
+        "goal"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "provenance-review",
+      "category": "governance",
+      "summary": "Run provenance and trust review for a target skill.",
+      "required_args": [
+        "skill"
+      ],
+      "optional_args": [
+        "goal"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "package-skill",
+      "category": "distribution",
+      "summary": "Prepare packaging work for a target skill.",
+      "required_args": [
+        "skill"
+      ],
+      "optional_args": [
+        "destination",
+        "goal",
+        "library",
+        "category",
+        "acknowledge-unverified"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "install-skill",
+      "category": "distribution",
+      "summary": "Prepare or execute installation work for a target skill.",
+      "required_args": [
+        "skill"
+      ],
+      "optional_args": [
+        "destination",
+        "goal",
+        "library",
+        "category",
+        "acknowledge-unverified"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "lifecycle-review",
+      "category": "distribution",
+      "summary": "Review lifecycle state and next-step governance for a target skill.",
+      "required_args": [
+        "skill"
+      ],
+      "optional_args": [
+        "goal"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "run-pipeline",
+      "category": "orchestration",
+      "summary": "Create and execute a documented orchestrator pipeline.",
+      "required_args": [
+        "pipeline"
+      ],
+      "optional_args": [
+        "skill",
+        "brief"
+      ],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "resume-pipeline",
+      "category": "orchestration",
+      "summary": "Resume an existing documented orchestrator pipeline by run id.",
+      "required_args": [
+        "run-id"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": true,
+      "aliases": []
+    },
+    {
+      "name": "ingest-skill-fault",
+      "category": "orchestration",
+      "summary": "Ingest an Archive skill-fault packet into a tracked Meta Skill pipeline disposition.",
+      "required_args": [
+        "packet"
+      ],
+      "optional_args": [],
+      "output_kind": "run-artifact",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "list-actions",
+      "category": "introspection",
+      "summary": "List the supported CLI actions and their contracts.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "list-skills",
+      "category": "introspection",
+      "summary": "List repo-owned root skills or skills in a selected library tier.",
+      "required_args": [],
+      "optional_args": [
+        "library"
+      ],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "list-runs",
+      "category": "introspection",
+      "summary": "List recent Studio run artifacts.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "show-run",
+      "category": "introspection",
+      "summary": "Print one Studio run artifact.",
+      "required_args": [
+        "run-file"
+      ],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "list-models",
+      "category": "runtime",
+      "summary": "List models visible through the configured OpenCode runtime.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "list-providers",
+      "category": "runtime",
+      "summary": "List OpenCode auth providers and observed login state.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "auth-provider",
+      "category": "runtime",
+      "summary": "Log in or out of a specific OpenCode provider.",
+      "required_args": [
+        "provider"
+      ],
+      "optional_args": [
+        "logout"
+      ],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    },
+    {
+      "name": "opencode-stats",
+      "category": "runtime",
+      "summary": "Return OpenCode runtime stats when available.",
+      "required_args": [],
+      "optional_args": [],
+      "output_kind": "json-query",
+      "requires_role_config": false,
+      "aliases": []
+    }
+  ],
+  "required_platform_docs": [
+    "docs/cli/feature-inventory.md",
+    "docs/cli/action-contract.md",
+    "docs/evaluation/plugin-eval-disposition.md",
+    "docs/architecture/surface-authority.md"
+  ]
+}

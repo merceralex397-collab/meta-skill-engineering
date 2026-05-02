@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "tier": "Library",
+  "status": "verified",
+  "release_ready": true,
+  "distribution_requires_acknowledgement": false,
+  "description": "Skills with retained evaluation, safety, provenance, and packaging evidence."
+}

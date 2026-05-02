@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "installed_at": "2026-05-01T18:15:16.923195+00:00",
+  "skill_name": "skill-creator",
+  "source": {
+    "scope": "repo-root",
+    "path": "C:\\Users\\rowan\\Documents\\GitHub\\scafforge\\agent-tools\\meta-skill-engineering\\skill-creator",
+    "status": "repo-owned",
+    "release_ready": true,
+    "distribution_requires_acknowledgement": false
+  },
+  "destination": "C:\\Users\\rowan\\Documents\\GitHub\\scafforge\\agent-tools\\meta-skill-engineering\\.scafforge-audit\\installed\\skill-creator",
+  "acknowledge_unverified": false
+}

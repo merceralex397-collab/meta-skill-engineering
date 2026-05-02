@@ -30,6 +30,42 @@ log_error() { echo -e "${RED}  ✗ $1${NC}"; ERRORS=$((ERRORS + 1)); }
 log_warn()  { echo -e "${YELLOW}  ⚠ $1${NC}"; WARNINGS=$((WARNINGS + 1)); }
 log_ok()    { echo -e "${GREEN}  ✓ $1${NC}"; }
 
+read_frontmatter() {
+  "$PYTHON_BIN" - "$1" <<'PY'
+import sys
+
+with open(sys.argv[1], "r", encoding="utf-8", newline=None) as handle:
+    lines = handle.read().splitlines()
+if not lines or lines[0] != "---":
+    sys.exit(1)
+
+for index, line in enumerate(lines[1:], start=1):
+    if line == "---":
+        print("\n".join(lines[1:index]))
+        sys.exit(0)
+
+sys.exit(2)
+PY
+}
+
+validate_frontmatter_parser_fixture() {
+  local tmp_file
+
+  tmp_file="$(mktemp)"
+  printf -- '---\r\nname: fixture\r\ndescription: fixture\r\n---\r\n' > "$tmp_file"
+  if ! fm_probe="$(read_frontmatter "$tmp_file")" || ! printf '%s\n' "$fm_probe" | grep -q '^description:'; then
+    log_error "Frontmatter parser rejects CRLF-delimited fixtures"
+  fi
+  rm -f "$tmp_file"
+
+  tmp_file="$(mktemp)"
+  printf -- '---\nname: fixture\ndescription: fixture\n---\n' > "$tmp_file"
+  if ! fm_probe="$(read_frontmatter "$tmp_file")" || ! printf '%s\n' "$fm_probe" | grep -q '^description:'; then
+    log_error "Frontmatter parser rejects LF-delimited fixtures"
+  fi
+  rm -f "$tmp_file"
+}
+
 # Collect all skill directories (contain SKILL.md at root level)
 SKILL_DIRS=()
 for dir in "$REPO_ROOT"/*/; do
@@ -38,6 +74,13 @@ done
 
 echo "=== Skill Package Validator ==="
 echo "Found ${#SKILL_DIRS[@]} skill packages"
+echo ""
+
+echo "--- validator self-check ---"
+validate_frontmatter_parser_fixture
+if (( ERRORS == 0 )); then
+  log_ok "Frontmatter parser accepts CRLF and LF delimiters"
+fi
 echo ""
 
 echo "--- platform contract ---"
@@ -56,9 +99,9 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
   skill_md="$skill_dir/SKILL.md"
 
   # 1. Frontmatter check
-  if head -1 "$skill_md" | grep -q '^---$'; then
+  if fm_block="$(read_frontmatter "$skill_md")"; then
     # Check name field
-    fm_name=$(sed -n '/^---$/,/^---$/p' "$skill_md" | grep -m1 -E '^name:' | sed -E "s/^name:[[:space:]]*['\"]?([^'\"]+)['\"]?.*$/\1/")
+    fm_name=$(printf '%s\n' "$fm_block" | grep -m1 -E '^name:' | sed -E "s/^name:[[:space:]]*['\"]?([^'\"]+)['\"]?.*$/\1/")
     if [[ -z "$fm_name" ]]; then
       log_error "Missing 'name' in frontmatter"
     elif [[ "$fm_name" != "$skill_name" ]]; then
@@ -68,13 +111,18 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     fi
 
     # Check description field
-    if sed -n '/^---$/,/^---$/p' "$skill_md" | grep -q '^description:'; then
+    if printf '%s\n' "$fm_block" | grep -q '^description:'; then
       log_ok "Has description"
     else
       log_error "Missing 'description' in frontmatter"
     fi
   else
-    log_error "Missing YAML frontmatter (no opening ---)"
+    frontmatter_status=$?
+    if (( frontmatter_status == 2 )); then
+      log_error "Missing YAML frontmatter closing delimiter"
+    else
+      log_error "Missing YAML frontmatter (no opening ---)"
+    fi
   fi
 
   # 2. Line count check (spec recommends <500)

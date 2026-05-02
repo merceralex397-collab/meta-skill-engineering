@@ -91,6 +91,11 @@ run_prompt() {
       cmd+=("--model" "$MODEL")
     fi
     cmd+=("--reasoning-effort" "low" "--allow-all" "--autopilot")
+  elif [[ "$RUNTIME" == "opencode" || "$RUNTIME" == */opencode || "$RUNTIME" == */opencode.exe ]]; then
+    cmd=("$RUNTIME" run "$prompt")
+    if [[ "$MODEL" != "auto" ]]; then
+      cmd+=("--model" "$MODEL")
+    fi
   else
     if [[ "$MODEL" != "auto" ]]; then
       cmd+=("--model" "$MODEL")

@@ -49,6 +49,7 @@ Maintain the repo-owned skill packages, skill creation/improvement workflows, an
 - `docs/cli/action-contract.md` is the published CLI contract; `docs/cli/feature-inventory.md` is the audit baseline.
 - TUI, tkinter GUI, and `windows-wpf/` are convenience shells layered on the same workflow truth, not competing contracts.
 - `scripts/meta_skill_studio/opencode_sdk_bridge.mjs` is an assistant-chat helper, not the authoritative workflow surface.
+- Archive `skill-fault` evidence is ingested through `python scripts/meta-skill-studio.py --mode cli --action ingest-skill-fault --packet <packet.json>` and must produce tracked `tasks/pipelines/` disposition artifacts without promoting unverified skills.
 
 ## WPF Release Validation
 

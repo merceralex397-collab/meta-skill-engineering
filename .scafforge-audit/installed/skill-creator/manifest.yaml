@@ -1,0 +1,11 @@
+schema_version: 1
+skill_id: skill-creator
+canonical_name: skill-creator
+version: 0.1.0
+owner: project-local
+status: draft
+summary: Create new agent skills from scratch through test-review-improve cycles.
+risk_level: low
+categories:
+  - meta
+  - authoring

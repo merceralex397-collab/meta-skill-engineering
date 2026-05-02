@@ -1,0 +1,10 @@
+{"prompt": "Create a new skill for handling database migrations", "expected": "trigger", "category": "core", "notes": "Direct skill creation request"}
+{"prompt": "I need a reusable procedure for our deploy workflow", "expected": "trigger", "category": "indirect", "notes": "Describes repeated task needing a skill"}
+{"prompt": "Build me a skill that automates code review", "expected": "trigger", "category": "core", "notes": "Explicit skill creation with use case"}
+{"prompt": "Can you make a skill for our team's PR process?", "expected": "trigger", "category": "paraphrase", "notes": "Casual request for skill creation"}
+{"prompt": "Package this workflow as a reusable skill", "expected": "trigger", "category": "indirect", "notes": "Turning existing workflow into skill"}
+{"prompt": "Write a SKILL.md for a testing automation procedure", "expected": "trigger", "category": "core", "notes": "Explicit SKILL.md creation request"}
+{"prompt": "I want to create an agent skill from scratch for API integration", "expected": "trigger", "category": "core", "notes": "From-scratch creation, explicit intent"}
+{"prompt": "Help me design a skill that handles error triage", "expected": "trigger", "category": "paraphrase", "notes": "Design implies creation"}
+{"prompt": "Turn this set of steps into a proper agent skill", "expected": "trigger", "category": "indirect", "notes": "Converting existing procedure to skill format"}
+{"prompt": "I have a draft skill, can we iterate on it with test cases?", "expected": "trigger", "category": "edge", "notes": "Iteration on draft still involves creation flow"}

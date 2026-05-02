@@ -1,0 +1,152 @@
+=== Skill Package Validator ===
+Found 17 skill packages
+
+--- validator self-check ---
+[0;32m  ✓ Frontmatter parser accepts CRLF and LF delimiters[0m
+
+--- platform contract ---
+CLI contract validation passed: 30 actions documented.
+[0;32m  ✓ CLI action contract matches docs[0m
+
+--- community-skill-harvester ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 155 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 8 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-adaptation ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 120 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-anti-patterns ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 165 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-benchmarking ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 109 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 8 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-catalog-curation ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 202 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-creator ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 333 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 10 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-evaluation ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 145 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-improver ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 256 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 10 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 4 cases[0m
+
+--- skill-installer ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 119 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-lifecycle-management ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 187 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-orchestrator ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 189 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 5 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 5 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-packaging ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 239 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-provenance ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 224 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-safety-review ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 114 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-testing-harness ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 179 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-trigger-optimization ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 133 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 9 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+--- skill-variant-splitting ---
+[0;32m  ✓ Frontmatter name matches directory[0m
+[0;32m  ✓ Has description[0m
+[0;32m  ✓ SKILL.md is 123 lines[0m
+[0;32m  ✓ trigger-positive.jsonl: 8 cases[0m
+[0;32m  ✓ trigger-negative.jsonl: 8 cases[0m
+[0;32m  ✓ behavior.jsonl: 3 cases[0m
+
+=== Summary ===
+Skills checked: 17
+Errors: [0;31m0[0m
+Warnings: [1;33m0[0m
+
+[0;32mPASS[0m — no errors (0 warning(s))

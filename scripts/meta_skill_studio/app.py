@@ -10,6 +10,7 @@ import hashlib
 import tarfile
 import tempfile
 import textwrap
+import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +18,27 @@ from typing import Callable, Dict, List, Optional
 from urllib.parse import urlparse
 
 OPENCODE_RUNTIME = {"name": "opencode", "command": "opencode"}
+
+LIBRARY_TIERS: Dict[str, Dict[str, object]] = {
+    "LibraryUnverified": {
+        "status": "unverified",
+        "release_ready": False,
+        "distribution_requires_acknowledgement": True,
+        "description": "Raw, imported, or research-corpus skills that have not completed evaluation.",
+    },
+    "LibraryWorkbench": {
+        "status": "workbench",
+        "release_ready": False,
+        "distribution_requires_acknowledgement": True,
+        "description": "Skills under active normalization, evaluation, safety review, and provenance work.",
+    },
+    "Library": {
+        "status": "verified",
+        "release_ready": True,
+        "distribution_requires_acknowledgement": False,
+        "description": "Skills with retained evaluation, safety, provenance, and packaging evidence.",
+    },
+}
 
 ROLE_ORDER = ["create", "improve", "test", "orchestrate", "judge"]
 ROLE_LABELS = {
@@ -88,12 +110,28 @@ class StudioCore:
             self.library_verified / "README.md",
             "# Library\n\nVerified skills approved for production use live here.\n",
         )
+        self._ensure_library_tier_metadata()
         (self.library_workbench / "benchmarks").mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def _touch_readme(path: Path, content: str) -> None:
         if not path.exists():
             path.write_text(content, encoding="utf-8")
+
+    def _ensure_library_tier_metadata(self) -> None:
+        for tier_name, metadata in LIBRARY_TIERS.items():
+            path = self._library_root(tier_name) / "library-tier.json"
+            payload = {
+                "schema_version": 1,
+                "tier": tier_name,
+                **metadata,
+            }
+            self._write_json_if_missing(path, payload)
+
+    @staticmethod
+    def _write_json_if_missing(path: Path, payload: Dict[str, object]) -> None:
+        if not path.exists():
+            path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
 
     @staticmethod
     def _safe_skill_slug(skill_name: str) -> str:
@@ -333,7 +371,9 @@ class StudioCore:
 
     @staticmethod
     def build_runtime_command(runtime: str, command: str, prompt: str, model: str) -> List[str]:
-        cmd = [command, "-p", prompt]
+        if runtime != OPENCODE_RUNTIME["name"]:
+            raise RuntimeError(f"Unsupported runtime: {runtime}")
+        cmd = [command, "run", prompt]
         if model and model != "auto":
             cmd.extend(["--model", model])
         return cmd
@@ -532,6 +572,7 @@ class StudioCore:
             return {
                 "scope": "library",
                 "library": normalized_library,
+                "tier": self._library_tier_payload(normalized_library),
                 "skills": self._list_library_skills(normalized_library),
             }
         return {
@@ -548,6 +589,7 @@ class StudioCore:
     def _list_library_skills(self, library_name: str) -> List[Dict[str, object]]:
         entries: List[Dict[str, object]] = []
         root = self._library_root(library_name)
+        tier = self._library_tier_payload(library_name)
         for skill_md in sorted(root.rglob("SKILL.md")):
             skill_root = skill_md.parent
             relative = skill_root.relative_to(root)
@@ -556,6 +598,9 @@ class StudioCore:
                     "name": skill_root.name,
                     "category": str(relative.parent).replace("\\", "/") if relative.parent != Path(".") else "",
                     "path": str(skill_root),
+                    "status": tier["status"],
+                    "release_ready": tier["release_ready"],
+                    "distribution_requires_acknowledgement": tier["distribution_requires_acknowledgement"],
                 }
             )
         return entries
@@ -870,27 +915,125 @@ class StudioCore:
 
     def run_catalog_audit(self, objective: Optional[str] = None) -> Path:
         goal = objective or "Audit library/workbench organization, misplaced skills, and category drift without changing the 17 root skill packages."
-        prompt = textwrap.dedent(
-            f"""
-            Audit the Meta-Skill-Engineering library surfaces.
-            Objective:
-            {goal}
+        root_skills = self.list_skills()
+        tier_reports = []
+        findings = []
+        all_library_names: Dict[str, List[str]] = {}
 
-            Requirements:
-            - Keep the 17 repo-owned root skill packages distinct from LibraryUnverified and LibraryWorkbench.
-            - Identify duplication, misplaced packages, and missing validation/eval follow-up.
-            - Return concrete findings, recommended fixes, and any safe repo changes you make.
-            """
-        ).strip()
-        result = self.run_role_prompt("orchestrate", prompt)
-        return self._save_runtime_workflow_run(
+        for tier_name in ("LibraryUnverified", "LibraryWorkbench", "Library"):
+            tier = self._library_tier_payload(tier_name)
+            skills = self._list_library_skills(tier_name)
+            if not (self._library_root(tier_name) / "library-tier.json").is_file():
+                findings.append(
+                    {
+                        "severity": "blocker",
+                        "tier": tier_name,
+                        "issue": "missing-library-tier-metadata",
+                        "message": f"{tier_name} is missing library-tier.json status metadata.",
+                    }
+                )
+            for skill in skills:
+                name = str(skill["name"])
+                all_library_names.setdefault(name, []).append(f"{tier_name}/{skill['category']}".rstrip("/"))
+                metadata_findings = self._release_label_findings(
+                    Path(str(skill["path"])),
+                    tier_name,
+                    str(tier["status"]),
+                )
+                findings.extend(metadata_findings)
+            tier_reports.append(
+                {
+                    "tier": tier_name,
+                    "status": tier["status"],
+                    "release_ready": tier["release_ready"],
+                    "distribution_requires_acknowledgement": tier["distribution_requires_acknowledgement"],
+                    "skill_count": len(skills),
+                }
+            )
+
+        for root_skill in root_skills:
+            if root_skill in all_library_names:
+                findings.append(
+                    {
+                        "severity": "warning",
+                        "issue": "root-library-name-overlap",
+                        "skill": root_skill,
+                        "locations": all_library_names[root_skill],
+                        "message": "A library candidate shares a name with a repo-owned root skill; promotion needs explicit provenance.",
+                    }
+                )
+
+        blocker_count = sum(1 for finding in findings if finding.get("severity") == "blocker")
+        audit_report = {
+            "schema_version": 1,
+            "created_at": self._now(),
+            "objective": goal,
+            "root_skill_count": len(root_skills),
+            "expected_root_skill_count": 17,
+            "tiers": tier_reports,
+            "findings": findings,
+            "blocker_count": blocker_count,
+        }
+        tasks_dir = self.repo_root / "tasks"
+        tasks_dir.mkdir(parents=True, exist_ok=True)
+        audit_path = tasks_dir / f"library-catalog-audit-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.json"
+        audit_path.write_text(json.dumps(audit_report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+        return self.save_run(
             "catalog-audit",
-            "library",
-            "orchestrate",
-            {"objective": goal},
-            result,
-            summary={"exit_code": result.get("exit_code")},
+            {
+                "status": "failed" if blocker_count else "succeeded",
+                "workflow": {
+                    "area": "library",
+                    "execution_surface": "python-cli",
+                    "script": "scripts/meta-skill-studio.py",
+                },
+                "input": {"objective": goal},
+                "summary": {
+                    "root_skill_count": len(root_skills),
+                    "expected_root_skill_count": 17,
+                    "tier_count": len(tier_reports),
+                    "finding_count": len(findings),
+                    "blocker_count": blocker_count,
+                },
+                "artifacts": {"catalog_audit_report": str(audit_path)},
+                "measurements": self._measurement_summary(expected_steps=3, observed_steps=3),
+                "result": {"catalog_audit": audit_report},
+            },
         )
+
+    def _release_label_findings(self, skill_dir: Path, tier_name: str, tier_status: str) -> List[Dict[str, object]]:
+        if tier_name == "Library":
+            return []
+
+        findings: List[Dict[str, object]] = []
+        metadata_files = [
+            skill_dir / "manifest.yaml",
+            skill_dir / "manifest.yml",
+            skill_dir / "skill.json",
+            skill_dir / "status.json",
+        ]
+        for metadata_file in metadata_files:
+            if not metadata_file.is_file():
+                continue
+            text = metadata_file.read_text(encoding="utf-8", errors="replace")
+            release_label = re.search(
+                r"(?im)^\s*(status|tier|release_status|verified|release_ready)\s*:\s*(verified|production|prod|true|release-ready|ready)\s*$",
+                text,
+            )
+            if release_label:
+                findings.append(
+                    {
+                        "severity": "blocker",
+                        "tier": tier_name,
+                        "tier_status": tier_status,
+                        "skill": skill_dir.name,
+                        "file": str(metadata_file),
+                        "issue": "unverified-release-facing-label",
+                        "message": "A non-verified library package carries release-facing metadata.",
+                    }
+                )
+        return findings
 
     def run_create_benchmarks(self, skill_name: str, benchmark_goal: str, cases: int = 8) -> Path:
         prompt = textwrap.dedent(
@@ -1006,11 +1149,18 @@ class StudioCore:
             summary={"exit_code": result.get("exit_code"), "skill_name": skill_name},
         )
 
-    def run_package_skill(self, skill_name: str, destination: Optional[str], goal: Optional[str] = None) -> Path:
+    def run_package_skill(
+        self,
+        skill_name: str,
+        destination: Optional[str],
+        goal: Optional[str] = None,
+        library_name: Optional[str] = None,
+        category: Optional[str] = None,
+        acknowledge_unverified: bool = False,
+    ) -> Path:
         del goal
-        skill_dir = self.repo_root / self._safe_skill_slug(skill_name)
-        if not skill_dir.is_dir() or not (skill_dir / "SKILL.md").is_file():
-            raise RuntimeError(f"Skill package not found: {skill_name}")
+        skill_dir, source_scope = self._resolve_distribution_skill(skill_name, library_name, category)
+        self._guard_distribution_source(source_scope, acknowledge_unverified)
 
         output_dir = Path(destination).expanduser() if destination else self.repo_root / "dist" / "skills"
         if not output_dir.is_absolute():
@@ -1026,9 +1176,15 @@ class StudioCore:
                     "execution_surface": "python-cli",
                     "script": "scripts/meta-skill-studio.py",
                 },
-                "input": {"skill_name": skill_name, "destination": str(output_dir)},
+                "input": {
+                    "skill_name": skill_name,
+                    "destination": str(output_dir),
+                    "source": source_scope,
+                    "acknowledge_unverified": acknowledge_unverified,
+                },
                 "summary": {
                     "skill_name": skill_name,
+                    "source_status": source_scope["status"],
                     "version": package_result["version"],
                     "file_count": len(package_result["files"]),
                     "archive": package_result["archive"],
@@ -1046,6 +1202,71 @@ class StudioCore:
                 ),
                 "result": {"package_result": package_result},
             },
+        )
+
+    def _resolve_distribution_skill(
+        self,
+        skill_name: str,
+        library_name: Optional[str] = None,
+        category: Optional[str] = None,
+    ) -> tuple[Path, Dict[str, object]]:
+        safe_skill_name = self._safe_skill_slug(skill_name)
+        if library_name:
+            normalized_library = self._normalize_library_name(library_name)
+            skill_dir = self._find_library_skill(normalized_library, safe_skill_name, category)
+            tier = self._library_tier_payload(normalized_library)
+            return skill_dir, {
+                "scope": "library",
+                "library": normalized_library,
+                "category": self._library_category_for_skill(normalized_library, skill_dir),
+                "path": str(skill_dir),
+                "status": tier["status"],
+                "release_ready": tier["release_ready"],
+                "distribution_requires_acknowledgement": tier["distribution_requires_acknowledgement"],
+            }
+
+        skill_dir = self.repo_root / safe_skill_name
+        if not skill_dir.is_dir() or not (skill_dir / "SKILL.md").is_file():
+            raise RuntimeError(f"Skill package not found: {skill_name}")
+        return skill_dir, {
+            "scope": "repo-root",
+            "path": str(skill_dir),
+            "status": "repo-owned",
+            "release_ready": True,
+            "distribution_requires_acknowledgement": False,
+        }
+
+    def _find_library_skill(self, library_name: str, skill_name: str, category: Optional[str]) -> Path:
+        if category:
+            skill_dir = self._skill_path(library_name, category, skill_name)
+            if skill_dir.is_dir() and (skill_dir / "SKILL.md").is_file():
+                return skill_dir
+            raise RuntimeError(f"Skill package not found in {library_name}/{category}: {skill_name}")
+
+        root = self._library_root(library_name)
+        matches = [path.parent for path in root.rglob("SKILL.md") if path.parent.name == skill_name]
+        if len(matches) == 1:
+            return matches[0]
+        if not matches:
+            raise RuntimeError(f"Skill package not found in {library_name}: {skill_name}")
+        categories = ", ".join(self._library_category_for_skill(library_name, match) for match in matches)
+        raise RuntimeError(f"Multiple library skills named {skill_name}; pass --category. Matches: {categories}")
+
+    def _library_category_for_skill(self, library_name: str, skill_dir: Path) -> str:
+        root = self._library_root(library_name)
+        relative = skill_dir.relative_to(root)
+        return str(relative.parent).replace("\\", "/") if relative.parent != Path(".") else ""
+
+    @staticmethod
+    def _guard_distribution_source(source_scope: Dict[str, object], acknowledge_unverified: bool) -> None:
+        if not source_scope.get("distribution_requires_acknowledgement"):
+            return
+        if acknowledge_unverified:
+            return
+        library = source_scope.get("library", "library")
+        status = source_scope.get("status", "unverified")
+        raise RuntimeError(
+            f"{library} skill status is {status}; package/install requires --acknowledge-unverified."
         )
 
     def _build_skill_package(self, skill_dir: Path, output_dir: Path) -> Dict[str, object]:
@@ -1095,14 +1316,16 @@ class StudioCore:
 
     def _read_skill_frontmatter(self, skill_md: Path) -> Dict[str, object]:
         text = skill_md.read_text(encoding="utf-8")
-        if not text.startswith("---\n"):
+        lines = text.splitlines()
+        if not lines or lines[0] != "---":
             raise RuntimeError(f"Missing YAML frontmatter: {skill_md}")
-        end = text.find("\n---", 4)
-        if end == -1:
+        try:
+            end = lines[1:].index("---") + 1
+        except ValueError:
             raise RuntimeError(f"Unclosed YAML frontmatter: {skill_md}")
         payload: Dict[str, object] = {}
         current_key: Optional[str] = None
-        for raw_line in text[4:end].splitlines():
+        for raw_line in lines[1:end]:
             line = raw_line.rstrip()
             if not line.strip():
                 continue
@@ -1202,28 +1425,69 @@ class StudioCore:
                 "verified_files": len(expected_checksums),
             }
 
-    def run_install_skill(self, skill_name: str, destination: Optional[str], goal: Optional[str] = None) -> Path:
-        objective = goal or "Install the target skill into the intended client skill directory with minimal risk."
-        prompt = textwrap.dedent(
-            f"""
-            Execute installation work for the skill package `{skill_name}`.
-            Goal:
-            {objective}
+    def run_install_skill(
+        self,
+        skill_name: str,
+        destination: Optional[str],
+        goal: Optional[str] = None,
+        library_name: Optional[str] = None,
+        category: Optional[str] = None,
+        acknowledge_unverified: bool = False,
+    ) -> Path:
+        del goal
+        skill_dir, source_scope = self._resolve_distribution_skill(skill_name, library_name, category)
+        self._guard_distribution_source(source_scope, acknowledge_unverified)
 
-            Requirements:
-            - Apply the repo's skill-installer workflow.
-            - Use `{destination}` as the install destination if it is provided.
-            - Return the install target, actions taken, and any required manual follow-up.
-            """
-        ).strip()
-        result = self.run_role_prompt("orchestrate", prompt)
-        return self._save_runtime_workflow_run(
+        install_root = Path(destination).expanduser() if destination else self.state_dir / "installed-skills"
+        if not install_root.is_absolute():
+            install_root = self.repo_root / install_root
+        install_root.mkdir(parents=True, exist_ok=True)
+
+        destination_dir = install_root / skill_dir.name
+        if destination_dir.exists():
+            shutil.rmtree(destination_dir)
+        self._copy_skill_tree(skill_dir, destination_dir, replace=False)
+        install_manifest = {
+            "schema_version": 1,
+            "installed_at": self._now(),
+            "skill_name": skill_dir.name,
+            "source": source_scope,
+            "destination": str(destination_dir),
+            "acknowledge_unverified": acknowledge_unverified,
+        }
+        (destination_dir / "installed-by-meta-skill-studio.json").write_text(
+            json.dumps(install_manifest, indent=2, ensure_ascii=True) + "\n",
+            encoding="utf-8",
+        )
+
+        file_count = sum(1 for path in destination_dir.rglob("*") if path.is_file())
+        return self.save_run(
             "install-skill",
-            "distribution",
-            "orchestrate",
-            {"skill_name": skill_name, "destination": destination, "goal": objective},
-            result,
-            summary={"exit_code": result.get("exit_code"), "skill_name": skill_name},
+            {
+                "workflow": {
+                    "area": "distribution",
+                    "execution_surface": "python-cli",
+                    "script": "scripts/meta-skill-studio.py",
+                },
+                "input": {
+                    "skill_name": skill_name,
+                    "destination": str(install_root),
+                    "source": source_scope,
+                    "acknowledge_unverified": acknowledge_unverified,
+                },
+                "summary": {
+                    "skill_name": skill_name,
+                    "source_status": source_scope["status"],
+                    "destination": str(destination_dir),
+                    "file_count": file_count,
+                },
+                "artifacts": {
+                    "destination": str(destination_dir),
+                    "install_manifest": str(destination_dir / "installed-by-meta-skill-studio.json"),
+                },
+                "measurements": self._measurement_summary(expected_steps=2, observed_steps=2),
+                "result": {"install_manifest": install_manifest},
+            },
         )
 
     def run_lifecycle_review(self, skill_name: str, goal: Optional[str] = None) -> Path:
@@ -1249,6 +1513,325 @@ class StudioCore:
             result,
             summary={"exit_code": result.get("exit_code"), "skill_name": skill_name},
         )
+
+    def run_ingest_skill_fault(self, packet_reference: str) -> Path:
+        packet_path, packet = self._load_skill_fault_packet(packet_reference)
+        validation_errors = self._validate_skill_fault_packet(packet)
+        target_skill = str(packet.get("target_skill") or "").strip()
+        suggested_skill = str(packet.get("suggested_skill_name") or "").strip()
+        target_exists = bool(target_skill and (self.repo_root / self._safe_skill_slug(target_skill)).is_dir())
+        disposition = self._skill_fault_disposition(packet, validation_errors, target_exists, target_skill, suggested_skill)
+        pipeline_id = str(uuid.uuid4())
+        pipelines_dir = self.repo_root / "tasks" / "pipelines"
+        pipelines_dir.mkdir(parents=True, exist_ok=True)
+
+        phases = self._build_skill_fault_phases(packet, validation_errors, target_exists, target_skill, disposition)
+        state = {
+            "schema_version": 1,
+            "pipeline_id": pipeline_id,
+            "pipeline_type": "skill-fault-ingest",
+            "source_packet": str(packet_path),
+            "target_skill": target_skill or None,
+            "suggested_skill_name": suggested_skill or None,
+            "start_time": self._now(),
+            "end_time": self._now(),
+            "status": "completed",
+            "disposition": disposition,
+            "phases": phases,
+        }
+        report = {
+            "schema_version": 1,
+            "pipeline_id": pipeline_id,
+            "status": state["status"],
+            "pipeline_type": state["pipeline_type"],
+            "disposition": disposition,
+            "target_skill": state["target_skill"],
+            "source_packet": str(packet_path),
+            "validation_errors": validation_errors,
+            "no_promotion_performed": True,
+            "next_actions": self._skill_fault_next_actions(disposition, target_skill, suggested_skill),
+            "phases_total": len(phases),
+            "phases_completed": sum(1 for phase in phases if phase["status"] == "completed"),
+            "phases_skipped": sum(1 for phase in phases if phase["status"] == "skipped"),
+            "phases_failed": sum(1 for phase in phases if phase["status"] == "failed"),
+            "phases": phases,
+        }
+        state_path = pipelines_dir / f"{pipeline_id}-state.json"
+        report_path = pipelines_dir / f"{pipeline_id}-final-report.json"
+        log_path = pipelines_dir / f"{pipeline_id}-log.md"
+        state_path.write_text(json.dumps(state, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        report_path.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        log_path.write_text(
+            "\n".join(
+                [
+                    f"[{self._now()}] Ingested skill-fault packet: {packet_path}",
+                    f"[{self._now()}] Disposition: {disposition['kind']}",
+                    "[policy] No candidate was promoted during ingestion.",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        return self.save_run(
+            "ingest-skill-fault",
+            {
+                "workflow": {
+                    "area": "orchestration",
+                    "execution_surface": "python-cli",
+                    "pipeline_type": "skill-fault-ingest",
+                },
+                "input": {"packet": str(packet_path), "candidate_id": packet.get("candidate_id")},
+                "summary": {
+                    "pipeline_id": pipeline_id,
+                    "disposition": disposition["kind"],
+                    "target_skill": target_skill or None,
+                    "validation_error_count": len(validation_errors),
+                    "no_promotion_performed": True,
+                },
+                "artifacts": {
+                    "pipeline_state": str(state_path),
+                    "pipeline_report": str(report_path),
+                    "pipeline_log": str(log_path),
+                },
+                "measurements": self._measurement_summary(expected_steps=7, observed_steps=len(phases)),
+                "result": {"skill_fault_report": report},
+            },
+        )
+
+    def _load_skill_fault_packet(self, packet_reference: str) -> tuple[Path, Dict[str, object]]:
+        packet_path = Path(packet_reference).expanduser()
+        if not packet_path.is_absolute():
+            packet_path = (self.repo_root / packet_path).resolve()
+        if not packet_path.is_file():
+            raise RuntimeError(f"Skill-fault packet does not exist: {packet_reference}")
+        try:
+            packet = json.loads(packet_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"Skill-fault packet is not valid JSON: {exc}") from exc
+        if not isinstance(packet, dict):
+            raise RuntimeError("Skill-fault packet must be a JSON object.")
+        return packet_path, packet
+
+    def _validate_skill_fault_packet(self, packet: Dict[str, object]) -> List[str]:
+        errors: List[str] = []
+        if packet.get("schema_version") != 1:
+            errors.append("schema_version must be 1")
+        for field in ("candidate_id", "failure_family", "summary", "evidence"):
+            if field not in packet:
+                errors.append(f"missing required field: {field}")
+        failure_family = str(packet.get("failure_family") or "").strip().lower().replace("_", "-")
+        if failure_family not in {"skill-fault", "skill-faults"}:
+            errors.append("failure_family must be skill-fault")
+        if not str(packet.get("candidate_id") or "").strip():
+            errors.append("candidate_id must be a non-empty string")
+        if len(str(packet.get("summary") or "").strip()) < 20:
+            errors.append("summary must be at least 20 characters")
+        evidence = packet.get("evidence")
+        if not isinstance(evidence, list) or not evidence:
+            errors.append("evidence must be a non-empty array")
+        elif len(evidence) > 50:
+            errors.append("evidence must contain 50 items or fewer")
+        else:
+            for index, item in enumerate(evidence, start=1):
+                if not isinstance(item, dict):
+                    errors.append(f"evidence[{index}] must be an object")
+                    continue
+                if not str(item.get("kind") or "").strip():
+                    errors.append(f"evidence[{index}].kind is required")
+                if not any(str(item.get(field) or "").strip() for field in ("excerpt", "path", "url")):
+                    errors.append(f"evidence[{index}] must include excerpt, path, or url")
+        return errors
+
+    def _skill_fault_disposition(
+        self,
+        packet: Dict[str, object],
+        validation_errors: List[str],
+        target_exists: bool,
+        target_skill: str,
+        suggested_skill: str,
+    ) -> Dict[str, object]:
+        if validation_errors:
+            return {
+                "kind": "reject_evidence",
+                "reason": "packet-validation-failed",
+                "blocking_errors": validation_errors,
+            }
+        if target_exists:
+            return {
+                "kind": "improve_existing_skill",
+                "reason": "target-skill-found",
+                "target_skill": self._safe_skill_slug(target_skill),
+            }
+        if suggested_skill or target_skill:
+            return {
+                "kind": "create_new_skill",
+                "reason": "no-repo-owned-skill-matched",
+                "suggested_skill_name": self._safe_skill_slug(suggested_skill or target_skill),
+                "target_library": "LibraryWorkbench",
+            }
+        return {
+            "kind": "no_action",
+            "reason": "evidence-is-valid-but-no-target-or-candidate-skill-was-identified",
+        }
+
+    def _build_skill_fault_phases(
+        self,
+        packet: Dict[str, object],
+        validation_errors: List[str],
+        target_exists: bool,
+        target_skill: str,
+        disposition: Dict[str, object],
+    ) -> List[Dict[str, object]]:
+        phases: List[Dict[str, object]] = [
+            {
+                "phase_id": 1,
+                "skill": "packet-validation",
+                "status": "failed" if validation_errors else "completed",
+                "output": {"errors": validation_errors},
+            }
+        ]
+        safe_target = self._safe_skill_slug(target_skill) if target_skill else ""
+        skill_dir = self.repo_root / safe_target if safe_target else None
+        if validation_errors:
+            for index, skill in enumerate(
+                [
+                    "skill-anti-patterns",
+                    "skill-evaluation",
+                    "skill-trigger-optimization",
+                    "skill-safety-review",
+                    "skill-provenance",
+                    "skill-packaging",
+                ],
+                start=2,
+            ):
+                phases.append({"phase_id": index, "skill": skill, "status": "skipped", "output": {"reason": "invalid-packet"}})
+            return phases
+
+        phases.append(
+            {
+                "phase_id": 2,
+                "skill": "skill-anti-patterns",
+                "status": "completed" if target_exists and skill_dir else "skipped",
+                "output": self._scan_skill_anti_patterns(skill_dir) if target_exists and skill_dir else {"reason": "no-existing-target-skill"},
+            }
+        )
+        phases.append(
+            {
+                "phase_id": 3,
+                "skill": "skill-evaluation",
+                "status": "completed" if target_exists and skill_dir else "skipped",
+                "output": self._collect_skill_eval_status(skill_dir) if target_exists and skill_dir else {"reason": "new-skill-routing"},
+            }
+        )
+        trigger_related = self._packet_is_trigger_related(packet)
+        phases.append(
+            {
+                "phase_id": 4,
+                "skill": "skill-trigger-optimization",
+                "status": "completed" if trigger_related else "skipped",
+                "output": {
+                    "trigger_related": trigger_related,
+                    "recommendation": "Route into skill-trigger-optimization before release if retained evidence indicates missed or false triggers.",
+                },
+            }
+        )
+        phases.append(
+            {
+                "phase_id": 5,
+                "skill": "skill-safety-review",
+                "status": "completed",
+                "output": {
+                    "required_before_promotion": True,
+                    "reason": "Archive-originated evidence cannot promote a candidate without safety disposition.",
+                },
+            }
+        )
+        phases.append(
+            {
+                "phase_id": 6,
+                "skill": "skill-provenance",
+                "status": "completed",
+                "output": {
+                    "required_before_promotion": True,
+                    "source_archive_path": packet.get("source_archive_path"),
+                },
+            }
+        )
+        phases.append(
+            {
+                "phase_id": 7,
+                "skill": "skill-packaging",
+                "status": "skipped",
+                "output": {
+                    "reason": "packaging is blocked until improvement/create work, evaluation, safety, and provenance all pass",
+                    "no_promotion_performed": True,
+                    "disposition": disposition["kind"],
+                },
+            }
+        )
+        return phases
+
+    def _scan_skill_anti_patterns(self, skill_dir: Optional[Path]) -> Dict[str, object]:
+        if not skill_dir or not (skill_dir / "SKILL.md").is_file():
+            return {"issues": ["target skill package not found"]}
+        skill_md = skill_dir / "SKILL.md"
+        text = skill_md.read_text(encoding="utf-8", errors="replace")
+        required_sections = ["Purpose", "When to use", "When NOT to use", "Procedure", "Output contract", "Failure handling"]
+        missing_sections = [
+            section for section in required_sections
+            if not re.search(rf"(?im)^#+\s+{re.escape(section)}\s*$", text)
+        ]
+        return {
+            "skill": skill_dir.name,
+            "path": str(skill_dir),
+            "line_count": len(text.splitlines()),
+            "missing_required_sections": missing_sections,
+        }
+
+    def _collect_skill_eval_status(self, skill_dir: Optional[Path]) -> Dict[str, object]:
+        if not skill_dir:
+            return {"evals_present": False}
+        eval_dir = skill_dir / "evals"
+        files = {}
+        for name in ("trigger-positive.jsonl", "trigger-negative.jsonl", "behavior.jsonl"):
+            path = eval_dir / name
+            files[name] = {
+                "exists": path.is_file(),
+                "case_count": len(path.read_text(encoding="utf-8", errors="replace").splitlines()) if path.is_file() else 0,
+            }
+        return {"evals_present": eval_dir.is_dir(), "files": files}
+
+    def _packet_is_trigger_related(self, packet: Dict[str, object]) -> bool:
+        combined = " ".join(
+            [
+                str(packet.get("summary") or ""),
+                str(packet.get("impact") or ""),
+                json.dumps(packet.get("routing_hints", {}), ensure_ascii=True),
+                json.dumps(packet.get("evidence", []), ensure_ascii=True),
+            ]
+        ).lower()
+        return any(token in combined for token in ("trigger", "routing", "missed", "false positive", "false negative"))
+
+    @staticmethod
+    def _skill_fault_next_actions(disposition: Dict[str, object], target_skill: str, suggested_skill: str) -> List[str]:
+        kind = disposition["kind"]
+        if kind == "improve_existing_skill":
+            return [
+                f"Run skill-anti-patterns and skill-improver against {target_skill}.",
+                "Re-run evaluate-skill and compare-runs after the improvement.",
+                "Run safety-review and provenance-review before packaging or promotion.",
+            ]
+        if kind == "create_new_skill":
+            candidate = suggested_skill or str(disposition.get("suggested_skill_name") or "new-skill")
+            return [
+                f"Create a LibraryWorkbench candidate for {candidate}.",
+                "Add trigger-positive, trigger-negative, and behavior eval fixtures before promotion.",
+                "Run safety-review, provenance-review, and package-skill after evaluation passes.",
+            ]
+        if kind == "reject_evidence":
+            return ["Return the packet to Archive with validation errors and request stronger evidence."]
+        return ["Keep the packet as historical Archive evidence; no Meta implementation task was identified."]
 
     def run_pipeline(self, pipeline_name: str, skill_name: Optional[str] = None, brief: Optional[str] = None) -> Path:
         pipeline_script = self.repo_root / "skill-orchestrator" / "scripts" / "run_pipeline.py"
@@ -1673,6 +2256,23 @@ class StudioCore:
         if normalized not in {"LibraryUnverified", "LibraryWorkbench", "Library"}:
             raise RuntimeError(f"Unsupported library: {library_name}")
         return normalized
+
+    def _library_tier_payload(self, library_name: str) -> Dict[str, object]:
+        normalized = self._normalize_library_name(library_name)
+        payload = {
+            "schema_version": 1,
+            "tier": normalized,
+            **LIBRARY_TIERS[normalized],
+        }
+        metadata_file = self._library_root(normalized) / "library-tier.json"
+        if metadata_file.is_file():
+            try:
+                disk_payload = json.loads(metadata_file.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                return payload
+            if isinstance(disk_payload, dict):
+                payload.update(disk_payload)
+        return payload
 
     def _library_root(self, library_name: str) -> Path:
         normalized = self._normalize_library_name(library_name)

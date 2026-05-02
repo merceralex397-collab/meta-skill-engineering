@@ -25,7 +25,11 @@ Legacy aliases remain for compatibility:
 | `--brief` | Creation brief or creation-pipeline brief |
 | `--skill` | Target skill name |
 | `--goal` | Concrete objective for improvement / governance / distribution actions |
+| `--source` | Source path or URL for import actions |
+| `--packet` | JSON packet for ingest actions |
+| `--destination` | Destination path for package/install actions |
 | `--library` | Library tier selector for library-scoped actions |
+| `--acknowledge-unverified` | Required to package or install from `LibraryUnverified` or `LibraryWorkbench` |
 | `--category`, `--to-category` | Source and target category paths |
 | `--from-library`, `--to-library` | Source/target tier selectors |
 | `--run-file`, `--before-run`, `--after-run` | Existing Studio run artifact inputs |
@@ -79,6 +83,7 @@ Legacy aliases remain for compatibility:
 | --- | --- | --- |
 | `run-pipeline` | `--pipeline` and pipeline-specific inputs (`--brief` for creation, `--skill` for improvement/library-management) | run artifact plus `tasks/pipelines/*.json` |
 | `resume-pipeline` | `--run-id` | run artifact plus `tasks/pipelines/*.json` |
+| `ingest-skill-fault` | `--packet` | run artifact plus `tasks/pipelines/*.json` |
 
 ### Runtime and introspection
 
