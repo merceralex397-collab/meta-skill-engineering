@@ -92,7 +92,7 @@ jobs:
           echo "is_prerelease=$IS_PRERELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: "Meta Skill Studio ${{ steps.metadata.outputs.version }}"
           tag_name: ${{ steps.metadata.outputs.tag_name }}
