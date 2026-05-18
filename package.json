@@ -13,7 +13,7 @@
   "dependencies": {
     "@opencode-ai/sdk": "^1.14.33",
     "@tauri-apps/api": "^2.10.1",
-    "lucide": "^0.555.0"
+    "lucide": "^1.16.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.10.1",
